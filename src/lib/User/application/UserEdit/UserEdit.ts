@@ -3,31 +3,38 @@ import { UserCreatedAt } from "../../domain/UserCreatedAt";
 import { UserEmail } from "../../domain/UserEmail";
 import { UserId } from "../../domain/UserId";
 import { UserName } from "../../domain/UserName";
+import { UserNotFoundError } from "../../domain/UserNotFoundError";
 import { UserPassword } from "../../domain/UserPassword";
 import { UserRepository } from "../../domain/UserRepository";
 
-export class UserCreate {
-    constructor (private repository: UserRepository){}
+export class UserEdit {
+    constructor(private repository: UserRepository){}
 
-
-    async handler(
-       id: string,
-       name: string,
-       email: string,
-       password: string,
-       createdAt: Date,
-       role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN'
-
+    async handle(
+        id: string,
+        name: string,
+        email: string,
+        createdAt: Date,
+        password: string,        
+        
     ): Promise <void>{
+
+        const currentUser = await this.repository.getOneById(new UserId(id));
+
+        if (!currentUser) {
+            throw new UserNotFoundError("User not found")
+        }
+
         const user = new User(
             new UserId(id),
             new UserName(name),
             new UserEmail(email),
             new UserPassword(password),
             new UserCreatedAt(createdAt),
-            role
+            currentUser.role
+            
         );
 
-        return this.repository.create(user)
+        return this.repository.edit(user)
     }
 }

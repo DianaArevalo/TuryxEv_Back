@@ -28,4 +28,15 @@ export class User {
         this.role = role;
 
     }
+
+    public mapToPrimitives(){
+        return {
+            id: this.id.value,
+            name: this.name.value,
+            email: this.email.value,
+            password: this.password.value,
+            createdAt: this.createdAt.value,
+            role: this.role
+        }
+    }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "turyxev_back",
+  "version": "1.0.0",
+  "description": "Proyecto Hotelero en colaboracion con DragonesDev",  
+  "main": "index.js",
+
+  "scripts": {
+      "start": "node dist/main.js",
+    "build": "npx tsc ./src/main.ts --outDir ./dist/ --module commonjs --target es6",
+    "dev": "npx ts-node ./src/main.ts"
+
+
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.2",
+    "@types/express": "^5.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianaArevalo/TuryxEv_Back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianaArevalo/TuryxEv_Back/issues"
+  },
+  "homepage": "https://github.com/DianaArevalo/TuryxEv_Back#readme"
+}
