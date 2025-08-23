@@ -1,27 +1,14 @@
 <div align="center">
-   <div style="gap: 10px; padding: 10px 20px;">        
-       <img src="https://github.com/user-attachments/assets/xxxxxxxxxxxx" alt="TuryxHotel Logo" width="250">
-   </div> 
+   <div style="gap: 10px; padding: 10px 20px;">  
+      
+ <img width="70" height="70" alt="logo" src="https://github.com/user-attachments/assets/49d3f374-97b2-44c9-a484-a70db38b5620" alt="TuryxHotel_logo" width="250" />
 
-   <table align="center">
-      <tr>
-         <a href="https://turyxhotel.netlify.app/" target="_blank" rel="noopener noreferrer">
-            <img src="https://github.com/user-attachments/assets/yyyyyyyyyyyy" alt="Website" width="200"> 
-         </a>  
-      </tr>  
-      <tr>
-         <a href="https://drive.google.com/drive/folders/xxxxxxxxxxxxxxxxx" target="_blank" rel="noopener noreferrer">
-            <img src="https://github.com/user-attachments/assets/zzzzzzzzzzzz" alt="Docs" width="200"> 
-         </a>    
-      </tr>
-      <tr>   
-         <a href="https://roadmap.sh/projects/turyxhotel" target="_blank" rel="noopener noreferrer">
-            <img src="https://github.com/user-attachments/assets/aaaaaaaaaaaa" alt="Roadmap" width="200"> 
-         </a>     
-      </tr>
-   </table>
-</div>
 
+---
+<details>
+ <summary><h2>🌃Arquitectura</h2></summary>
+
+</details>
 ---
 
 <details>
