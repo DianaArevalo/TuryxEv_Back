@@ -8,6 +8,9 @@
 <details>
  <summary><h2>🌃Arquitectura</h2></summary>
 
+<img width="973" height="617" alt="image" src="https://github.com/user-attachments/assets/07c28638-4bdd-42f3-b56a-af677a0387db"  width="600"/>
+
+
 </details>
 ---
 
