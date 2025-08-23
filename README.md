@@ -2,7 +2,7 @@
    <div style="gap: 10px; padding: 10px 20px;">  
       
  <img width="70" height="70" alt="logo" src="https://github.com/user-attachments/assets/49d3f374-97b2-44c9-a484-a70db38b5620" alt="TuryxHotel_logo" width="250" />
-
+ <h1>TuryxHotel</h1>
 
 ---
 <details>
