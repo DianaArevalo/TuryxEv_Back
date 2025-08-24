@@ -37,17 +37,21 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF001 Servicio de Reserva con Ciberseguridad Integrada  </h2>              
+               <h2 align="center">RES Servicio de Reserva con Ciberseguridad Integrada </h2>              
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <ul>
+               <li>Gestión de reservas: crear, editar, cancelar</li>
+               <li>Ciberseguridad: cifrado AES-256, OAuth2</li>
+               <li>validación contra ataques y auditoría.</li>
+            </ul>
          </td>
       </tr>
      <tr>
          <td>
             <div>
-               <h2 align="center">RF002 Sistema de Roles y Perfiles </h2>              
+               <h2 align="center">ROL Sistema de Roles y Perfiles </h2>              
             </div>
          </td>
          <td align="center">
@@ -57,7 +61,7 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF003 Autenticación Segura  </h2>              
+               <h2 align="center">AUTH Autenticación Segura  </h2>              
             </div>
          </td>
          <td align="center">
@@ -67,7 +71,7 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF004 Servicio de Mensajería Interna </h2>              
+               <h2 align="center">MENS Servicio de Mensajería Interna </h2>              
             </div>
          </td>
          <td align="center">
@@ -77,7 +81,7 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF005 Grupos Estilo Red Social  </h2>              
+               <h2 align="center">SOCIAL Grupos Estilo Red Social  </h2>              
             </div>
          </td>
          <td align="center">
@@ -87,7 +91,7 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF006 Pasarela de Pago  </h2>              
+               <h2 align="center">PAY Pasarela de Pago  </h2>              
             </div>
          </td>
          <td align="center">
@@ -97,7 +101,7 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF007 Integración con WhatsApp + Automatización (n8n) </h2>              
+               <h2 align="center">N8N Integración con WhatsApp + Automatización (n8n) </h2>              
             </div>
          </td>
          <td align="center">
@@ -107,7 +111,7 @@
       <tr>
          <td>
             <div>
-               <h2 align="center">RF008 Galería de Fotos  </h2>              
+               <h2 align="center">PIC Galería de Fotos  </h2>              
             </div>
          </td>
          <td align="center">
