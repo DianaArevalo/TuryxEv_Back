@@ -22,7 +22,7 @@
 
 <br>
 
-Este proyecto es **colaborativo**, desarrollado por un equipo de varios desarrolladores, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
+Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
 
 ✔ 🔐 Servicio de Reserva con Ciberseguridad Integrada  
 ✔ 💬 Integración con WhatsApp + Automatización (n8n)
