@@ -15,22 +15,25 @@
 ---
 
 <details>
-   <summary><h2>🏨 About TuryxHotel</h2></summary>
+   <summary><h2>🏨 MODULOS PRINCIPALES</h2></summary>
 <p align="center">
 
 **TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**.  
 
-✔ Gestión de reservas con ciberseguridad avanzada  
-✔ Pasarela de pagos segura y tokenizada  
-✔ Integración con WhatsApp y flujos automatizados (**n8n**)  
-✔ Sistema de roles y perfiles para clientes, empresarios y administradores  
-✔ Cumplimiento legal con módulo de políticas y auditoría  
+✔ 🔐 Servicio de Reserva con Ciberseguridad Integrada  
+✔ 💬 Integración con WhatsApp + Automatización (n8n)
+✔ 📲 Servicio de Mensajería Interna
+✔ 👥 Grupos Estilo Red Social
+✔ 💳 Pasarela de Pago
+✔ 🧑‍💼 Sistema de Roles y Perfiles
+✔🖼️ Galería de Fotos
+✔ 🔐 Autenticación Segura
 
 </p>
 
 <table align="center">
-  <tr>
-    <td align="right">
+  <td>
+    <tr align="right">
       <h2>🚀 Módulos Principales</h2>
       🔐 Servicio de Reserva con Ciberseguridad  
       💬 Chat y Grupos Estilo Red Social  
@@ -38,16 +41,16 @@
       💳 Pasarela de Pago Segura  
       👥 Sistema de Roles y Perfiles  
       🖼 Galería de Imágenes para Hoteles  
-    </td>
-    <td align="left">
+    </tr>
+    <tr align="left">
        <a href="https://turyxhotel.netlify.app/">
        <img src="https://github.com/user-attachments/assets/bbbbbbbbbbbb" alt="App Preview" width="150">          
        </a>                     
        <a href="https://github.com/turyxhotel">
        <img src="https://github.com/user-attachments/assets/cccccccccccc" alt="GitHub" width="150">           
        </a>
-    </td>
-  </tr>
+    </tr>
+  </td>
 </table>
 </details>
 
