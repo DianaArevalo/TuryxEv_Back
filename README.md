@@ -130,22 +130,6 @@
 
 ---
 
-<div align="center">
-   <h2>🛠️ Technologies</h2>
-   <p>
-      <img src="https://github.com/user-attachments/assets/1eac8c20-efcf-45db-85ec-ae4bc656f06e" alt="React" width="50">
-      <img src="https://github.com/user-attachments/assets/6091c091-8402-4a85-bb36-c48c3ff1d4ab" alt="Node.js" width="50">
-      <img src="https://github.com/user-attachments/assets/37191562-bdc1-418d-888f-3de19f7dfe32" alt="Express" width="50">
-      <img src="https://github.com/user-attachments/assets/51e27ad2-ded7-4994-ac7f-83aaa90cd221" alt="HTML" width="50">
-      <img src="https://github.com/user-attachments/assets/7f33a537-4264-4d93-b5e1-ffce585b208f" alt="CSS" width="50">
-      <img src="https://github.com/user-attachments/assets/4685736e-7ce9-45e9-b6c5-2d9ac7e4f0ab" alt="TypeScript" width="50">
-      <img src="https://github.com/user-attachments/assets/9646bc56-c90b-45ef-98c4-df67e20ca65d" alt="MongoDB" width="50">
-      <img src="https://github.com/user-attachments/assets/90cc58dd-fa77-4868-b1fc-e95bc8e6de3d" alt="API" width="50">
-   </p>
-</div>
-
----
-
 <details>
    <summary><h2>🔐 RES Servicio de Reserva con Ciberseguridad Integrada </h2></summary>
 
@@ -157,6 +141,24 @@
          <li>☑ RES-004 Cancelación de Reservas</li>
          <li>☑ RES-005 Cálculo Automático de Precios</li>
          <li>☑ RES-006 Generación de Códigos de Confirmación</li>         
+
+   </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2>🔐 ROL Sistema de Roles y Perfiles </h2></summary>
+
+   <ul>
+      <h1>CREACION DE ROLES</h1>
+         <li>☑ ROL-001 Creación de entidad user para roles</li>
+         <li>☑ ROL-002 Creacion de nuevo usuario segun rol</li>
+         <li>☑ ROL-003 Encontrar usuarios por rol</li>
+         <li>☑ ROL-004 Editar usuarios por rol</li>
+         <li>☑ ROL-005 Eliminar usuarios</li>
+         <li>☑ ROL-006 Conexion a base de datos</li>         
 
    </ul>
 
