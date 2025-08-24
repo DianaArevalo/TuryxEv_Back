@@ -147,12 +147,19 @@
 ---
 
 <details>
-   <summary><h2>📜 Historia del Proyecto</h2></summary>
-<p>
-TuryxHotel nació con la visión de transformar la industria hotelera mediante una plataforma digital que **automatiza procesos**, **garantiza la seguridad** y **mejora la experiencia tanto para viajeros como para hoteles**.  
-El proyecto se basa en una arquitectura **DDD + Microservicios**, asegurando escalabilidad y resiliencia.  
-Próximamente incorporaremos **IA para análisis legal**, **microservicios con Kubernetes** y **app móvil en React Native**.  
-</p>
+   <summary><h2>🔐 RES Servicio de Reserva con Ciberseguridad Integrada </h2></summary>
+
+   <ul>
+      <h1>GESTION DE RESERVAS</h1>
+         <li>☑ RES-001 Creación de reservas</li>
+         <li>☑ RES-002 Consulta de reservas existentes</li>
+         <li>☑ RES-003 Modificación de Reservas Existentes</li>
+         <li>☑ RES-004 Cancelación de Reservas</li>
+         <li>☑ RES-005 Cálculo Automático de Precios</li>
+         <li>☑ RES-006 Generación de Códigos de Confirmación</li>         
+
+   </ul>
+
 </details>
 
 ---
