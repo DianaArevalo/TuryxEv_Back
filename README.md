@@ -55,7 +55,7 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>Perfiles diferenciados: Cliente, Hotel/Empresario (mini landing), y Administrador, cada uno con panel propio.</p>
          </td>
       </tr>
       <tr>
@@ -65,7 +65,7 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>OAuth2 con soporte para Google, Facebook y email. Recuperación de contraseña con tokens seguros y protección contra fuerza bruta.</p>
          </td>
       </tr>
       <tr>
@@ -75,7 +75,7 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>Chat privado entre usuarios (viajeros y empresarios) con historial, notificaciones y moderación opcional.</p>
          </td>
       </tr>
       <tr>
@@ -85,7 +85,7 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>Creación y gestión de grupos temáticos, roles, y chat grupal para compartir contenido.</p>
          </td>
       </tr>
       <tr>
@@ -95,7 +95,7 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>Integración con Stripe, PayU, MercadoPago o Wompi. Pagos tokenizados, soporte multimoneda y confirmaciones mediante webhooks.</p>
          </td>
       </tr>
       <tr>
@@ -105,7 +105,7 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>Atogestion y generación de enlaces directos vía WALink, flujos automatizados en n8n para confirmaciones, recordatorios y seguimiento de conversaciones.</p>
          </td>
       </tr>
       <tr>
@@ -115,10 +115,9 @@
             </div>
          </td>
          <td align="center">
-            <p>Descripcion</p>
+            <p>Hoteles pueden subir imágenes comprimidas, categorizadas y optimizadas para dispositivos móviles</p>
          </td>
       </tr>
-
    </table>
 </div>
 
