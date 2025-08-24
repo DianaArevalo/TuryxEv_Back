@@ -18,7 +18,11 @@
    <summary><h2>🏨 MODULOS PRINCIPALES</h2></summary>
 <p align="center">
 
-**TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**.  
+**TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**.
+
+<br>
+
+Este proyecto es **colaborativo**, desarrollado por un equipo de varios desarrolladores, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
 
 ✔ 🔐 Servicio de Reserva con Ciberseguridad Integrada  
 ✔ 💬 Integración con WhatsApp + Automatización (n8n)
@@ -168,8 +172,10 @@
 
 <div align="center">
    <h2>📞 Contacto</h2>
-   <a href="https://www.linkedin.com/in/tu-perfil/"><img src="[https://github.com/user-attachments/assets/a8263dbd-7b6c-448f-9c08-f2921c73170c](https://www.linkedin.com/in/diana-arevalo-168b0925b/)" alt="LinkedIn" width="50"></a>
-   <a href="https://wa.me/message/tu-whatsapp-id"><img src="[https://github.com/user-attachments/assets/4a5b3f00-7420-4785-b3e8-ec42be6d31f7](https://wa.link/qdln7d)" alt="WhatsApp" width="50"></a>
+   <a href="[https://github.com/user-attachments/assets/a8263dbd-7b6c-448f-9c08-f2921c73170c](https://www.linkedin.com/in/diana-arevalo-168b0925b/)">
+      <img src="https://github.com/user-attachments/assets/a8263dbd-7b6c-448f-9c08-f2921c73170c" alt="LinkedIn" width="50"></a>
+   <a href="[https://github.com/user-attachments/assets/4a5b3f00-7420-4785-b3e8-ec42be6d31f7](https://wa.link/qdln7d)">
+      <img src="https://github.com/user-attachments/assets/4a5b3f00-7420-4785-b3e8-ec42be6d31f7" alt="WhatsApp" width="50"></a>
    <a href="mailto:nutriadevelop@gmail.com"><img src="https://github.com/user-attachments/assets/b0cd5e5c-bfd8-4f2c-ae3a-e0d5defadc76" alt="Gmail" width="50"></a>
    
 </div>
