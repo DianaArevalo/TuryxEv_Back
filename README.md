@@ -32,38 +32,89 @@
 </p>
 
 <div>
-   <h2>🔥 Top Features</h2>
+   <h2>🔥 MODULOS</h2>
    <table>
       <tr>
          <td>
             <div>
-               <h2 align="center">Booking Service</h2>
-               <ul>
-                  <li>Gestión de reservas: crear, editar, cancelar</li>
-                  <li>Ciberseguridad: cifrado AES-256, OAuth2</li>
-                  <li>Eventos DDD: BookingCreated, BookingCancelled</li>
-               </ul>
+               <h2 align="center">RF001 Servicio de Reserva con Ciberseguridad Integrada  </h2>              
             </div>
          </td>
          <td align="center">
-            <img src="https://github.com/user-attachments/assets/dddddddddddd" alt="Booking Module" width="250">
+            <p>Descripcion</p>
+         </td>
+      </tr>
+     <tr>
+         <td>
+            <div>
+               <h2 align="center">RF002 Sistema de Roles y Perfiles </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <p>Descripcion</p>
          </td>
       </tr>
       <tr>
-         <td align="center">
-            <img src="https://github.com/user-attachments/assets/eeeeeeeeeeee" alt="Policy Module" width="250">
-         </td>
          <td>
             <div>
-               <h2 align="center">Policy Service</h2>
-               <ul>
-                  <li>Gestión y versionado de políticas</li>
-                  <li>Firmas digitales y evidencias legales</li>
-                  <li>Integración obligatoria en reservas</li>
-               </ul>
+               <h2 align="center">RF003 Autenticación Segura  </h2>              
             </div>
          </td>
+         <td align="center">
+            <p>Descripcion</p>
+         </td>
       </tr>
+      <tr>
+         <td>
+            <div>
+               <h2 align="center">RF004 Servicio de Mensajería Interna </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <p>Descripcion</p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <div>
+               <h2 align="center">RF005 Grupos Estilo Red Social  </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <p>Descripcion</p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <div>
+               <h2 align="center">RF006 Pasarela de Pago  </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <p>Descripcion</p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <div>
+               <h2 align="center">RF007 Integración con WhatsApp + Automatización (n8n) </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <p>Descripcion</p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <div>
+               <h2 align="center">RF008 Galería de Fotos  </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <p>Descripcion</p>
+         </td>
+      </tr>
+
    </table>
 </div>
 
