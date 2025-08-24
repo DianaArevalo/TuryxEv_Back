@@ -31,33 +31,6 @@
 
 </p>
 
-<table align="center">
-  <td>
-    <tr align="right">
-      <h2>🚀 Módulos Principales</h2>
-      🔐 Servicio de Reserva con Ciberseguridad  
-      💬 Chat y Grupos Estilo Red Social  
-      📲 Integración con WhatsApp + n8n  
-      💳 Pasarela de Pago Segura  
-      👥 Sistema de Roles y Perfiles  
-      🖼 Galería de Imágenes para Hoteles  
-    </tr>
-    <tr align="left">
-       <a href="https://turyxhotel.netlify.app/">
-       <img src="https://github.com/user-attachments/assets/bbbbbbbbbbbb" alt="App Preview" width="150">          
-       </a>                     
-       <a href="https://github.com/turyxhotel">
-       <img src="https://github.com/user-attachments/assets/cccccccccccc" alt="GitHub" width="150">           
-       </a>
-    </tr>
-  </td>
-</table>
-</details>
-
----
-
-<hr style="border: none; height: 3px; background: linear-gradient(90deg, #009688, #4CAF50, #8BC34A); margin: 20px 0;">
-
 <div>
    <h2>🔥 Top Features</h2>
    <table>
@@ -93,6 +66,13 @@
       </tr>
    </table>
 </div>
+
+</details>
+
+---
+
+<hr style="border: none; height: 3px; background: linear-gradient(90deg, #009688, #4CAF50, #8BC34A); margin: 20px 0;">
+
 
 ---
 
