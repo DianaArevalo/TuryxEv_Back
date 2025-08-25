@@ -4,6 +4,8 @@
  <img width="70" height="70" alt="logo" src="https://github.com/user-attachments/assets/49d3f374-97b2-44c9-a484-a70db38b5620" alt="TuryxHotel_logo" width="250" />
  <h1>TuryxHotel</h1>
 
+
+
 ---
 <details>
  <summary><h2>🌃Arquitectura</h2></summary>
@@ -165,6 +167,23 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          <li>☑ ROL-006 Conexion a base de datos</li>         
 
    </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2> TERMINOS Y CONDICIONES </h2></summary>
+
+<p>
+   Condiciones de Colaboración
+Este proyecto se desarrolla bajo las siguientes condiciones:
+✅ Objetivo actual: aprendizaje, práctica y aplicación de buenas prácticas en desarrollo de software.
+✅ Sin remuneración por el momento: Actualmente no hay pagos ni compensaciones, ya que el proyecto está en etapa inicial.
+✅ Fines comerciales futuros: Si el proyecto se consolida y comienza a generar ingresos, los colaboradores que aportaron en esta fase inicial serán tenidos en cuenta en la estructura del equipo o en beneficios acordados.
+✅ Código compartido y colaborativo: Todo el trabajo será gestionado en repositorios colaborativos y versionado correctamente.
+✅ Reconocimiento de autoría: Cada contribución será registrada en la sección de colaboradores y en el historial del repositorio.
+</p>
 
 </details>
 
