@@ -34,6 +34,8 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ✔ 🧑‍💼 Sistema de Roles y Perfiles
 ✔🖼️ Galería de Fotos
 ✔ 🔐 Autenticación Segura
+✔ 🔐 Panel Administrativo
+
 
 </p>
 
@@ -72,6 +74,22 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          </td>
          <td align="center">
             <p>OAuth2 con soporte para Google, Facebook y email. Recuperación de contraseña con tokens seguros y protección contra fuerza bruta.</p>
+         </td>
+      </tr>
+ <tr>
+         <td>
+            <div>
+               <h2 align="center">ADMIN Panel de Administración  </h2>              
+            </div>
+         </td>
+         <td align="center">
+            <ul>
+               <li>Gestión de roles y perfiles (ROL).</li>
+               <li>Gestión de reservas (RES) para monitoreo y auditoría.</li>
+               <li>Mensajería (MENS) para moderación.</li>
+               <li>Pagos (PAY) para ver reportes y auditoría.</li>
+               <li>Integraciones (N8N) para revisar logs de automatización.</li>
+            </ul>
          </td>
       </tr>
       <tr>
