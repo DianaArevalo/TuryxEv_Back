@@ -3,8 +3,9 @@ import { UserGetOneById } from "../../User/application/UserGetOneById/UserGetOne
 import { UserEdit } from "../../User/application/UserEdit/UserEdit";
 import { UserDelete } from "../../User/application/UserDelete/UserDelete";
 import { InMemoryUserRepository } from "../../User/infrastructure/InMemoryUserRepository";
+import { MongoUserRepository } from "../../User/infrastructure/MongoUserRepository";
 
-const userRepository = new InMemoryUserRepository();
+const userRepository = new MongoUserRepository();
 
 export const ServiceContainer = {
     user: {
