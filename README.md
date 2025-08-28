@@ -182,7 +182,13 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          <li>☑ ROL-003 Encontrar usuarios por rol</li>
          <li>☑ ROL-004 Editar usuarios por rol</li>
          <li>☑ ROL-005 Eliminar usuarios</li>
-         <li>☑ ROL-006 Conexion a base de datos</li>         
+         <li>☑ ROL-006 Conexion a base de datos</li>
+         <li>☑ ROL-007 Encriptar contraseñas bcrypt</li> 
+         <li>☑ ROL-008 Estandarizar respuestas JSON</li> 
+         <li>☑ ROL-009 Identificador principal en la respuesta debe ser el email</li> 
+         <li>☑ ROL-010 Crear Modulo unico para imports de librerias externas</li> 
+         <li>☑ ROL-011 Relacionar el rol como coleccion separada</li> 
+      
 
    </ul>
 
