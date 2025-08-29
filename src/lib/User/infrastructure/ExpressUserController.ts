@@ -6,8 +6,9 @@ export class ExpressUserController {
     async getOneById(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
+      const {password, ...safeUser} = users.mapToPrimitives();
 
-      return res.json(users.mapToPrimitives()).status(200);
+      return res.status(200).json(safeUser);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         return res.status(404).json({ message: error.message });
