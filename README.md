@@ -22,7 +22,7 @@
 
 **TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**.
 
-<br>
+<br> 
 
 Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
 
