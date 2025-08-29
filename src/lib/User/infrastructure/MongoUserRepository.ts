@@ -7,6 +7,7 @@ import { UserPassword } from "../domain/UserPassword";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
 import UserModel from "./UserModel"; // Tu esquema de mongoose
 
+
 export class MongoUserRepository implements UserRepository {
   
   async create(user: User): Promise<void> {
@@ -32,6 +33,22 @@ export class MongoUserRepository implements UserRepository {
         new UserCreatedAt(record.createdAt),
         record.role
     );
+  }
+
+  async getAll(): Promise<User[]> {
+      const records = await UserModel.find().exec();
+
+      return records.map(record => 
+      new User(
+        new UserId(record.id),
+        new UserName(record.name),
+        new UserEmail(record.email),
+        new UserPassword(record.password),
+        new UserCreatedAt(record.createdAt),
+        record.role
+      )
+    
+      )
   }
 
   async getOneByEmail(email: UserEmail): Promise<User | null> {

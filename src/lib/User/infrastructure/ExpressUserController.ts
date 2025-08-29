@@ -1,9 +1,26 @@
 import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
 import { NextFunction, Request, Response } from "express";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
+import { json } from "stream/consumers";
 
 export class ExpressUserController {
-    async getOneById(req: Request, res: Response, next: NextFunction) {
+
+  async getAll(req: Request, res: Response){
+    try {
+       const users = await ServiceContainer.user.getAll.handle();     
+
+       const safeUser = users.map(({password, ...rest}) => rest)
+    return res.status(200).json(safeUser)
+      
+    } catch (error) {
+       return res.status(500).json({ message: "Error retrieving users" });
+    }
+   
+  }
+    
+  
+  
+  async getOneById(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
       const {password, ...safeUser} = users.mapToPrimitives();
