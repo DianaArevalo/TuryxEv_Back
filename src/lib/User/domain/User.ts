@@ -3,6 +3,7 @@ import { UserEmail } from "./UserEmail";
 import { UserId } from "./UserId";
 import { UserName } from "./UserName";
 import { UserPassword } from "./UserPassword";
+import { UserUpdatedAt } from "./UserUpdatedAt";
 
 export class User {
     id: UserId;
@@ -10,6 +11,7 @@ export class User {
     email: UserEmail;
     password: UserPassword;
     createdAt: UserCreatedAt;
+    updatedAt: UserUpdatedAt;
     role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
 
     constructor(
@@ -18,6 +20,7 @@ export class User {
         email: UserEmail, 
         password: UserPassword,
         createdAt: UserCreatedAt, 
+        updatedAt: UserUpdatedAt,
         role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN')
     {
         this.id = id;
@@ -25,6 +28,7 @@ export class User {
         this.email = email;
         this.password = password
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.role = role;
 
     }

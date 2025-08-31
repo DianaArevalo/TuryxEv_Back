@@ -5,11 +5,13 @@ export interface IUserDocument extends Document {
     name: string;
     email: string;
     password: string;
-    createdAt: Date;
+    createdAt: Date;   
+    updatedAt: Date;
     role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
 }
 
-const UserSchema = new Schema<IUserDocument>({
+const UserSchema = new Schema<IUserDocument>(
+    {
     id: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -19,7 +21,12 @@ const UserSchema = new Schema<IUserDocument>({
     type: String, 
     enum: ['CLIENT', 'HOTEL', 'BUSINESS', 'ADMIN'],
     required: true
-    }
-});
+    },
+
+},
+{
+ timestamps: true 
+}
+);
 
 export default mongoose.model<IUserDocument>('User', UserSchema);

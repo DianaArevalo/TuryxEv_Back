@@ -70,7 +70,8 @@ export class ExpressUserController {
         createdAt: Date;
         password: string
       };
-      await ServiceContainer.user.edit.handle(
+      
+      const updatedUser = await ServiceContainer.user.edit.handle(
         id,
         name,
         email,
@@ -78,7 +79,10 @@ export class ExpressUserController {
         password
       );
 
-      return res.status(204).send();
+      return res.status(204).json({
+        message: "Usuario actualizado correctamente",
+        data: updatedUser
+      })
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         return res.status(404).json({ message: error.message });
