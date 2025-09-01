@@ -146,12 +146,12 @@ export class ExpressUserController {
 
         const response: ApiResponse<null> = {
         success: true,
-        title: 'Usuario actualizado',
-        message: `El ususario ${name} fue actualizado correctamente`,
+        title: 'Usuario Eliminado',
+        message: `El ususario fue eliminado correctamente`,
         body: null
       }
 
-      return res.status(204).json(response);
+      return res.status(200).json(response);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
        const response: ApiResponse<null> = {
