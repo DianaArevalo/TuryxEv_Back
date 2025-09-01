@@ -1,33 +1,35 @@
 import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
 import { NextFunction, Request, Response } from "express";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
-import { ApiResponse } from "./ApiResponse";
+import { json } from "stream/consumers";
 
 export class ExpressUserController {
 
+  async getAll(req: Request, res: Response){
+    try {
+       const users = await ServiceContainer.user.getAll.handle();     
 
-    async getOneById(req: Request, res: Response, next: NextFunction) {
+       const safeUser = users.map(({password, ...rest}) => rest)
+    return res.status(200).json(safeUser)
+      
+    } catch (error) {
+       return res.status(500).json({ message: "Error retrieving users" });
+    }
+   
+  }
+    
+   
+  
+  async getOneById(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
+      const {password, ...safeUser} = users.mapToPrimitives();
 
-      const response: ApiResponse<any> = {
-        success: true,
-        title: 'usuario encontrado',
-        message: 'El usuario fue encontrado correctamente',
-        body: users.mapToPrimitives()
-      }
-      return res.json(response).status(200);
+      return res.status(200).json(safeUser);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-
-        const response: ApiResponse<null> = {
-          success: false,
-          title: 'Usuario no encontrado',
-          message: error.message,
-          body:null
-        };
-        return res.status(404).json(response);
-      }
+        return res.status(404).json({ message: error.message });
+      } 
 
       next(error);
     }
@@ -75,7 +77,8 @@ export class ExpressUserController {
         createdAt: Date;
         password: string
       };
-      await ServiceContainer.user.edit.handle(
+      
+      const updatedUser = await ServiceContainer.user.edit.handle(
         id,
         name,
         email,
@@ -83,14 +86,10 @@ export class ExpressUserController {
         password
       );
 
-      const response: ApiResponse<null> = {
-        success: true,
-        title: 'Usuario actualizado',
-        message: `El ususario ${name} fue actualizado correctamente`,
-        body: null
-      }
-
-      return res.status(204).json(response);
+      return res.status(204).json({
+        message: "Usuario actualizado correctamente",
+        data: updatedUser
+      })
     } catch (error) {
       if (error instanceof UserNotFoundError) {
          const response: ApiResponse<null> = {
