@@ -18,7 +18,7 @@ export class ExpressUserController {
    
   }
     
-  
+   
   
   async getOneById(req: Request, res: Response, next: NextFunction) {
     try {
@@ -29,7 +29,7 @@ export class ExpressUserController {
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         return res.status(404).json({ message: error.message });
-      }
+      } 
 
       next(error);
     }
