@@ -2,7 +2,7 @@ export interface ApiResponse <T> {
     success: boolean;
     title: string;
     message: string;
-    body?: T;
+    body?: T ;
 
 }
 

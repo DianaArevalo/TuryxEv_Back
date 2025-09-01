@@ -18,7 +18,7 @@ export class UserEdit {
         createdAt: Date,        
         password: string,        
         
-    ): Promise <void>{
+    ): Promise <User>{
 
         const currentUser = await this.repository.getOneById(new UserId(id));
 
@@ -37,6 +37,8 @@ export class UserEdit {
             
         );
 
-        return this.repository.edit(user)
+        await this.repository.edit(user)
+
+        return user;
     }
 }
