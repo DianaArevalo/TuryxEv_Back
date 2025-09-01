@@ -1,17 +1,35 @@
 import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
 import { NextFunction, Request, Response } from "express";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
+import { json } from "stream/consumers";
 
 export class ExpressUserController {
-    async getOneById(req: Request, res: Response, next: NextFunction) {
+
+  async getAll(req: Request, res: Response){
+    try {
+       const users = await ServiceContainer.user.getAll.handle();     
+
+       const safeUser = users.map(({password, ...rest}) => rest)
+    return res.status(200).json(safeUser)
+      
+    } catch (error) {
+       return res.status(500).json({ message: "Error retrieving users" });
+    }
+   
+  }
+    
+   
+  
+  async getOneById(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
+      const {password, ...safeUser} = users.mapToPrimitives();
 
-      return res.json(users.mapToPrimitives()).status(200);
+      return res.status(200).json(safeUser);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         return res.status(404).json({ message: error.message });
-      }
+      } 
 
       next(error);
     }
@@ -52,7 +70,8 @@ export class ExpressUserController {
         createdAt: Date;
         password: string
       };
-      await ServiceContainer.user.edit.handle(
+      
+      const updatedUser = await ServiceContainer.user.edit.handle(
         id,
         name,
         email,
@@ -60,7 +79,10 @@ export class ExpressUserController {
         password
       );
 
-      return res.status(204).send();
+      return res.status(204).json({
+        message: "Usuario actualizado correctamente",
+        data: updatedUser
+      })
     } catch (error) {
       if (error instanceof UserNotFoundError) {
         return res.status(404).json({ message: error.message });
