@@ -1,16 +1,32 @@
 import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
 import { NextFunction, Request, Response } from "express";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
+import { ApiResponse } from "./ApiResponse";
 
 export class ExpressUserController {
+
+
     async getOneById(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
 
-      return res.json(users.mapToPrimitives()).status(200);
+      const response: ApiResponse<any> = {
+        success: true,
+        title: 'usuario encontrado',
+        message: 'El usuario fue encontrado correctamente',
+        body: users.mapToPrimitives()
+      }
+      return res.json(response).status(200);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-        return res.status(404).json({ message: error.message });
+
+        const response: ApiResponse<null> = {
+          success: false,
+          title: 'Usuario no encontrado',
+          message: error.message,
+          body:null
+        };
+        return res.status(404).json(response);
       }
 
       next(error);
@@ -37,7 +53,14 @@ export class ExpressUserController {
           role
       );
 
-      return res.status(201).send();
+      const response: ApiResponse<null> = {
+        success: true,
+        title: 'Usuario creado',
+        message: `El usuario ${name} fue creado correctamente`,
+        body: null
+      }
+
+      return res.status(201).json(response);
     } catch (error) {
       next(error);
     }
@@ -60,10 +83,25 @@ export class ExpressUserController {
         password
       );
 
-      return res.status(204).send();
+      const response: ApiResponse<null> = {
+        success: true,
+        title: 'Usuario actualizado',
+        message: `El ususario ${name} fue actualizado correctamente`,
+        body: null
+      }
+
+      return res.status(204).json(response);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-        return res.status(404).json({ message: error.message });
+         const response: ApiResponse<null> = {
+          success: false,
+          title: 'Usuario no encontrado',
+          message: error.message,
+          body: null
+        };
+
+        
+        return res.status(404).json(response);
       }
 
       next(error);
@@ -74,10 +112,23 @@ export class ExpressUserController {
     try {
       await ServiceContainer.user.delete.handle(req.params.id);
 
-      return res.status(204).send();
+        const response: ApiResponse<null> = {
+        success: true,
+        title: 'Usuario actualizado',
+        message: `El ususario ${name} fue actualizado correctamente`,
+        body: null
+      }
+
+      return res.status(204).json(response);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-        return res.status(404).json({ message: error.message });
+       const response: ApiResponse<null> = {
+          success: false,
+          title: 'Usuario no encontrado',
+          message: error.message,
+          body: null
+        };
+        return res.status(404).json(response);
       }
 
       next(error);
