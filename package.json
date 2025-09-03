@@ -9,6 +9,7 @@
     "dev": "npx ts-node ./src/main.ts"
   },
   "dependencies": {
+    "argon2": "^0.44.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",

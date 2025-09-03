@@ -7,6 +7,7 @@ import { UserPassword } from "../domain/UserPassword";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
 import UserModel from "./UserModel"; // Tu esquema de mongoose
 import { UserUpdatedAt } from "../domain/UserUpdatedAt";
+import { Hasher } from "src/lib/Shared/Infraestructure/Hasher";
 
 
 export class MongoUserRepository implements UserRepository {
@@ -16,7 +17,7 @@ export class MongoUserRepository implements UserRepository {
         id: user.id.value,
         name: user.name.value,
         email: user.email.value,
-        password: user.password.value, 
+        password: await Hasher.hash(user.password.value), 
         createdAt: user.createdAt.value,
         updatedAt: user.updatedAt.value,       
         role: user.role
@@ -74,7 +75,7 @@ export class MongoUserRepository implements UserRepository {
     await UserModel.findByIdAndUpdate(user.id.value, {
         name: user.name.value,
         email: user.email.value,
-        password: user.password.value,        
+        password: await Hasher.hash(user.password.value),        
         role: user.role
     }, {new: true});
   }
