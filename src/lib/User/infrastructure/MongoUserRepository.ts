@@ -7,7 +7,7 @@ import { UserPassword } from "../domain/UserPassword";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
 import UserModel from "./UserModel"; // Tu esquema de mongoose
 import { UserUpdatedAt } from "../domain/UserUpdatedAt";
-import { Hasher } from "src/lib/Shared/Infraestructure/Hasher";
+import { Hasher } from "../../Shared/Infraestructure/Hasher";
 
 
 export class MongoUserRepository implements UserRepository {
