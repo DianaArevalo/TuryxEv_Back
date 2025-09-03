@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import { mongoose } from "../Shared/Infraestructure/External";
 
 export async function connectMongo() {
-   try {
+  try {
     if (mongoose.connection.readyState >= 1) return;
     await mongoose.connect(process.env.MONGO_URI as string);
     console.log("✅ Connected to MongoDB");

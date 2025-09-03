@@ -1,4 +1,4 @@
-import argon2 from "argon2";
+import { argon2 } from "./External";
 
 export class Hasher {
   static async hash(plain: string): Promise<string> {
