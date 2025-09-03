@@ -6,6 +6,8 @@ import { UserEmail } from "../domain/UserEmail";
 import { UserPassword } from "../domain/UserPassword";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
 import UserModel from "./UserModel"; // Tu esquema de mongoose
+import { UserUpdatedAt } from "../domain/UserUpdatedAt";
+
 
 export class MongoUserRepository implements UserRepository {
   
@@ -14,8 +16,9 @@ export class MongoUserRepository implements UserRepository {
         id: user.id.value,
         name: user.name.value,
         email: user.email.value,
-        password: user.password.value,
+        password: user.password.value, 
         createdAt: user.createdAt.value,
+        updatedAt: user.updatedAt.value,       
         role: user.role
     });
   }
@@ -30,8 +33,26 @@ export class MongoUserRepository implements UserRepository {
         new UserEmail(record.email),
         new UserPassword(record.password),
         new UserCreatedAt(record.createdAt),
+        new UserUpdatedAt(record.updatedAt),
         record.role
     );
+  }
+
+  async getAll(): Promise<User[]> {
+      const records = await UserModel.find().exec();
+
+      return records.map(record => 
+      new User(
+        new UserId(record.id),
+        new UserName(record.name),
+        new UserEmail(record.email),
+        new UserPassword(record.password),
+        new UserCreatedAt(record.createdAt),
+        new UserUpdatedAt(record.updatedAt),
+        record.role
+      )
+    
+      )
   }
 
   async getOneByEmail(email: UserEmail): Promise<User | null> {
@@ -44,6 +65,7 @@ export class MongoUserRepository implements UserRepository {
         new UserEmail(record.email),
         new UserPassword(record.password),
         new UserCreatedAt(record.createdAt),
+        new UserUpdatedAt(record.updatedAt),
         record.role
     );
   }
@@ -52,10 +74,9 @@ export class MongoUserRepository implements UserRepository {
     await UserModel.findByIdAndUpdate(user.id.value, {
         name: user.name.value,
         email: user.email.value,
-        password: user.password.value,
-        createdAt: user.createdAt.value,
+        password: user.password.value,        
         role: user.role
-    });
+    }, {new: true});
   }
 
   async delete(id: UserId): Promise<void> {
