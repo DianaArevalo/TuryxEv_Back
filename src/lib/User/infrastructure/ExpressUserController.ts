@@ -1,7 +1,8 @@
 import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
 import { NextFunction, Request, Response } from "express";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
-import { json } from "stream/consumers";
+import { ApiResponse, ResponseHelper } from "./ApiResponse";
+
 
 export class ExpressUserController {
 
@@ -9,10 +10,20 @@ export class ExpressUserController {
     try {
        const users = await ServiceContainer.user.getAll.handle();     
 
-       const safeUser = users.map(({password, ...rest}) => rest)
-    return res.status(200).json(safeUser)
+       const safeUser = users.map(({password, ...rest}) => rest);
+
+       //respuesta json
+
+       const response: ApiResponse<any> = {
+        success: true,
+        title: 'usuarios encontrados',
+        message: 'Listado de usuarios',
+        body: safeUser
+       }
+    return res.status(200).json(response)
       
-    } catch (error) {
+    } catch (error) {     
+
        return res.status(500).json({ message: "Error retrieving users" });
     }
    
@@ -25,10 +36,27 @@ export class ExpressUserController {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
       const {password, ...safeUser} = users.mapToPrimitives();
 
-      return res.status(200).json(safeUser);
+       const response: ApiResponse<any> = {
+        success: true,
+        title: 'usuario encontrado',
+        message: 'El usuario fue encontrado correctamente',
+        body: safeUser
+      }
+
+      return res.status(200).json(response);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-        return res.status(404).json({ message: error.message });
+
+        const response: ApiResponse<null> = {
+          success: false,
+          title: 'usuario no encontrado',
+          message: error.message,
+          body: null
+        }
+
+
+
+        return res.status(404).json(response);
       } 
 
       next(error);
@@ -55,7 +83,14 @@ export class ExpressUserController {
           role
       );
 
-      return res.status(201).send();
+      const response: ApiResponse<null> = {
+        success: true,
+        title: 'Usuario creado',
+        message: `El usuario ${name} fue creado correctamente`,
+        body: null
+      }
+
+      return res.status(201).json(response);
     } catch (error) {
       next(error);
     }
@@ -79,13 +114,26 @@ export class ExpressUserController {
         password
       );
 
-      return res.status(204).json({
-        message: "Usuario actualizado correctamente",
-        data: updatedUser
-      })
+      const { password: _, ...safeUser } = updatedUser.mapToPrimitives();
+
+      const response = ResponseHelper.success(
+        'Usuario actualizado',
+        `El usuario ${name} fue actualizado correctamente`,
+        safeUser
+);
+
+      return res.status(200).json(response)
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-        return res.status(404).json({ message: error.message });
+         const response: ApiResponse<null> = {
+          success: false,
+          title: 'Usuario no encontrado',
+          message: error.message,
+          body: null
+        };
+
+        
+        return res.status(404).json(response);
       }
 
       next(error);
@@ -96,10 +144,23 @@ export class ExpressUserController {
     try {
       await ServiceContainer.user.delete.handle(req.params.id);
 
-      return res.status(204).send();
+        const response: ApiResponse<null> = {
+        success: true,
+        title: 'Usuario Eliminado',
+        message: `El ususario fue eliminado correctamente`,
+        body: null
+      }
+
+      return res.status(200).json(response);
     } catch (error) {
       if (error instanceof UserNotFoundError) {
-        return res.status(404).json({ message: error.message });
+       const response: ApiResponse<null> = {
+          success: false,
+          title: 'Usuario no encontrado',
+          message: error.message,
+          body: null
+        };
+        return res.status(404).json(response);
       }
 
       next(error);
