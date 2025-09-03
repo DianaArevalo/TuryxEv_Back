@@ -1,15 +1,15 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
+import {config} from "./config/config"
 
-dotenv.config();
+
 
 const app = express();
 
 // Middlewares
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: config.frontendUrl, credentials: true }));
 app.use(express.json());
 ;
 
@@ -32,10 +32,10 @@ app.use((
 });
 
 // Conectar DB y levantar servidor
-connectMongo()
+connectMongo(config.mongoUri)
     .then(() => {
-        app.listen(3000, () => {
-            console.log("✅ Server is running on http://localhost:3000");
+        app.listen(config.port, () => {
+            console.log("✅ Server is running on http://localhost:${config.port}");
         });
     })
     .catch((err) => {
