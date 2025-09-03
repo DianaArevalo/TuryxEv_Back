@@ -1,12 +1,12 @@
+import { express as ex } from "./../../Shared/Infraestructure/External";
 import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
-import { NextFunction, Request, Response } from "express";
 import { UserNotFoundError } from "../domain/UserNotFoundError";
 import { ApiResponse, ResponseHelper } from "./ApiResponse";
 
 
 export class ExpressUserController {
 
-  async getAll(req: Request, res: Response){
+  async getAll(req: ex.Request, res: ex.Response){
     try {
        const users = await ServiceContainer.user.getAll.handle();     
 
@@ -31,7 +31,7 @@ export class ExpressUserController {
     
    
   
-  async getOneById(req: Request, res: Response, next: NextFunction) {
+  async getOneById(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
       const users = await ServiceContainer.user.getOneById.handle(req.params.id);
       const {password, ...safeUser} = users.mapToPrimitives();
@@ -63,7 +63,7 @@ export class ExpressUserController {
     }
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
       
       const { createdAt, email, id, name, password, role } = req.body as {
@@ -96,7 +96,7 @@ export class ExpressUserController {
     }
   }
 
-  async edit(req: Request, res: Response, next: NextFunction) {
+  async edit(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
       const { createdAt, email, id, name, password } = req.body as {
         id: string;
@@ -140,7 +140,7 @@ export class ExpressUserController {
     }
   }
 
-  async delete(req: Request, res: Response, next: NextFunction) {
+  async delete(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
       await ServiceContainer.user.delete.handle(req.params.id);
 
