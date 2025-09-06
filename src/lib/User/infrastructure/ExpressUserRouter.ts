@@ -5,6 +5,7 @@ const controller = new ExpressUserController();
 
 const ExpressUserRouter = Router ();
 
+ExpressUserRouter.get("/users/", controller.getAll)
 ExpressUserRouter.get("/user/:id", controller.getOneById);
 ExpressUserRouter.post("/user/", controller.create);
 ExpressUserRouter.put("/user/", controller.edit);

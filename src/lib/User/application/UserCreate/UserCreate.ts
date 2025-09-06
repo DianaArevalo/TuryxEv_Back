@@ -5,6 +5,7 @@ import { UserId } from "../../domain/UserId";
 import { UserName } from "../../domain/UserName";
 import { UserPassword } from "../../domain/UserPassword";
 import { UserRepository } from "../../domain/UserRepository";
+import { UserUpdatedAt } from "../../domain/UserUpdatedAt";
 
 export class UserCreate {
     constructor (private repository: UserRepository){}
@@ -15,7 +16,8 @@ export class UserCreate {
         name: string,
         email: string,
         password: string,
-        createdAt: Date,
+        createdAt: Date,        
+
         role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN'
 
     ): Promise <void>{
@@ -25,6 +27,7 @@ export class UserCreate {
             new UserEmail(email),
             new UserPassword(password),
             new UserCreatedAt(createdAt),
+            new UserUpdatedAt(new Date()),
             role
         );
 
