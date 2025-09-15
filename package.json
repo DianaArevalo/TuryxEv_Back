@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node dist/main.js",
     "build": "npx tsc ./src/main.ts --outDir ./dist/ --module commonjs --target es6",
-    "dev": "npx ts-node ./src/main.ts"
+    "dev": "npx ts-node ./src/main.ts",
+    "test": "jest",
+    "test:cov": "jest --coverage"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -18,7 +20,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.5.2",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
