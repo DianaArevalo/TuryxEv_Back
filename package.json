@@ -1,23 +1,26 @@
 {
   "name": "turyxev_back",
   "version": "1.0.0",
-  "description": "Proyecto Hotelero en colaboracion con DragonesDev",  
+  "description": "Proyecto Hotelero en colaboracion con DragonesDev",
   "main": "index.js",
-
   "scripts": {
-      "start": "node dist/main.js",
+    "start": "node dist/main.js",
     "build": "npx tsc ./src/main.ts --outDir ./dist/ --module commonjs --target es6",
     "dev": "npx ts-node ./src/main.ts"
-
-
   },
   "dependencies": {
+    "argon2": "^0.44.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "mongoose": "^8.17.1"
+    "mongoose": "^8.17.1",
+    "morgan": "^1.10.1"
   },
   "devDependencies": {
-    "@types/node": "^22.5.2",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^22.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },

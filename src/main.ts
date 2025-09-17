@@ -1,29 +1,44 @@
-import express from "express";
-import { Request, Response, NextFunction} from "express"
+
+import { express, as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
+import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
+import {config} from "./config/config"
 
 
-const app = express();
 
+const app = ex();
+
+// Middlewares
+
+app.use(cors({ origin: config.frontendUrl, credentials: true }));
 app.use(express.json());
 
-app.use(ExpressUserRouter);
 
+// Rutas
+app.use("/api/users", ExpressUserRouter);
+
+// Middleware de errores
 app.use((
     err: unknown,
-    req: Request,
-    res: Response,
-    next: NextFunction
+    req: ex.Request,
+    res: ex.Response,
+    next: ex.NextFunction
 ) => {
-if (err instanceof Error) {
-    console.error(err.stack);
-    return res.status(500).json(err.message)    
-}
-
+    if (err instanceof Error) {
+        console.error(err.stack);
+        return res.status(500).json(err.message);
+    }
     console.error(err);
-    return res.status(500).json('Something wrong!')
-})
+    return res.status(500).json("Something wrong!");
+});
 
-app.listen(3000, ()=> {
-    console.log("Server is running on http://localhost:3000")
-}) 
+// Conectar DB y levantar servidor
+connectMongo(config.mongoUri)
+    .then(() => {
+        app.listen(config.port, () => {
+            console.log("✅ Server is running on http://localhost:${config.port}");
+        });
+    })
+    .catch((err) => {
+        console.error("❌ Error connecting to MongoDB:", err);
+    });
