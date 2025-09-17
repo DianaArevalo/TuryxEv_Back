@@ -1,14 +1,18 @@
-import { express as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
+
+import { express, as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
 import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
+import {config} from "./config/config"
 
-dotenv.config();
+
 
 const app = ex();
 
 // Middlewares
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(ex.json());
+
+app.use(cors({ origin: config.frontendUrl, credentials: true }));
+app.use(express.json());
+
 
 // Rutas
 app.use("/api/users", ExpressUserRouter);
@@ -29,10 +33,10 @@ app.use((
 });
 
 // Conectar DB y levantar servidor
-connectMongo()
+connectMongo(config.mongoUri)
     .then(() => {
-        app.listen(3000, () => {
-            console.log("✅ Server is running on http://localhost:3000");
+        app.listen(config.port, () => {
+            console.log("✅ Server is running on http://localhost:${config.port}");
         });
     })
     .catch((err) => {
