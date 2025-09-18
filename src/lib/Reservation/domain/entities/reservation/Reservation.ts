@@ -19,7 +19,7 @@ export interface ReservationI {
   checkOutDate: ReservationCheckOutDate;
   status: ReservationStatus;
   totalAmount: ReservationTotalAmount;
-  paymentid: ReservationPaymentId;
+  paymentId: ReservationPaymentId;
   createdAt: ReservationCreatedAt;
   updatedAt: ReservationUpdatedAt;
 }
@@ -32,7 +32,7 @@ export class Reservation implements ReservationI {
   checkOutDate: ReservationCheckOutDate;
   status: ReservationStatus;
   totalAmount: ReservationTotalAmount;
-  paymentid: ReservationPaymentId;
+  paymentId: ReservationPaymentId;
   createdAt: ReservationCreatedAt;
   updatedAt: ReservationUpdatedAt;
 
@@ -44,7 +44,7 @@ export class Reservation implements ReservationI {
     this.checkOutDate = attr.checkOutDate;
     this.status = attr.status;
     this.totalAmount = attr.totalAmount;
-    this.paymentid = attr.paymentid;
+    this.paymentId = attr.paymentId;
     this.createdAt = attr.createdAt;
     this.updatedAt = attr.updatedAt;
   }
