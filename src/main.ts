@@ -1,5 +1,5 @@
 
-import { express, as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
+import { express as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
 import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
 import {config} from "./config/config"
@@ -11,7 +11,7 @@ const app = ex();
 // Middlewares
 
 app.use(cors({ origin: config.frontendUrl, credentials: true }));
-app.use(express.json());
+app.use(ex.json());
 
 
 // Rutas
@@ -36,7 +36,7 @@ app.use((
 connectMongo(config.mongoUri)
     .then(() => {
         app.listen(config.port, () => {
-            console.log("✅ Server is running on http://localhost:${config.port}");
+            console.log(`✅ Server is running on http://localhost:${config.port}`);
         });
     })
     .catch((err) => {
