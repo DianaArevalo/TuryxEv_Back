@@ -12,32 +12,32 @@ import {
 } from "./value-objects";
 
 export interface ReservationI {
-  idReservation: ReservationId;
+  reservationId: ReservationId;
   userId: ReservationUserId;
   hotelId: ReservationHotelId;
   checkInDate: ReservationCheckInDate;
   checkOutDate: ReservationCheckOutDate;
   status: ReservationStatus;
   totalAmount: ReservationTotalAmount;
-  paymentId: ReservationPaymentId;
+  paymentId?: ReservationPaymentId;
   createdAt: ReservationCreatedAt;
   updatedAt: ReservationUpdatedAt;
 }
 
 export class Reservation implements ReservationI {
-  idReservation: ReservationId;
+  reservationId: ReservationId;
   userId: ReservationUserId;
   hotelId: ReservationHotelId;
   checkInDate: ReservationCheckInDate;
   checkOutDate: ReservationCheckOutDate;
   status: ReservationStatus;
   totalAmount: ReservationTotalAmount;
-  paymentId: ReservationPaymentId;
+  paymentId?: ReservationPaymentId;
   createdAt: ReservationCreatedAt;
   updatedAt: ReservationUpdatedAt;
 
   constructor(attr: ReservationI) {
-    this.idReservation = attr.idReservation;
+    this.reservationId = attr.reservationId;
     this.userId = attr.userId;
     this.hotelId = attr.hotelId;
     this.checkInDate = attr.checkInDate;
@@ -47,5 +47,19 @@ export class Reservation implements ReservationI {
     this.paymentId = attr.paymentId;
     this.createdAt = attr.createdAt;
     this.updatedAt = attr.updatedAt;
+  }
+
+  toResponse() {
+    return {
+      reservationId: this.reservationId.value,
+      userId: this.userId.value,
+      hotelId: this.hotelId.value,
+      checkInDate: this.checkInDate.value,
+      checkOutDate: this.checkOutDate.value,
+      status: this.status.value,
+      totalAmount: this.totalAmount.value,
+      createdAt: this.createdAt.value,
+      updatedAt: this.updatedAt.value,
+    };
   }
 }

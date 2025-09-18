@@ -1,5 +1,5 @@
 export class ReservationTotalAmount {
-  private constructor(readonly cents: number) {}
+  private constructor(readonly value: number) {}
 
   static create(value: number): ReservationTotalAmount {
     if (value < 0) {
@@ -15,10 +15,10 @@ export class ReservationTotalAmount {
   }
 
   toPrimitives(): number {
-    return this.cents;
+    return this.value;
   }
 
   toDecimal(): number {
-    return this.cents / 100;
+    return this.value / 100;
   }
 }
