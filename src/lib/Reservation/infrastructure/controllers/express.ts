@@ -1,7 +1,7 @@
-import { ServiceContainer } from "../../../../Shared/Infraestructure/ServiceContainer";
-import { express as ex } from "../../../../Shared/Infraestructure/External";
-import { ApiResponse } from "../../../../Shared/Infraestructure/ApiResponse";
-import { ReservationNotFoundError } from "../../../../Reservation/domain";
+import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
+import { express as ex } from "../../../Shared/Infraestructure/External";
+import { ApiResponse } from "../../../Shared/Infraestructure/ApiResponse";
+import { ReservationNotFoundError } from "../../../Reservation/domain";
 
 export class ExpressReservationController {
   async getOneByReservationId(
@@ -222,11 +222,7 @@ export class ExpressReservationController {
     }
   }
 
-  async cancelReservation(
-    req: ex.Request,
-    res: ex.Response,
-    next: ex.NextFunction
-  ) {
+  async cancel(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
       const { reservationId } = req.body as { reservationId: string };
 
