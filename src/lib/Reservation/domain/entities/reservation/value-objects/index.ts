@@ -1,7 +1,6 @@
 export * from "./check-in-date";
 export * from "./check-out-date";
 export * from "./created-at";
-export * from "./hotel-id";
 export * from "./id";
 export * from "./payment-id";
 export * from "./status";
