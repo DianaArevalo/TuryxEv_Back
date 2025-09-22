@@ -1,6 +1,6 @@
 export type ReservationStatusT = "PENDING" | "CONFIRMED" | "CANCELLED";
 
-const ReservationStatusMap: Record<ReservationStatusT, number> = {
+const ReservationStatusMap: Record<ReservationStatusT, 0 | 1 | 2> = {
   PENDING: 0,
   CONFIRMED: 1,
   CANCELLED: 2,
@@ -13,7 +13,7 @@ const ReservationStatusReverseMap: Record<number, ReservationStatusT> = {
 };
 
 export class ReservationStatus {
-  private constructor(readonly value: ReservationStatusT) {}
+  constructor(readonly value: ReservationStatusT) {}
 
   static create(value: ReservationStatusT = "PENDING"): ReservationStatus {
     return new ReservationStatus(value);
@@ -25,7 +25,7 @@ export class ReservationStatus {
     return new ReservationStatus(mapped);
   }
 
-  toPrimitives(): number {
+  toPrimitives(): 0 | 1 | 2 {
     return ReservationStatusMap[this.value];
   }
 }

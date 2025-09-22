@@ -1,5 +1,5 @@
 export class ReservationCreatedAt {
-  private constructor(readonly value: Date) {}
+  constructor(readonly value: Date) {}
 
   // Se usa cuando creas una nueva reserva
   static now(): ReservationCreatedAt {
@@ -17,11 +17,5 @@ export class ReservationCreatedAt {
     }
 
     return new ReservationCreatedAt(value);
-  }
-
-  // Para rehidratar desde la BD sin validaciones
-  static fromPrimitives(value: string | Date): ReservationCreatedAt {
-    const date = typeof value === "string" ? new Date(value) : value;
-    return new ReservationCreatedAt(date);
   }
 }

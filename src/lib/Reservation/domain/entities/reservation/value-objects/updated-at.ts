@@ -1,7 +1,7 @@
 import { ReservationCreatedAt } from "./created-at";
 
 export class ReservationUpdatedAt {
-  private constructor(readonly value: Date) {}
+  constructor(readonly value: Date) {}
 
   // Cuando se actualiza la reserva → se setea automáticamente
   static now(createdAt: ReservationCreatedAt): ReservationUpdatedAt {
@@ -26,12 +26,6 @@ export class ReservationUpdatedAt {
     }
 
     return new ReservationUpdatedAt(value);
-  }
-
-  // Rehidratar desde la BD sin validaciones
-  static fromPrimitives(value: string | Date): ReservationUpdatedAt {
-    const date = typeof value === "string" ? new Date(value) : value;
-    return new ReservationUpdatedAt(date);
   }
 
   toPrimitives(): Date {

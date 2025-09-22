@@ -9,10 +9,12 @@ import {
   ReservationUpdatedAt,
   ReservationUserId,
 } from "./value-objects";
+import { ReservationHotelId } from "./value-objects/hotel-id";
 
 export interface ReservationI {
   reservationId: ReservationId;
   userId: ReservationUserId;
+  hotelId: ReservationHotelId;
   checkInDate: ReservationCheckInDate;
   checkOutDate: ReservationCheckOutDate;
   status: ReservationStatus;
@@ -25,6 +27,7 @@ export interface ReservationI {
 export class Reservation implements ReservationI {
   reservationId: ReservationId;
   userId: ReservationUserId;
+  hotelId: ReservationHotelId;
   checkInDate: ReservationCheckInDate;
   checkOutDate: ReservationCheckOutDate;
   status: ReservationStatus;
@@ -36,6 +39,7 @@ export class Reservation implements ReservationI {
   constructor(attr: ReservationI) {
     this.reservationId = attr.reservationId;
     this.userId = attr.userId;
+    this.hotelId = attr.hotelId;
     this.checkInDate = attr.checkInDate;
     this.checkOutDate = attr.checkOutDate;
     this.status = attr.status;

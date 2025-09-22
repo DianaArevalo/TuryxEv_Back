@@ -1,5 +1,5 @@
 export class ReservationTotalAmount {
-  private constructor(readonly value: number) {}
+  constructor(readonly value: number) {}
 
   static create(value: number): ReservationTotalAmount {
     if (value < 0) {
@@ -8,10 +8,6 @@ export class ReservationTotalAmount {
 
     const cents = Math.round(value * 100);
     return new ReservationTotalAmount(cents);
-  }
-
-  static fromPrimitives(value: number): ReservationTotalAmount {
-    return new ReservationTotalAmount(value);
   }
 
   toPrimitives(): number {

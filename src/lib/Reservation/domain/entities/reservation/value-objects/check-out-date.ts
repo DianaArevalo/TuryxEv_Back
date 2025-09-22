@@ -9,7 +9,7 @@ const checkOutFromDb = ReservationCheckOutDate.fromPrimitives("2025-09-22");
 */
 
 export class ReservationCheckOutDate {
-  private constructor(readonly value: Date) {}
+  constructor(readonly value: Date) {}
 
   // Crear un nuevo checkout desde lógica de dominio
   static create(checkOut: Date, checkIn: Date): ReservationCheckOutDate {
@@ -33,11 +33,5 @@ export class ReservationCheckOutDate {
     }
 
     return new ReservationCheckOutDate(normalizedCheckOut);
-  }
-
-  // Reconstruir desde la BD sin validaciones
-  static fromPrimitives(value: string | Date): ReservationCheckOutDate {
-    const date = typeof value === "string" ? new Date(value) : value;
-    return new ReservationCheckOutDate(date);
   }
 }
