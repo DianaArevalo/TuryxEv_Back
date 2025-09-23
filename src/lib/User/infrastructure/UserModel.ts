@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import {mongoose as mg} from '../../Shared/Infraestructure/External';
 
-export interface IUserDocument extends Document {
+export interface IUserDocument extends mg.Document {
     id: string;
     name: string;
     email: string;
@@ -11,7 +11,7 @@ export interface IUserDocument extends Document {
     status: boolean;
 }
 
-const UserSchema = new Schema<IUserDocument>(
+const UserSchema = new mg.Schema<IUserDocument>(
     {
     id: { type: String, required: true, unique: true },
     name: { type: String, required: true },
@@ -31,4 +31,4 @@ const UserSchema = new Schema<IUserDocument>(
 }
 );
 
-export default mongoose.model<IUserDocument>('User', UserSchema);
+export default mg.model<IUserDocument>('User', UserSchema);

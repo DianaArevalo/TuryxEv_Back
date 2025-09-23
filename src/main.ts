@@ -1,17 +1,18 @@
-import express, { Request, Response, NextFunction } from "express";
-import cors from "cors";
+
+import { express, as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
 import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
 import {config} from "./config/config"
 
 
 
-const app = express();
+const app = ex();
 
 // Middlewares
+
 app.use(cors({ origin: config.frontendUrl, credentials: true }));
 app.use(express.json());
-;
+
 
 // Rutas
 app.use("/api/users", ExpressUserRouter);
@@ -19,9 +20,9 @@ app.use("/api/users", ExpressUserRouter);
 // Middleware de errores
 app.use((
     err: unknown,
-    req: Request,
-    res: Response,
-    next: NextFunction
+    req: ex.Request,
+    res: ex.Response,
+    next: ex.NextFunction
 ) => {
     if (err instanceof Error) {
         console.error(err.stack);

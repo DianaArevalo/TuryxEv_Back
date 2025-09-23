@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+import { mongoose } from "../Shared/Infraestructure/External";
+
 
 export async function connectMongo(uri: string) {
+
   try {
     if (mongoose.connection.readyState >= 1) return;
     await mongoose.connect(uri);
