@@ -17,7 +17,7 @@ app.use(ex.json());
 
 // Rutas
 app.use("/api/users", ExpressUserRouter);
-app.use('api/reservations', ExpressReservationRouter)
+app.use('/api/reservations', ExpressReservationRouter)
 
 // Middleware de errores
 app.use((

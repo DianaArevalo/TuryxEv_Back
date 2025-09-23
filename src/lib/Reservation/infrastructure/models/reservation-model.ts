@@ -24,7 +24,7 @@ const ReservationSchema = new mg.Schema<IReservationDocument>(
       required: true,
     },
     totalAmount: { type: Number, required: true },
-    paymentId: { type: String, required: false, unique: true },
+    paymentId: { type: String, required: false, default: null, unique: false },
   },
   {
     timestamps: true,

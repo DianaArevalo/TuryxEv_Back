@@ -30,7 +30,7 @@ export class ExpressReservationController {
         success: true,
         title: "Reservacion encontrada",
         message: `Reserva ${req.params.reservationId} encontrada`,
-        body: reservation,
+        body: reservation.toResponse(),
       };
 
       return res.status(200).json(response);
@@ -122,14 +122,19 @@ export class ExpressReservationController {
 
   async create(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
-      const body = req.body as {
+      const { userId, hotelId, checkInDate, checkOutDate } = req.body as {
         userId: string;
         hotelId: string;
-        checkInDate: Date;
-        checkOutDate: Date;
+        checkInDate: string;
+        checkOutDate: string;
       };
 
-      await ServiceContainer.reservation.create.handler(body);
+      await ServiceContainer.reservation.create.handler({
+        userId,
+        hotelId,
+        checkInDate: new Date(checkInDate),
+        checkOutDate: new Date(checkOutDate),
+      });
 
       const response: ApiResponse<null> = {
         success: true,
@@ -157,13 +162,17 @@ export class ExpressReservationController {
 
   async edit(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
-      const body = req.body as {
+      const { reservationId, checkInDate, checkOutDate } = req.body as {
         reservationId: string;
-        checkInDate?: Date;
-        checkOutDate?: Date;
+        checkInDate?: string;
+        checkOutDate?: string;
       };
 
-      await ServiceContainer.reservation.edit.handler(body);
+      await ServiceContainer.reservation.edit.handler({
+        reservationId,
+        checkInDate: checkInDate ? new Date(checkInDate) : undefined,
+        checkOutDate: checkOutDate ? new Date(checkOutDate) : undefined,
+      });
 
       const response: ApiResponse<null> = {
         success: true,

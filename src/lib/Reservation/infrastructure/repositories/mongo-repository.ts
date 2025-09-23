@@ -47,19 +47,20 @@ export class MongoReservationRepository implements ReservationRepository {
   async create(reservation: Reservation): Promise<void> {
     await ReservationModel.create({
       userId: reservation.userId.value,
+      hotelId: reservation.hotelId.value,
       checkInDate: reservation.checkInDate.value,
       checkOutDate: reservation.checkOutDate.value,
       status: reservation.status.toPrimitives(),
       totalAmount: reservation.totalAmount.value,
-      paymentId: reservation.reservationId
-        ? reservation.reservationId.value
+      paymentId: reservation.paymentId
+        ? reservation.paymentId.value
         : undefined,
     });
   }
 
   async edit(reservation: Reservation): Promise<void> {
     const record = await ReservationModel.findById(
-      reservation.reservationId
+      reservation.reservationId.value
     ).exec();
 
     if (!record) throw new ReservationNotFoundError();
@@ -97,7 +98,7 @@ export class MongoReservationRepository implements ReservationRepository {
 
   private createReservationEntity(record: any) {
     return new Reservation({
-      reservationId: new ReservationId(String(record)),
+      reservationId: new ReservationId(String(record._id)),
       userId: new ReservationUserId(record.userId),
       hotelId: new ReservationHotelId(record.hotelId),
       checkInDate: new ReservationCheckInDate(record.checkInDate),
