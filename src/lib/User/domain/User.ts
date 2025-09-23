@@ -3,6 +3,7 @@ import { UserEmail } from "./UserEmail";
 import { UserId } from "./UserId";
 import { UserName } from "./UserName";
 import { UserPassword } from "./UserPassword";
+import { UserStatus } from "./UserStatus";
 import { UserUpdatedAt } from "./UserUpdatedAt";
 
 export class User {
@@ -13,6 +14,7 @@ export class User {
     createdAt: UserCreatedAt;
     updatedAt: UserUpdatedAt;
     role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
+    status: boolean;
 
     constructor(
         id: UserId, 
@@ -21,7 +23,9 @@ export class User {
         password: UserPassword,
         createdAt: UserCreatedAt, 
         updatedAt: UserUpdatedAt,
-        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN')
+        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN',
+        status: UserStatus    
+    )
     {
         this.id = id;
         this.name = name;
@@ -30,7 +34,16 @@ export class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.role = role;
+        this.status = status.value
 
+    }
+
+    public desactivate(){
+        this.status = false
+    }
+
+    public activate(){
+        this.status= true
     }
 
     public mapToPrimitives(){
@@ -40,7 +53,8 @@ export class User {
             email: this.email.value,
             password: this.password.value,
             createdAt: this.createdAt.value,
-            role: this.role
+            role: this.role,
+            status: this.status
         }
     }
 }

@@ -8,6 +8,7 @@ export interface IUserDocument extends Document {
     createdAt: Date;   
     updatedAt: Date;
     role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
+    status: boolean;
 }
 
 const UserSchema = new Schema<IUserDocument>(
@@ -22,6 +23,7 @@ const UserSchema = new Schema<IUserDocument>(
     enum: ['CLIENT', 'HOTEL', 'BUSINESS', 'ADMIN'],
     required: true
     },
+    status: {type: Boolean, default: true}
 
 },
 {

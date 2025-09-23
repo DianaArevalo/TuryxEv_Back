@@ -7,6 +7,7 @@ import { UserPassword } from "../domain/UserPassword";
 import { UserCreatedAt } from "../domain/UserCreatedAt";
 import UserModel from "./UserModel"; // Tu esquema de mongoose
 import { UserUpdatedAt } from "../domain/UserUpdatedAt";
+import { UserStatus } from "../domain/UserStatus";
 
 
 export class MongoUserRepository implements UserRepository {
@@ -19,12 +20,13 @@ export class MongoUserRepository implements UserRepository {
         password: user.password.value, 
         createdAt: user.createdAt.value,
         updatedAt: user.updatedAt.value,       
-        role: user.role
+        role: user.role,
+        status: user.status
     });
   }
 
   async getOneById(id: UserId): Promise<User | null> {
-    const record = await UserModel.findById(id.value).exec();
+    const record = await UserModel.findById({ _id: id.value, status: true }).exec();
     if (!record) return null;
 
     return new User(
@@ -33,13 +35,14 @@ export class MongoUserRepository implements UserRepository {
         new UserEmail(record.email),
         new UserPassword(record.password),
         new UserCreatedAt(record.createdAt),
-        new UserUpdatedAt(record.updatedAt),
-        record.role
+        new UserUpdatedAt(record.updatedAt),        
+        record.role,
+        new UserStatus(record.status)
     );
   }
 
   async getAll(): Promise<User[]> {
-      const records = await UserModel.find().exec();
+      const records = await UserModel.find({status: true}).exec();
 
       return records.map(record => 
       new User(
@@ -49,7 +52,8 @@ export class MongoUserRepository implements UserRepository {
         new UserPassword(record.password),
         new UserCreatedAt(record.createdAt),
         new UserUpdatedAt(record.updatedAt),
-        record.role
+        record.role,
+        new UserStatus(record.status)
       )
     
       )
@@ -66,7 +70,8 @@ export class MongoUserRepository implements UserRepository {
         new UserPassword(record.password),
         new UserCreatedAt(record.createdAt),
         new UserUpdatedAt(record.updatedAt),
-        record.role
+        record.role,
+        new UserStatus(record.status),
     );
   }
 
