@@ -66,13 +66,14 @@ export class ExpressUserController {
   async create(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
       
-      const { createdAt, email, id, name, password, role } = req.body as {
+      const { createdAt, email, id, name, password, role, status } = req.body as {
         id: string;
         name: string;
         email: string;
         createdAt: Date;
         password: string;
-        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN'
+        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
+        status: boolean;
       };
       await ServiceContainer.user.create.handler(
           id,
@@ -80,7 +81,9 @@ export class ExpressUserController {
           email,
           password,
           new Date(createdAt),
-          role
+          role,
+          status,
+          
       );
 
       const response: ApiResponse<null> = {
@@ -98,12 +101,13 @@ export class ExpressUserController {
 
   async edit(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
-      const { createdAt, email, id, name, password } = req.body as {
+      const { createdAt, email, id, name, password, status } = req.body as {
         id: string;
         name: string;
         email: string;
         createdAt: Date;
-        password: string
+        password: string;
+        status: boolean;
       };
       
       const updatedUser = await ServiceContainer.user.edit.handle(
@@ -111,7 +115,8 @@ export class ExpressUserController {
         name,
         email,
         new Date(createdAt),
-        password
+        password,
+        status
       );
 
       const { password: _, ...safeUser } = updatedUser.mapToPrimitives();

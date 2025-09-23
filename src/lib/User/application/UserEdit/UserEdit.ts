@@ -6,6 +6,7 @@ import { UserName } from "../../domain/UserName";
 import { UserNotFoundError } from "../../domain/UserNotFoundError";
 import { UserPassword } from "../../domain/UserPassword";
 import { UserRepository } from "../../domain/UserRepository";
+import { UserStatus } from "../../domain/UserStatus";
 import { UserUpdatedAt } from "../../domain/UserUpdatedAt";
 
 export class UserEdit {
@@ -16,7 +17,8 @@ export class UserEdit {
         name: string,
         email: string,
         createdAt: Date,        
-        password: string,        
+        password: string, 
+        status: boolean,       
         
     ): Promise <User>{
 
@@ -33,7 +35,8 @@ export class UserEdit {
             new UserPassword(password),
             new UserCreatedAt(createdAt),
             new UserUpdatedAt(new Date()),
-            currentUser.role
+            currentUser.role,
+            new UserStatus(status)
             
         );
 

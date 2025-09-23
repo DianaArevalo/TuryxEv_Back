@@ -5,6 +5,7 @@ import { UserId } from "../../domain/UserId";
 import { UserName } from "../../domain/UserName";
 import { UserPassword } from "../../domain/UserPassword";
 import { UserRepository } from "../../domain/UserRepository";
+import { UserStatus } from "../../domain/UserStatus";
 import { UserUpdatedAt } from "../../domain/UserUpdatedAt";
 
 export class UserCreate {
@@ -18,7 +19,8 @@ export class UserCreate {
         password: string,
         createdAt: Date,        
 
-        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN'
+        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN',
+        status: boolean
 
     ): Promise <void>{
         const user = new User(
@@ -27,8 +29,9 @@ export class UserCreate {
             new UserEmail(email),
             new UserPassword(password),
             new UserCreatedAt(createdAt),
-            new UserUpdatedAt(new Date()),
-            role
+            new UserUpdatedAt(new Date()),            
+            role,
+            new UserStatus(status),
         );
 
         return this.repository.create(user)

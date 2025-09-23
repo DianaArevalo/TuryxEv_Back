@@ -8,6 +8,7 @@ export interface IUserDocument extends mg.Document {
     createdAt: Date;   
     updatedAt: Date;
     role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
+    status: boolean;
 }
 
 const UserSchema = new mg.Schema<IUserDocument>(
@@ -22,6 +23,7 @@ const UserSchema = new mg.Schema<IUserDocument>(
     enum: ['CLIENT', 'HOTEL', 'BUSINESS', 'ADMIN'],
     required: true
     },
+    status: {type: Boolean, default: true}
 
 },
 {
