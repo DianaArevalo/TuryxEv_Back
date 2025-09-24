@@ -9,6 +9,7 @@ import { UserRepository } from "~/lib/User/domain/UserRepository";
 import { UserNotFoundError } from "~/lib/User/domain/UserNotFoundError";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
 import { UserUpdatedAt } from "~/lib/User/domain/UserUpdatedAt";
+import { UserStatus } from "~/lib/User/domain/UserStatus";
 
 describe("application/UserGetOneById", () => {
   let repository: UserRepository;
@@ -27,7 +28,8 @@ describe("application/UserGetOneById", () => {
       new UserPassword("Secret1234&"),
       new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
       new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT"
+      "CLIENT",
+      new UserStatus(true)
     );
 
     await repository.create(user);
