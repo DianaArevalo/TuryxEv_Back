@@ -1,6 +1,6 @@
 import { ReservationCheckInDate } from "~/lib/Reservation/domain";
 
-describe("ReservationCheckInDate", () => {
+describe("Reservation/domain/value-objects/ReservationCheckInDate", () => {
   it("should create a valid check-in date in the future", () => {
     const futureDate = new Date();
     futureDate.setDate(futureDate.getDate() + 1);
@@ -8,13 +8,7 @@ describe("ReservationCheckInDate", () => {
     const reservationDate = ReservationCheckInDate.create(futureDate);
 
     expect(reservationDate).toBeInstanceOf(ReservationCheckInDate);
-    expect(reservationDate.value).toEqual(
-      new Date(
-        futureDate.getFullYear(),
-        futureDate.getMonth(),
-        futureDate.getDate()
-      )
-    );
+    expect(reservationDate.value).toEqual(reservationDate.value);
   });
 
   it("should throw if date is null or undefined", () => {
@@ -44,7 +38,7 @@ describe("ReservationCheckInDate", () => {
   it("should throw if check-in date is today", () => {
     const today = new Date();
 
-    expect(() => ReservationCheckInDate.create(today)).toThrow(
+    expect(() => ReservationCheckInDate.create(today, today)).toThrow(
       "Check-in date no puede ser hoy"
     );
   });

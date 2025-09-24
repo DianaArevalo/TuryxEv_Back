@@ -16,22 +16,10 @@ export class ReservationCheckOutDate {
     if (!checkOut) throw new Error("Check-out date no puede ser nulo");
     if (isNaN(checkOut.getTime())) throw new Error("Check-out date inválido");
 
-    const normalizedCheckOut = new Date(
-      checkOut.getFullYear(),
-      checkOut.getMonth(),
-      checkOut.getDate()
-    );
-
-    const normalizedCheckIn = new Date(
-      checkIn.getFullYear(),
-      checkIn.getMonth(),
-      checkIn.getDate()
-    );
-
-    if (normalizedCheckOut <= normalizedCheckIn) {
+    if (checkOut <= checkIn) {
       throw new Error("Check-out debe ser después del check-in");
     }
 
-    return new ReservationCheckOutDate(normalizedCheckOut);
+    return new ReservationCheckOutDate(checkOut);
   }
 }

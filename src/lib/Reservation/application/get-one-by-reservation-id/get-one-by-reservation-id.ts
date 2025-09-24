@@ -1,6 +1,7 @@
 import {
   Reservation,
   ReservationId,
+  ReservationNotFoundError,
   ReservationRepository,
 } from "../../domain";
 
@@ -13,9 +14,13 @@ export class GetOneByReservationId {
 
   async handler(
     props: GetOneByReservationIdHandlerProps
-  ): Promise<Reservation | null> {
-    return this.repository.getOneByReservationId(
+  ): Promise<Reservation> {
+    const result = await this.repository.getOneByReservationId(
       new ReservationId(props.reservationId)
     );
+
+    if (!result) throw new ReservationNotFoundError();
+
+    return result;
   }
 }

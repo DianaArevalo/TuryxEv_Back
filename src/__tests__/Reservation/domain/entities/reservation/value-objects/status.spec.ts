@@ -1,6 +1,6 @@
 import { ReservationStatus } from "~/lib/Reservation/domain";
 
-describe("ReservationStatus", () => {
+describe("Reservation/domain/value-objects/ReservationStatus", () => {
   it("should create a status with default PENDING", () => {
     const status = ReservationStatus.create();
 

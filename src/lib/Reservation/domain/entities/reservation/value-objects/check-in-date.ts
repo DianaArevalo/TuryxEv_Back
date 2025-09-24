@@ -4,23 +4,17 @@ export class ReservationCheckInDate {
   constructor(readonly value: Date) {}
 
   // Para crear uno nuevo desde lógica de dominio
-  static create(value: Date): ReservationCheckInDate {
+  static create(value: Date, _now?: Date): ReservationCheckInDate {
     if (!value) throw new Error("Check-in date no puede ser nulo");
     if (isNaN(value.getTime())) throw new Error("Check-in date inválido");
 
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const checkIn = new Date(
-      value.getFullYear(),
-      value.getMonth(),
-      value.getDate()
-    );
+    const now = _now ? _now : new Date(Date.now() - 1000);
 
-    if (checkIn < today)
+    if (value < now)
       throw new Error("Check-in date no puede estar en el pasado");
-    if (checkIn.getTime() === today.getTime())
+    if (value.getTime() === now.getTime())
       throw new Error("Check-in date no puede ser hoy");
 
-    return new ReservationCheckInDate(checkIn);
+    return new ReservationCheckInDate(value);
   }
 }

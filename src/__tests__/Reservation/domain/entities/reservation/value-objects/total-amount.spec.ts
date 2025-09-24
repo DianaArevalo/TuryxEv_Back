@@ -1,6 +1,6 @@
 import { ReservationTotalAmount } from "~/lib/Reservation/domain";
 
-describe("ReservationTotalAmount", () => {
+describe("Reservation/domain/value-objects/ReservationTotalAmount", () => {
   it("should create a valid ReservationTotalAmount with positive value", () => {
     const amount = ReservationTotalAmount.create(123.45);
 

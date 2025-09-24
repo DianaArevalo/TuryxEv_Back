@@ -1,6 +1,6 @@
 import { ReservationCheckOutDate } from "~/lib/Reservation/domain";
 
-describe("ReservationCheckOutDate", () => {
+describe("Reservation/domain/value-objects/ReservationCheckOutDate", () => {
   const checkIn = new Date(2025, 8, 20); // Sept 20, 2025
 
   it("should create a valid check-out date after check-in", () => {

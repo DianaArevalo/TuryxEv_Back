@@ -4,7 +4,6 @@ import { UserCreatedAt } from "~/lib/User/domain/UserCreatedAt";
 import { UserEmail } from "~/lib/User/domain/UserEmail";
 import { UserId } from "~/lib/User/domain/UserId";
 import { UserName } from "~/lib/User/domain/UserName";
-import { UserPassword } from "~/lib/User/domain/UserPassword";
 import { UserRepository } from "~/lib/User/domain/UserRepository";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
 

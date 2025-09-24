@@ -24,6 +24,7 @@ export class CreateReservation {
 
   async handler(props: CreateReservationHandlerProps): Promise<void> {
     const now = new Date(Date.now());
+    const createdAt = ReservationCreatedAt.create(now);
 
     const reservation = new Reservation({
       reservationId: new ReservationId(""),
@@ -36,8 +37,8 @@ export class CreateReservation {
       ),
       status: ReservationStatus.create(),
       totalAmount: ReservationTotalAmount.create(0),
-      createdAt: ReservationCreatedAt.create(now),
-      updatedAt: ReservationUpdatedAt.now(ReservationCreatedAt.create(now)),
+      createdAt: createdAt,
+      updatedAt: ReservationUpdatedAt.now(createdAt),
     });
 
     return this.repository.create(reservation);

@@ -1,6 +1,6 @@
 import { ReservationHotelId } from "~/lib/Reservation/domain";
 
-describe("ReservationHotelId", () => {
+describe("Reservation/domain/value-objects/ReservationHotelId", () => {
   it("should create a ReservationHotelId with a string value", () => {
     const hotelId = new ReservationHotelId("hotel-123");
 

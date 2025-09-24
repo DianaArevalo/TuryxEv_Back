@@ -3,7 +3,7 @@ import {
   ReservationUpdatedAt,
 } from "~/lib/Reservation/domain";
 
-describe("ReservationUpdatedAt", () => {
+describe("Reservation/domain/value-objects/ReservationUpdatedAt", () => {
   const createdAt = ReservationCreatedAt.create(
     new Date("2025-09-20T10:00:00Z")
   );

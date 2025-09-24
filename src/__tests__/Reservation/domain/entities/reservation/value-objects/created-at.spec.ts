@@ -1,6 +1,6 @@
 import { ReservationCreatedAt } from "~/lib/Reservation/domain";
 
-describe("ReservationCreatedAt", () => {
+describe("Reservation/domain/value-objects/ReservationCreatedAt", () => {
   it("should create a new ReservationCreatedAt with now()", () => {
     const createdAt = ReservationCreatedAt.now();
 

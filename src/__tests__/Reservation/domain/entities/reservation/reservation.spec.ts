@@ -12,7 +12,7 @@ import {
   ReservationPaymentId,
 } from "~/lib/Reservation/domain";
 
-describe("Reservation", () => {
+describe("Reservation/domain/value-objects/Reservation", () => {
   let checkIn: ReservationCheckInDate;
   let checkOut: ReservationCheckOutDate;
   let createdAt: ReservationCreatedAt;
