@@ -1,9 +1,9 @@
-export class UserPassword {
-    readonly value: string;
+export class HotelPassword {
+    value: string
 
-    constructor(value: string){
-        this.value = value;
-        this.ensureIsValid();
+    constructor( value: string ){
+        this.value = value
+        this.ensureIsValid();        
     }
 
     private ensureIsValid() {
@@ -33,4 +33,5 @@ export class UserPassword {
       throw new Error('The password must contain at least one special character.');
     }
     }
-}
+
+    } 
