@@ -13,7 +13,7 @@ import {
   ReservationUserId,
   ReservationRepository,
 } from "~/lib/Reservation/domain";
-import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-repository";
+import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-reservation-repository";
 
 describe("Reservation/application/edit-reservation", () => {
   let repository: ReservationRepository;

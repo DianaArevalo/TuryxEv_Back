@@ -2,6 +2,7 @@ import {
   ReservationCheckInDate,
   ReservationCheckOutDate,
   ReservationCreatedAt,
+  ReservationHotelId,
   ReservationId,
   ReservationPaymentId,
   ReservationStatus,
@@ -9,7 +10,6 @@ import {
   ReservationUpdatedAt,
   ReservationUserId,
 } from "./value-objects";
-import { ReservationHotelId } from "./value-objects/hotel-id";
 
 export interface ReservationI {
   reservationId: ReservationId;

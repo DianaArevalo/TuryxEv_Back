@@ -6,7 +6,7 @@ import {
   ReservationNotFoundError,
   ReservationRepository,
 } from "~/lib/Reservation/domain";
-import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-repository";
+import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-reservation-repository";
 
 function getMockReservations() {
   const today = new Date(Date.now());

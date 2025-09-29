@@ -1,4 +1,4 @@
-import { ReservationCreatedAt } from "./created-at";
+import { ReservationCreatedAt } from "./reservation-created-at";
 
 export class ReservationUpdatedAt {
   constructor(readonly value: Date) {}

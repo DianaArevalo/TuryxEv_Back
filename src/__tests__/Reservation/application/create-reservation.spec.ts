@@ -4,7 +4,7 @@ import {
   ReservationRepository,
   ReservationUserId,
 } from "~/lib/Reservation/domain";
-import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-repository";
+import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-reservation-repository";
 
 describe("Reservation/application/create-reservation", () => {
   let repository: ReservationRepository;

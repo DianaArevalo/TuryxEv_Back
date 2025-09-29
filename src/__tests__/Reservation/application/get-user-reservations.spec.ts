@@ -3,7 +3,7 @@ import {
   GetUserReservations,
 } from "~/lib/Reservation/application";
 import { ReservationRepository } from "~/lib/Reservation/domain";
-import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-repository";
+import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-reservation-repository";
 
 describe("Reservation/application/get-one-by-reservation-id", () => {
   let repository: ReservationRepository;

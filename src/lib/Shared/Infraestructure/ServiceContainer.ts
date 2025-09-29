@@ -4,7 +4,7 @@ import { UserEdit } from "../../User/application/UserEdit/UserEdit";
 import { UserDelete } from "../../User/application/UserDelete/UserDelete";
 import { MongoUserRepository } from "../../User/infrastructure/MongoUserRepository";
 import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
-import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-repository";
+import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
 import {
   CancelReservation,
   ConfirmReservation,
