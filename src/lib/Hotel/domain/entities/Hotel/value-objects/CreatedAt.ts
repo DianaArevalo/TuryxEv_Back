@@ -14,7 +14,7 @@ export class CreatedAt {
     }
 
 
-    static now(): CreatedAt {
+    static now(): CreatedAt { 
         return new CreatedAt(new Date());
     }
 

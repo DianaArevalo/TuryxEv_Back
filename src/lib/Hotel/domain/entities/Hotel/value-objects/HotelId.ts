@@ -4,4 +4,4 @@ export class HotelId {
     constructor(value: string){
         this.value = value;
     }
-}
+} 
