@@ -7,6 +7,7 @@ import { UserName } from "~/lib/User/domain/UserName";
 import { UserNotFoundError } from "~/lib/User/domain/UserNotFoundError";
 import { UserPassword } from "~/lib/User/domain/UserPassword";
 import { UserRepository } from "~/lib/User/domain/UserRepository";
+import { UserStatus } from "~/lib/User/domain/UserStatus";
 import { UserUpdatedAt } from "~/lib/User/domain/UserUpdatedAt";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
 
@@ -27,7 +28,8 @@ describe("application/UserDelete", () => {
       new UserPassword("Secret1234&"),
       new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
       new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT"
+      "CLIENT",
+      new UserStatus(true)
     );
 
     // lo guardamos en memoria

@@ -7,6 +7,7 @@ import { UserName } from "~/lib/User/domain/UserName";
 import { UserNotFoundError } from "~/lib/User/domain/UserNotFoundError";
 import { UserPassword } from "~/lib/User/domain/UserPassword";
 import { UserRepository } from "~/lib/User/domain/UserRepository";
+import { UserStatus } from "~/lib/User/domain/UserStatus";
 import { UserUpdatedAt } from "~/lib/User/domain/UserUpdatedAt";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
 
@@ -27,7 +28,8 @@ describe("application/UserEdit", () => {
       new UserPassword("Secret1234&"),
       new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
       new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT"
+      "CLIENT",
+      new UserStatus(true)
     );
 
     await repository.create(user);
@@ -37,7 +39,8 @@ describe("application/UserEdit", () => {
       "UpdatedName",
       "updated@example.com",
       new Date("2025-02-01T00:00:00Z"),
-      "NewPass123&"
+      "NewPass123&",
+      true
     );
 
     const updatedUser = await repository.getOneById(new UserId("123"));
@@ -55,7 +58,8 @@ describe("application/UserEdit", () => {
         "DoesNotExist",
         "none@example.com",
         new Date(),
-        "Fake123&"
+        "Fake123&",
+        true
       )
     ).rejects.toThrow(UserNotFoundError);
   });
@@ -68,7 +72,8 @@ describe("application/UserEdit", () => {
       new UserPassword("Secret1234&"),
       new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
       new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT"
+      "CLIENT",
+      new UserStatus(true)
     );
 
     await repository.create(user);
@@ -79,7 +84,8 @@ describe("application/UserEdit", () => {
         "Maria",
         "invalid-email",
         new Date(),
-        "Secret1234&"
+        "Secret1234&",
+        true
       )
     ).rejects.toThrow("UserEmail must be a valid email address");
   });

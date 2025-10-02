@@ -16,4 +16,8 @@ describe("domain/UserName", () => {
     const name = new UserName("Ana");
     expect(name.value).toBe("Ana");
   });
+
+  it("should throw if name is empty", () => {
+    expect(() => new UserName("")).toThrow("El nombre no puede estar vacío");
+  });
 });
