@@ -1,23 +1,15 @@
 // 0: Client, 1: Hotel, 2: HotelAdmin, 3: Business, 4: AdminBusiness, 5: SuperAdmin
-export type HotelRoleT = "CLIENT" | "HOTEL" | "HOTELADMIN" | "BUSINESS" | "ADMINBUSINESS" | "SUPERADMIN";
+export type HotelRoleT =  "HOTEL" | "HOTELADMIN" ;
 
-const HotelRoleTMap: Record<HotelRoleT, 0 | 1 | 2 | 3 | 4 | 5> = {
-    CLIENT: 0,
+const HotelRoleTMap: Record<HotelRoleT, 1 |2> = {    
     HOTEL: 1,
-    HOTELADMIN: 2,
-    BUSINESS: 3,
-    ADMINBUSINESS: 4,
-    SUPERADMIN: 5,
+    HOTELADMIN: 2,    
 };
 
 
-const HotelRoleTReverseMap: Record<0 | 1 | 2 | 3 | 4 | 5, HotelRoleT> = {
-    0: "CLIENT",
+const HotelRoleTReverseMap: Record< 1 | 2 , HotelRoleT> = {
     1: "HOTEL",
-    2: "HOTELADMIN",
-    3: "BUSINESS",
-    4: "ADMINBUSINESS",
-    5: "SUPERADMIN",
+    2: "HOTELADMIN"   
 };
 
 export class HotelRole {
@@ -30,7 +22,7 @@ export class HotelRole {
         return new HotelRole(value);
     }
 
-    static fromPrimitives(value: 0 | 1 | 2 | 3 | 4 | 5) : HotelRole {
+    static fromPrimitives(value:  1 | 2 ) : HotelRole {
         const mapped = HotelRoleTReverseMap[value];
         if (!mapped) {          
             throw new Error(`Invalid value: ${value}`);
@@ -39,7 +31,7 @@ export class HotelRole {
         return new HotelRole(mapped);        
     }   
     
-    toPrimitives(): 0 | 1 | 2 | 3 | 4 | 5 {
+    toPrimitives():  1 | 2  {
         const numberValue = HotelRoleTMap[this.value as HotelRoleT];
         if (numberValue === undefined) {          
             throw new Error(`Invalid value: ${this.value}`);

@@ -4,6 +4,8 @@ import {
     HotelId, 
     HotelName, 
     HotelEmail, 
+    HotelRole, 
+    HotelScore,
     HotelPassword, 
     HotelLocation, 
     HotelPlan, 
@@ -12,12 +14,14 @@ import {
 
 
     export interface HotelI {
-        hotelId: HotelId
+        hotelId?: HotelId
         name: HotelName
         email: HotelEmail
-        password: HotelPassword
+        password?: HotelPassword
         location: HotelLocation
         plan: HotelPlan
+        role: HotelRole
+        score: HotelScore
         status: HotelStatus
         createdAt: CreatedAt
         updatedAt: UpdatedAt
@@ -26,12 +30,14 @@ import {
 
     export class Hotel implements HotelI {
 
-        hotelId: HotelId;
+        hotelId?: HotelId;
         name: HotelName;
         email: HotelEmail;
-        password: HotelPassword;
+        password?: HotelPassword;
         location: HotelLocation;
         plan: HotelPlan;
+        role: HotelRole;
+        score: HotelScore
         status: HotelStatus;
         createdAt: CreatedAt;
         updatedAt: UpdatedAt;
@@ -45,6 +51,8 @@ import {
             this.password = attr.password;
             this.location = attr.location;
             this.plan = attr.plan;
+            this.role = attr.role;
+            this.score = attr.score
             this.status = attr.status;
             this.createdAt = attr.createdAt;
             this.updatedAt = attr.updatedAt;
@@ -53,16 +61,18 @@ import {
 
         toResponse() {
             return {
-                hotelId: this.hotelId.value,
+                hotelId: this.hotelId?.value,
                 name: this.name.value,
                 email: this.email.value,
-                password: this.password.value,
+                password: this.password?.value,
                 location: this.location.getValue(),
-                plan: this.plan.value,
+                plan: this.plan.getValue(),
+                role: this.role.getValue(),
+                score: this.score.value,
                 status: this.status.getValue(),
                 createdAt: this.createdAt.value,
                 updatedAt: this.updatedAt.value,
-                providerData: this.providerData.value
+                providerData: this.providerData.getValue(),
             };
         }
 

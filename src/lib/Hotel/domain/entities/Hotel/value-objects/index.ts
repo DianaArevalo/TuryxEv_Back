@@ -8,3 +8,5 @@ export * from "./HotelPlan";
 export * from "./HotelStatus";
 export * from "./UpdatedAt";
 export * from "./ProviderData";
+export * from "./HotelRole";
+export * from "./HotelScore";
