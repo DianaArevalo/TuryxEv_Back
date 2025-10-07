@@ -1,8 +1,9 @@
 
-import { express, as ex, cors, dotenv } from "./lib/Shared/Infraestructure/External";
+import { express as ex, cors } from "./lib/Shared/Infraestructure/External";
 import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
 import {config} from "./config/config"
+import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
 
 
 
@@ -11,11 +12,12 @@ const app = ex();
 // Middlewares
 
 app.use(cors({ origin: config.frontendUrl, credentials: true }));
-app.use(express.json());
+app.use(ex.json());
 
 
 // Rutas
 app.use("/api/users", ExpressUserRouter);
+app.use('/api/reservations', ExpressReservationRouter)
 
 // Middleware de errores
 app.use((
@@ -36,7 +38,7 @@ app.use((
 connectMongo(config.mongoUri)
     .then(() => {
         app.listen(config.port, () => {
-            console.log("✅ Server is running on http://localhost:${config.port}");
+            console.log(`✅ Server is running on http://localhost:${config.port}`);
         });
     })
     .catch((err) => {
