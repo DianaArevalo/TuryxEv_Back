@@ -34,4 +34,9 @@ export class HotelPassword {
     }
     }
 
+
+    getValue(): string {
+        return this.value;      
+    }
+
     } 

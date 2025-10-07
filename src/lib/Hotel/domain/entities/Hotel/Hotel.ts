@@ -62,13 +62,13 @@ import {
         toResponse() {
             return {
                 hotelId: this.hotelId?.value,
-                name: this.name.value,
-                email: this.email.value,
-                password: this.password?.value,
+                name: this.name.getValue(),
+                email: this.email.getValue(),
+                password: this.password?.getValue(),
                 location: this.location.getValue(),
                 plan: this.plan.getValue(),
                 role: this.role.getValue(),
-                score: this.score.value,
+                score: this.score.getValue(),
                 status: this.status.getValue(),
                 createdAt: this.createdAt.value,
                 updatedAt: this.updatedAt.value,

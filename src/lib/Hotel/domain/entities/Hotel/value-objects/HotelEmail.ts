@@ -27,4 +27,10 @@ export class HotelEmail {
             throw new Error("UserEmail contains invalid consecutive or misplaced dots")
         }
     }
+
+    getValue(): string {
+        return this.value;
+    }
+
+
 }

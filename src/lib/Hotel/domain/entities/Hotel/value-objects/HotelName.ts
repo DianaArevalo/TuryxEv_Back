@@ -17,4 +17,8 @@ export class HotelName {
             throw new Error("El nombre debe tener al menos 3 caracteres")
         }
     }
+
+    getValue(): string {
+        return this.value;
+    }
 }

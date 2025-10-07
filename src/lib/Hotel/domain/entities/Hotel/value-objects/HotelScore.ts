@@ -18,4 +18,8 @@ export class HotelScore{
         return score;
     }
 
+    getValue(): number {
+        return this.value;
+    }
+
 }

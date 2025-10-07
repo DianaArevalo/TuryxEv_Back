@@ -1,15 +1,15 @@
 // 0: Client, 1: Hotel, 2: HotelAdmin, 3: Business, 4: AdminBusiness, 5: SuperAdmin
-export type HotelRoleT =  "HOTEL" | "HOTELADMIN" ;
+export type HotelRoleT =  "HOTEL" | "STAFF" ;
 
 const HotelRoleTMap: Record<HotelRoleT, 1 |2> = {    
     HOTEL: 1,
-    HOTELADMIN: 2,    
+    STAFF: 2,    
 };
 
 
 const HotelRoleTReverseMap: Record< 1 | 2 , HotelRoleT> = {
     1: "HOTEL",
-    2: "HOTELADMIN"   
+    2: "STAFF"   //cambiar a staff
 };
 
 export class HotelRole {

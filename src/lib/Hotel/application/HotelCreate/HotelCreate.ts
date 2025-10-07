@@ -9,8 +9,7 @@ import {
     HotelScore,
     HotelStatus,
     ProviderData,
-    CreatedAt,
-    UpdatedAt,
+    CreatedAt,  
     HotelRepository
     
 } from "../../domain";
@@ -19,7 +18,7 @@ const VALID_PLAN = ['FREE', 'BASIC', 'PREMIUM'] as const;
 const VALID_STATUS = ['OPEN', 'CLOSED', 'BLOCKED'] as const;
 const VALID_ROLE = [ 'HOTEL', 'HOTELADMIN'] as const;
 const VALID_PROVIDER_DATA = ['AUTH', 'AUTHGOOGLE', 'AUTHFACEBOOK'] as const;
-const DEFAULT_SCORE = 5 // valor por defecto;
+const DEFAULT_SCORE = 0 // valor por defecto;
 
 
 export interface HotelCreateHandlerProps {
@@ -30,10 +29,10 @@ export interface HotelCreateHandlerProps {
     plan: HotelPlan;
     status: HotelStatus;
     role: HotelRole;
-    score: HotelScore;
+    score?: HotelScore;
     providerData: ProviderData;
     createdAt: CreatedAt;
-    updatedAt: UpdatedAt;
+    
 }
 
 interface HotelResponses {
@@ -72,7 +71,7 @@ export class HotelCreate{
     }
     
     
-    // validar enums con switch
+    // validar enums con switch en los value objects
     switch (planValue) {
         case 'FREE':
         case 'BASIC':
@@ -94,7 +93,7 @@ export class HotelCreate{
 
     switch (roleValue) {
         case 'HOTEL':
-        case 'HOTELADMIN':
+        case 'STAFF':
             break;
         default:
             throw new Error(`Invalid role ${roleValue} must be one of ${VALID_ROLE.join(', ')}`);
@@ -119,7 +118,7 @@ export class HotelCreate{
 
     const score = props.score ?? DEFAULT_SCORE
     const createdAt = props.createdAt ?? CreatedAt.now();
-    const updatedAt = props.updatedAt ?? CreatedAt.now();
+    
 
 
 
@@ -132,8 +131,7 @@ export class HotelCreate{
         role: props.role,
         score: score,
         status: props.status,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
+        createdAt: createdAt,        
         providerData: props.providerData,
     });
 
