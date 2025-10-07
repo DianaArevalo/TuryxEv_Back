@@ -1,3 +1,4 @@
+import { ValidationError } from "~/lib/Shared/domain/exeptions";
 import {
   Business,
   BusinessCreatedAt,
@@ -9,19 +10,20 @@ import {
   BusinessPicture,
   BusinessPlan,
   BusinessProviderData,
+  BusinessRepository,
   BusinessRole,
   BusinessScore,
   BusinessStatus,
   BusinessUpdatedAt,
 } from "../../domain";
-import { BusinessRepository } from "../../domain/repositories/business-repository";
 
 interface CreateBusinessHandlerProps {
   name: string;
   email: string;
-  password: string;
+  password?: string;
   location: string;
   picture?: string;
+  providerData: string;
 }
 
 export class CreateBusiness {
@@ -30,11 +32,16 @@ export class CreateBusiness {
   async handler(props: CreateBusinessHandlerProps) {
     const createdAt = BusinessCreatedAt.now();
 
+    if (!props.password && props.providerData === "AUTH")
+      throw new ValidationError("Password is required.");
+
     const business = new Business({
       bussinessId: new BusinessId(""),
       name: BusinessName.create(props.name),
       email: BusinessEmail.create(props.email),
-      password: BusinessPassword.create(props.password),
+      password: props.password
+        ? BusinessPassword.create(props.password)
+        : undefined,
       location: BusinessLocation.create(props.location),
       picture: props.picture ? new BusinessPicture(props.picture) : undefined,
       score: BusinessScore.create(0),
@@ -43,7 +50,7 @@ export class CreateBusiness {
       idRole: BusinessRole.create("BUSINESS"),
       idPlan: BusinessPlan.create("BASIC"),
       status: BusinessStatus.create("OPEN"),
-      providerData: BusinessProviderData.create("AUTH"),
+      providerData: BusinessProviderData.create(props.providerData),
     });
 
     await this.repository.create(business);
