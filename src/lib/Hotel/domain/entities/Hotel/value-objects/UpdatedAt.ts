@@ -1,5 +1,5 @@
 import { now } from "mongoose";
-import { CreatedAt } from "./CreatedAt";
+import { CreatedAt } from "./hotel-created-at";
 
 export class UpdatedAt {
     readonly value: Date;

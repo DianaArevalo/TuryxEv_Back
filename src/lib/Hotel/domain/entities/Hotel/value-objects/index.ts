@@ -1,4 +1,4 @@
-export * from "./CreatedAt";
+export * from "./hotel-created-at";
 export * from "./HotelEmail";
 export * from "./HotelId";
 export * from "./HotelLocation";
