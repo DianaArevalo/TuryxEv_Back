@@ -17,12 +17,11 @@ export class BusinessStatus {
     this.value = value;
   }
 
-  public static create(value: BusinessStatusT): BusinessStatus {
-    if (!(value in BusinessStatusTMap)) {
+  public static create(value: string): BusinessStatus {
+    if (!Object.values(BusinessStatusTMap).includes(value as any))
       throw new Error(`Invalid statusvalue: ${value}`);
-    } else {
-      return new BusinessStatus(value);
-    }
+
+    return new BusinessStatus(value as BusinessStatusT);
   }
 
   public static fromPrimitives(value: 0 | 1 | 2): BusinessStatus {
