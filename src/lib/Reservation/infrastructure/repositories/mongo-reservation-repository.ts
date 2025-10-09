@@ -44,8 +44,8 @@ export class MongoReservationRepository implements ReservationRepository {
     return records.map((record) => this.createReservationEntity(record));
   }
 
-  async create(reservation: Reservation): Promise<void> {
-    await ReservationModel.create({
+  async create(reservation: Reservation): Promise<Reservation> {
+    const created = await ReservationModel.create({
       userId: reservation.userId.value,
       hotelId: reservation.hotelId.value,
       checkInDate: reservation.checkInDate.value,
@@ -56,9 +56,11 @@ export class MongoReservationRepository implements ReservationRepository {
         ? reservation.paymentId.value
         : undefined,
     });
+
+    return this.createReservationEntity(created);
   }
 
-  async edit(reservation: Reservation): Promise<void> {
+  async edit(reservation: Reservation): Promise<Reservation> {
     const record = await ReservationModel.findById(
       reservation.reservationId.value
     ).exec();
@@ -70,6 +72,8 @@ export class MongoReservationRepository implements ReservationRepository {
     record.status = reservation.status.toPrimitives();
 
     await record.save();
+
+    return this.createReservationEntity(record);
   }
 
   async confirm(

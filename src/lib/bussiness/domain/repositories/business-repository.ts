@@ -14,7 +14,7 @@ export interface BusinessRepository {
   getOneById(id: BusinessId): Promise<Business | null>;
   create(business: Business): Promise<Business>;
   edit(business: Business): Promise<Business>;
-  delete(id: BusinessId): Promise<void>;
+  softDelete(id: BusinessId): Promise<void>;
 
   getByPlan(plan: BusinessPlan, page: Page, limit: Limit): Promise<Business[]>;
   getByRole(role: BusinessRole, page: Page, limit: Limit): Promise<Business[]>;
