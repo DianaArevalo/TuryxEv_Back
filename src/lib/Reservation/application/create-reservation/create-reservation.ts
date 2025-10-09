@@ -22,7 +22,7 @@ interface CreateReservationHandlerProps {
 export class CreateReservation {
   constructor(private readonly repository: ReservationRepository) {}
 
-  async handler(props: CreateReservationHandlerProps): Promise<void> {
+  async handler(props: CreateReservationHandlerProps) {
     const now = new Date(Date.now());
     const createdAt = ReservationCreatedAt.create(now);
 
@@ -41,6 +41,8 @@ export class CreateReservation {
       updatedAt: ReservationUpdatedAt.now(createdAt),
     });
 
-    return this.repository.create(reservation);
+    const created = await this.repository.create(reservation);
+
+    return created.toResponse();
   }
 }

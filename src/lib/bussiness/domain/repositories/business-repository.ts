@@ -12,8 +12,8 @@ export interface BusinessRepository {
   getAll(page: Page, limit: Limit): Promise<Business[]>;
   getOneByEmail(email: BusinessEmail): Promise<Business | null>;
   getOneById(id: BusinessId): Promise<Business | null>;
-  create(business: Business): Promise<void>;
-  edit(business: Business): Promise<void>;
+  create(business: Business): Promise<Business>;
+  edit(business: Business): Promise<Business>;
   delete(id: BusinessId): Promise<void>;
 
   getByPlan(plan: BusinessPlan, page: Page, limit: Limit): Promise<Business[]>;

@@ -69,8 +69,8 @@ export class EditBusiness {
 
     if (props.picture) business.picture = new BusinessPicture(props.picture);
 
-    await this.repository.edit(business);
+    const edited = await this.repository.edit(business);
 
-    return business.toPrivateResponse();
+    return edited.toPrivateResponse();
   }
 }

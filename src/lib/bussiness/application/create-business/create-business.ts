@@ -64,8 +64,8 @@ export class CreateBusiness {
       providerData: BusinessProviderData.create(props.providerData),
     });
 
-    await this.repository.create(business);
+    const created = await this.repository.create(business);
 
-    return business.toPrivateResponse();
+    return created.toPrivateResponse();
   }
 }
