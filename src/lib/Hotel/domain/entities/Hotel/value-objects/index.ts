@@ -1,4 +1,4 @@
-export * from "./hotel-created-at";
+export * from "./Hotel-created-at";
 export * from "./HotelEmail";
 export * from "./HotelId";
 export * from "./HotelLocation";
@@ -6,7 +6,7 @@ export * from "./HotelName";
 export * from "./HotelPassword";
 export * from "./HotelPlan";
 export * from "./HotelStatus";
-export * from "./UpdatedAt";
+export * from "./Hotel-updated-at";
 export * from "./ProviderData";
 export * from "./HotelRole";
 export * from "./HotelScore";

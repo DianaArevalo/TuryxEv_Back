@@ -5,9 +5,9 @@ import { CityRepository } from "./CityRepository";
 export interface HotelRepository {
     getAll():(hotel: HotelI) => Promise<HotelI[]>;
     getOneByEmail(email: HotelEmail): Promise<HotelI | null>;
-    getOneById(id: HotelId): Promise<HotelI>;
+    getOneById(id: HotelId): Promise<Hotel | null>;
     create(hotel: HotelI): Promise<HotelI>;
-    edit(hotel: HotelI): Promise<HotelI>;
+    edit(hotel: Hotel): Promise<Hotel | void>;
     delete(id: HotelId): Promise<void>;
 
     // Methods business logic
@@ -17,4 +17,5 @@ export interface HotelRepository {
     getByStatus(status: HotelStatusT): Promise<HotelI[]>
     getByLocation(location: CityRepository): Promise<HotelI[]>
     getByProvider(provider: ProviderDataT): Promise<HotelI[]>
+    findExpiredFreePlans(now: Date): Promise<Hotel[]>;
 }

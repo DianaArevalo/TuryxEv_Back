@@ -1,4 +1,5 @@
-import { CityRepository } from "../../../repositories/CityRepository";
+import { ValidationError } from "~/lib/Shared/domain/exeptions";
+
 
 export class HotelLocation {
     private readonly city: string;
@@ -7,9 +8,9 @@ export class HotelLocation {
         this.city = city
     }
 
-    static async create(city: string, cityRepository: CityRepository): Promise<HotelLocation> {
+    static async create(city: string): Promise<HotelLocation> {
         if (!city || city.trim().length === 0) {
-            throw new Error ("The city can't be empty")            
+            throw new ValidationError ("The city can't be empty")            
         }
 
         return new HotelLocation(city.trim())

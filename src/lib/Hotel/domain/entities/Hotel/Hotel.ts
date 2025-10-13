@@ -1,6 +1,6 @@
 import {
-    CreatedAt, 
-    UpdatedAt, 
+    HotelCreatedAt, 
+    HotelUpdatedAt, 
     HotelId, 
     HotelName, 
     HotelEmail, 
@@ -11,20 +11,23 @@ import {
     HotelPlan, 
     HotelStatus,
     ProviderData} from "./value-objects"
+import { HotelPicture } from "./value-objects/HotelPicture"
 
 
-    export interface HotelI {
+    export interface HotelI {        
         hotelId?: HotelId
         name: HotelName
         email: HotelEmail
         password?: HotelPassword
         location: HotelLocation
+        picture?: HotelPicture
         plan: HotelPlan
         role: HotelRole
         score: HotelScore
         status: HotelStatus
-        createdAt: CreatedAt
-        updatedAt: UpdatedAt
+        createdAt: HotelCreatedAt
+        updatedAt: HotelUpdatedAt
+        freePlanEnd?: Date,
         providerData: ProviderData
     }
 
@@ -35,12 +38,14 @@ import {
         email: HotelEmail;
         password?: HotelPassword;
         location: HotelLocation;
+        picture?: HotelPicture | undefined;
         plan: HotelPlan;
         role: HotelRole;
         score: HotelScore
         status: HotelStatus;
-        createdAt: CreatedAt;
-        updatedAt: UpdatedAt;
+        createdAt: HotelCreatedAt;
+        updatedAt: HotelUpdatedAt;
+        freePlanEnd?: Date;
         providerData: ProviderData;
 
 
@@ -50,13 +55,19 @@ import {
             this.email = attr.email;
             this.password = attr.password;
             this.location = attr.location;
+            this.picture = attr.picture;
             this.plan = attr.plan;
             this.role = attr.role;
             this.score = attr.score
             this.status = attr.status;
             this.createdAt = attr.createdAt;
             this.updatedAt = attr.updatedAt;
+            this.freePlanEnd = attr.freePlanEnd;
             this.providerData = attr.providerData;
+        }
+
+        block(){
+            this.status = HotelStatus.create("BLOCKED")
         }
 
         toResponse() {
@@ -66,12 +77,14 @@ import {
                 email: this.email.getValue(),
                 password: this.password?.getValue(),
                 location: this.location.getValue(),
+                picture: this.picture?.value,
                 plan: this.plan.getValue(),
                 role: this.role.getValue(),
                 score: this.score.getValue(),
                 status: this.status.getValue(),
                 createdAt: this.createdAt.value,
                 updatedAt: this.updatedAt.value,
+                freePlanEnd: this.freePlanEnd?.toISOString()?? null,
                 providerData: this.providerData.getValue(),
             };
         }

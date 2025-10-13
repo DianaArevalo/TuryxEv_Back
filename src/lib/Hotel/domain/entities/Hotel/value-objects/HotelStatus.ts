@@ -21,7 +21,7 @@ export class HotelStatus {
 
     public static create(value: HotelStatusT): HotelStatus {
       if (!(value in HotelStatusTMap)) {
-        throw new Error(`Invalid statusvalue: ${value}`);
+        throw new Error(`Invalid status: ${value}`);
       } else {
         return new HotelStatus(value);      
       }
@@ -43,8 +43,4 @@ export class HotelStatus {
     getValue(): HotelStatusT {
         return this.value;
     }
-   
-
-
-
 }
