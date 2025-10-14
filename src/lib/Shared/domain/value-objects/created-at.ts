@@ -12,9 +12,14 @@ export class CreatedAtValueObject {
     if (isNaN(value.getTime())) throw new ValidationError("CreatedAt inválido");
 
     const now = new Date();
-    if (value > now)
+    const toleranceMs = 1000;
+    if (value.getTime() > now.getTime() + toleranceMs)
       throw new ValidationError("CreatedAt no puede estar en el futuro");
 
     return new CreatedAtValueObject(value);
+  }
+
+  toPrimitives(): Date {
+    return this.value;
   }
 }
