@@ -6,7 +6,7 @@ export interface HotelRepository {
     getAll():(hotel: HotelI) => Promise<HotelI[]>;
     getOneByEmail(email: HotelEmail): Promise<HotelI | null>;
     getOneById(id: HotelId): Promise<Hotel | null>;
-    create(hotel: HotelI): Promise<HotelI>;
+    create(hotel: HotelI): Promise<HotelI | Hotel>;
     edit(hotel: Hotel): Promise<Hotel | void>;
     delete(id: HotelId): Promise<void>;
 
