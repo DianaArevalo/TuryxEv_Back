@@ -136,7 +136,7 @@ export class MongoBusinessRepository implements BusinessRepository {
 
   private createBusinessEntity(record: any): Business {
     return new Business({
-      bussinessId: new BusinessId(record.bussinessId),
+      bussinessId: new BusinessId(String(record._id)),
       name: new BusinessName(record.name),
       email: new BusinessEmail(record.email),
       location: record.location
