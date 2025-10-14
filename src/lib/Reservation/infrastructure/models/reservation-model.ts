@@ -18,11 +18,7 @@ const ReservationSchema = new mg.Schema<IReservationDocument>(
     hotelId: { type: String, required: true },
     checkInDate: { type: Date, required: true },
     checkOutDate: { type: Date, required: true },
-    status: {
-      type: Number,
-      enum: [0, 1, 2],
-      required: true,
-    },
+    status: { type: Number, enum: [0, 1, 2], required: true },
     totalAmount: { type: Number, required: true },
     paymentId: { type: String, required: false, default: null, unique: false },
   },
