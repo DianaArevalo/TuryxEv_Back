@@ -1,10 +1,12 @@
+import { Page } from "~/lib/Shared/domain/value-objects/page";
 import { Hotel, HotelEmail, HotelI, HotelId, HotelPlanT, HotelStatusT, ProviderDataT } from "../entities";
 import { HotelRoleT } from "../entities/Hotel/value-objects/HotelRole";
 import { CityRepository } from "./CityRepository";
+import { Limit } from "~/lib/Shared/domain/value-objects/limit";
 
 export interface HotelRepository {
-    getAll():(hotel: HotelI) => Promise<HotelI[]>;
-    getOneByEmail(email: HotelEmail): Promise<HotelI | null>;
+    getAll(page: Page, limit: Limit): Promise<Hotel[]>;
+    getOneByEmail(email: HotelEmail): Promise<Hotel | null>;
     getOneById(id: HotelId): Promise<Hotel | null>;
     create(hotel: HotelI): Promise<HotelI | Hotel>;
     edit(hotel: Hotel): Promise<Hotel | void>;
