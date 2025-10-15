@@ -14,9 +14,26 @@ import {
   GetOneByReservationId,
   GetUserReservations,
 } from "../../Reservation/application";
+import {
+  CreateBusiness,
+  EditBusiness,
+  GetAllBusiness,
+  GetAllBusinessByPlan,
+  GetAllBusinessByRole,
+  GetAllBusinessByStatus,
+  GetOneBusinessByEmail,
+  GetOneBusinessById,
+  SoftDeleteBusiness,
+} from "~/lib/bussiness/application";
+import {
+  MongoBusinessRepository,
+  MongoLocationRepository,
+} from "~/lib/bussiness/infrastructure";
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
+const businessRepository = new MongoBusinessRepository();
+const locationRepository = new MongoLocationRepository();
 
 export const ServiceContainer = {
   user: {
@@ -34,5 +51,16 @@ export const ServiceContainer = {
     edit: new EditReservation(reservationRepository),
     confirm: new ConfirmReservation(reservationRepository),
     cancel: new CancelReservation(reservationRepository),
+  },
+  business: {
+    create: new CreateBusiness(businessRepository, locationRepository),
+    edit: new EditBusiness(businessRepository, locationRepository),
+    getAll: new GetAllBusiness(businessRepository),
+    getAllByPlan: new GetAllBusinessByPlan(businessRepository),
+    getAllByRole: new GetAllBusinessByRole(businessRepository),
+    getAllByStatus: new GetAllBusinessByStatus(businessRepository),
+    getOneByEmail: new GetOneBusinessByEmail(businessRepository),
+    getOneById: new GetOneBusinessById(businessRepository),
+    softDelete: new SoftDeleteBusiness(businessRepository),
   },
 };
