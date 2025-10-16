@@ -23,13 +23,20 @@ export class MongoBusinessRepository implements BusinessRepository {
   async getAll(page: Page, limit: Limit): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
-    const records = await BusinessModel.find().skip(offset).limit(limit.value);
+    const records = await BusinessModel.find({
+      status: { $ne: "BLOCKED" },
+    })
+      .skip(offset)
+      .limit(limit.value);
 
     return records.map((record) => this.createBusinessEntity(record));
   }
 
   async getOneByEmail(email: BusinessEmail): Promise<Business | null> {
-    const record = await BusinessModel.findOne({ email: email.value });
+    const record = await BusinessModel.findOne({
+      email: email.value,
+      status: { $ne: "BLOCKED" },
+    });
 
     if (!record) return null;
 
@@ -37,7 +44,10 @@ export class MongoBusinessRepository implements BusinessRepository {
   }
 
   async getOneById(id: BusinessId): Promise<Business | null> {
-    const record = await BusinessModel.findById(id.value);
+    const record = await BusinessModel.findOne({
+      _id: id.value,
+      status: { $ne: "BLOCKED" },
+    });
 
     if (!record) return null;
 
@@ -64,15 +74,16 @@ export class MongoBusinessRepository implements BusinessRepository {
   }
 
   async edit(business: Business): Promise<Business> {
-    const record = await BusinessModel.findById(
-      business.bussinessId.value
-    ).exec();
+    const record = await BusinessModel.findOne({
+      _id: business.bussinessId.value,
+      status: { $ne: "BLOCKED" },
+    }).exec();
 
     if (!record) throw new BusinessNotFoundError();
 
     record.name = business.name.value;
     record.password = business.password
-      ? await Hasher.hash(business.password?.value)
+      ? await Hasher.hash(business.password.value)
       : undefined;
     record.location = business.location?.value;
     record.idPlan = business.idPlan.toPrimitives();
@@ -87,7 +98,7 @@ export class MongoBusinessRepository implements BusinessRepository {
 
   async softDelete(id: BusinessId): Promise<void> {
     await BusinessModel.updateOne(
-      { id: id.value },
+      { _id: id.value },
       { status: new BusinessStatus("BLOCKED").toPrimitives() }
     );
   }
@@ -99,7 +110,10 @@ export class MongoBusinessRepository implements BusinessRepository {
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
-    const records = await BusinessModel.find({ idPlan: plan.toPrimitives() })
+    const records = await BusinessModel.find({
+      idPlan: plan.toPrimitives(),
+      status: { $ne: "BLOCKED" },
+    })
       .skip(offset)
       .limit(limit.value);
 
@@ -113,7 +127,10 @@ export class MongoBusinessRepository implements BusinessRepository {
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
-    const records = await BusinessModel.find({ idPlan: role.toPrimitives() })
+    const records = await BusinessModel.find({
+      idRole: role.toPrimitives(),
+      status: { $ne: "BLOCKED" },
+    })
       .skip(offset)
       .limit(limit.value);
 
@@ -127,7 +144,9 @@ export class MongoBusinessRepository implements BusinessRepository {
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
-    const records = await BusinessModel.find({ idPlan: status.toPrimitives() })
+    const records = await BusinessModel.find({
+      status: status.toPrimitives(),
+    })
       .skip(offset)
       .limit(limit.value);
 

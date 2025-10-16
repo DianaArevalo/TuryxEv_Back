@@ -16,7 +16,7 @@ export class BusinessRole {
   constructor(readonly value: BusinessRoleT) {}
 
   static create(value: string) {
-    if (!Object.values(BusinessRoleTMap).includes(value as any))
+    if (!Object.values(BusinessRoleTReverseMap).includes(value as any))
       throw new ValidationError(`Invalid value: ${value}`);
 
     return new BusinessRole(value as BusinessRoleT);

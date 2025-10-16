@@ -25,10 +25,8 @@ import {
   GetOneBusinessById,
   SoftDeleteBusiness,
 } from "~/lib/bussiness/application";
-import {
-  MongoBusinessRepository,
-  MongoLocationRepository,
-} from "~/lib/bussiness/infrastructure";
+import { MongoBusinessRepository } from "~/lib/bussiness/infrastructure/repositories/business-mongo-repository";
+import { MongoLocationRepository } from "~/lib/bussiness/infrastructure/repositories/location-mongo-repository";
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();

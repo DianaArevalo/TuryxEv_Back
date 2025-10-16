@@ -49,8 +49,8 @@ export class EditBusiness {
       business.name = BusinessName.create(props.name);
 
     if (props.password && business.providerData.value === "AUTH")
-      business.name = BusinessPassword.create(props.password);
-    else
+      business.password = BusinessPassword.create(props.password);
+    else if (props.password)
       throw new ValidationError(
         "Can't update password when you signed with OAuth provider"
       );

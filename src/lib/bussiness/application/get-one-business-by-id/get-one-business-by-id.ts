@@ -12,9 +12,7 @@ export class GetOneBusinessById {
   constructor(private readonly repository: BusinessRepository) {}
 
   async handler(props: GetOneBusinessByIdHandlerProps) {
-    const result = await this.repository.getOneByEmail(
-      new BusinessId(props.id)
-    );
+    const result = await this.repository.getOneById(new BusinessId(props.id));
 
     if (!result) throw new BusinessNotFoundError();
 

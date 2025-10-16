@@ -3,7 +3,7 @@ import { ValidationError } from "../exeptions";
 const DEFAULT_PAGE = 1;
 
 export class Page {
-  private constructor(readonly value: number) {}
+  constructor(readonly value: number) {}
 
   static create(value?: number): Page {
     if (value === undefined || value === null) return new Page(DEFAULT_PAGE);

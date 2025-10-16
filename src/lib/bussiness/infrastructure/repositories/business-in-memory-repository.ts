@@ -13,28 +13,41 @@ import {
 export class InMemoryBusinessRepository implements BusinessRepository {
   private businesses: Business[] = [];
 
-  async getAll(page: Page, limit: Limit): Promise<Business[]> {
+  private paginate(items: Business[], page: Page, limit: Limit): Business[] {
     const start = (page.value - 1) * limit.value;
     const end = start + limit.value;
+    return items.slice(start, end);
+  }
 
-    return this.businesses.slice(start, end);
+  async getAll(page: Page, limit: Limit): Promise<Business[]> {
+    const active = this.businesses.filter((b) => b.status.value !== "BLOCKED");
+    return this.paginate(active, page, limit);
   }
 
   async getOneByEmail(email: BusinessEmail): Promise<Business | null> {
-    return this.businesses.find((b) => b.email.value === email.value) ?? null;
+    return (
+      this.businesses.find(
+        (b) => b.email.value === email.value && b.status.value !== "BLOCKED"
+      ) ?? null
+    );
   }
 
   async getOneById(id: BusinessId): Promise<Business | null> {
     return (
-      this.businesses.find((b) => b.bussinessId.value === id.value) ?? null
+      this.businesses.find(
+        (b) => b.bussinessId.value === id.value && b.status.value !== "BLOCKED"
+      ) ?? null
     );
   }
 
   async create(business: Business): Promise<Business> {
+    business.bussinessId = new BusinessId(business.name.value);
+
     const exists = this.businesses.some(
       (b) => b.bussinessId.value === business.bussinessId.value
     );
     if (exists) throw new Error("Business already exists");
+
     this.businesses.push(business);
     return business;
   }
@@ -44,6 +57,7 @@ export class InMemoryBusinessRepository implements BusinessRepository {
       (b) => b.bussinessId.value === business.bussinessId.value
     );
     if (index === -1) throw new Error("Business not found");
+
     this.businesses[index] = business;
     return business;
   }
@@ -53,6 +67,7 @@ export class InMemoryBusinessRepository implements BusinessRepository {
       (b) => b.bussinessId.value === id.value
     );
     if (index === -1) throw new BusinessNotFoundError();
+
     this.businesses[index].status = new BusinessStatus("BLOCKED");
   }
 
@@ -62,11 +77,9 @@ export class InMemoryBusinessRepository implements BusinessRepository {
     limit: Limit
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
-      (b) => b.idPlan.value === plan.value
+      (b) => b.idPlan.value === plan.value && b.status.value !== "BLOCKED"
     );
-    const start = (page.value - 1) * limit.value;
-    const end = start + limit.value;
-    return filtered.slice(start, end);
+    return this.paginate(filtered, page, limit);
   }
 
   async getByRole(
@@ -75,11 +88,9 @@ export class InMemoryBusinessRepository implements BusinessRepository {
     limit: Limit
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
-      (b) => b.idRole.value === role.value
+      (b) => b.idRole.value === role.value && b.status.value !== "BLOCKED"
     );
-    const start = (page.value - 1) * limit.value;
-    const end = start + limit.value;
-    return filtered.slice(start, end);
+    return this.paginate(filtered, page, limit);
   }
 
   async getByStatus(
@@ -90,8 +101,6 @@ export class InMemoryBusinessRepository implements BusinessRepository {
     const filtered = this.businesses.filter(
       (b) => b.status.value === status.value
     );
-    const start = (page.value - 1) * limit.value;
-    const end = start + limit.value;
-    return filtered.slice(start, end);
+    return this.paginate(filtered, page, limit);
   }
 }

@@ -18,7 +18,7 @@ export class BusinessStatus {
   }
 
   public static create(value: string): BusinessStatus {
-    if (!Object.values(BusinessStatusTMap).includes(value as any))
+    if (!Object.values(BusinessStatusTReverseMap).includes(value as any))
       throw new Error(`Invalid statusvalue: ${value}`);
 
     return new BusinessStatus(value as BusinessStatusT);

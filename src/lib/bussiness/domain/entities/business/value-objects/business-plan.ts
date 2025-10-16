@@ -18,7 +18,7 @@ export class BusinessPlan {
   constructor(readonly value: BusinessPlanT) {}
 
   static create(value: string): BusinessPlan {
-    if (!Object.values(BusinessPlanTMap).includes(value as any))
+    if (!Object.values(BusinessPlanTReverseMap).includes(value as any))
       throw new ValidationError(`Invalid value: ${value}`);
 
     return new BusinessPlan(value as BusinessPlanT);
