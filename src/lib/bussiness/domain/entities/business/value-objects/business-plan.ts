@@ -27,7 +27,7 @@ export class BusinessPlan {
   static fromPrimitives(value: 0 | 1 | 2): BusinessPlan {
     const mapped = BusinessPlanTReverseMap[value];
     if (!mapped) {
-      throw new Error(`Invalid value: ${value}`);
+      throw new ValidationError(`Invalid value: ${value}`);
     }
     return new BusinessPlan(mapped);
   }

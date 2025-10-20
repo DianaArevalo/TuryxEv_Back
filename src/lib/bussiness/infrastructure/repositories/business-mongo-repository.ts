@@ -35,7 +35,6 @@ export class MongoBusinessRepository implements BusinessRepository {
   async getOneByEmail(email: BusinessEmail): Promise<Business | null> {
     const record = await BusinessModel.findOne({
       email: email.value,
-      status: { $ne: "BLOCKED" },
     });
 
     if (!record) return null;
@@ -46,7 +45,6 @@ export class MongoBusinessRepository implements BusinessRepository {
   async getOneById(id: BusinessId): Promise<Business | null> {
     const record = await BusinessModel.findOne({
       _id: id.value,
-      status: { $ne: "BLOCKED" },
     });
 
     if (!record) return null;
@@ -76,7 +74,6 @@ export class MongoBusinessRepository implements BusinessRepository {
   async edit(business: Business): Promise<Business> {
     const record = await BusinessModel.findOne({
       _id: business.bussinessId.value,
-      status: { $ne: "BLOCKED" },
     }).exec();
 
     if (!record) throw new BusinessNotFoundError();
@@ -112,7 +109,6 @@ export class MongoBusinessRepository implements BusinessRepository {
 
     const records = await BusinessModel.find({
       idPlan: plan.toPrimitives(),
-      status: { $ne: "BLOCKED" },
     })
       .skip(offset)
       .limit(limit.value);
@@ -129,7 +125,6 @@ export class MongoBusinessRepository implements BusinessRepository {
 
     const records = await BusinessModel.find({
       idRole: role.toPrimitives(),
-      status: { $ne: "BLOCKED" },
     })
       .skip(offset)
       .limit(limit.value);
@@ -146,6 +141,22 @@ export class MongoBusinessRepository implements BusinessRepository {
 
     const records = await BusinessModel.find({
       status: status.toPrimitives(),
+    })
+      .skip(offset)
+      .limit(limit.value);
+
+    return records.map((record) => this.createBusinessEntity(record));
+  }
+
+  async getByProvider(
+    providerData: BusinessProviderData,
+    page: Page,
+    limit: Limit
+  ): Promise<Business[]> {
+    const offset = (page.value - 1) * limit.value;
+
+    const records = await BusinessModel.find({
+      providerData: providerData.toPrimitives(),
     })
       .skip(offset)
       .limit(limit.value);

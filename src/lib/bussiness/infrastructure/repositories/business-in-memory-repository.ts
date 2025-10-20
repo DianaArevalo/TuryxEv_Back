@@ -5,6 +5,7 @@ import {
   BusinessId,
   BusinessNotFoundError,
   BusinessPlan,
+  BusinessProviderData,
   BusinessRepository,
   BusinessRole,
   BusinessStatus,
@@ -25,18 +26,12 @@ export class InMemoryBusinessRepository implements BusinessRepository {
   }
 
   async getOneByEmail(email: BusinessEmail): Promise<Business | null> {
-    return (
-      this.businesses.find(
-        (b) => b.email.value === email.value && b.status.value !== "BLOCKED"
-      ) ?? null
-    );
+    return this.businesses.find((b) => b.email.value === email.value) ?? null;
   }
 
   async getOneById(id: BusinessId): Promise<Business | null> {
     return (
-      this.businesses.find(
-        (b) => b.bussinessId.value === id.value && b.status.value !== "BLOCKED"
-      ) ?? null
+      this.businesses.find((b) => b.bussinessId.value === id.value) ?? null
     );
   }
 
@@ -77,7 +72,7 @@ export class InMemoryBusinessRepository implements BusinessRepository {
     limit: Limit
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
-      (b) => b.idPlan.value === plan.value && b.status.value !== "BLOCKED"
+      (b) => b.idPlan.value === plan.value
     );
     return this.paginate(filtered, page, limit);
   }
@@ -88,7 +83,7 @@ export class InMemoryBusinessRepository implements BusinessRepository {
     limit: Limit
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
-      (b) => b.idRole.value === role.value && b.status.value !== "BLOCKED"
+      (b) => b.idRole.value === role.value
     );
     return this.paginate(filtered, page, limit);
   }
@@ -100,6 +95,17 @@ export class InMemoryBusinessRepository implements BusinessRepository {
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
       (b) => b.status.value === status.value
+    );
+    return this.paginate(filtered, page, limit);
+  }
+
+  async getByProvider(
+    providerData: BusinessProviderData,
+    page: Page,
+    limit: Limit
+  ): Promise<Business[]> {
+    const filtered = this.businesses.filter(
+      (b) => b.providerData.value === providerData.value
     );
     return this.paginate(filtered, page, limit);
   }

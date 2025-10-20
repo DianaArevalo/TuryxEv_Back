@@ -4,6 +4,7 @@ import {
   BusinessEmail,
   BusinessId,
   BusinessPlan,
+  BusinessProviderData,
   BusinessRole,
   BusinessStatus,
 } from "../entities";
@@ -20,6 +21,11 @@ export interface BusinessRepository {
   getByRole(role: BusinessRole, page: Page, limit: Limit): Promise<Business[]>;
   getByStatus(
     status: BusinessStatus,
+    page: Page,
+    limit: Limit
+  ): Promise<Business[]>;
+  getByProvider(
+    providerData: BusinessProviderData,
     page: Page,
     limit: Limit
   ): Promise<Business[]>;
