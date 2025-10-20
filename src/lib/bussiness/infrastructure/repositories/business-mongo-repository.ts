@@ -1,4 +1,4 @@
-import { Page, Limit } from "~/lib/Shared/domain";
+import { Page, Limit } from "../../../Shared/domain";
 import {
   Business,
   BusinessCreatedAt,
@@ -17,7 +17,7 @@ import {
   BusinessUpdatedAt,
 } from "../../domain";
 import BusinessModel from "../models/business-model";
-import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
+import { Hasher } from "../../../Shared/Infraestructure/Hasher";
 
 export class MongoBusinessRepository implements BusinessRepository {
   async getAll(page: Page, limit: Limit): Promise<Business[]> {

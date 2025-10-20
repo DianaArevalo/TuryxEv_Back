@@ -1,4 +1,4 @@
-import { Page, Limit } from "~/lib/Shared/domain";
+import { Page, Limit } from "../../../Shared/domain";
 import {
   Business,
   BusinessEmail,

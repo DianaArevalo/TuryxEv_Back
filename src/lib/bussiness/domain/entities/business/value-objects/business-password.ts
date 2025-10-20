@@ -1,3 +1,3 @@
-import { PasswordValueObject } from "~/lib/Shared/domain";
+import { PasswordValueObject } from "../../../../../Shared/domain";
 
 export class BusinessPassword extends PasswordValueObject {}

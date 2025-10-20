@@ -1,4 +1,3 @@
-//perfil habilitado o deshabilitado
 export type BusinessStatusT = "OPEN" | "CLOSED" | "BLOCKED";
 
 const BusinessStatusTMap: Record<BusinessStatusT, 0 | 1 | 2> = {

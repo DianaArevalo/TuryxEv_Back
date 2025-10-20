@@ -1,3 +1,3 @@
-import { StringValueObject } from "~/lib/Shared/domain";
+import { StringValueObject } from "../../../../../Shared/domain";
 
 export class BusinessPicture extends StringValueObject {}

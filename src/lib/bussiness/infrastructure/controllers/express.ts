@@ -1,8 +1,8 @@
-import { ApiResponse } from "~/lib/User/infrastructure/ApiResponse";
+import { ApiResponse } from "../../../User/infrastructure/ApiResponse";
 import { express as ex } from "../../../Shared/Infraestructure/External";
 import { BusinessNotFoundError } from "../../domain";
-import { ServiceContainer } from "~/lib/Shared/Infraestructure/ServiceContainer";
-import { ValidationError } from "~/lib/Shared/domain/exeptions";
+import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
+import { ValidationError } from "../../../Shared/domain/exeptions";
 
 export class ExpressBusinessController {
   async create(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
@@ -100,8 +100,8 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: "Negocios",
+        message: "Se listan todas los negocios correctamente",
         body: business,
       };
 
@@ -138,8 +138,8 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: "negocios",
+        message: "Se listan todas los negocios correctamente",
         body: business,
       };
 
@@ -162,7 +162,7 @@ export class ExpressBusinessController {
 
   async getAllByRole(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
-      const role = req.query.plan;
+      const role = req.query.role;
       const page = req.query.page;
       const limit = req.query.limit;
 
@@ -176,8 +176,8 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: "Negocios",
+        message: "Se listan todas los negocios correctamente",
         body: business,
       };
 
@@ -204,7 +204,7 @@ export class ExpressBusinessController {
     next: ex.NextFunction
   ) {
     try {
-      const status = req.query.plan;
+      const status = req.query.status;
       const page = req.query.page;
       const limit = req.query.limit;
 
@@ -218,8 +218,8 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: "Negoscios",
+        message: "Se listan todas los negocios correctamente",
         body: business,
       };
 
@@ -240,12 +240,35 @@ export class ExpressBusinessController {
     }
   }
 
-  async getAllByEmail(
+  async getAllByProviderData(
     req: ex.Request,
     res: ex.Response,
     next: ex.NextFunction
   ) {
     try {
+      const provider = req.query.provider;
+      const page = req.query.page;
+      const limit = req.query.limit;
+
+      if (!provider)
+        throw new ValidationError("La query provider es necesaria");
+
+      const business = await ServiceContainer.business.getAllByProvider.handler(
+        {
+          providerData: provider.toString(),
+          page: page ? Number(page.toString()) : undefined,
+          limit: limit ? Number(limit.toString()) : undefined,
+        }
+      );
+
+      const response: ApiResponse<any[]> = {
+        success: true,
+        title: "Negocios",
+        message: "Se listan todas los negocios dado un provider correctamente",
+        body: business,
+      };
+
+      return res.status(200).json(response);
     } catch (error) {
       if (error instanceof BusinessNotFoundError) {
         const response: ApiResponse<null> = {
@@ -262,9 +285,47 @@ export class ExpressBusinessController {
     }
   }
 
-  async getAllById(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
+  async getOneByEmail(
+    req: ex.Request,
+    res: ex.Response,
+    next: ex.NextFunction
+  ) {
     try {
-      const id = req.query.plan;
+      const email = req.query.email;
+
+      if (!email) throw new ValidationError("La query email es necesario");
+
+      const business = await ServiceContainer.business.getOneByEmail.handler({
+        email: email.toString(),
+      });
+
+      const response: ApiResponse<any> = {
+        success: true,
+        title: "Negocio",
+        message: "Se retorna el negocio dado un email",
+        body: business,
+      };
+
+      return res.status(200).json(response);
+    } catch (error) {
+      if (error instanceof BusinessNotFoundError) {
+        const response: ApiResponse<null> = {
+          success: false,
+          title: "Ocurrio un error",
+          message: error.message,
+          body: null,
+        };
+
+        return res.status(error.statusCode).json(response);
+      }
+
+      next(error);
+    }
+  }
+
+  async getOneById(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
+    try {
+      const id = req.query.id;
 
       if (!id) throw new ValidationError("La query id es necesario");
 
@@ -274,8 +335,8 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: "Negocio",
+        message: "Se retorna un negocio dado un id correctamente",
         body: business,
       };
 
@@ -308,8 +369,8 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: "Negocio eliminado",
+        message: "Se elimino un negocio",
         body: business,
       };
 

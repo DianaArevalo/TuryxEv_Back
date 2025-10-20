@@ -4,7 +4,7 @@ import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
 import {config} from "./config/config"
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
-import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure";
+import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
 
 
 

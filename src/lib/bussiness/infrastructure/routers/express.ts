@@ -10,8 +10,12 @@ ExpressBusinessRouter.get("/get-all", controller.getAll);
 ExpressBusinessRouter.get("/get-all-by-plan", controller.getAllByPlan);
 ExpressBusinessRouter.get("/get-all-by-role", controller.getAllByRole);
 ExpressBusinessRouter.get("/get-all-by-status", controller.getAllByStatus);
-ExpressBusinessRouter.get("/get-all-by-email", controller.getAllByEmail);
-ExpressBusinessRouter.get("/get-all-by-id", controller.getAllById);
+ExpressBusinessRouter.get(
+  "/get-all-by-provider",
+  controller.getAllByProviderData
+);
+ExpressBusinessRouter.get("/get-all-by-email", controller.getOneByEmail);
+ExpressBusinessRouter.get("/get-all-by-id", controller.getOneById);
 ExpressBusinessRouter.patch("/delete", controller.softDelete);
 
 export { ExpressBusinessRouter };

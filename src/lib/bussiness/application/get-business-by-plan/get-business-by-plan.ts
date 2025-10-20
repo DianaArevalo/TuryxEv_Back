@@ -1,4 +1,4 @@
-import { Limit, Page } from "~/lib/Shared/domain";
+import { Limit, Page } from "../../../Shared/domain";
 import { BusinessPlan, BusinessRepository } from "../../domain";
 
 interface GetAllBusinessByPlanHandlerProps {

@@ -21,12 +21,13 @@ import {
   GetAllBusinessByPlan,
   GetAllBusinessByRole,
   GetAllBusinessByStatus,
+  GetBusinessByProviderData,
   GetOneBusinessByEmail,
   GetOneBusinessById,
   SoftDeleteBusiness,
-} from "~/lib/bussiness/application";
-import { MongoBusinessRepository } from "~/lib/bussiness/infrastructure/repositories/business-mongo-repository";
-import { MongoLocationRepository } from "~/lib/bussiness/infrastructure/repositories/location-mongo-repository";
+} from "../../bussiness/application";
+import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
+import { MongoLocationRepository } from "../../bussiness/infrastructure/repositories/location-mongo-repository";
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
@@ -57,6 +58,7 @@ export const ServiceContainer = {
     getAllByPlan: new GetAllBusinessByPlan(businessRepository),
     getAllByRole: new GetAllBusinessByRole(businessRepository),
     getAllByStatus: new GetAllBusinessByStatus(businessRepository),
+    getAllByProvider: new GetBusinessByProviderData(businessRepository),
     getOneByEmail: new GetOneBusinessByEmail(businessRepository),
     getOneById: new GetOneBusinessById(businessRepository),
     softDelete: new SoftDeleteBusiness(businessRepository),

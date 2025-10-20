@@ -2,6 +2,7 @@ export * from "./create-business/create-business";
 export * from "./edit-business/edit-business";
 export * from "./get-all-business/get-all-business";
 export * from "./get-business-by-plan/get-business-by-plan";
+export * from "./get-business-by-provider/get-business-by-provider";
 export * from "./get-business-by-role/get-business-by-role";
 export * from "./get-business-by-status/get-business-by-status";
 export * from "./get-one-business-by-email/get-one-business-by-email";
