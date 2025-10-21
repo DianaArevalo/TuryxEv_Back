@@ -14,8 +14,8 @@ export interface ReservationRepository {
   getAllUserReservations(userId: ReservationUserId): Promise<Reservation[]>;
   // Reservas que recive un hotel
   getAllByHotelId(hotelId: ReservationHotelId): Promise<Reservation[]>;
-  create(reservation: Reservation): Promise<void>;
-  edit(reservation: Reservation): Promise<void>;
+  create(reservation: Reservation): Promise<Reservation>;
+  edit(reservation: Reservation): Promise<Reservation>;
   confirm(
     reservationid: ReservationId,
     paymentId: ReservationPaymentId

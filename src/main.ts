@@ -4,6 +4,9 @@ import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/ExpressUserRouter";
 import {config} from "./config/config"
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
+import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
+import { HttpError } from "./lib/Shared/domain/exeptions";
+import { ApiResponse } from "./lib/User/infrastructure/ApiResponse";
 
 
 
@@ -16,6 +19,7 @@ app.use(ex.json());
 
 
 // Rutas
+app.use('/api/business', ExpressBusinessRouter);
 app.use("/api/users", ExpressUserRouter);
 app.use('/api/reservations', ExpressReservationRouter)
 
@@ -26,6 +30,17 @@ app.use((
     res: ex.Response,
     next: ex.NextFunction
 ) => {
+    if(err instanceof HttpError) {
+        const response: ApiResponse<null> = {
+            success: false,
+            title: "Ocurrio un error",
+            message: err.message,
+            body: null,
+        };
+
+        return res.status(err.statusCode).json(response);
+    }
+
     if (err instanceof Error) {
         console.error(err.stack);
         return res.status(500).json(err.message);
