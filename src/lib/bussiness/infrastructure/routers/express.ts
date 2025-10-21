@@ -14,8 +14,8 @@ ExpressBusinessRouter.get(
   "/get-all-by-provider",
   controller.getAllByProviderData
 );
-ExpressBusinessRouter.get("/get-all-by-email", controller.getOneByEmail);
-ExpressBusinessRouter.get("/get-all-by-id", controller.getOneById);
+ExpressBusinessRouter.get("/get-one-by-email", controller.getOneByEmail);
+ExpressBusinessRouter.get("/get-one-by-id", controller.getOneById);
 ExpressBusinessRouter.patch("/delete", controller.softDelete);
 
 export { ExpressBusinessRouter };

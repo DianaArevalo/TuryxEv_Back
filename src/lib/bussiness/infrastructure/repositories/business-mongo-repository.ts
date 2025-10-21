@@ -24,7 +24,7 @@ export class MongoBusinessRepository implements BusinessRepository {
     const offset = (page.value - 1) * limit.value;
 
     const records = await BusinessModel.find({
-      status: { $ne: "BLOCKED" },
+      status: { $ne: new BusinessStatus("BLOCKED").toPrimitives() },
     })
       .skip(offset)
       .limit(limit.value);

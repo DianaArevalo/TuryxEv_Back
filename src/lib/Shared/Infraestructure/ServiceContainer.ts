@@ -27,12 +27,12 @@ import {
   SoftDeleteBusiness,
 } from "../../bussiness/application";
 import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
-import { MongoLocationRepository } from "../../bussiness/infrastructure/repositories/location-mongo-repository";
+import { InMemoryLocationRepository } from "../../bussiness/infrastructure/repositories/location-in-memory-repository";
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
 const businessRepository = new MongoBusinessRepository();
-const locationRepository = new MongoLocationRepository();
+const locationRepository = new InMemoryLocationRepository(); // TODO: Change to MongoLocationRepository
 
 export const ServiceContainer = {
   user: {

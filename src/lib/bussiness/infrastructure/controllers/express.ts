@@ -218,7 +218,7 @@ export class ExpressBusinessController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Negoscios",
+        title: "Negocios",
         message: "Se listan todas los negocios correctamente",
         body: business,
       };
@@ -359,7 +359,7 @@ export class ExpressBusinessController {
 
   async softDelete(req: ex.Request, res: ex.Response, next: ex.NextFunction) {
     try {
-      const id = req.query.plan;
+      const id = req.query.id;
 
       if (!id) throw new ValidationError("La query id es necesario");
 
