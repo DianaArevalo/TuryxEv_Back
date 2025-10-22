@@ -1,5 +1,6 @@
 import {
   SuperAdminCanBlockAccounts,
+  SuperAdminCanCreateSuperUsers,
   SuperAdminCanEditBusiness,
   SuperAdminCanEditHotels,
   SuperAdminCanEditUsers,
@@ -19,6 +20,7 @@ interface SuperAdminI {
   name: SuperAdminName;
   email: SuperAdminEmail;
   password: SuperAdminPassword;
+  canCreateSuperUser?: SuperAdminCanCreateSuperUsers;
   canEditUsers?: SuperAdminCanEditUsers;
   canViewReservations?: SuperAdminCanViewReservations;
   canBlockAccounts?: SuperAdminCanBlockAccounts;
@@ -35,6 +37,7 @@ export class SuperAdmin {
   name: SuperAdminName;
   email: SuperAdminEmail;
   password: SuperAdminPassword;
+  canCreateSuperUser: SuperAdminCanCreateSuperUsers;
   canEditUsers: SuperAdminCanEditUsers;
   canViewReservations: SuperAdminCanViewReservations;
   canBlockAccounts: SuperAdminCanBlockAccounts;
@@ -50,6 +53,9 @@ export class SuperAdmin {
     this.name = attr.name;
     this.email = attr.email;
     this.password = attr.password;
+    this.canCreateSuperUser = attr.canCreateSuperUser
+      ? attr.canCreateSuperUser
+      : new SuperAdminCanCreateSuperUsers(false);
     this.canEditUsers = attr.canEditUsers
       ? attr.canEditUsers
       : new SuperAdminCanEditUsers(false);
@@ -77,5 +83,26 @@ export class SuperAdmin {
     this.lastLogin = attr.lastLogin
       ? attr.lastLogin
       : SuperAdminLastLogin.never();
+  }
+
+  toResponse() {
+    return {
+      superAdminId: this.superAdminId.value,
+      name: this.name.value,
+      email: this.email.value,
+      password: this.password.value,
+      permissions: {
+        canCreateSuperUser: this.canCreateSuperUser.value,
+        canEditUsers: this.canEditUsers.value,
+        canViewReservations: this.canViewReservations.value,
+        canBlockAccounts: this.canBlockAccounts.value,
+        canEditHotels: this.canEditHotels.value,
+        canEditBusiness: this.canEditBusiness.value,
+      },
+      isActive: this.isActive.value,
+      createdAt: this.createdAt.value,
+      updatedAt: this.updatedAt.value,
+      lastLogin: this.lastLogin.value,
+    };
   }
 }

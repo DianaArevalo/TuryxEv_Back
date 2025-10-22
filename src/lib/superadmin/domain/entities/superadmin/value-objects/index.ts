@@ -1,4 +1,5 @@
 export * from "./superadmin-can-block-accounts";
+export * from "./superadmin-can-create-superusers";
 export * from "./superadmin-can-edit-business";
 export * from "./superadmin-can-edit-hotels";
 export * from "./superadmin-can-edit-users";
