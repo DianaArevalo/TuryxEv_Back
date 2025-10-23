@@ -1,0 +1,25 @@
+import { Reservation, ReservationRepository } from "~/lib/Reservation/domain";
+import { ForViewReservations } from "../../../domain";
+import { ViewReservationsAdapter } from "~/lib/Reservation/infrastructure/adapters/driven/view-reservations-adapter";
+
+export class ForViewReservationsAdapter implements ForViewReservations {
+  viewReservations: ViewReservationsAdapter;
+
+  constructor(private readonly reservationRepository: ReservationRepository) {
+    this.viewReservations = new ViewReservationsAdapter(
+      this.reservationRepository
+    );
+  }
+
+  getAllByHotel(hotelId: string): Promise<Reservation[]> {
+    return this.viewReservations.getAllByHotel(hotelId);
+  }
+
+  getAllUserReservations(userId: string): Promise<Reservation[]> {
+    return this.viewReservations.getAllUserReservations(userId);
+  }
+
+  getOneById(reservationId: string): Promise<Reservation> {
+    return this.viewReservations.getOneById(reservationId);
+  }
+}
