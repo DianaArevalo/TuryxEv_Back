@@ -9,7 +9,7 @@ export class LastLoginValueObject {
     return new LastLoginValueObject(undefined);
   }
 
-  toPrimitives(): string {
+  toPrimitives(): string | undefined {
     return this.value ? this.value.toISOString() : undefined;
   }
 
