@@ -8,7 +8,7 @@ interface HotelGetByRolProps {
     limit?: number;
 }
 
-export class HotelGetRol {
+export class HotelGetByRol {
     constructor (private readonly repository: HotelRepository){}
 
     async handler(props: HotelGetByRolProps){

@@ -14,9 +14,29 @@ import {
   GetOneByReservationId,
   GetUserReservations,
 } from "../../Reservation/application";
+import { 
+  FindExpiredPlans,
+  HotelCreate, 
+  HotelEdit, 
+  HotelGetALL, 
+  HotelGetByPlan, 
+  HotelGetByProvider, 
+  HotelGetByRol, 
+  HotelGetByStatus, 
+  HotelGetOnByEmail, 
+  HotelGetOneById, 
+  HotelUpdatedStatus 
+} from "~/lib/Hotel/application";
+
+import { MongoHotelRepository } from "~/lib/Hotel/infraestructure/repositories/MongoHotelRepository";
+import { MongoLocationRepository } from "~/lib/Hotel/infraestructure/repositories/MongoLocationRepository";
+
+
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
+const hotelRepository = new MongoHotelRepository();
+const locationRepository = new MongoLocationRepository();
 
 export const ServiceContainer = {
   user: {
@@ -35,4 +55,18 @@ export const ServiceContainer = {
     confirm: new ConfirmReservation(reservationRepository),
     cancel: new CancelReservation(reservationRepository),
   },
+
+  hotel: {
+    getAll: new HotelGetALL(hotelRepository),
+    getOneByEmail: new HotelGetOnByEmail(hotelRepository),
+    getOneById: new HotelGetOneById(hotelRepository),
+    create: new HotelCreate(hotelRepository, locationRepository),
+    edit: new HotelEdit(hotelRepository, locationRepository),
+    updatedStatus: new HotelUpdatedStatus(hotelRepository),
+    getByPlan: new HotelGetByPlan(hotelRepository),
+    getByRole: new HotelGetByRol(hotelRepository),
+    getByStatus: new HotelGetByStatus(hotelRepository),
+    getByProvider: new HotelGetByProvider(hotelRepository),
+    FindExpiredPlans: new FindExpiredPlans(hotelRepository),
+  }
 };
