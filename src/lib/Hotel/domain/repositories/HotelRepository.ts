@@ -10,7 +10,7 @@ export interface HotelRepository {
     getOneById(id: HotelId): Promise<Hotel | null>;
     create(hotel: HotelI): Promise<HotelI | Hotel>;
     edit(hotel: Hotel): Promise<Hotel | void>;
-    delete(id: HotelId): Promise<void>;
+    //delete(id: HotelId): Promise<void>;
     updateStatus(id: HotelId, status: HotelStatus): Promise<void>;
 
     // Methods business logic
@@ -20,5 +20,5 @@ export interface HotelRepository {
     getByStatus(status: HotelStatus, page: Page, limit: Limit  ): Promise<Hotel[]>
     getByLocation(location: CityRepository): Promise<HotelI[]>
     getByProvider(provider: ProviderDataT): Promise<HotelI[]>
-    findExpiredFreePlans(now: Date): Promise<Hotel[]>;
+    findExpiredFreePlans(now: Date, id: HotelId): Promise<Hotel[]>;
 }
