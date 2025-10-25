@@ -148,14 +148,10 @@ export class MongoHotelRepository implements HotelRepository {
         .skip(offSet)        
         .limit(limit.value);
 
-        return records.map((record) => this.createHotelEntity(record));
-        
+        return records.map((record) => this.createHotelEntity(record));        
     }
 
-    // async getByLocation(location: CityRepository): Promise<HotelI[]> {
-        
-    // }
-
+   
 
     async getByProvider(
         provider: ProviderData, 

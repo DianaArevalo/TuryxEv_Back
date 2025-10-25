@@ -1,7 +1,6 @@
 import { Page } from "~/lib/Shared/domain/value-objects/page";
-import { Hotel, HotelEmail, HotelI, HotelId, HotelPlan, HotelPlanT, HotelStatus, HotelStatusT, ProviderData, ProviderDataT } from "../entities";
-import { HotelRole, HotelRoleT } from "../entities/Hotel/value-objects/HotelRole";
-import { CityRepository } from "./CityRepository";
+import { Hotel, HotelEmail, HotelI, HotelId, HotelPlan, HotelStatus, ProviderData } from "../entities";
+import { HotelRole} from "../entities/Hotel/value-objects/HotelRole";
 import { Limit } from "~/lib/Shared/domain/value-objects/limit";
 
 export interface HotelRepository {
@@ -18,7 +17,7 @@ export interface HotelRepository {
     getByPlan(plan: HotelPlan, page: Page, limit: Limit ): Promise<Hotel[]>
     getByRole(role: HotelRole, page: Page, limit: Limit): Promise<Hotel[]>
     getByStatus(status: HotelStatus, page: Page, limit: Limit  ): Promise<Hotel[]>
-    //getByLocation(location: CityRepository): Promise<Hotel[]>
+    
     getByProvider(provider: ProviderData, page: Page, limit: Limit): Promise<Hotel[]>
     findExpiredFreePlans(now: Date, id: HotelId): Promise<Hotel[]>;
 }
