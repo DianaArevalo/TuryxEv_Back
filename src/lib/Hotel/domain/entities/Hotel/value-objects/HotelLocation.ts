@@ -4,7 +4,7 @@ import { ValidationError } from "~/lib/Shared/domain/exeptions";
 export class HotelLocation {
     private readonly city: string;
 
-    private constructor(city: string){
+    constructor(city: string){
         this.city = city
     }
 
