@@ -75,7 +75,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
                 hotelId: this.hotelId?.value,
                 name: this.name.getValue(),
                 email: this.email.getValue(),
-                password: this.password?.getValue(),
+                password: this.password?.value,
                 location: this.location.getValue(),
                 picture: this.picture?.value,
                 plan: this.plan.getValue(),

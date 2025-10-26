@@ -87,7 +87,7 @@ export class MongoHotelRepository implements HotelRepository {
 
   async edit(hotel: Hotel): Promise<Hotel | void> {
     const record = await HotelModel.findOne({
-      _id: hotel.hotelId,
+      _id: hotel.hotelId?.value,
     }).exec();
 
     if (!record) throw new HotelNotFoundError();
