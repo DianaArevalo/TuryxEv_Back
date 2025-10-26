@@ -38,9 +38,9 @@ export class MongoHotelRepository implements HotelRepository {
   }
 
   async getOneByEmail(email: HotelEmail): Promise<Hotel | null> {
-    const record = await HotelModel.find({
+    const record = await HotelModel.findOne({
       email: email.value,
-      status: { $ne: "BLOCKED" },
+     
     });
 
     if (!record) return null;
@@ -185,7 +185,7 @@ export class MongoHotelRepository implements HotelRepository {
   private createHotelEntity(record: any): Hotel {
     return new Hotel({
       hotelId: new HotelId(String(record._id)),
-      name: new HotelName(record.name),
+      name: new HotelName(record.name), 
       email: new HotelEmail(record.email),
       location: new HotelLocation(record.location),
       picture: record.picture ? new HotelPicture(record.picture) : undefined,
