@@ -1,4 +1,4 @@
-// 0: Client, 1: Hotel, 2: HotelAdmin, 3: Business, 4: AdminBusiness, 5: SuperAdmin
+
 export type HotelRoleT = "HOTEL" | "STAFF";
 
 const HotelRoleTMap: Record<HotelRoleT, 1 | 2> = {

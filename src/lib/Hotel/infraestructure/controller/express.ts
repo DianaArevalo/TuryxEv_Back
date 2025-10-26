@@ -63,17 +63,18 @@ export class ExpressHotelController {
     }
 
     async create(req: ex.Request, res: ex.Response){
-        const { name, email, password, location } = req.body as {
+        const { name, email, password, location, role } = req.body as {
             name: string;
             email: string;
             password: string;
-            location: string;                   
+            location: string;
+            role?: number                   
         };
 
         const newHotel = await ServiceContainer.hotel.create.handler({
             name,
             email,
-            idRole: "HOTEL" as HotelRoleT,
+            idRole: role === 2 ? "STAFF": "HOTEL",
             idPlan: "FREE" as HotelPlanT,
             status: "OPEN" as HotelStatusT,
             password,
