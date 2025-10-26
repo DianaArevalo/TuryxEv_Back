@@ -4,6 +4,6 @@ import { HotelLocation, Hotel } from "../entities"
 export interface CityRepository {
     getValidCities(): Promise<HotelLocation[]>
     isValidCity(city: HotelLocation): Promise<boolean>
-    getHotelsByCity(): Promise<Hotel[]>
+   // getHotelsByCity(): Promise<Hotel[]>
     createCity(city: string): Promise<HotelLocation>
 }

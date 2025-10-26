@@ -67,7 +67,7 @@ export class ExpressHotelController {
             name: string;
             email: string;
             password: string;
-            location: string;            
+            location: string;                   
         };
 
         const newHotel = await ServiceContainer.hotel.create.handler({

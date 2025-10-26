@@ -30,6 +30,7 @@ import {
 
 import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
 import { MongoLocationRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoLocationRepository";
+import { InMemoryCityRepository } from "../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
 
 
 
@@ -37,6 +38,7 @@ const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
 const hotelRepository = new MongoHotelRepository();
 const locationRepository = new MongoLocationRepository();
+const cityRepository = new InMemoryCityRepository();
 
 export const ServiceContainer = {
   user: {
@@ -60,8 +62,8 @@ export const ServiceContainer = {
     getAll: new HotelGetALL(hotelRepository),
     getOneByEmail: new HotelGetOnByEmail(hotelRepository),
     getOneById: new HotelGetOneById(hotelRepository),
-    create: new HotelCreate(hotelRepository, locationRepository),
-    edit: new HotelEdit(hotelRepository, locationRepository),
+    create: new HotelCreate(hotelRepository, cityRepository),
+    edit: new HotelEdit(hotelRepository, cityRepository),
     updatedStatus: new HotelUpdatedStatus(hotelRepository),
     getByPlan: new HotelGetByPlan(hotelRepository),
     getByRole: new HotelGetByRol(hotelRepository),

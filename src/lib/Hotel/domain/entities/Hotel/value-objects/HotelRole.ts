@@ -15,9 +15,9 @@ export class HotelRole {
   constructor(readonly value: HotelRoleT) {}
 
   static create(value: HotelRoleT): HotelRole {
-    if (!Object.values(HotelRoleTMap).includes(value as any)) {
-      throw new Error(`Invalid value: ${value}`);
-    }
+   if (!Object.keys(HotelRoleTMap).includes(value)) {
+    throw new Error(`Invalid value: ${value}`);
+  }
     return new HotelRole(value);
   }
 

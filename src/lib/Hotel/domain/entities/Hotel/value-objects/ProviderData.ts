@@ -15,7 +15,7 @@ export class ProviderData {
   constructor(readonly value: ProviderDataT) {}
 
   static create(value: ProviderDataT): ProviderData {
-    if (!Object.keys(ProviderDataTMap).includes(value as any)) {
+    if (!Object.keys(ProviderDataTMap).includes(value)) {
       throw new Error(`Invalid value: ${value}`);
     }
     return new ProviderData(value);
