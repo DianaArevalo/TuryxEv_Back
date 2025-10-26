@@ -110,7 +110,7 @@ export class ExpressHotelController {
         const response: ApiResponse<null> = {
             success: true,
             title: "Hotel editado correctamente",
-            message: `Se editó el negocio.`,
+            message: `Se editó el hotel.`,
             body: null,
         };
 

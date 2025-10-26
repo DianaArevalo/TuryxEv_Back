@@ -73,14 +73,14 @@ import { HotelPicture } from "./value-objects/HotelPicture"
         toResponse() {
             return {
                 hotelId: this.hotelId?.value,
-                name: this.name.getValue(),
+                name: this.name.value,
                 email: this.email.getValue(),
                 password: this.password?.value,
                 location: this.location.getValue(),
                 picture: this.picture?.value,
                 plan: this.plan.getValue(),
                 role: this.role.getValue(),
-                score: this.score.getValue(),
+                score: this.score.value,
                 status: this.status.getValue(),
                 createdAt: this.createdAt.value,
                 updatedAt: this.updatedAt.value,
