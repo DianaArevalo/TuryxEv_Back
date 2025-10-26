@@ -1,6 +1,6 @@
-import { Page } from "~/lib/Shared/domain/value-objects/page";
+import { Page } from "../../../../lib/Shared/domain/value-objects/page";
 import { HotelPlan, HotelPlanT, HotelRepository } from "../../domain";
-import { Limit } from "~/lib/Shared/domain/value-objects/limit";
+import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
 
 interface HotelGetByPlanProps {
     plan: string;

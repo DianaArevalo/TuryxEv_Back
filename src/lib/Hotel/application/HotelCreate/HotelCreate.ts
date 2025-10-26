@@ -1,4 +1,4 @@
-import { ValidationError } from "~/lib/Shared/domain/exeptions";
+import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
 import { 
     CityRepository,    
     Hotel,    

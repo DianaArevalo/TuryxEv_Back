@@ -1,7 +1,7 @@
-import { ServiceContainer } from "~/lib/Shared/Infraestructure/ServiceContainer";
+import { ServiceContainer } from "../../../../lib/Shared/Infraestructure/ServiceContainer";
 import {express  as ex} from "../../../Shared/Infraestructure/External"
-import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
-import { ValidationError } from "~/lib/Shared/domain/exeptions";
+import { ApiResponse } from "../../../../lib/Shared/Infraestructure/ApiResponse";
+import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
 import { HotelId, HotelPlanT, HotelRoleT, HotelStatusT, ProviderDataT } from "../../domain";
 
 export class ExpressHotelController {

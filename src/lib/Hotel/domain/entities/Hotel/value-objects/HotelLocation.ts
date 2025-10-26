@@ -1,4 +1,4 @@
-import { ValidationError } from "~/lib/Shared/domain/exeptions";
+import { ValidationError } from "../../../../../../lib/Shared/domain/exeptions";
 
 
 export class HotelLocation {

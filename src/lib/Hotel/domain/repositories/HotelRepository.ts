@@ -1,7 +1,7 @@
-import { Page } from "~/lib/Shared/domain/value-objects/page";
+import { Page } from "../../../../lib/Shared/domain/value-objects/page";
 import { Hotel, HotelEmail, HotelI, HotelId, HotelPlan, HotelStatus, ProviderData } from "../entities";
 import { HotelRole} from "../entities/Hotel/value-objects/HotelRole";
-import { Limit } from "~/lib/Shared/domain/value-objects/limit";
+import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
 
 export interface HotelRepository {
     getAll(page: Page, limit: Limit): Promise<Hotel[]>;

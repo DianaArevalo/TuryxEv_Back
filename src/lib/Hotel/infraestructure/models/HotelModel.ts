@@ -1,4 +1,4 @@
-import { mongoose as mg } from "~/lib/Shared/Infraestructure/External";
+import { mongoose as mg } from "../../../../lib/Shared/Infraestructure/External";
 
 export interface IHotelDocument extends mg.Document {
   name: string;

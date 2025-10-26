@@ -1,6 +1,6 @@
 import { HotelRepository } from "../../domain";
-import { Page } from "~/lib/Shared/domain/value-objects/page";
-import { Limit } from "~/lib/Shared/domain/value-objects/limit";
+import { Page } from "../../../../lib/Shared/domain/value-objects/page";
+import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
 
 interface GetAllHotels {
     page?: number;

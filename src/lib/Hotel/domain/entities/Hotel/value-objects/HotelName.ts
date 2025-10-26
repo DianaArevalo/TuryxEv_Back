@@ -1,4 +1,4 @@
-import { NameValueObject } from "~/lib/Shared/domain";
+import { NameValueObject } from "../../../../../../lib/Shared/domain";
 
 export class HotelName extends NameValueObject {
     

@@ -26,10 +26,10 @@ import {
   HotelGetOnByEmail, 
   HotelGetOneById, 
   HotelUpdatedStatus 
-} from "~/lib/Hotel/application";
+} from "../../../lib/Hotel/application";
 
-import { MongoHotelRepository } from "~/lib/Hotel/infraestructure/repositories/MongoHotelRepository";
-import { MongoLocationRepository } from "~/lib/Hotel/infraestructure/repositories/MongoLocationRepository";
+import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
+import { MongoLocationRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoLocationRepository";
 
 
 

@@ -1,10 +1,10 @@
-import { Limit } from "~/lib/Shared/domain/value-objects/limit";
-import { Page } from "~/lib/Shared/domain/value-objects/page";
+import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
+import { Page } from "../../../../lib/Shared/domain/value-objects/page";
 import { CityRepository, Hotel, HotelCreatedAt, HotelEmail, HotelI, HotelId, HotelLocation, HotelName, HotelPlan, HotelRepository, HotelRole, HotelScore, HotelStatus, HotelUpdatedAt, ProviderData, ProviderDataT } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
 import { FindExpiredPlans } from "../../application/FindExpiredFreePlans/FindExpiredFreePlans";
 import HotelModel from "../models/HotelModel";
-import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
+import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { HotelNotFoundError } from "../../domain/exceptions/HotelNotFoundError";
 
 export class MongoHotelRepository implements HotelRepository {
