@@ -13,7 +13,7 @@ export interface IHotelDocument extends mg.Document {
   idPlan: 0 | 1 | 2;
   status: 0 | 1 | 2;
   providerData: 0 | 1 | 2;
-  freePlanEnd: string;
+  freePlanEnd: Date;
 }
 
 const HotelSchema = new mg.Schema<IHotelDocument>(
@@ -28,6 +28,7 @@ const HotelSchema = new mg.Schema<IHotelDocument>(
         idPlan: {type: Number, enum: [0,1,2], required: true},
         status: {type: Number, enum: [0,1,2], required: true},
         providerData: {type: Number, enum: [0,1,2], required: true},
+        freePlanEnd: {type: Date, required: false}
     },
     {
         timestamps: true,

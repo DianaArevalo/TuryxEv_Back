@@ -229,13 +229,12 @@ export class ExpressHotelController {
     }
 
     async findExpireddFreePlans(req: ex.Request, res: ex.Response){
-        const now = req.query.now;
-        const id = req.query.id;
+        const {now, id} = req.query
 
         if(!id || !now) throw new ValidationError("Se necesita las 2 queries now=fecha de expiración y el id del usuario afectado");
 
-        const dateNow = new Date(now.toString());
-        const hotelId = new HotelId(id.toString());
+        const dateNow = new Date(now as string);
+        const hotelId = new HotelId(id as string);
 
         const hotelExpired = await ServiceContainer.hotel.FindExpiredPlans.handler({
             id: hotelId.toString(),

@@ -177,7 +177,7 @@ export class MongoHotelRepository implements HotelRepository {
     ): Promise<Hotel[]> {
         const records = await HotelModel.find({
             _id: id.value,
-            plan: "FREE",
+            plan: 0,
             expirationDate: { $lte: now}, 
         });
         
