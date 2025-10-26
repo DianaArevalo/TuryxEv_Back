@@ -18,3 +18,5 @@ ExpressHotelRouter.get("/get-by-role", controller.getAllByRole);
 ExpressHotelRouter.get("/get-by-status", controller.getAllByStatus);
 ExpressHotelRouter.get("/get-by-provider", controller.getAllByProvider);
 ExpressHotelRouter.patch("/find-expired-plans", controller.findExpireddFreePlans);
+
+export { ExpressHotelRouter };

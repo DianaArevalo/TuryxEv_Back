@@ -6,6 +6,7 @@ import {config} from "./config/config"
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
 import { HttpError } from "./lib/Shared/domain/exeptions";
 import { ApiResponse } from "./lib/User/infrastructure/ApiResponse";
+import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
 
 
 
@@ -19,7 +20,8 @@ app.use(ex.json());
 
 // Rutas
 app.use("/api/users", ExpressUserRouter);
-app.use('/api/reservations', ExpressReservationRouter)
+app.use('/api/reservations', ExpressReservationRouter);
+app.use('/api/hotel', ExpressHotelRouter)
 
 // Middleware de errores
 app.use((

@@ -15,7 +15,7 @@ const HotelStatusTReverseMap: Record<0 | 1 | 2, HotelStatusT> = {
 export class HotelStatus {
     private readonly value: HotelStatusT
 
-    private constructor(value: HotelStatusT) {
+    constructor(value: HotelStatusT) {
         this.value = value
     }
 

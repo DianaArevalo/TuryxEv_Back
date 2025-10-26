@@ -15,7 +15,7 @@ export class MongoHotelRepository implements HotelRepository {
         const offSet = (page.value -1) * limit.value;
         
         const records = await HotelModel.find({
-            status: {$ne: "BLOCKED"},
+            status: {$ne: new HotelStatus("BLOCKED").toPrimitives()},
         })
          .skip(offSet)
          .limit(limit.value);
