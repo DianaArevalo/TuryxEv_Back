@@ -49,7 +49,7 @@ export class MongoHotelRepository implements HotelRepository {
   }
 
   async getOneById(id: HotelId): Promise<Hotel | null> {
-    const record = await HotelModel.find({
+    const record = await HotelModel.findOne({
       _id: id.value,
     });
 
