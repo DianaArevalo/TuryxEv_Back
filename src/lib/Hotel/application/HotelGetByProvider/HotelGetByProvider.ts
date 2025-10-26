@@ -17,5 +17,7 @@ export class HotelGetByProvider{
             Page.create(props.page),
             Limit.create(props.limit) 
         )
+
+        return result.map((it) => it.toResponse());
     }
 }

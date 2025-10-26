@@ -28,7 +28,7 @@ export interface HotelCreateHandlerProps {
   status: string;
   password?: string;
   location: string;
-  picture: string;
+  picture?: string;
   score?: string;
   freePlanExpiresAt?: Date;
   providerData?: string;
