@@ -1,3 +1,3 @@
-import { NameValueObject } from "~/lib/Shared/domain";
+import { NameValueObject } from "../../../../../Shared/domain";
 
 export class BusinessName extends NameValueObject {}

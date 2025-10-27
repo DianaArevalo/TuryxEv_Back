@@ -1,3 +1,5 @@
+import { ValidationError } from "../../../../../Shared/domain/exeptions";
+
 export type BusinessPlanT = "FREE" | "BASIC" | "PREMIUM";
 
 const BusinessPlanTMap: Record<BusinessPlanT, 0 | 1 | 2> = {
@@ -15,14 +17,17 @@ const BusinessPlanTReverseMap: Record<0 | 1 | 2, BusinessPlanT> = {
 export class BusinessPlan {
   constructor(readonly value: BusinessPlanT) {}
 
-  static create(value: BusinessPlanT): BusinessPlan {
-    return new BusinessPlan(value);
+  static create(value: string): BusinessPlan {
+    if (!Object.values(BusinessPlanTReverseMap).includes(value as any))
+      throw new ValidationError(`Invalid value: ${value}`);
+
+    return new BusinessPlan(value as BusinessPlanT);
   }
 
   static fromPrimitives(value: 0 | 1 | 2): BusinessPlan {
     const mapped = BusinessPlanTReverseMap[value];
     if (!mapped) {
-      throw new Error(`Invalid value: ${value}`);
+      throw new ValidationError(`Invalid value: ${value}`);
     }
     return new BusinessPlan(mapped);
   }

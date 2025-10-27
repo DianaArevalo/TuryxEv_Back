@@ -7,6 +7,8 @@ import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/route
 import { HttpError } from "./lib/Shared/domain/exeptions";
 import { ApiResponse } from "./lib/User/infrastructure/ApiResponse";
 import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
+import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
+
 
 
 
@@ -19,6 +21,7 @@ app.use(ex.json());
 
 
 // Rutas
+app.use('/api/business', ExpressBusinessRouter);
 app.use("/api/users", ExpressUserRouter);
 app.use('/api/reservations', ExpressReservationRouter);
 app.use('/api/hotel', ExpressHotelRouter)
@@ -30,9 +33,9 @@ app.use((
     res: ex.Response,
     next: ex.NextFunction
 ) => {
-    if (err instanceof HttpError) {
+    if(err instanceof HttpError) {
         const response: ApiResponse<null> = {
-             success: false,
+            success: false,
             title: "Ocurrio un error",
             message: err.message,
             body: null,

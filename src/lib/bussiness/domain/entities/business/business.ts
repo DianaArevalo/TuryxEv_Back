@@ -21,7 +21,7 @@ export interface BusinessI {
   password?: BusinessPassword;
   location?: BusinessLocation;
   picture?: BusinessPicture;
-  score?: BusinessScore;
+  score: BusinessScore;
   createdAt: BusinessCreatedAt;
   updatedAt: BusinessUpdatedAt;
   idRole: BusinessRole;
@@ -37,7 +37,7 @@ export class Business implements BusinessI {
   password?: BusinessPassword;
   location?: BusinessLocation;
   picture?: BusinessPicture;
-  score?: BusinessScore;
+  score: BusinessScore;
   createdAt: BusinessCreatedAt;
   updatedAt: BusinessUpdatedAt;
   idRole: BusinessRole;
