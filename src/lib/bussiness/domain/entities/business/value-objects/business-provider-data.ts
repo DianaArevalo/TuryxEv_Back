@@ -17,11 +17,11 @@ const BusinessProviderDataTReverseMap: Record<
 export class BusinessProviderData {
   constructor(readonly value: BusinessProviderDataT) {}
 
-  static create(value: BusinessProviderDataT): BusinessProviderData {
+  static create(value: string): BusinessProviderData {
     if (!Object.keys(BusinessProviderDataTMap).includes(value as any)) {
       throw new Error(`Invalid value: ${value}`);
     }
-    return new BusinessProviderData(value);
+    return new BusinessProviderData(value as BusinessProviderDataT);
   }
 
   static fromPrimitives(value: 0 | 1 | 2): BusinessProviderData {

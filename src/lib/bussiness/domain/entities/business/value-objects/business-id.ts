@@ -1,3 +1,3 @@
-import { IdValueObject } from "~/lib/Shared/domain";
+import { IdValueObject } from "../../../../../Shared/domain";
 
 export class BusinessId extends IdValueObject {}

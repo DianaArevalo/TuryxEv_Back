@@ -32,20 +32,24 @@ export class InMemoryReservationRepository implements ReservationRepository {
     return this.reservations.filter((r) => r.hotelId.value === hotelId.value);
   }
 
-  async create(reservation: Reservation): Promise<void> {
+  async create(reservation: Reservation): Promise<Reservation> {
     if (reservation.reservationId.value === "")
       reservation.reservationId = new ReservationId(
         `${reservation.userId.value}*${reservation.hotelId.value}`
       );
     this.reservations.push(reservation);
+
+    return reservation;
   }
 
-  async edit(reservation: Reservation): Promise<void> {
+  async edit(reservation: Reservation): Promise<Reservation> {
     const index = this.reservations.findIndex(
       (r) => r.reservationId.value === reservation.reservationId.value
     );
     if (index === -1) throw new ReservationNotFoundError();
     this.reservations[index] = reservation;
+
+    return reservation;
   }
 
   async confirm(

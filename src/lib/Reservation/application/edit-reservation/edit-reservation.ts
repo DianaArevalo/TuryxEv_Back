@@ -16,7 +16,7 @@ interface EditReservationHanlderProps {
 export class EditReservation {
   constructor(private readonly repository: ReservationRepository) {}
 
-  async handler(props: EditReservationHanlderProps): Promise<void> {
+  async handler(props: EditReservationHanlderProps) {
     if (!props.checkInDate && !props.checkOutDate) return;
 
     const reservation = await this.repository.getOneByReservationId(
@@ -58,6 +58,8 @@ export class EditReservation {
       reservation.createdAt
     );
 
-    await this.repository.edit(reservation);
+    const edited = await this.repository.edit(reservation);
+
+    return edited.toResponse();
   }
 }
