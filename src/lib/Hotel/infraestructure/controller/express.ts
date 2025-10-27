@@ -245,7 +245,7 @@ export class ExpressHotelController {
         const response: ApiResponse<any[]> = {
             success: true,
             title: "Hotel",
-            message: "Se listan todos los hoteles por proveedor correctamente",
+            message: "Muy pronto acabara el plan gratuito por favor actualiza tu plan",
             body: hotelExpired,
         };
 
