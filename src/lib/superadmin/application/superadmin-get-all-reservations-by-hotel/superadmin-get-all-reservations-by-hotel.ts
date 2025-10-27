@@ -1,6 +1,6 @@
 import { ForViewReservations } from "../../domain";
 
-export class GetAllReservationsByHotelId {
+export class SuperAdminGetAllReservationsByHotelId {
   constructor(private readonly viewReservations: ForViewReservations) {}
 
   async handler(hotelId: string) {

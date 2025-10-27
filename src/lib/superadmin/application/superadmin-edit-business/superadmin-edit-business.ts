@@ -1,6 +1,6 @@
 import { EditBusinessProps, ForBusinessEdit } from "../../domain";
 
-export class EditBusiness {
+export class SuperAdminEditBusiness {
   constructor(private readonly editBusiness: ForBusinessEdit) {}
 
   async handler(props: EditBusinessProps) {
