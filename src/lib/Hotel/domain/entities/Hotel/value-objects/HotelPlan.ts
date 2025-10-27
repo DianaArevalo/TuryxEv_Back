@@ -17,7 +17,11 @@ export class HotelPlan {
   constructor(readonly value: HotelPlanT) {}
 
   static create(value: HotelPlanT): HotelPlan {
-    return new HotelPlan(value);
+    const validValues: HotelPlanT[] = ["FREE", "BASIC", "PREMIUM"];
+  if (!validValues.includes(value)) {
+    throw new Error(`Invalid value: ${value}`);
+  }
+  return new HotelPlan(value);
   }
 
   static fromPrimitives(value: 0 | 1 | 2): HotelPlan {
