@@ -7,6 +7,7 @@ import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/route
 import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
 import { HttpError } from "./lib/Shared/domain/exeptions";
 import { ApiResponse } from "./lib/User/infrastructure/ApiResponse";
+import { ExpressSuperAdminRouter } from "./lib/superadmin/infrastructure/routers/express";
 
 
 
@@ -22,6 +23,7 @@ app.use(ex.json());
 app.use('/api/business', ExpressBusinessRouter);
 app.use("/api/users", ExpressUserRouter);
 app.use('/api/reservations', ExpressReservationRouter)
+app.use('/api/superadmin', ExpressSuperAdminRouter)
 
 // Middleware de errores
 app.use((
