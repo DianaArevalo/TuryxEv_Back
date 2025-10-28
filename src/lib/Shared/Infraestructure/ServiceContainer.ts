@@ -28,19 +28,24 @@ import {
 } from "../../bussiness/application";
 import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
 import { InMemoryLocationRepository } from "../../bussiness/infrastructure/repositories/location-in-memory-repository";
-import { CreateSuperAdmin } from "~/lib/superadmin/application/create-superadmin/create-superadmin";
-import { MongoSuperAdminRepository } from "~/lib/superadmin/infrastructure/repositories/mongo-superadmin-repository";
-import { SuperAdminEditBusiness } from "~/lib/superadmin/application/superadmin-edit-business/superadmin-edit-business";
-import { ForBusinessEditAdapter } from "~/lib/superadmin/infrastructure/adapters/driven/for-business-edit-proxy";
-import { EditSuperAdmin } from "~/lib/superadmin/application/edit-superadmin/edit-superadmin";
-import { GetAllSuperAdmins } from "~/lib/superadmin/application/get-all-superadmins/get-all-superadmins";
-import { SuperAdminGetAllReservationsByHotelId } from "~/lib/superadmin/application/superadmin-get-all-reservations-by-hotel/superadmin-get-all-reservations-by-hotel";
-import { ForViewReservationsAdapter } from "~/lib/superadmin/infrastructure/adapters/driven/for-view-reservations-adapter-proxy";
-import { GetAllSuperAdminsByIsActive } from "~/lib/superadmin/application/get-all-superadmins-by-isactive/get-all-superadmins-by-isactive";
-import { GetOneSuperAdminByEmail } from "~/lib/superadmin/application/get-one-superadmin-by-email/get-one-superadmin-by-email";
-import { GetOneSuperAdminById } from "~/lib/superadmin/application/get-one-superadmin-by-id/get-one-superadmin-by-id";
-import { SuperAdminGetAllUserReservations } from "~/lib/superadmin/application/superadmin-get-all-user-reservations/superadmin-get-all-user-reservations";
-import { SuperAdminGetOneReservationById } from "~/lib/superadmin/application/superadmin-get-one-reservation-by-id/superadmin-get-one-reservation-by-id";
+import { MongoSuperAdminRepository } from "../../superadmin/infrastructure/repositories";
+import {
+  ForBusinessEditAdapter,
+  ForViewReservationsAdapter,
+} from "../../superadmin/infrastructure/adapters";
+import {
+  CreateSuperAdmin,
+  EditSuperAdmin,
+  GetAllSuperAdmins,
+  GetAllSuperAdminsByIsActive,
+  GetOneSuperAdminByEmail,
+  GetOneSuperAdminById,
+  SoftDeleteSuperAdmin,
+  SuperAdminEditBusiness,
+  SuperAdminGetAllReservationsByHotelId,
+  SuperAdminGetAllUserReservations,
+  SuperAdminGetOneReservationById,
+} from "../../superadmin/application";
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
@@ -103,5 +108,7 @@ export const ServiceContainer = {
     getOneReservation: new SuperAdminGetOneReservationById(
       superAdminForViewReservations
     ),
+
+    softDelete: new SoftDeleteSuperAdmin(superAdminRepository),
   },
 };

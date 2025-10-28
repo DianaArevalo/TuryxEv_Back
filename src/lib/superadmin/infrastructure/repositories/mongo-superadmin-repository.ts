@@ -1,3 +1,4 @@
+import { Hasher } from "../../../Shared/Infraestructure/Hasher";
 import {
   SuperAdmin,
   SuperAdminCanBlockAccounts,
@@ -50,7 +51,7 @@ export class MongoSuperAdminRepository implements SuperAdminRepository {
     const record = await SuperAdminModel.create({
       name: superadmin.name.value,
       email: superadmin.email.value,
-      password: superadmin.password.value,
+      password: await Hasher.hash(superadmin.password.value),
       canCreateSuperUser: superadmin.canCreateSuperUser.value,
       canEditUsers: superadmin.canEditUsers.value,
       canViewReservations: superadmin.canViewReservations.value,
@@ -75,7 +76,7 @@ export class MongoSuperAdminRepository implements SuperAdminRepository {
 
     record.name = superadmin.name.value;
     record.email = superadmin.email.value;
-    record.password = superadmin.password.value;
+    record.password = await Hasher.hash(superadmin.password.value);
     record.canCreateSuperUser = superadmin.canCreateSuperUser.value;
     record.canEditUsers = superadmin.canEditUsers.value;
     record.canViewReservations = superadmin.canViewReservations.value;

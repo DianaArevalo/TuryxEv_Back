@@ -26,5 +26,6 @@ ExpressSuperAdminRouter.get(
   "/reservations/get-one-reservation",
   controller.getOneReservation
 );
+ExpressSuperAdminRouter.patch("/delete", controller.softDelete);
 
 export { ExpressSuperAdminRouter };
