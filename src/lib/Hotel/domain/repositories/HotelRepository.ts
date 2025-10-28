@@ -7,7 +7,7 @@ export interface HotelRepository {
     getAll(page: Page, limit: Limit): Promise<Hotel[]>;
     getOneByEmail(email: HotelEmail): Promise<Hotel | null>;
     getOneById(id: HotelId): Promise<Hotel | null>;
-    create(hotel: HotelI): Promise<HotelI | Hotel>;
+    create(hotel: HotelI): Promise< Hotel>;
     edit(hotel: Hotel): Promise<Hotel | void>;
     //delete(id: HotelId): Promise<void>;
     updateStatus(id: HotelId, status: HotelStatus): Promise<void>;
