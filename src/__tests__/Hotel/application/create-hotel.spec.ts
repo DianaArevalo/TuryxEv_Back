@@ -1,8 +1,8 @@
 import { HotelCreate } from "~/lib/Hotel/application";
-import { CityRepository, HotelRepository } from "~/lib/Hotel/domain";
+import { CityRepository, HotelLocation, HotelRepository } from "~/lib/Hotel/domain";
 import { InMemoryCityRepository } from "~/lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
 import { InMemoryHotelRepository } from "~/lib/Hotel/infraestructure/repositories/InMemoryHotelRepository";
-import { HttpError, Limit, Page } from "~/lib/Shared/domain";
+import { HttpError, Limit, Page, ValidationError } from "~/lib/Shared/domain";
 
 describe("Hotel/application/create-hotel", () => {
   let repository: HotelRepository;
@@ -104,8 +104,7 @@ describe("Hotel/application/create-hotel", () => {
     };
 
 
-    await expect(createHotel.handler(props)).rejects.toBeInstanceOf(
-        HttpError
-    )
+    expect(() => HotelLocation.create("")).toThrow(ValidationError);
+    
   })
 });

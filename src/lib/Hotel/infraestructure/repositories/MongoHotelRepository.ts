@@ -58,7 +58,7 @@ export class MongoHotelRepository implements HotelRepository {
     return this.createHotelEntity(record);
   }
 
-  async create(hotel: HotelI): Promise<HotelI | Hotel> {
+  async create(hotel: HotelI): Promise< Hotel> {
     const created = await HotelModel.create({
       name: hotel.name.value,
       email: hotel.email.value,

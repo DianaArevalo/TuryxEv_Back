@@ -3,7 +3,7 @@ import { CityRepository, Hotel, HotelLocation } from "../../domain";
 export class InMemoryCityRepository implements CityRepository {
   private readonly allowedCities = ["Bogotá", "Medellín", "Cali"];
 
-  async createCity(city: string): Promise<HotelLocation> {
+   createCity(city: string): HotelLocation {
     // Si no existe, lo creamos (por ahora simplemente devolvemos el string)
     if (!this.allowedCities.includes(city)) {
       this.allowedCities.push(city);

@@ -13,7 +13,7 @@ export class MongoLocationRepository implements CityRepository {
          throw new Error("Method not implemented.");
     }
 
-    createCity(city: string): Promise<HotelLocation> {
+    createCity(city: string): HotelLocation{
          throw new Error("Method not implemented.");
     }
 }

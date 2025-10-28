@@ -8,7 +8,7 @@ export class HotelLocation {
         this.city = city
     }
 
-    static async create(city: string): Promise<HotelLocation> {
+    static  create(city: string): HotelLocation {
         if (!city || city.trim().length === 0) {
             throw new ValidationError ("The city can't be empty")            
         }

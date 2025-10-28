@@ -10,3 +10,4 @@ export * from "./Hotel-updated-at";
 export * from "./ProviderData";
 export * from "./HotelRole";
 export * from "./HotelScore";
+export * from "./HotelPicture"
