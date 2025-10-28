@@ -174,4 +174,19 @@ export class ExpressSuperAdminController {
 
     return res.status(200).json(response);
   }
+
+  async softDelete(req: ex.Request, res: ex.Response) {
+    const id = req.params.id;
+
+    await ServiceContainer.superAdmin.softDelete.handler({ id });
+
+    const response: ApiResponse<null> = {
+      success: true,
+      title: "Superadmin eliminado",
+      message: "Superadmin eliminado correctamente",
+      body: null,
+    };
+
+    return res.status(200).json(response);
+  }
 }
