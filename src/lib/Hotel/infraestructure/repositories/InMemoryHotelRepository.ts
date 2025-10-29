@@ -55,8 +55,7 @@ export class InMemoryHotelRepository {
   }
 
   async getAll(page: Page, limit: Limit): Promise<Hotel[]> {
-    const active = this.hotels.filter(h => h.status.getValue() !== "BLOCKED");
-    return this.paginate(active, page, limit);
+    return this.paginate(this.hotels, page, limit);
   }
 
   async getOneByEmail(email: HotelEmail): Promise<Hotel | null> {
@@ -79,12 +78,12 @@ export class InMemoryHotelRepository {
     return hotel;
   }
 
-  async edit(hotel: Hotel): Promise<Hotel> {
-    const index = this.hotels.findIndex(h => h.hotelId?.value === hotel.hotelId?.value);
-    if (index === -1) throw new Error("Hotel not found");
-
-    this.hotels[index] = hotel;
-    return hotel;
+  async edit(hotel: Hotel): Promise<void> {
+   const index = this.hotels.findIndex(h => h.email.value === hotel.email.value);
+    if (index !== -1) {
+      this.hotels[index] = hotel; // ✅ sobrescribe con la versión actualizada
+    }
+    return
   }
 
   async updateStatus(id: HotelId, status: HotelStatus): Promise<void> {
@@ -115,12 +114,14 @@ export class InMemoryHotelRepository {
     return this.paginate(filtered, page, limit);
   }
 
-  async findExpiredFreePlans(now: Date): Promise<Hotel[]> {
-    return this.hotels.filter(
-      h =>
-        h.plan.getValue() === "FREE" &&
-        h.freePlanEnd !== undefined &&
-        h.freePlanEnd <= now
-    );
+  async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
+     return this.hotels.filter(hotel => {
+    const planValue = hotel.plan.getValue();
+    const isFreePlan = planValue === "FREE";
+    const isExpired = hotel.freePlanEnd?.hasExpired(currentDate) ?? false;
+    return isFreePlan && isExpired;
+  });
   }
+
+  
 }

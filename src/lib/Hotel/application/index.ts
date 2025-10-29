@@ -8,5 +8,5 @@ export * from "./HotelGetByPlan/HotelGetByPlan"
 export * from "./HotelGetByRol/HotelGetByRol"
 export * from "./HotelGetByStatus/HotelGetByStatus"
 export * from "./HotelGetByProvider/HotelGetByProvider"
-export * from "./FindExpiredFreePlans/FindExpiredFreePlans"
+export * from "./CheckHotelFreePlans/CheckHotelFreePlans"
 
