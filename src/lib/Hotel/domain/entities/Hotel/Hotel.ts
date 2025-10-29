@@ -10,7 +10,8 @@ import {
     HotelLocation, 
     HotelPlan, 
     HotelStatus,
-    ProviderData} from "./value-objects"
+    ProviderData,
+    HotelFreePlanEnd} from "./value-objects"
 import { HotelPicture } from "./value-objects/HotelPicture"
 
 
@@ -27,7 +28,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
         status: HotelStatus
         createdAt: HotelCreatedAt
         updatedAt: HotelUpdatedAt
-        freePlanEnd?: Date,
+        freePlanEnd?: HotelFreePlanEnd,
         providerData: ProviderData
     }
 
@@ -45,7 +46,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
         status: HotelStatus;
         createdAt: HotelCreatedAt;
         updatedAt: HotelUpdatedAt;
-        freePlanEnd?: Date;
+        freePlanEnd?: HotelFreePlanEnd;
         providerData: ProviderData;
 
 
@@ -84,7 +85,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
                 status: this.status.getValue(),
                 createdAt: this.createdAt.value,
                 updatedAt: this.updatedAt.value,
-                freePlanEnd: this.freePlanEnd?.toISOString()?? null,
+                freePlanEnd: this.freePlanEnd?.getValue(),
                 providerData: this.providerData.getValue(),
             };
         }

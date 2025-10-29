@@ -11,3 +11,4 @@ export * from "./ProviderData";
 export * from "./HotelRole";
 export * from "./HotelScore";
 export * from "./HotelPicture"
+export * from "./HotelFreePlanEnd"
