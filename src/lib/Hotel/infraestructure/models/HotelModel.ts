@@ -19,7 +19,7 @@ export interface IHotelDocument extends mg.Document {
 const HotelSchema = new mg.Schema<IHotelDocument>(
     {
         name: { type: String, required: true},
-        email: { type: String, required: true},
+        email: { type: String, required: true, unique: true},
         password: { type: String, required: false},
         location: { type: String, required: false},
         picture: { type: String, required: false},
