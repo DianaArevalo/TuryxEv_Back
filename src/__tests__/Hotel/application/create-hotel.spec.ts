@@ -104,7 +104,7 @@ describe("Hotel/application/create-hotel", () => {
     };
 
 
-    expect(() => HotelLocation.create("")).toThrow(ValidationError);
+    expect(() => HotelLocation.create("")).toThrow(HttpError);
     
   })
 });

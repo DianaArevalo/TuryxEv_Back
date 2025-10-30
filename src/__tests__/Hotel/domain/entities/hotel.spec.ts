@@ -107,6 +107,6 @@ describe("Hotel Entity", () => {
         updatedAt: new HotelUpdatedAt(new Date()),
         providerData: new ProviderData("AUTH"),
       });
-    }).toThrow(ValidationError);
+    }).toThrow(HttpError);
   });
 });
