@@ -14,23 +14,23 @@ export class UserPassword {
         const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(this.value);
 
          if (this.value.length < minLength) {
-      throw new Error('La contraseña debe tener al menos 8 caracteres.');
+      throw new Error('The password must be at least 8 characters long.');
     }
 
     if (!hasUpperCase) {
-      throw new Error('La contraseña debe contener al menos una letra mayúscula.');
+      throw new Error('The password must contain at least one uppercase letter.');
     }
 
     if (!hasLowerCase) {
-      throw new Error('La contraseña debe contener al menos una letra minúscula.');
+      throw new Error('The password must contain at least one lowercase letter');
     }
 
     if (!hasNumber) {
-      throw new Error('La contraseña debe contener al menos un número.');
+      throw new Error('The password must contain at least one number.');
     }
 
     if (!hasSymbol) {
-      throw new Error('La contraseña debe contener al menos un carácter especial.');
+      throw new Error('The password must contain at least one special character.');
     }
     }
 }
