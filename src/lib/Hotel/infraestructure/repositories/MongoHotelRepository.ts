@@ -172,14 +172,8 @@ export class MongoHotelRepository implements HotelRepository {
     return records.map((record) => this.createHotelEntity(record));
   }
 
-  async findExpiredFreePlans(now: Date, id: HotelId): Promise<Hotel[]> {
-    const records = await HotelModel.find({
-      _id: id.value,
-      plan: 0,
-      expirationDate: { $lte: now },
-    });
-
-    return records.map((record) => this.createHotelEntity(record));
+  async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
+      return
   }
 
   private createHotelEntity(record: any): Hotel {

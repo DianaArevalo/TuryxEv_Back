@@ -64,7 +64,7 @@ export class HotelEdit {
     //password, cambiar password
 
     if (props.password) {
-      if (hotel.providerData !== ("AUTH" as unknown as ProviderData)) {
+      if (hotel.providerData.getValue() !== "AUTH" ) {
         throw new ValidationError(
           "Can't update password when you sign in with an external provider"
         );

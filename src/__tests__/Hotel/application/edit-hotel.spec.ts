@@ -22,7 +22,7 @@ const Hotel2 = {
   idPlan: "FREE",
   status: "OPEN",
   location: "Bogotá",
-  providerData: "AUTHGOOGLE",
+  providerData: "AUTHGOOGLE" as ProviderDataT, // 👈 importante mantener el tipo correcto
 };
 
 describe("Hotel/application/edit-hotel", () => {
@@ -81,13 +81,18 @@ describe("Hotel/application/edit-hotel", () => {
     await expect(editHotel.handler(edit)).rejects.toBeInstanceOf(HttpError);
   });
 
-   it("should throw an error when password is provided and provider isn't 'AUTH'", async () => {
+  it("should throw an error when password is provided and provider isn't 'AUTH'", async () => {
+    // Creamos el hotel con un providerData diferente
     const created = await createHotel.handler(Hotel2);
+
     const edit = {
       hotelId: created.hotelId as string,
       password: "$uperPassword555",
     };
 
-    await expect(editHotel.handler(edit)).rejects.toBeInstanceOf(HttpError);
+    // 👇 Validamos que lance el error correcto
+    await expect(editHotel.handler(edit)).rejects.toThrow(
+      "Can't update password when you sign in with an external provider"
+    );
   });
 });

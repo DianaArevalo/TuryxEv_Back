@@ -81,7 +81,7 @@ export class InMemoryHotelRepository {
   async edit(hotel: Hotel): Promise<void> {
    const index = this.hotels.findIndex(h => h.email.value === hotel.email.value);
     if (index !== -1) {
-      this.hotels[index] = hotel; // ✅ sobrescribe con la versión actualizada
+      this.hotels[index] = hotel; 
     }
     return
   }
