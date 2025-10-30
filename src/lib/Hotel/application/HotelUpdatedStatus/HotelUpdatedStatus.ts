@@ -15,4 +15,4 @@ export class HotelUpdatedStatus {
 
         console.info("The user has been blocked and is under verification for account desactivation, with no monetary refund")
     }
-}
+} 

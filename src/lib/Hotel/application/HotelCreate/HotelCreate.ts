@@ -1,22 +1,23 @@
 import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
-import { 
-    CityRepository,    
-    Hotel,    
-    HotelCreatedAt, 
-    HotelEmail, 
-    HotelName, 
-    HotelPassword, 
-    HotelPlan, 
-    HotelPlanT, 
-    HotelRepository, 
-    HotelRole, 
-    HotelRoleT, 
-    HotelScore, 
-    HotelStatus, 
-    HotelStatusT, 
-    HotelUpdatedAt, 
-    ProviderData, 
-    ProviderDataT 
+import {
+  CityRepository,
+  Hotel,
+  HotelCreatedAt,
+  HotelEmail,
+  HotelFreePlanEnd,
+  HotelName,
+  HotelPassword,
+  HotelPlan,
+  HotelPlanT,
+  HotelRepository,
+  HotelRole,
+  HotelRoleT,
+  HotelScore,
+  HotelStatus,
+  HotelStatusT,
+  HotelUpdatedAt,
+  ProviderData,
+  ProviderDataT,
 } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
 
@@ -41,8 +42,6 @@ export class HotelCreate {
   ) {}
 
   async handler(props: HotelCreateHandlerProps) {
-    
-
     const createdAt = HotelCreatedAt.now();
     const city = await this.cityRepository.createCity(props.location);
 
@@ -55,36 +54,40 @@ export class HotelCreate {
       );
     }
 
-    let freePlanExpiresAt : Date | undefined = undefined;
+    let freePlanExpiresAt: Date | undefined = undefined;
     if (props.idPlan === "FREE") {
-        freePlanExpiresAt = new Date(
-            createdAt.value.getTime() + 15 * 24 * 60 * 60 * 1000
-        );
-        console.info(`The plan expire: ${freePlanExpiresAt.toISOString()}`);        
+      freePlanExpiresAt = new Date(
+        createdAt.value.getTime() + 15 * 24 * 60 * 60 * 1000
+      );
+      console.info(`The plan expire: ${freePlanExpiresAt.toISOString()}`);
     }
 
     const tempHotel = new Hotel({
-        name: HotelName.create(props.name) as HotelName,
-        email: HotelEmail.create(props.email) as HotelEmail,
-        password: props.password 
+      name: HotelName.create(props.name) as HotelName,
+      email: HotelEmail.create(props.email) as HotelEmail,
+      password: props.password
         ? (HotelPassword.create(props.password) as HotelPassword)
         : undefined,
-        location: city,
-        picture: props.picture ? new HotelPicture(props.picture) : undefined,
-        score: HotelScore.create(1) as HotelScore,
-        createdAt: createdAt,
-        updatedAt: HotelUpdatedAt.now(createdAt) as HotelUpdatedAt,
-        role: HotelRole.create(props.idRole as HotelRoleT) as HotelRole,
-        plan: HotelPlan.create(
-            (props.idPlan as HotelPlanT) || "FREE"
-        ) as HotelPlan,
-        status: HotelStatus.create(props.status as HotelStatusT),
-        freePlanEnd: freePlanExpiresAt,
-        providerData: ProviderData.create(props.providerData as ProviderDataT) as ProviderData,
+      location: city,
+      picture: props.picture ? new HotelPicture(props.picture) : undefined,
+      score: HotelScore.create(1) as HotelScore,
+      createdAt: createdAt,
+      updatedAt: HotelUpdatedAt.now(createdAt) as HotelUpdatedAt,
+      role: HotelRole.create(props.idRole as HotelRoleT) as HotelRole,
+      plan: HotelPlan.create(
+        (props.idPlan as HotelPlanT) || "FREE"
+      ) as HotelPlan,
+      status: HotelStatus.create(props.status as HotelStatusT),
+      freePlanEnd: props.freePlanExpiresAt
+        ? new HotelFreePlanEnd(props.freePlanExpiresAt)
+        : HotelFreePlanEnd.create(new Date()), // 15 días desde hoy
+
+      providerData: ProviderData.create(
+        props.providerData as ProviderDataT
+      ) as ProviderData,
     });
 
-
-    const createdHotelId = await this.repository.create(tempHotel) as Hotel;
+    const createdHotelId = (await this.repository.create(tempHotel)) as Hotel;
 
     if (!createdHotelId) {
       throw new ValidationError("Hotel creation failed, no ID returned");

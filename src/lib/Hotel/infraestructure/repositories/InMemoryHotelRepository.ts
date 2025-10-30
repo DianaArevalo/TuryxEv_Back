@@ -87,9 +87,10 @@ export class InMemoryHotelRepository {
   }
 
   async updateStatus(id: HotelId, status: HotelStatus): Promise<void> {
-    const index = this.hotels.findIndex(h => h.hotelId?.value === id.value);
-    if (index === -1) throw new Error("Hotel not found");
-    this.hotels[index].status = status;
+    const hotel = this.hotels.find(h => h.hotelId && h.hotelId.equals(id));
+  if (!hotel) throw new Error("Hotel not found");
+  hotel.status = status;
+  
   }
 
   async getByPlan(plan: HotelPlan, page: Page, limit: Limit): Promise<Hotel[]> {
