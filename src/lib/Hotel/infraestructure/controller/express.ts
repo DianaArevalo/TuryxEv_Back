@@ -229,27 +229,26 @@ export class ExpressHotelController {
         return res.status(200).json(response);
     }
 
-    async findExpireddFreePlans(req: ex.Request, res: ex.Response){
-        const {now, id} = req.query
+    async checkHotelFreePlans(req: ex.Request, res: ex.Response): Promise<void> {
+             try {
+      const currentDate = new Date();
 
-        if(!id || !now) throw new ValidationError("Se necesita las 2 queries now=fecha de expiración y el id del usuario afectado");
+      await ServiceContainer.hotel.CheckHotelFreePlans.handler({
+        currentDate,
+        page: 1,
+        limit: 50,
+      });
 
-        const dateNow = new Date(now as string);
-        const hotelId = new HotelId(id as string);
-
-        const hotelExpired = await ServiceContainer.hotel.FindExpiredPlans.handler({
-            id: hotelId.toString(),
-            now: dateNow
-        });
-
-        const response: ApiResponse<any[]> = {
-            success: true,
-            title: "Hotel",
-            message: "Muy pronto acabara el plan gratuito por favor actualiza tu plan",
-            body: hotelExpired,
-        };
-
-        return res.status(200).json(response);
-        
+      res.status(200).json({
+        message: "Verificación completada. Los hoteles con plan FREE vencido fueron actualizados a estado BLOCKED (si correspondía).",
+      });
+    } catch (error: any) {
+      console.error("Error verificando planes FREE vencidos:", error);
+      res.status(500).json({
+        message: "Error al verificar los hoteles con plan FREE vencido.",
+        error: error.message,
+      });
     }
+    }
+
 }

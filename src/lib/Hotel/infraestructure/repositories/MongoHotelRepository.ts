@@ -19,7 +19,6 @@ import {
   ProviderDataT,
 } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
-import { FindExpiredPlans } from "../../application/FindExpiredFreePlans/FindExpiredFreePlans";
 import HotelModel from "../models/HotelModel";
 import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { HotelNotFoundError } from "../../domain/exceptions/HotelNotFoundError";
@@ -172,9 +171,16 @@ export class MongoHotelRepository implements HotelRepository {
     return records.map((record) => this.createHotelEntity(record));
   }
 
-  async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
-      return
+    async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
+    const records = await HotelModel.find({
+      idPlan: "FREE", // o 0 si en tu modelo se guarda como número
+      freePlanEnd: { $lte: currentDate },
+      status: { $ne: "BLOCKED" },
+    });
+
+    return records.map((record) => this.createHotelEntity(record));
   }
+
 
   private createHotelEntity(record: any): Hotel {
     return new Hotel({

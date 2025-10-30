@@ -6,8 +6,10 @@ import {config} from "./config/config"
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
 import { HttpError } from "./lib/Shared/domain/exeptions";
 import { ApiResponse } from "./lib/User/infrastructure/ApiResponse";
-import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
+//import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
+
 import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
+import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/ExpressHotelRouter";
 
 
 

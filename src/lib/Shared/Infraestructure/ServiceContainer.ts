@@ -5,6 +5,11 @@ import { UserDelete } from "../../User/application/UserDelete/UserDelete";
 import { MongoUserRepository } from "../../User/infrastructure/MongoUserRepository";
 import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
 import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
+import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
+import { InMemoryCityRepository } from "../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
+import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
+import { InMemoryLocationRepository } from "../../bussiness/infrastructure/repositories/location-in-memory-repository";
+
 import {
   CancelReservation,
   ConfirmReservation,
@@ -14,8 +19,9 @@ import {
   GetOneByReservationId,
   GetUserReservations,
 } from "../../Reservation/application";
+
 import { 
-  FindExpiredPlans,
+  CheckHotelFreePlans,
   HotelCreate, 
   HotelEdit, 
   HotelGetALL, 
@@ -28,17 +34,13 @@ import {
   HotelUpdatedStatus 
 } from "../../../lib/Hotel/application";
 
-import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
-import { MongoLocationRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoLocationRepository";
-import { InMemoryCityRepository } from "../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
-
-
-
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
 const hotelRepository = new MongoHotelRepository();
-const locationRepository = new MongoLocationRepository();
 const cityRepository = new InMemoryCityRepository();
+const businessRepository = new MongoBusinessRepository();
+const locationRepository = new InMemoryLocationRepository(); 
+
 import {
   CreateBusiness,
   EditBusiness,
@@ -51,13 +53,6 @@ import {
   GetOneBusinessById,
   SoftDeleteBusiness,
 } from "../../bussiness/application";
-import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
-import { InMemoryLocationRepository } from "../../bussiness/infrastructure/repositories/location-in-memory-repository";
-
-const userRepository = new MongoUserRepository();
-const reservationRepository = new MongoReservationRepository();
-const businessRepository = new MongoBusinessRepository();
-const locationRepository = new InMemoryLocationRepository(); // TODO: Change to MongoLocationRepository
 
 export const ServiceContainer = {
   user: {
@@ -88,8 +83,10 @@ export const ServiceContainer = {
     getByRole: new HotelGetByRol(hotelRepository),
     getByStatus: new HotelGetByStatus(hotelRepository),
     getByProvider: new HotelGetByProvider(hotelRepository),
-    FindExpiredPlans: new FindExpiredPlans(hotelRepository),
-  }
+    CheckHotelFreePlans: new CheckHotelFreePlans(hotelRepository),
+  },
+
+
   business: {
     create: new CreateBusiness(businessRepository, locationRepository),
     edit: new EditBusiness(businessRepository, locationRepository),
