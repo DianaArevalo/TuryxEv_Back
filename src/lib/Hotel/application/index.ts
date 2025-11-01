@@ -1,0 +1,12 @@
+export *from "./HotelGetAll/HotelGetAll"
+export * from "./HotelGetOneByEmail/HotelGetOneByEmail"
+export * from "./HotelGetOneById/HotelGetOneById"
+export * from "./HotelCreate/HotelCreate"
+export * from "./HotelEdit/HotelEdit"
+export * from "./HotelUpdatedStatus/HotelUpdatedStatus"
+export * from "./HotelGetByPlan/HotelGetByPlan"
+export * from "./HotelGetByRol/HotelGetByRol"
+export * from "./HotelGetByStatus/HotelGetByStatus"
+export * from "./HotelGetByProvider/HotelGetByProvider"
+export * from "./CheckHotelFreePlans/CheckHotelFreePlans"
+

@@ -1,6 +1,9 @@
-import { Reservation, ReservationRepository } from "~/lib/Reservation/domain";
+import {
+  Reservation,
+  ReservationRepository,
+} from "../../../../Reservation/domain";
 import { ForViewReservations } from "../../../domain";
-import { ViewReservationsAdapter } from "~/lib/Reservation/infrastructure/adapters/driven/view-reservations-adapter";
+import { ViewReservationsAdapter } from "../../../../Reservation/infrastructure/adapters/driven/view-reservations-adapter";
 
 export class ForViewReservationsAdapter implements ForViewReservations {
   viewReservations: ViewReservationsAdapter;

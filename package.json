@@ -11,7 +11,7 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
-    "argon2": "^0.44.0",
+    "argon2": "0.44.0",
     "cors": "2.8.5",
     "dotenv": "17.2.1",
     "express": "5.1.0",
@@ -23,11 +23,11 @@
     "@types/express": "5.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "22.5.2",
-    "jest": "^30.1.3",
-    "ts-jest": "^29.4.1",
+    "jest": "^30.2.0",
     "tailwindcss": "4.1.12",
+    "ts-jest": "29.4.5",
     "ts-node": "10.9.2",
-    "typescript": "5.9.2"
+    "typescript": "^5.9.2"
   },
   "repository": {
     "type": "git",
