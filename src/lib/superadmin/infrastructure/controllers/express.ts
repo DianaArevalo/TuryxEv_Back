@@ -125,6 +125,21 @@ export class ExpressSuperAdminController {
     return res.status(200).json(response);
   }
 
+  async editHotel(req: ex.Request, res: ex.Response) {
+    const body = req.body as {
+      hotelId: string;
+      name?: string;
+      location?: string;
+      plan?: string;
+      status?: string;
+      score?: string;
+      picture?: string;
+      freePlanEnd?: Date;
+    };
+
+    await ServiceContainer.superAdmin.edit;
+  }
+
   async getAllReservationsByHotelId(req: ex.Request, res: ex.Response) {
     const hotelId = req.params.hotelId;
 
