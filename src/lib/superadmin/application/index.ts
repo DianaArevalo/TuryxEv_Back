@@ -6,6 +6,7 @@ export * from "./get-one-superadmin-by-email/get-one-superadmin-by-email";
 export * from "./get-one-superadmin-by-id/get-one-superadmin-by-id";
 export * from "./soft-delete-superadmin/soft-delete-superadmin";
 export * from "./superadmin-edit-business/superadmin-edit-business";
+export * from "./superadmin-edit-hotel/superadmin-edit-hotel";
 export * from "./superadmin-get-all-reservations-by-hotel/superadmin-get-all-reservations-by-hotel";
 export * from "./superadmin-get-all-user-reservations/superadmin-get-all-user-reservations";
 export * from "./superadmin-get-one-reservation-by-id/superadmin-get-one-reservation-by-id";

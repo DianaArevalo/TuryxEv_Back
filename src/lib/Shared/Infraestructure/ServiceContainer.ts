@@ -64,10 +64,12 @@ import {
   GetOneSuperAdminById,
   SoftDeleteSuperAdmin,
   SuperAdminEditBusiness,
+  SuperAdminEditHotel,
   SuperAdminGetAllReservationsByHotelId,
   SuperAdminGetAllUserReservations,
   SuperAdminGetOneReservationById,
 } from "../../superadmin/application";
+import { ForHotelEditAdapter } from "../../superadmin/infrastructure/adapters/driven/for-edit-hotel-proxy";
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
@@ -80,6 +82,10 @@ const superAdminRepository = new MongoSuperAdminRepository();
 const superAdminForEditbusiness = new ForBusinessEditAdapter(
   businessRepository,
   locationRepository
+);
+const superAdminFoEditHotel = new ForHotelEditAdapter(
+  hotelRepository,
+  cityRepository
 );
 const superAdminForViewReservations = new ForViewReservationsAdapter(
   reservationRepository
@@ -138,8 +144,12 @@ export const ServiceContainer = {
     getAllByIsActive: new GetAllSuperAdminsByIsActive(superAdminRepository),
     getOneByEmail: new GetOneSuperAdminByEmail(superAdminRepository),
     getOneById: new GetOneSuperAdminById(superAdminRepository),
+    softDelete: new SoftDeleteSuperAdmin(superAdminRepository),
 
     editBusiness: new SuperAdminEditBusiness(superAdminForEditbusiness),
+
+    editHotel: new SuperAdminEditHotel(superAdminFoEditHotel),
+
     getAllReservationsByHotelId: new SuperAdminGetAllReservationsByHotelId(
       superAdminForViewReservations
     ),
@@ -149,7 +159,5 @@ export const ServiceContainer = {
     getOneReservation: new SuperAdminGetOneReservationById(
       superAdminForViewReservations
     ),
-
-    softDelete: new SoftDeleteSuperAdmin(superAdminRepository),
   },
 };
