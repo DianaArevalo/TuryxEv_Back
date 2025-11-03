@@ -1,10 +1,13 @@
-import { UserCreatedAt } from "./UserCreatedAt";
-import { UserEmail } from "./UserEmail";
-import { UserId } from "./UserId";
-import { UserName } from "./UserName";
-import { UserPassword } from "./UserPassword";
-import { UserStatus } from "./UserStatus";
-import { UserUpdatedAt } from "./UserUpdatedAt";
+import { 
+    UserCreatedAt, 
+    UserEmail, 
+    UserId, 
+    UserName, 
+    UserPassword, 
+    UserStatus, 
+    UserUpdatedAt 
+} from "./value-objects";
+
 
 export class User {
     id: UserId;
