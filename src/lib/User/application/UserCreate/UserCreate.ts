@@ -52,7 +52,7 @@ export class UserCreate {
             role: UserRole.create(props.role),
             plan: props.plan 
                     ? UserPlan.create(props.plan) 
-                    : UserPlan.default(),           
+                    : UserPlan.default(),
             providerData: UserProvider.create(props.providerData as ProviderDataT)
         });
 

@@ -8,7 +8,7 @@ export interface IUserDocument extends mg.Document {
     plan: 0 | 1 | 2;
     role: 0;
     score?: number;
-    providerData: string;
+    providerData: 0 | 1 | 2;
     status?: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -16,19 +16,16 @@ export interface IUserDocument extends mg.Document {
 
 const UserSchema = new mg.Schema<IUserDocument>(
     {
-    id: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    createdAt: { type: Date, required: true },
-    role: { 
-    type: String, 
-    enum: ['CLIENT', 'HOTEL', 'BUSINESS', 'ADMIN'],
-    required: true
+        name: {type: String, required: true},
+        email: {type: String, required: true},
+        password: {type: String, required: false},
+        picture: {type: String, required: false},
+        plan: {type: Number, enum: [ 0, 1, 2], required: true},
+        role: {type: Number, enum: [0], required: true},
+        score: {type: Boolean, required: false},
+        providerData: {type: Number, enum: [0,1,2], required: true},
+        status: {type: Boolean, required: true}
     },
-    status: {type: Boolean, default: true}
-
-},
 {
  timestamps: true 
 }
