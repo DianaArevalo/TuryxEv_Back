@@ -9,5 +9,5 @@ export * from "./UserCreatedAt";
 export * from "./UserUpdatedAt";
 export * from "./UserPlan";
 export * from "./UserRole";
-// export * from "./UserProvider";
+export * from "./UserProvider";
 
