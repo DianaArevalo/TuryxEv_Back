@@ -13,7 +13,7 @@ import {
   HotelUpdatedAt,
   ProviderData,
 } from "../../../../lib/Hotel/domain";
-import { HotelPicture } from "../../../../lib/Hotel/domain/entities/Hotel/value-objects/HotelPicture"//"~/lib/hotel/domain/value-objects/HotelPicture";
+import { HotelPicture } from "../../../../lib/Hotel/domain/entities/Hotel/value-objects/HotelPicture"; //"~/lib/hotel/domain/value-objects/HotelPicture";
 import { HttpError, ValidationError } from "~/lib/Shared/domain/exeptions";
 
 describe("Hotel Entity", () => {
@@ -96,7 +96,7 @@ describe("Hotel Entity", () => {
       new Hotel({
         hotelId: new HotelId("1"),
         name: new HotelName("Turxy Hotel"),
-        email: new HotelEmail("invalid-email"), // ❌ invalido
+        email: HotelEmail.create("invalid-email"), // ❌ invalido
         password: new HotelPassword("$uperPassword123"),
         location: new HotelLocation("Bogotá"),
         plan: new HotelPlan("FREE"),
