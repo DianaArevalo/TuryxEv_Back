@@ -1,34 +1,34 @@
 import { ValidationError } from "../../../../../Shared/domain/exeptions";
 
-export type BusinessRoleT = "USER"; // Solo un rol por ahora
+export type UserRoleT = "USER"; // Solo un rol por ahora
 
-const BusinessRoleTMap: Record<BusinessRoleT, 0> = {
+const UserRoleTMap: Record<UserRoleT, 0> = {
   USER: 0,
 };
 
-const BusinessRoleTReverseMap: Record<0, BusinessRoleT> = {
+const UserRoleTReverseMap: Record<0, UserRoleT> = {
   0: "USER",
 };
 
-export class BusinessRole {
-  constructor(readonly value: BusinessRoleT) {}
+export class UserRole {
+  constructor(readonly value: UserRoleT) {}
 
   static create(value: string) {
-    if (!Object.values(BusinessRoleTReverseMap).includes(value as any))
+    if (!Object.values(UserRoleTReverseMap).includes(value as any))
       throw new ValidationError(`Invalid value: ${value}`);
 
-    return new BusinessRole(value as BusinessRoleT);
+    return new UserRole(value as UserRoleT);
   }
 
   static fromPrimitives(value: 0) {
-    const mapped = BusinessRoleTReverseMap[value];
+    const mapped = UserRoleTReverseMap[value];
     if (!mapped) throw new ValidationError(`Invalid value: ${value}`);
 
-    return new BusinessRole(mapped);
+    return new UserRole(mapped);
   }
 
   toPrimitives(): 0 {
-    const numberValue = BusinessRoleTMap[this.value];
+    const numberValue = UserRoleTMap[this.value];
     if (numberValue === undefined)
       throw new ValidationError(`Invalid value: ${this.value}`);
 
