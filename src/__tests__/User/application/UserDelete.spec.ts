@@ -1,4 +1,4 @@
-import { UserDelete } from "~/lib/User/application/UserDelete/UserDelete";
+import { UserDelete } from "~/lib/User/application/UserSoftDelete/UserSoftDelete";
 import { User } from "~/lib/User/domain/User";
 import { UserCreatedAt } from "~/lib/User/domain/entities/User/value-objects/UserCreatedAt";
 import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
