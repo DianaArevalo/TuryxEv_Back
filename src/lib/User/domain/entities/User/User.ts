@@ -15,32 +15,32 @@ import {
 
 
 export interface UserI {
-    idUser: UserId;
+    idUser?: UserId;
     name: UserName;
     email: UserEmail;
-    password: UserPassword;
-    picture: UserPicture;
+    password?: UserPassword;
+    picture?: UserPicture;
     plan: UserPlan;
     role: UserRole;
     score: UserScore;
     providerData: UserProvider;
-    status: UserStatus;
+    status?: UserStatus;
     createdAt: UserCreatedAt;
     updatedAt: UserUpdatedAt;   
     
 }
 
 export class User implements UserI {
-    idUser: UserId;
+    idUser?: UserId;
     name: UserName;
     email: UserEmail;
-    password: UserPassword;
-    picture: UserPicture;
+    password?: UserPassword;
+    picture?: UserPicture;
     plan: UserPlan;
     role: UserRole;
     score: UserScore;
     providerData: UserProvider;
-    status: UserStatus;
+    status?: UserStatus;
     createdAt: UserCreatedAt;
     updatedAt: UserUpdatedAt;
     
@@ -61,18 +61,18 @@ export class User implements UserI {
         this.updatedAt = attr.updatedAt        
     }
 
-    //si mismos
+    //
     toResponse(){
         return {
-            idUser: this.idUser.value,
+            idUser: this.idUser?.value,
             name: this.name.value,
             email: this.email.value,
-            picture: this.picture.value,
+            picture: this.picture?.value,
             plan: this.plan.value,
             role: this.role.value,
             score: this.score.value,
             providerData: this.providerData.value,
-            status: this.status.value
+            status: this.status?.value
         }
     }
   
