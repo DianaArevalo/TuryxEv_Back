@@ -1,17 +1,5 @@
-export class UserName {
-    value: string;
+import { NameValueObject } from "../../../../../../lib/Shared/domain";
 
-    constructor(value: string){
-        this.value = value;
-        this.ensureIsValid();
-    }
-
-    private ensureIsValid(){
-         if (!this.value || this.value.trim().length === 0) {
-            throw new Error("El nombre no puede estar vacío");
-        }
-        if (this.value.length < 3) {
-            throw new Error("El nombre debe tener al menos 3 caracteres")
-        }
-    }
+export class UserName extends NameValueObject {
+    
 }

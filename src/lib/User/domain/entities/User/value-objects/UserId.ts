@@ -1,9 +1,6 @@
-export class UserId {
-    value: string;
+import { IdValueObject } from "../../../../../../lib/Shared/domain";
 
-    constructor(value: string){
-        this.value = value;
-    }
+export class UserId extends IdValueObject {    
 
-    //validacion pendiente, quiero que me cree el id con los primeros 5 caracteres del mongoDB
+    
 }

@@ -1,14 +1,5 @@
-export class UserUpdatedAt {
-    value: Date;
+import { UpdatedAtValueObject } from "../../../../../../lib/Shared/domain";
 
-    constructor(value:Date){
-        this.value = value;
-        this.ensureIsValid();
-    }
-
-    private ensureIsValid(){
-        if (this.value > new Date()) {
-            throw new Error("Updated: La fecha de creacion debe estar en pasado")            
-        }
-    }
+export class UserUpdatedAt extends UpdatedAtValueObject {
+    
 }
