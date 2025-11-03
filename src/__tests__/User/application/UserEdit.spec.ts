@@ -1,14 +1,14 @@
 import { UserEdit } from "~/lib/User/application/UserEdit/UserEdit";
 import { User } from "~/lib/User/domain/User";
-import { UserCreatedAt } from "~/lib/User/domain/UserCreatedAt";
-import { UserEmail } from "~/lib/User/domain/UserEmail";
-import { UserId } from "~/lib/User/domain/UserId";
-import { UserName } from "~/lib/User/domain/UserName";
-import { UserNotFoundError } from "~/lib/User/domain/UserNotFoundError";
-import { UserPassword } from "~/lib/User/domain/UserPassword";
+import { UserCreatedAt } from "~/lib/User/domain/entities/User/value-objects/UserCreatedAt";
+import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
+import { UserId } from "~/lib/User/domain/entities/User/value-objects/UserId";
+import { UserName } from "~/lib/User/domain/entities/User/value-objects/UserName";
+import { UserNotFoundError } from "~/lib/User/domain/exceptions/UserNotFoundError";
+import { UserPassword } from "~/lib/User/domain/entities/User/value-objects/UserPassword";
 import { UserRepository } from "~/lib/User/domain/UserRepository";
-import { UserStatus } from "~/lib/User/domain/UserStatus";
-import { UserUpdatedAt } from "~/lib/User/domain/UserUpdatedAt";
+import { UserStatus } from "~/lib/User/domain/entities/User/value-objects/UserStatus";
+import { UserUpdatedAt } from "~/lib/User/domain/entities/User/value-objects/UserUpdatedAt";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
 
 describe("application/UserEdit", () => {

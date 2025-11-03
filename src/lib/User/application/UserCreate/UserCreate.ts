@@ -1,12 +1,12 @@
 import { User } from "../../domain/User";
-import { UserCreatedAt } from "../../domain/UserCreatedAt";
-import { UserEmail } from "../../domain/UserEmail";
-import { UserId } from "../../domain/UserId";
-import { UserName } from "../../domain/UserName";
-import { UserPassword } from "../../domain/UserPassword";
+import { UserCreatedAt } from "../../domain/entities/User/value-objects/UserCreatedAt";
+import { UserEmail } from "../../domain/entities/User/value-objects/UserEmail";
+import { UserId } from "../../domain/entities/User/value-objects/UserId";
+import { UserName } from "../../domain/entities/User/value-objects/UserName";
+import { UserPassword } from "../../domain/entities/User/value-objects/UserPassword";
 import { UserRepository } from "../../domain/UserRepository";
-import { UserStatus } from "../../domain/UserStatus";
-import { UserUpdatedAt } from "../../domain/UserUpdatedAt";
+import { UserStatus } from "../../domain/entities/User/value-objects/UserStatus";
+import { UserUpdatedAt } from "../../domain/entities/User/value-objects/UserUpdatedAt";
 
 export class UserCreate {
     constructor (private repository: UserRepository){}

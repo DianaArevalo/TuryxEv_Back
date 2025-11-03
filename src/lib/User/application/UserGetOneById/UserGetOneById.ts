@@ -1,7 +1,7 @@
-import { UserId } from "../../domain/UserId";
+import { UserId } from "../../domain/entities/User/value-objects/UserId";
 import { User } from "../../domain/User";
 import { UserRepository } from "../../domain/UserRepository";
-import { UserNotFoundError } from "../../domain/UserNotFoundError";
+import { UserNotFoundError } from "../../domain/exceptions/UserNotFoundError";
 
 export class UserGetOneById {
       constructor (private repository: UserRepository){}

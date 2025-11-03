@@ -1,8 +1,8 @@
 import { Hasher } from "../../Shared/Infraestructure/Hasher";
 import { User } from "../domain/User";
-import { UserEmail } from "../domain/UserEmail";
-import { UserId } from "../domain/UserId";
-import { UserPassword } from "../domain/UserPassword";
+import { UserEmail } from "../domain/entities/User/value-objects/UserEmail";
+import { UserId } from "../domain/entities/User/value-objects/UserId";
+import { UserPassword } from "../domain/entities/User/value-objects/UserPassword";
 import { UserRepository } from "../domain/UserRepository";
 
 export class InMemoryUserRepository implements UserRepository {

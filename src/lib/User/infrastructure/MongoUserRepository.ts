@@ -1,14 +1,14 @@
 import { UserRepository } from "../domain/UserRepository";
 import { User } from "../domain/User";
-import { UserId } from "../domain/UserId";
-import { UserName } from "../domain/UserName";
-import { UserEmail } from "../domain/UserEmail";
-import { UserPassword } from "../domain/UserPassword";
-import { UserCreatedAt } from "../domain/UserCreatedAt";
+import { UserId } from "../domain/entities/User/value-objects/UserId";
+import { UserName } from "../domain/entities/User/value-objects/UserName";
+import { UserEmail } from "../domain/entities/User/value-objects/UserEmail";
+import { UserPassword } from "../domain/entities/User/value-objects/UserPassword";
+import { UserCreatedAt } from "../domain/entities/User/value-objects/UserCreatedAt";
 import UserModel from "./UserModel"; // Tu esquema de mongoose
-import { UserUpdatedAt } from "../domain/UserUpdatedAt";
+import { UserUpdatedAt } from "../domain/entities/User/value-objects/UserUpdatedAt";
 import { Hasher } from "../../Shared/Infraestructure/Hasher";
-import { UserStatus } from "../domain/UserStatus";
+import { UserStatus } from "../domain/entities/User/value-objects/UserStatus";
 
 
 export class MongoUserRepository implements UserRepository {

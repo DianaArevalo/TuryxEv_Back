@@ -1,5 +1,5 @@
-import { UserId } from "../../domain/UserId";
-import { UserNotFoundError } from "../../domain/UserNotFoundError";
+import { UserId } from "../../domain/entities/User/value-objects/UserId";
+import { UserNotFoundError } from "../../domain/exceptions/UserNotFoundError";
 import { UserRepository } from "../../domain/UserRepository";
 
 export class UserDelete {

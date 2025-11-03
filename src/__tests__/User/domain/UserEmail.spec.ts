@@ -1,4 +1,4 @@
-import { UserEmail } from "~/lib/User/domain/UserEmail";
+import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
 
 describe("domain/UserEmail", () => {
   it("should create a valid email", () => {

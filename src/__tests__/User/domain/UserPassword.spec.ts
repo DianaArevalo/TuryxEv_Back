@@ -1,4 +1,4 @@
-import { UserPassword } from "~/lib/User/domain/UserPassword";
+import { UserPassword } from "~/lib/User/domain/entities/User/value-objects/UserPassword";
 
 describe("domain/UserPassword", () => {
   it("should accept a valid password", () => {

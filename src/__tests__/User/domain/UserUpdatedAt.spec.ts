@@ -1,4 +1,4 @@
-import { UserUpdatedAt } from "~/lib/User/domain/UserUpdatedAt";
+import { UserUpdatedAt } from "~/lib/User/domain/entities/User/value-objects/UserUpdatedAt";
 
 describe("domain/UserUpdatedAt", () => {
   it("should accept a valid past date", () => {

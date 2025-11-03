@@ -1,4 +1,4 @@
-import { UserName } from "~/lib/User/domain/UserName";
+import { UserName } from "~/lib/User/domain/entities/User/value-objects/UserName";
 
 describe("domain/UserName", () => {
   it("should create a valid name", () => {

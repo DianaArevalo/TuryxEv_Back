@@ -1,9 +1,9 @@
 import { UserCreate } from "~/lib/User/application/UserCreate/UserCreate";
 import { User } from "~/lib/User/domain/User";
-import { UserCreatedAt } from "~/lib/User/domain/UserCreatedAt";
-import { UserEmail } from "~/lib/User/domain/UserEmail";
-import { UserId } from "~/lib/User/domain/UserId";
-import { UserName } from "~/lib/User/domain/UserName";
+import { UserCreatedAt } from "~/lib/User/domain/entities/User/value-objects/UserCreatedAt";
+import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
+import { UserId } from "~/lib/User/domain/entities/User/value-objects/UserId";
+import { UserName } from "~/lib/User/domain/entities/User/value-objects/UserName";
 import { UserRepository } from "~/lib/User/domain/UserRepository";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
 
