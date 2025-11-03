@@ -10,7 +10,7 @@ export interface UserRepository {
     getOneById(id: UserId): Promise<User | null>
     getAll(page: Page, limit: Limit): Promise<User[]>;
     getOneByEmail(email: UserEmail): Promise <User | null>
-    edit(user: User): Promise<void>
+    edit(user: User): Promise<User>
     softDelete(id: UserId): Promise<void>
     getAllByIsActive(isActive: UserStatus): Promise<User[]>
 }

@@ -1,47 +1,46 @@
-import { User } from "../../domain/User";
-import { UserCreatedAt } from "../../domain/entities/User/value-objects/UserCreatedAt";
-import { UserEmail } from "../../domain/entities/User/value-objects/UserEmail";
-import { UserId } from "../../domain/entities/User/value-objects/UserId";
-import { UserName } from "../../domain/entities/User/value-objects/UserName";
-import { UserNotFoundError } from "../../domain/exceptions/UserNotFoundError";
-import { UserPassword } from "../../domain/entities/User/value-objects/UserPassword";
-import { UserRepository } from "../../domain/UserRepository";
-import { UserStatus } from "../../domain/entities/User/value-objects/UserStatus";
-import { UserUpdatedAt } from "../../domain/entities/User/value-objects/UserUpdatedAt";
+import { ValidationError } from "~/lib/Shared/domain";
+import { UserId, UserPassword, UserPicture, UserScore, UserStatus } from "../../domain/entities/User/value-objects";
+import { UserRepository } from "../../domain/repositories";
+import { UserNotFoundError } from "../../domain/exceptions";
 
+interface UserEditProps{
+    userId: string;
+    name?: string;
+    password?: string;
+    picture?: string;
+    score?: number;
+    status?: boolean;   
+
+} 
 export class UserEdit {
-    constructor(private repository: UserRepository){}
+    constructor(private readonly repository: UserRepository){}
 
-    async handle(
-        id: string,
-        name: string,
-        email: string,
-        createdAt: Date,        
-        password: string, 
-        status: boolean,       
-        
-    ): Promise <User>{
-
-        const currentUser = await this.repository.getOneById(new UserId(id));
-
-        if (!currentUser) {
-            throw new UserNotFoundError("User not found")
-        }
-
-        const user = new User(
-            new UserId(id),
-            new UserName(name),
-            new UserEmail(email),
-            new UserPassword(password),
-            new UserCreatedAt(createdAt),
-            new UserUpdatedAt(new Date()),
-            currentUser.role,
-            new UserStatus(status)
-            
+    async handler(props: UserEditProps){
+        const user = await this.repository.getOneById(
+            new UserId(props.userId)
         );
 
-        await this.repository.edit(user)
+        if(!user) throw new UserNotFoundError();
 
-        return user;
+        if(props.password && user.providerData.value === "AUTH")
+            user.password = UserPassword.create(props.password);
+        else if (props.password)
+            throw new ValidationError(
+                "Can't update password when you signed with OAuth provider"
+            );
+
+        //quiero que los usuarios no puedan editar el puntaje que le dan los establecimientos
+        if (props.score && props.score !== user.score.value)
+        user.score = UserScore.create(props.score);
+
+        if (props.status !== undefined && props.status !== user.status?.value)
+        user.status = new UserStatus(props.status);
+
+
+        if(props.picture) user.picture = new UserPicture(props.picture);
+
+        const edited = await this.repository.edit(user);
+
+        return edited.toResponse()
     }
 }
