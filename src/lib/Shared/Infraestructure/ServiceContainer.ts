@@ -1,7 +1,7 @@
 import { UserCreate } from "../../User/application/UserCreate/UserCreate";
 import { UserGetOneById } from "../../User/application/UserGetOneById/UserGetOneById";
 import { UserEdit } from "../../User/application/UserEdit/UserEdit";
-import { UserDelete } from "../../User/application/UserSoftDelete/UserSoftDelete";
+import { UserSoftDelete } from "../../User/application/UserSoftDelete/UserSoftDelete";
 import { MongoUserRepository } from "../../User/infrastructure/repositories/MongoUserRepository";
 import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
 import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
@@ -53,6 +53,7 @@ import {
   GetOneBusinessById,
   SoftDeleteBusiness,
 } from "../../bussiness/application";
+import { UserGetOneByEmail } from "~/lib/User/application";
 
 export const ServiceContainer = {
   user: {
@@ -60,7 +61,8 @@ export const ServiceContainer = {
     create: new UserCreate(userRepository),
     getOneById: new UserGetOneById(userRepository),
     edit: new UserEdit(userRepository),
-    delete: new UserDelete(userRepository),
+    softDelete: new UserSoftDelete(userRepository),
+    getOneByEmail: new UserGetOneByEmail(userRepository),    
   },
   reservation: {
     getOneByReservationId: new GetOneByReservationId(reservationRepository),

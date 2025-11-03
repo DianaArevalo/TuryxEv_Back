@@ -1,7 +1,7 @@
-import { express as ex } from "./../../Shared/Infraestructure/External";
-import { ServiceContainer } from "../../Shared/Infraestructure/ServiceContainer";
-import { UserNotFoundError } from "../domain/exceptions/UserNotFoundError";
-import { ApiResponse, ResponseHelper } from "./ApiResponse";
+import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
+import { express as ex } from "../../../Shared/Infraestructure/External";
+import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
+import { UserNotFoundError } from "../../domain/exceptions/UserNotFoundError";
 
 
 export class ExpressUserController {
