@@ -46,7 +46,7 @@ export class UserCreate {
             picture: props.picture
                 ? new UserPicture(props.picture)
                 : undefined,
-            score: UserScore.create(1),
+            score: UserScore.create(5),
             createdAt: createdAt,
             updatedAt: UserUpdatedAt.now(createdAt),
             role: UserRole.create(props.role),
