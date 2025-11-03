@@ -2,7 +2,7 @@ import { UserCreate } from "../../User/application/UserCreate/UserCreate";
 import { UserGetOneById } from "../../User/application/UserGetOneById/UserGetOneById";
 import { UserEdit } from "../../User/application/UserEdit/UserEdit";
 import { UserDelete } from "../../User/application/UserSoftDelete/UserSoftDelete";
-import { MongoUserRepository } from "../../User/infrastructure/MongoUserRepository";
+import { MongoUserRepository } from "../../User/infrastructure/repositories/MongoUserRepository";
 import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
 import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
 import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";

@@ -15,7 +15,7 @@ import {
 
 
 export interface UserI {
-    idUser?: UserId;
+    idUser: UserId;
     name: UserName;
     email: UserEmail;
     password?: UserPassword;
@@ -31,7 +31,7 @@ export interface UserI {
 }
 
 export class User implements UserI {
-    idUser?: UserId;
+    idUser: UserId;
     name: UserName;
     email: UserEmail;
     password?: UserPassword;
@@ -64,7 +64,7 @@ export class User implements UserI {
     //
     toResponse(){
         return {
-            idUser: this.idUser?.value,
+            idUser: this.idUser.value,
             name: this.name.value,
             email: this.email.value,
             picture: this.picture?.value,
