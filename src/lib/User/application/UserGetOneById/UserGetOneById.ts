@@ -1,17 +1,21 @@
-import { UserId } from "../../domain/entities/User/value-objects/UserId";
-import { User } from "../../domain/User";
-import { UserRepository } from "../../domain/UserRepository";
-import { UserNotFoundError } from "../../domain/exceptions/UserNotFoundError";
+import { User } from "../../domain/entities/User/User";
+import { UserId } from "../../domain/entities/User/value-objects";
+import { UserNotFoundError } from "../../domain/exceptions";
+import { UserRepository } from "../../domain/repositories";
 
+
+interface UserGetOneByIdProps {
+  id: string;
+}
 export class UserGetOneById {
-      constructor (private repository: UserRepository){}
+      constructor (private readonly repository: UserRepository){}
 
-      async handle(id: string): Promise <User> {
-        const user = await this.repository.getOneById(new UserId(id));
+      async handler(props: UserGetOneByIdProps) {
+        const result = await this.repository.getOneById(new UserId(props.id));
 
-        if (!user) throw new UserNotFoundError('User not found');
+        if(!result) throw new UserNotFoundError();
 
-        return user;
+        return result.toResponse();
       }
 }
   
