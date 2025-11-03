@@ -1,14 +1,17 @@
-import {mongoose as mg} from '../../Shared/Infraestructure/External';
+import {mongoose as mg} from "../../../Shared/Infraestructure/External";
 
 export interface IUserDocument extends mg.Document {
-    id: string;
     name: string;
     email: string;
-    password: string;
-    createdAt: Date;   
+    password?: string;
+    picture?: string;
+    plan: 0 | 1 | 2;
+    role: 0;
+    score?: number;
+    providerData: string;
+    status?: boolean;
+    createdAt: Date;
     updatedAt: Date;
-    role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN';
-    status: boolean;
 }
 
 const UserSchema = new mg.Schema<IUserDocument>(
