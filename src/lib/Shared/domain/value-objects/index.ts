@@ -9,3 +9,4 @@ export * from "./password";
 export * from "./score";
 export * from "./string";
 export * from "./updated-at";
+export * from "./providerData"

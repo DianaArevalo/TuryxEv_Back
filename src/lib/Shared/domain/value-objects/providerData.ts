@@ -33,7 +33,4 @@ export class ProviderData {
     return ProviderDataTMap[this.value];
   }
 
-  getValue(): ProviderDataT {
-    return this.value;
-  }
 }
