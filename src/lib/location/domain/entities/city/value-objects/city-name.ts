@@ -1,3 +1,3 @@
 import { StringValueObject } from "../../../../../Shared/domain";
 
-export class LocationCity extends StringValueObject {}
+export class CityName extends StringValueObject {}

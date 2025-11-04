@@ -7,7 +7,10 @@ export class EmailValueObject {
   constructor(readonly value: string) {}
 
   // Adaptado de https://github.com/manishsaraan/email-validator/blob/master/index.js
-  static create(value: string) {
+  static create<T extends typeof EmailValueObject>(
+    this: T,
+    value: string
+  ): InstanceType<T> {
     const err = new ValidationError("The email provided is invalid.");
 
     if (!value) throw err;
@@ -28,6 +31,6 @@ export class EmailValueObject {
 
     if (!checker.test(value)) throw err;
 
-    return new EmailValueObject(value);
+    return new this(value) as InstanceType<T>;
   }
 }
