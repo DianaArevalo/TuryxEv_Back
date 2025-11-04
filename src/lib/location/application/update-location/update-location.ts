@@ -21,6 +21,8 @@ export class UpdateLocation {
       new LocationId(props.locationId)
     );
 
+    if (!result) throw new LocationNotFoundError();
+
     if (props.cityName) {
       const isValidCity = await this.repository.isValidCity(
         new CityName(props.cityName)
@@ -31,6 +33,8 @@ export class UpdateLocation {
       const city = await this.repository.getOneCityByName(
         new CityName(props.cityName)
       );
+
+      if (!city) throw new LocationNotFoundError();
 
       result.city = city.cityId;
     }
