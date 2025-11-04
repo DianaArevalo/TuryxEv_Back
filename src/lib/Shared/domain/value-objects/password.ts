@@ -9,7 +9,10 @@ const checkerHasSymbol = /[!@#$%^&*(),.?":{}|<>]/;
 export class PasswordValueObject {
   constructor(readonly value: string) {}
 
-  static create(value: string) {
+  static create<T extends typeof PasswordValueObject>(
+    this: T,
+    value: string
+  ): InstanceType<T> {
     if (value.length < minLength)
       throw new ValidationError(
         "The password must be at least 8 characters long"
@@ -31,6 +34,6 @@ export class PasswordValueObject {
         "The password must contain at least one special character"
       );
 
-    return new PasswordValueObject(value);
+    return new this(value) as InstanceType<T>;
   }
 }

@@ -3,7 +3,10 @@ import { ValidationError } from "../exeptions";
 export class CreatedAtValueObject {
   constructor(readonly value: Date) {}
 
-  static create(value: Date) {
+  static create<T extends typeof CreatedAtValueObject>(
+    this: T,
+    value: Date
+  ): InstanceType<T> {
     const now = new Date();
     const toleranceMs = 1000; // 1 segundo de margen
 
@@ -12,11 +15,11 @@ export class CreatedAtValueObject {
     if (value.getTime() > now.getTime() + toleranceMs)
       throw new ValidationError("CreatedAt no puede estar en el futuro");
 
-    return new CreatedAtValueObject(value);
+    return new this(value) as InstanceType<T>;
   }
 
-  static now(): CreatedAtValueObject {
-    return new CreatedAtValueObject(new Date());
+  static now<T extends typeof CreatedAtValueObject>(this: T): InstanceType<T> {
+    return new this(new Date()) as InstanceType<T>;
   }
 
   toPrimitives(): Date {
