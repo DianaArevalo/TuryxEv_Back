@@ -1,8 +1,9 @@
-import { ProviderDataT, ValidationError } from "~/lib/Shared/domain";
+import { ProviderDataT, ValidationError } from "../../../../lib/Shared/domain";
 import { User } from "../../domain/entities/User/User";
 import { 
     UserCreatedAt, 
     UserEmail,      
+    UserId,      
     UserName, 
     UserPassword, 
     UserPicture, 
@@ -23,7 +24,7 @@ interface UserCreateProps {
     picture?: string;
     plan: string;
     role: string;
-    score: string;
+    score: number;
     providerData: string;        
 }
 
@@ -37,7 +38,8 @@ export class UserCreate {
             throw new ValidationError("Password is required");
 
 
-        const user = new User({            
+        const user = new User({
+            idUser: UserId.create(""),            
             name: UserName.create(props.name),
             email: UserEmail.create(props.email),
             password: props.password
