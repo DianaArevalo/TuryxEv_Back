@@ -1,14 +1,14 @@
+import { CityId } from "../city/value-objects";
 import {
   LocationAddress,
   LocationBusinessId,
-  LocationCity,
   LocationHotelId,
   LocationId,
 } from "./value-objects";
 
 interface LocationI {
   locationId: LocationId;
-  city: LocationCity;
+  city: CityId;
   address: LocationAddress;
   hotelId?: LocationHotelId;
   businessId?: LocationBusinessId;
@@ -16,7 +16,7 @@ interface LocationI {
 
 export class Location implements LocationI {
   locationId: LocationId;
-  city: LocationCity;
+  city: CityId;
   address: LocationAddress;
   hotelId?: LocationHotelId;
   businessId?: LocationBusinessId;

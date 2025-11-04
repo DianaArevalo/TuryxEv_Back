@@ -1,4 +1,10 @@
-import { Location, LocationBusinessId, LocationHotelId } from "../entities";
+import {
+  City,
+  CityName,
+  Location,
+  LocationBusinessId,
+  LocationHotelId,
+} from "../entities";
 
 export interface LocationRepository {
   getValidLocations(): Promise<Location[]>;
@@ -6,5 +12,6 @@ export interface LocationRepository {
   getLocationByHotel(hotel: LocationHotelId): Promise<Location>;
   getLocationByBusiness(business: LocationBusinessId): Promise<Location>;
   create(location: Location): Promise<Location>;
+  createCity(cityName: CityName): Promise<City>;
   update(location: Location): Promise<Location>;
 }

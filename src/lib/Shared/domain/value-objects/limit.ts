@@ -1,19 +1,25 @@
 import { ValidationError } from "../exeptions";
 
-const DEFAULT_LIMIT = 50
+const DEFAULT_LIMIT = 50;
+
 export class Limit {
-    constructor(readonly value: number){}
+  constructor(readonly value: number) {}
 
-    static create(value?: number): Limit {
-        if (value === undefined || value === null)
-            return new Limit(DEFAULT_LIMIT);
+  static create<T extends typeof Limit>(
+    this: T,
+    value?: number
+  ): InstanceType<T> {
+    if (value === undefined || value === null)
+      return new this(DEFAULT_LIMIT) as InstanceType<T>;
 
-        if(!Number.isInteger(value))
-            throw new ValidationError("Limit must be an integer");
+    if (!Number.isInteger(value))
+      throw new ValidationError("Limit must be an integer");
 
-        if(value <= 0 || value > 1000)
-            throw new ValidationError("Limit must be greater than 0 and less than 1000");
+    if (value <= 0 || value > 1000)
+      throw new ValidationError(
+        "Limit must be greater than 0 and less than 1000"
+      );
 
-        return new Limit(value)
-    }
+    return new this(value) as InstanceType<T>;
+  }
 }

@@ -1,19 +1,24 @@
 export class LastLoginValueObject {
   constructor(readonly value?: Date) {}
 
-  static now() {
-    return new LastLoginValueObject(new Date(Date.now()));
+  static now<T extends typeof LastLoginValueObject>(this: T): InstanceType<T> {
+    return new this(new Date(Date.now())) as InstanceType<T>;
   }
 
-  static never() {
-    return new LastLoginValueObject(undefined);
+  static never<T extends typeof LastLoginValueObject>(
+    this: T
+  ): InstanceType<T> {
+    return new this(undefined) as InstanceType<T>;
   }
 
   toPrimitives(): string | undefined {
     return this.value ? this.value.toISOString() : undefined;
   }
 
-  static fromPrimitives(value: string): LastLoginValueObject {
-    return new LastLoginValueObject(new Date(value));
+  static fromPrimitives<T extends typeof LastLoginValueObject>(
+    this: T,
+    value: string
+  ): InstanceType<T> {
+    return new this(new Date(value)) as InstanceType<T>;
   }
 }
