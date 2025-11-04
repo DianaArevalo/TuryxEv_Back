@@ -1,7 +1,7 @@
 import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
 import { express as ex } from "../../../Shared/Infraestructure/External";
 import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
-import { ValidationError } from "~/lib/Shared/domain";
+import { ValidationError } from "../../../../lib/Shared/domain";
 
 
 export class ExpressUserController {

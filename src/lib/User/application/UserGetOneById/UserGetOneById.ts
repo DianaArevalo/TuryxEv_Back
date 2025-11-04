@@ -1,4 +1,4 @@
-import { User } from "../../domain/entities/User/User";
+
 import { UserId } from "../../domain/entities/User/value-objects";
 import { UserNotFoundError } from "../../domain/exceptions";
 import { UserRepository } from "../../domain/repositories";
