@@ -34,7 +34,7 @@ export class UserEdit {
       );
 
       //el score lo editan demas negocios y hoteles, comportamiento de usuario
-    if (props.score !== undefined && props.score !== user.score.value) {
+    if (props.score !== undefined && props.score !== user.score?.value) {
       if (props.currentRole === "USER") {
         throw new ValidationError("You are not allowed to modify your score.");
       }
