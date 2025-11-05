@@ -2,8 +2,7 @@ import { ProviderData, ProviderDataT, ValidationError } from "../../../../lib/Sh
 import { User } from "../../domain/entities/User/User";
 import { 
     UserCreatedAt, 
-    UserEmail,      
-    UserId,      
+    UserEmail,        
     UserName, 
     UserPassword, 
     UserPicture, 
@@ -34,11 +33,15 @@ export class UserCreate {
     async handler(props: UserCreateProps){
         const createdAt = UserCreatedAt.now();
 
-        const providerData = props.providerData ?? "AUTH";
+        const provider: ProviderDataT = props.providerData
+        ? (props.providerData as ProviderDataT)
+        : "AUTH"
 
-        if (!props.password && props.providerData === "AUTH") 
-            throw new ValidationError("Password is required for AUTH");        
-
+        if(!props.password && props.providerData === "AUTH"){
+            throw new ValidationError(
+                "Password is required when providerData is AUTH"
+            )
+        }
         
         const user = new User({                       
             name: UserName.create(props.name),
@@ -56,7 +59,9 @@ export class UserCreate {
             plan: props.plan 
                     ? UserPlan.create(props.plan) 
                     : UserPlan.default(),
-            providerData: UserProvider.create(providerData as ProviderDataT),
+            providerData: UserProvider.create(
+                provider
+            ),
             status: new UserStatus(true)
         });
 
@@ -64,8 +69,5 @@ export class UserCreate {
         const created = await this.repository.create(user);
 
         return created.toResponse();
-    }
-
-
-   
+    }   
 }

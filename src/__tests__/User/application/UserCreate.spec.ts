@@ -1,12 +1,8 @@
-import { UserCreate } from "~/lib/User/application/UserCreate/UserCreate";
-import { User } from "~/lib/User/domain/entities/User/User";
-
-import { UserCreatedAt } from "~/lib/User/domain/entities/User/value-objects/UserCreatedAt";
-import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
-import { UserId } from "~/lib/User/domain/entities/User/value-objects/UserId";
-import { UserName } from "~/lib/User/domain/entities/User/value-objects/UserName";
+import { UserCreate } from "~/lib/User/application";
 import { UserRepository } from "~/lib/User/domain/repositories";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/InMemoryUserRepository";
+import { User } from "~/lib/User/domain/entities/User/User";
+
 
 
 describe("application/UserCreate", () => {
@@ -18,25 +14,36 @@ describe("application/UserCreate", () => {
     userCreate = new UserCreate(repository);
   });
 
-  it("should create a user", async () => {
-    const now = new Date("2025-01-01T00:00:00Z");
+  it("should create a user with valid props", async () => {
+    const props = {
+      name: "Angel",
+      email: "test@example.com",
+      password: "Secret1234&$",
+      role: "USER",
+    };
 
-    await userCreate.handler(
-      "123",
-      "Angel",
-      "test@example.com",
-      "Secret1234&",
-      now,
-      "CLIENT",
-      true
-    );
+    const response = await userCreate.handler(props);
 
-    const userArg = (await repository.getOneById(new UserId("123"))) as User;
-    expect(userArg).toBeInstanceOf(User);
-    expect(userArg.id).toEqual(new UserId("123"));
-    expect(userArg.name).toEqual(new UserName("Angel"));
-    expect(userArg.email).toEqual(new UserEmail("test@example.com"));
-    expect(userArg.createdAt).toEqual(new UserCreatedAt(now));
-    expect(userArg.role).toBe("CLIENT");
+    expect(response).toHaveProperty("idUser"); // se generará automáticamente
+    expect(response.name).toBe(props.name);
+    expect(response.email).toBe(props.email);
+    expect(response.role).toBe(props.role);
+
+    // Obtener usuario directamente desde el repo
+    const createdUser = await repository.getOneByEmail({ value: props.email });
+    expect(createdUser).toBeInstanceOf(User);
+    expect(createdUser?.name.value).toBe(props.name);
+    expect(createdUser?.email.value).toBe(props.email);
+    expect(createdUser?.role.value).toBe(props.role);
+  });
+
+  it("should throw ValidationError if password is missing for AUTH provider", async () => {
+    await expect(
+      userCreate.handler({
+        name: "Angel",
+        email: "test2@example.com",
+        // password omitted
+      })
+    ).rejects.toThrow("Password is required for AUTH");
   });
 });

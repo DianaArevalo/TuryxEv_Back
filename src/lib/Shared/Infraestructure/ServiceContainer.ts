@@ -34,12 +34,7 @@ import {
   HotelUpdatedStatus 
 } from "../../../lib/Hotel/application";
 
-const userRepository = new MongoUserRepository();
-const reservationRepository = new MongoReservationRepository();
-const hotelRepository = new MongoHotelRepository();
-const cityRepository = new InMemoryCityRepository();
-const businessRepository = new MongoBusinessRepository();
-const locationRepository = new InMemoryLocationRepository(); 
+
 
 import {
   CreateBusiness,
@@ -54,6 +49,13 @@ import {
   SoftDeleteBusiness,
 } from "../../bussiness/application";
 import { UserGetAllByStatus, UserGetOneByEmail } from "../../../lib/User/application";
+
+const userRepository = new MongoUserRepository();
+const reservationRepository = new MongoReservationRepository();
+const hotelRepository = new MongoHotelRepository();
+const cityRepository = new InMemoryCityRepository();
+const businessRepository = new MongoBusinessRepository();
+const locationRepository = new InMemoryLocationRepository(); 
 
 export const ServiceContainer = {
   user: {
