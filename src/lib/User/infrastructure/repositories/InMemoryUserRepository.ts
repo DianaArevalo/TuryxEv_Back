@@ -9,6 +9,10 @@ export class InMemoryUserRepository implements UserRepository {
     private users: User[] = [];
 
     async create(user: User): Promise<User> {
+     if (!user.status) {
+        user.status = new UserStatus(true); // usuario activo por defecto
+    }
+
         if(user.password){
             const hashed = await Hasher.hash(user.password.value);
             user.password = new UserPassword(hashed);
