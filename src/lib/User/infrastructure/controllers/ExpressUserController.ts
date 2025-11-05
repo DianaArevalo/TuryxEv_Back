@@ -49,20 +49,21 @@ export class ExpressUserController {
   }
 
   async getAll(req: ex.Request, res: ex.Response) {
-    const page = req.body.page;
-    const limit = req.body.limit;
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
 
-    const users = await ServiceContainer.user.getAll.handler({
-      page: page? Number(page.toString()): undefined,
-      limit: limit? Number(limit.toString()): undefined,
-    });
-
+  const users = await ServiceContainer.user.getAll.handler({
+    page,
+    limit,
+  });
     const response: ApiResponse<any[]> = {
       success: true,
       title: "Usuarios",
       message: "Se listan todos los usuarios",
       body: users
     }
+
+    return res.status(200).json(response)
   }
 
   async getOneByEmail(req: ex.Request, res: ex.Response) {
