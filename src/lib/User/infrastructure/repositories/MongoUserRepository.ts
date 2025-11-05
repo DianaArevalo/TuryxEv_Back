@@ -60,13 +60,23 @@ export class MongoUserRepository implements UserRepository {
   }
 
   async edit(user: User): Promise<User>{
-    const record = await UserModel.findOne({
-      _id: user.idUser?.value
-    }).exec();
+    const updated = await UserModel.findByIdAndUpdate(
+      user.idUser?.value,
+      {
+        ...(user.name && { name: user.name.value }),
+      ...(user.password && { password: user.password.value }),
+      ...(user.picture && { picture: user.picture.value }),
+      ...(user.score && { score: user.score.value }),
+      ...(user.status && { status: user.status.value }), 
+      ...(user.role && { role: user.role.toPrimitives() }),
+      updatedAt: new Date(),
+      },
+      {new: true}
+    );
 
-    if(!record) throw new UserNotFoundError();
+    if(!updated) throw new UserNotFoundError();
 
-    return this.createUserEntity(record);
+    return this.createUserEntity(updated);
   }
 
   async softDelete(id: UserId): Promise<User>{
