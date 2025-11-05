@@ -1,4 +1,4 @@
-import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
+import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { Limit, Page } from "../../../../lib/Shared/domain";
 import { User } from "../../domain/entities/User/User";
 import { UserCreatedAt, UserEmail, UserId, UserName, UserPicture, UserPlan, UserProvider, UserRole, UserScore, UserStatus, UserUpdatedAt } from "../../domain/entities/User/value-objects";

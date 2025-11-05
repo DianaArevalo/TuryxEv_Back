@@ -1,7 +1,6 @@
 import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
 import {
-  CityRepository,
-  Hotel,
+  CityRepository,  
   HotelId,
   HotelLocation,
   HotelName,
@@ -11,9 +10,7 @@ import {
   HotelRepository,
   HotelScore,
   HotelStatus,
-  HotelStatusT,
-  ProviderData,
-  ProviderDataT,
+  HotelStatusT 
 } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
 
@@ -64,7 +61,7 @@ export class HotelEdit {
     //password, cambiar password
 
     if (props.password) {
-      if (hotel.providerData.getValue() !== "AUTH" ) {
+      if (hotel.providerData.value!== "AUTH" ) {
         throw new ValidationError(
           "Can't update password when you sign in with an external provider"
         );

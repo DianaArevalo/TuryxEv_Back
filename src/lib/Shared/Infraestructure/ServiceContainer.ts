@@ -53,7 +53,7 @@ import {
   GetOneBusinessById,
   SoftDeleteBusiness,
 } from "../../bussiness/application";
-import { UserGetOneByEmail } from "~/lib/User/application";
+import { UserGetOneByEmail } from "../../../lib/User/application";
 
 export const ServiceContainer = {
   user: {

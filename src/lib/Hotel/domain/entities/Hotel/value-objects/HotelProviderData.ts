@@ -1,4 +1,4 @@
-import { ProviderData } from "~/lib/Shared/domain";
+import { ProviderData } from "../../../../../../lib/Shared/domain";
 
 export class HotelProviderData extends ProviderData {
   
