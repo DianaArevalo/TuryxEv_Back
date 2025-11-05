@@ -61,7 +61,7 @@ export class MongoUserRepository implements UserRepository {
 
   async edit(user: User): Promise<User>{
     const record = await UserModel.findOne({
-      _id: user.idUser.value
+      _id: user.idUser?.value
     }).exec();
 
     if(!record) throw new UserNotFoundError();

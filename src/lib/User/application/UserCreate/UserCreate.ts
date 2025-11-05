@@ -18,7 +18,6 @@ import { UserRepository } from "../../domain/repositories";
 
 
 interface UserCreateProps {
-    id?: string;
     name: string;
     email: string;
     password?: string;
@@ -41,8 +40,7 @@ export class UserCreate {
             throw new ValidationError("Password is required for AUTH");        
 
         
-        const user = new User({
-            idUser: UserId.create(""),            
+        const user = new User({                       
             name: UserName.create(props.name),
             email: UserEmail.create(props.email),
             password: props.password
