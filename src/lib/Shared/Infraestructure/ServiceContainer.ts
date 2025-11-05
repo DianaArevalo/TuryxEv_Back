@@ -53,7 +53,7 @@ import {
   GetOneBusinessById,
   SoftDeleteBusiness,
 } from "../../bussiness/application";
-import { UserGetOneByEmail } from "../../../lib/User/application";
+import { UserGetAllByStatus, UserGetOneByEmail } from "../../../lib/User/application";
 
 export const ServiceContainer = {
   user: {
@@ -62,7 +62,8 @@ export const ServiceContainer = {
     getOneById: new UserGetOneById(userRepository),
     edit: new UserEdit(userRepository),
     softDelete: new UserSoftDelete(userRepository),
-    getOneByEmail: new UserGetOneByEmail(userRepository),    
+    getOneByEmail: new UserGetOneByEmail(userRepository),
+    getAllByStatus: new UserGetAllByStatus(userRepository),   
   },
   reservation: {
     getOneByReservationId: new GetOneByReservationId(reservationRepository),

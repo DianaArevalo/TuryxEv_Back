@@ -1,11 +1,13 @@
 import { UserCreate } from "~/lib/User/application/UserCreate/UserCreate";
-import { User } from "~/lib/User/domain/User";
+import { User } from "~/lib/User/domain/entities/User/User";
+
 import { UserCreatedAt } from "~/lib/User/domain/entities/User/value-objects/UserCreatedAt";
 import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
 import { UserId } from "~/lib/User/domain/entities/User/value-objects/UserId";
 import { UserName } from "~/lib/User/domain/entities/User/value-objects/UserName";
-import { UserRepository } from "~/lib/User/domain/UserRepository";
-import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
+import { UserRepository } from "~/lib/User/domain/repositories";
+import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/InMemoryUserRepository";
+
 
 describe("application/UserCreate", () => {
   let repository: UserRepository;

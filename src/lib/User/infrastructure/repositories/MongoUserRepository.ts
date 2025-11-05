@@ -93,10 +93,10 @@ export class MongoUserRepository implements UserRepository {
     return this.createUserEntity(updated)
   }
 
-  async getAllByStatus(isActive: UserStatus): Promise<User[]>{
-    const records = await UserModel.find();
-    return records.map((record) => this.createUserEntity(record))
-  }
+  async getAllByStatus(isActive: UserStatus): Promise<User[]> {
+  const records = await UserModel.find({ status: isActive.value });
+  return records.map((record) => this.createUserEntity(record));
+}
 
   private createUserEntity(record: any): User {
     return new User({

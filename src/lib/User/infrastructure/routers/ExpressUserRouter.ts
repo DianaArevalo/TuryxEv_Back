@@ -10,5 +10,6 @@ ExpressUserRouter.get("/get-all-users", controller.getAll);
 ExpressUserRouter.get("/get-user-by-email", controller.getOneByEmail);
 ExpressUserRouter.patch("/edit-user", controller.edit);
 ExpressUserRouter.patch("/soft-delete", controller.softDelete);
+ExpressUserRouter.get("/get-all-by-status", controller.getAllByStatus)
 
 export { ExpressUserRouter };

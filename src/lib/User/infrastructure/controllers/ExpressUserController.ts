@@ -129,4 +129,26 @@ export class ExpressUserController {
 
     return res.status(200).json(response)
   }
+
+   async getAllByStatus(req: ex.Request, res: ex.Response) {
+    const { status } = req.query;
+
+    if (status === undefined)
+      throw new ValidationError("La query 'status' es necesaria");
+
+    const isActive = status === "true";
+
+    const users = await ServiceContainer.user.getAllByStatus.handler({
+      status: isActive,
+    });
+
+    const response: ApiResponse<any[]> = {
+      success: true,
+      title: "Usuarios filtrados por estado",
+      message: `Se listan todos los usuarios con estado ${isActive}`,
+      body: users,
+    };
+
+    return res.status(200).json(response);
+  }
 }
