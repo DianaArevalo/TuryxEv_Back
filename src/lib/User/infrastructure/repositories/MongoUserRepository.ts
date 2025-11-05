@@ -19,6 +19,10 @@ export class MongoUserRepository implements UserRepository {
         ? user.picture.value
         :undefined,
       plan: user.plan.toPrimitives(),
+      role: user.role.toPrimitives(),
+      providerData: user.providerData.toPrimitives(),
+      status:  user.status?.value?? true,
+      score: user.score?.value,
 
     });
 

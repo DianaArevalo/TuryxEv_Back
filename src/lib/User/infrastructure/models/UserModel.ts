@@ -17,14 +17,14 @@ export interface IUserDocument extends mg.Document {
 const UserSchema = new mg.Schema<IUserDocument>(
     {
         name: {type: String, required: true},
-        email: {type: String, required: true},
+        email: {type: String, required: true, unique: true},
         password: {type: String, required: false},
         picture: {type: String, required: false},
-        plan: {type: Number, enum: [ 0, 1, 2], required: true},
-        role: {type: Number, enum: [0], required: true},
-        score: {type: Boolean, required: false},
-        providerData: {type: Number, enum: [0,1,2], required: true},
-        status: {type: Boolean, required: true}
+        plan: {type: Number, enum: [ 0, 1, 2], default: 0},
+        role: {type: Number, enum: [0], default: 0},
+        score: {type: Number, default: 5},
+        providerData: {type: Number, enum: [0,1,2], default: 0},
+        status: {type: Boolean, default: true}
     },
 {
  timestamps: true 

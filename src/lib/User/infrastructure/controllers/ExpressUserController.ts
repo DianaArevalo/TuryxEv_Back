@@ -9,19 +9,14 @@ export class ExpressUserController {
     const {name, email, password} =  req.body  as {
       name: string;
       email: string;
-      password: string;
-      picture?: string;
-      status?: Number;   
+      password: string;         
     };
 
     const newUser = await ServiceContainer.user.create.handler({
       name,
       email,
-      password,      
-      plan: "FREE",
-      role: "USER",
-      score: 5,
-      providerData: "AUTH"
+      password,     
+      
     });
 
     const response: ApiResponse<typeof newUser> = {
