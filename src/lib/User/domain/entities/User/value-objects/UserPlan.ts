@@ -22,7 +22,7 @@ const UserPlanTReverseMap: Record<0 | 1 | 2, UserPlanT> = {
 export class UserPlan {
   readonly value: UserPlanT;
 
-  private constructor(value: UserPlanT) {
+  constructor(value: UserPlanT) {
     this.value = value;
   }
 
