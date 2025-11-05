@@ -103,7 +103,7 @@ export class ExpressUserController {
     const response: ApiResponse<null> = {
       success: true,
       title: "Usuario editado correctamente",
-      message: `Se edito el usuario ${name}`,
+      message: `Se editó el usuario ${user.name ?? "sin nombre"}`,
       body: null,
 
     };
