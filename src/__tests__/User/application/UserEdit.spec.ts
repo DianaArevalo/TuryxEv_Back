@@ -1,92 +1,91 @@
-import { UserEdit } from "~/lib/User/application/UserEdit/UserEdit";
-import { User } from "~/lib/User/domain/User";
-import { UserCreatedAt } from "~/lib/User/domain/entities/User/value-objects/UserCreatedAt";
-import { UserEmail } from "~/lib/User/domain/entities/User/value-objects/UserEmail";
-import { UserId } from "~/lib/User/domain/entities/User/value-objects/UserId";
-import { UserName } from "~/lib/User/domain/entities/User/value-objects/UserName";
-import { UserNotFoundError } from "~/lib/User/domain/exceptions/UserNotFoundError";
-import { UserPassword } from "~/lib/User/domain/entities/User/value-objects/UserPassword";
-import { UserRepository } from "~/lib/User/domain/UserRepository";
-import { UserStatus } from "~/lib/User/domain/entities/User/value-objects/UserStatus";
-import { UserUpdatedAt } from "~/lib/User/domain/entities/User/value-objects/UserUpdatedAt";
-import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
+import { HttpError } from "~/lib/Shared/domain";
+import { UserCreate, UserEdit } from "~/lib/User/application";
+import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/InMemoryUserRepository";
 
-describe("application/UserEdit", () => {
-  let repository: UserRepository;
+describe("UserEdit application", () => {
+  let repository: InMemoryUserRepository;
+  let userCreate: UserCreate;
   let userEdit: UserEdit;
 
   beforeEach(() => {
     repository = new InMemoryUserRepository();
+    userCreate = new UserCreate(repository);
     userEdit = new UserEdit(repository);
   });
 
-  it("should edit an existing user", async () => {
-    const user = new User(
-      new UserId("123"),
-      new UserName("Angel"),
-      new UserEmail("test@example.com"),
-      new UserPassword("Secret1234&"),
-      new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
-      new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT",
-      new UserStatus(true)
-    );
-
-    await repository.create(user);
-
-    await userEdit.handle(
-      "123",
-      "UpdatedName",
-      "updated@example.com",
-      new Date("2025-02-01T00:00:00Z"),
-      "NewPass123&",
-      true
-    );
-
-    const updatedUser = await repository.getOneById(new UserId("123"));
-
-    expect(updatedUser).not.toBeNull();
-    expect(updatedUser!.name.value).toBe("UpdatedName");
-    expect(updatedUser!.email.value).toBe("updated@example.com");
-    expect(updatedUser!.role).toBe("CLIENT");
+  it("should edit user password if provider is AUTH", async () => {
+  const createdUser = await userCreate.handler({
+    name: "Angel",
+    email: "angel@example.com",
+    password: "Secret1234&",
+    providerData: "AUTH",
   });
 
-  it("should throw UserNotFoundError if user does not exist", async () => {
+  // Llamamos al handler de edición
+  await expect(
+    userEdit.handler({
+      userId: createdUser.idUser!,
+      password: "NewSecret123!",
+    })
+  ).resolves.not.toThrow();
+
+  // Verificamos directamente en el repository que el password cambió
+  const userEntity = await repository.getOneById(
+    { value: createdUser.idUser! } as any
+  );
+  expect(userEntity!.password!.value).not.toBe("Secret1234&");
+});
+
+  it("should throw HttpError if trying to update password for OAuth provider", async () => {
+    const createdUser = await userCreate.handler({
+      name: "GoogleUser",
+      email: "google@example.com",
+      providerData: "AUTHGOOGLE",
+    });
+
     await expect(
-      userEdit.handle(
-        "999",
-        "DoesNotExist",
-        "none@example.com",
-        new Date(),
-        "Fake123&",
-        true
-      )
-    ).rejects.toThrow(UserNotFoundError);
+      userEdit.handler({
+        userId: createdUser.idUser!,
+        password: "NewSecret123",
+      })
+    ).rejects.toBeInstanceOf(HttpError);
   });
 
-  it("should throw error if email is invalid", async () => {
-    const user = new User(
-      new UserId("321"),
-      new UserName("Maria"),
-      new UserEmail("maria@example.com"),
-      new UserPassword("Secret1234&"),
-      new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
-      new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT",
-      new UserStatus(true)
-    );
-
-    await repository.create(user);
+  it("should throw HttpError if a USER tries to modify their own score", async () => {
+    const createdUser = await userCreate.handler({
+      name: "UserRoleUser",
+      email: "user@example.com",
+      password: "Secret1234&",
+      providerData: "AUTH",
+    });
 
     await expect(
-      userEdit.handle(
-        "321",
-        "Maria",
-        "invalid-email",
-        new Date(),
-        "Secret1234&",
-        true
-      )
-    ).rejects.toThrow("UserEmail must be a valid email address");
+      userEdit.handler({
+        userId: createdUser.idUser!,
+        score: 4,
+        currentRole: "USER",
+      })
+    ).rejects.toBeInstanceOf(HttpError);
+  });
+
+  it("should update user picture, score, and status for allowed roles", async () => {
+    const createdUser = await userCreate.handler({
+      name: "Angel",
+      email: "angel2@example.com",
+      password: "Secret1234&",
+      providerData: "AUTH",
+    });
+
+    const updated = await userEdit.handler({
+      userId: createdUser.idUser!,
+      picture: "newpic.png",
+      score: 5,
+      status: false,
+      currentRole: "ADMIN",
+    });
+
+    expect(updated.picture).toBe("newpic.png");
+    expect(updated.score).toBe(5);
+    expect(updated.status).toBe(false);
   });
 });
