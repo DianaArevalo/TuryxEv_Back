@@ -1,7 +1,7 @@
 import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { Limit, Page } from "../../../../lib/Shared/domain";
 import { User } from "../../domain/entities/User/User";
-import { UserCreatedAt, UserEmail, UserId, UserName, UserPicture, UserPlan, UserProvider, UserRole, UserScore, UserStatus, UserUpdatedAt } from "../../domain/entities/User/value-objects";
+import { UserCreatedAt, UserEmail, UserId, UserName, UserPicture, UserPlan, UserProvider, UserRole, UserScore,  UserStatus, UserUpdatedAt } from "../../domain/entities/User/value-objects";
 import { UserRepository } from "../../domain/repositories";
 import UserModel from "../models/UserModel";
 import { UserNotFoundError } from "../../domain/exceptions";
@@ -70,12 +70,17 @@ export class MongoUserRepository implements UserRepository {
   }
 
   async softDelete(id: UserId): Promise<User>{
-    const record =await UserModel.updateOne(
-      {_id: id.value },
-      { status: new UserStatus(false)},
-    );
+    const userStatus = new UserStatus(false);
 
-    return this.createUserEntity(record)
+    const updated = await UserModel.findByIdAndUpdate(
+      id.value,
+      { status: userStatus.value},
+      {new: true}
+    )
+
+    if(!updated) throw new UserNotFoundError();
+
+    return this.createUserEntity(updated)
   }
 
   async getAllByStatus(isActive: UserStatus): Promise<User[]>{

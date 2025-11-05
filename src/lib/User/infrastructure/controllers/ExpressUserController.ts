@@ -112,7 +112,7 @@ export class ExpressUserController {
   }
 
   async softDelete(req: ex.Request, res: ex.Response) {
-    const id = req.body.id;
+     const { id } = req.body;
 
     if(!id) throw new ValidationError("La query id es necesario");
 
@@ -123,7 +123,7 @@ export class ExpressUserController {
     const response: ApiResponse<any> = {
       success: true,
       title: "Usuario bloqueado",
-      message: `Eliminacion temporal en estado bloqueado del usuario ${name}`,
+      message: `Eliminacion temporal en estado bloqueado del usuario`,
       body: user,
     };
 
