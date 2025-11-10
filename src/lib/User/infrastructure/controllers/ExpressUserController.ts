@@ -98,17 +98,17 @@ export class ExpressUserController {
       currentRole?: string;
     };
 
-    await ServiceContainer.user.edit.handler(user);
+    const editedUser = await ServiceContainer.user.edit.handler(user);
 
-    const response: ApiResponse<null> = {
+    const response: ApiResponse<typeof editedUser> = {
       success: true,
       title: "Usuario editado correctamente",
-      message: `Se editó el usuario ${user.name ?? "sin nombre"}`,
-      body: null,
+      message: `Se editó el usuario ${editedUser.name}`,
+      body: editedUser,
 
     };
 
-    return res.status(200).json(response)
+    return res.status(201).json(response)
   }
 
   async softDelete(req: ex.Request, res: ex.Response) {
