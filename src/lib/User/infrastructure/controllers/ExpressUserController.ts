@@ -93,8 +93,8 @@ export class ExpressUserController {
       name?: string;
       password?: string;
       picture?: string;
-      score?: number;
-      status?: boolean;
+      score: number;
+      status: boolean;
       currentRole?: string;
     };
 

@@ -24,7 +24,7 @@ export interface UserI {
     role: UserRole;
     score: UserScore;
     providerData: UserProvider;
-    status?: UserStatus;
+    status: UserStatus;
     createdAt: UserCreatedAt;
     updatedAt: UserUpdatedAt;   
     
@@ -40,7 +40,7 @@ export class User implements UserI {
     role: UserRole;
     score: UserScore;
     providerData: UserProvider;
-    status?: UserStatus;
+    status: UserStatus;
     createdAt: UserCreatedAt;
     updatedAt: UserUpdatedAt;
     
