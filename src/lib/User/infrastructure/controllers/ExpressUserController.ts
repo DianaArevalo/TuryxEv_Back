@@ -112,13 +112,11 @@ export class ExpressUserController {
   }
 
   async softDelete(req: ex.Request, res: ex.Response) {
-     const { id } = req.body;
+     const { id } = req.params;
 
     if(!id) throw new ValidationError("La query id es necesario");
 
-    const user = await ServiceContainer.user.softDelete.handler({
-      id: id.toString(),
-    });
+    const user = await ServiceContainer.user.softDelete.handler({id});
 
     const response: ApiResponse<any> = {
       success: true,

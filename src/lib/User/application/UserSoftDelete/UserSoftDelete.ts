@@ -9,15 +9,7 @@ export class UserSoftDelete {
     constructor (private readonly repository: UserRepository) {}
 
     async handler(props: UserSoftDeleteProps){
-        const user = await this.repository.softDelete(new UserId(props.id));
-
-        if(!user) throw new UserNotFoundError();
-
-        user.status = new UserStatus(false);
-
-        await this.repository.edit(user);
-
-        return user.toResponse();
+        await this.repository.softDelete(new UserId(props.id))
     }
 }
 

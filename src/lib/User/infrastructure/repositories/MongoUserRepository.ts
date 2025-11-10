@@ -79,7 +79,7 @@ export class MongoUserRepository implements UserRepository {
     return this.createUserEntity(updated);
   }
 
-  async softDelete(id: UserId): Promise<User>{
+  async softDelete(id: UserId): Promise<void>{
     const userStatus = new UserStatus(false);
 
     const updated = await UserModel.findByIdAndUpdate(
@@ -88,9 +88,7 @@ export class MongoUserRepository implements UserRepository {
       {new: true}
     )
 
-    if(!updated) throw new UserNotFoundError();
-
-    return this.createUserEntity(updated)
+    if(!updated) throw new UserNotFoundError();   
   }
 
   async getAllByStatus(isActive: UserStatus): Promise<User[]> {
