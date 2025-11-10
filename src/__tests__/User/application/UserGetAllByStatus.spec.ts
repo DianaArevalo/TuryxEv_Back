@@ -6,46 +6,48 @@ describe("application/UserGetAllByStatus", () => {
   let repository: InMemoryUserRepository;
   let userCreate: UserCreate;
   let userGetAllByStatus: UserGetAllByStatus;
+  let activeUserEmail: string;
+  let inactiveUserEmail: string;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     repository = new InMemoryUserRepository();
     userCreate = new UserCreate(repository);
     userGetAllByStatus = new UserGetAllByStatus(repository);
-  });
 
-  it("should return only active and inactive users correctly", async () => {
-    // Crear usuario activo (status por defecto true)
+    activeUserEmail = "active@example.com";
+    inactiveUserEmail = "inactive@example.com";
+
+    // Crear usuario activo
     await userCreate.handler({
       name: "Active User",
-      email: "active@example.com",
+      email: activeUserEmail,
       password: "Secret123!",
       providerData: "AUTH",
     });
 
-    // Crear usuario inactivo (status por defecto true, luego se cambia)
+    // Crear usuario inactivo y modificar su estado
     await userCreate.handler({
       name: "Inactive User",
-      email: "inactive@example.com",
+      email: inactiveUserEmail,
       password: "Secret123!",
       providerData: "AUTH",
     });
 
-    // Modificar el status del usuario inactivo
-    const inactiveEntity = await repository.getOneByEmail(UserEmail.create("inactive@example.com"));
+    const inactiveEntity = await repository.getOneByEmail(UserEmail.create(inactiveUserEmail));
     if (inactiveEntity) {
       inactiveEntity.status = new UserStatus(false);
       await repository.edit(inactiveEntity);
     }
+  });
 
-    // Obtener usuarios activos
+  it("should return only active and inactive users correctly", async () => {
     const activeUsers = await userGetAllByStatus.handler({ status: true });
     expect(activeUsers).toHaveLength(1);
-    expect(activeUsers[0].email).toBe("active@example.com");
+    expect(activeUsers[0].email).toBe(activeUserEmail);
 
-    // Obtener usuarios inactivos
     const inactiveUsers = await userGetAllByStatus.handler({ status: false });
     expect(inactiveUsers).toHaveLength(1);
-    expect(inactiveUsers[0].email).toBe("inactive@example.com");
+    expect(inactiveUsers[0].email).toBe(inactiveUserEmail);
   });
 
   it("should return empty array if no users match the status", async () => {

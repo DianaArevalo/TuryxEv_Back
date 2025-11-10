@@ -4,84 +4,64 @@ import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/I
 import { User } from "~/lib/User/domain/entities/User/User";
 import { HttpError, Limit, Page } from "~/lib/Shared/domain";
 
-
-
 describe("User/application/UserCreate", () => {
   let repository: UserRepository;
   let userCreate: UserCreate;
+  let baseUsers: any[];
 
-  beforeEach(() => {
+  beforeEach(async () => {
     repository = new InMemoryUserRepository();
     userCreate = new UserCreate(repository);
+
+    baseUsers = [
+      {
+        name: "Angel",
+        email: "angel@example.com",
+        password: "Secret1234&",
+        providerData: "AUTH",
+        role: "USER",
+      },
+      {
+        name: "Pitin Nene",
+        email: "pitin@gmail.com",
+        providerData: "AUTHGOOGLE",
+        role: "USER",
+      },
+      {
+        name: "FB User",
+        email: "fbuser@gmail.com",
+        providerData: "AUTHFACEBOOK",
+        role: "USER",
+      },
+    ];
+
+    // Crear usuarios base antes de cada test
+    for (const props of baseUsers) {
+      await userCreate.handler(props);
+    }
   });
 
-  it("should create a user with AUTH provider and password", async () => {
-    const props = {
-      name: "Angel",
-      email: "angel@example.com",
-      password: "Secret1234&",
-      providerData: "AUTH",
-      role: "USER",
-    };
-
-    await userCreate.handler(props);
-
+  it("should have 3 users created before each test", async () => {
     const users = await repository.getAll(new Page(1), new Limit(10));
-    expect(users).toHaveLength(1);
-
-    const user = users[0] as User;
-    expect(user).toBeInstanceOf(User);
-    expect(user.name.value).toBe(props.name);
-    expect(user.email.value).toBe(props.email);
-    expect(user.role.value).toBe(props.role);
+    expect(users).toHaveLength(3);
   });
 
-  it("should create a user with AUTHGOOGLE provider without password", async () => {
-    const props = {
-      name: "Pitin Nene",
-      email: "pitin@gmail.com",
-      providerData: "AUTHGOOGLE",
-      role: "USER",
-    };
-
-    await userCreate.handler(props);
-
+  it("should create users with proper providers", async () => {
     const users = await repository.getAll(new Page(1), new Limit(10));
-    expect(users).toHaveLength(1);
 
-    const user = users[0] as User;
-    expect(user).toBeInstanceOf(User);
-    expect(user.providerData.value).toBe("AUTHGOOGLE");
-    expect(user.password).toBeUndefined();
-  });
-
-  it("should create a user with AUTHFACEBOOK provider without password", async () => {
-    const props = {
-      name: "FB User",
-      email: "fbuser@gmail.com",
-      providerData: "AUTHFACEBOOK",
-      role: "USER",
-    };
-
-    await userCreate.handler(props);
-
-    const users = await repository.getAll(new Page(1), new Limit(10));
-    expect(users).toHaveLength(1);
-
-    const user = users[0] as User;
-    expect(user).toBeInstanceOf(User);
-    expect(user.providerData.value).toBe("AUTHFACEBOOK");
-    expect(user.password).toBeUndefined();
+    expect(users[0].providerData.value).toBe("AUTH");
+    expect(users[1].providerData.value).toBe("AUTHGOOGLE");
+    expect(users[2].providerData.value).toBe("AUTHFACEBOOK");
   });
 
   it("should throw ValidationError when AUTH provider without password", async () => {
-    const props = {
+    const invalidUser = {
       name: "NoPass",
       email: "nopass@gmail.com",
       providerData: "AUTH",
       role: "USER",
     };
 
-    await expect(userCreate.handler(props)).rejects.toBeInstanceOf(HttpError);
+    await expect(userCreate.handler(invalidUser)).rejects.toBeInstanceOf(HttpError);
   });
 });

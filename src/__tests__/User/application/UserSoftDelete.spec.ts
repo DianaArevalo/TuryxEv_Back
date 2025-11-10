@@ -1,53 +1,40 @@
 import { UserCreate, UserSoftDelete } from "~/lib/User/application";
-import { UserRepository } from "~/lib/User/domain/repositories";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/InMemoryUserRepository";
-   
-
+import { UserNotFoundError } from "~/lib/User/domain/exceptions";
+import { HttpError } from "~/lib/Shared/domain";
 
 describe("application/UserSoftDelete", () => {
-    let repository: UserRepository;
-    let createUser: UserCreate;
-    let softDelete: UserSoftDelete;
-    let createdUsers: any[] = []
+  let repository: InMemoryUserRepository;
+  let userCreate: UserCreate;
+  let userSoftDelete: UserSoftDelete;
+  let existingUser: any;
 
-    const User1 = {
-        name: "User1",
-        email: "user1@gmail.com",
-        password: "$ecretPassword123!",
-        ProviderData: "AUTH",
-    };
+  beforeEach(async () => {
+    repository = new InMemoryUserRepository();
+    userCreate = new UserCreate(repository);
+    userSoftDelete = new UserSoftDelete(repository);
 
-    const User2 = {
-        name: "User2",
-        email: "user2@gmail.com",
-        password: "$ecretPassword1234!",
-        ProviderData: "AUTH",
-    };
-
-    beforeEach( async () => {
-        repository = new InMemoryUserRepository();
-        createUser = new UserCreate(repository);
-        softDelete = new UserSoftDelete(repository);
-
-        const u1 = await createUser.handler(User1);
-        const u2 = await createUser.handler(User2);
-
-        createdUsers =[ u1, u2]
+    // Creamos un usuario base
+    existingUser = await userCreate.handler({
+      name: "Active User",
+      email: "active@example.com",
+      password: "Secret123!",
+      providerData: "AUTH",
     });
+  });
 
+  it("should soft delete an existing user (set status to false)", async () => {
+    // Ejecutamos el soft delete sin esperar retorno
+    await userSoftDelete.handler({ id: existingUser.idUser! });
 
-    it("should set status to FALSE after soft delete", async () => {
-          // Tomamos el id real generado al crear User1
-        const userId = createdUsers[0].idUser;
+    // Verificamos que el usuario en el repositorio cambió de estado
+    const found = await repository.getOneById({ value: existingUser.idUser! } as any);
+    expect(found).not.toBeNull();
+    expect(found!.status!.value).toBe(false);
+  });
 
-        // Llamamos al handler para hacer soft delete
-        const deletedUser = await softDelete.handler({ id: userId });
-
-        // Verificamos que el status ahora es false
-        expect(deletedUser.status).toBe(false);
-
-        // También podemos verificar directamente en el repo
-        const userInRepo = await repository.getOneById({ value: userId });
-        expect(userInRepo?.status?.value).toBe(false);               
-    });
-})
+  it("should throw UserNotFoundError if user does not exist", async () => {
+    await expect(userSoftDelete.handler({ id: "non-existing-id" }))
+      .rejects.toBeInstanceOf(HttpError);
+  });
+});

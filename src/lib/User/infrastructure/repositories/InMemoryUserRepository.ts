@@ -45,15 +45,14 @@ export class InMemoryUserRepository implements UserRepository {
     return user;
     }
 
-    async softDelete(id: UserId): Promise<User>{
+    async softDelete(id: UserId): Promise<void>{
         const index = this.users.findIndex((u) => u.idUser?.value === id.value);
     if (index === -1) throw new UserNotFoundError();
 
     const updatedUser = this.users[index];
     updatedUser.status = new UserStatus(false);
     this.users[index] = updatedUser;
-
-    return updatedUser;
+   
     }
 
     async getAllByStatus(isActive: UserStatus): Promise<User[]> {
