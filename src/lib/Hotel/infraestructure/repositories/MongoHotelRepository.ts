@@ -1,7 +1,6 @@
 import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
 import { Page } from "../../../../lib/Shared/domain/value-objects/page";
 import {
-  CityRepository,
   Hotel,
   HotelCreatedAt,
   HotelEmail,
@@ -16,7 +15,6 @@ import {
   HotelScore,
   HotelStatus,
   HotelUpdatedAt,
-
 } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
 import HotelModel from "../models/HotelModel";
@@ -39,7 +37,6 @@ export class MongoHotelRepository implements HotelRepository {
   async getOneByEmail(email: HotelEmail): Promise<Hotel | null> {
     const record = await HotelModel.findOne({
       email: email.value,
-     
     });
 
     if (!record) return null;
@@ -57,7 +54,7 @@ export class MongoHotelRepository implements HotelRepository {
     return this.createHotelEntity(record);
   }
 
-  async create(hotel: HotelI): Promise< Hotel> {
+  async create(hotel: HotelI): Promise<Hotel> {
     const created = await HotelModel.create({
       name: hotel.name.value,
       email: hotel.email.value,
@@ -171,7 +168,7 @@ export class MongoHotelRepository implements HotelRepository {
     return records.map((record) => this.createHotelEntity(record));
   }
 
-    async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
+  async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
     const records = await HotelModel.find({
       idPlan: "FREE", // o 0 si en tu modelo se guarda como número
       freePlanEnd: { $lte: currentDate },
@@ -181,11 +178,10 @@ export class MongoHotelRepository implements HotelRepository {
     return records.map((record) => this.createHotelEntity(record));
   }
 
-
   private createHotelEntity(record: any): Hotel {
     return new Hotel({
       hotelId: new HotelId(String(record._id)),
-      name: new HotelName(record.name), 
+      name: new HotelName(record.name),
       email: new HotelEmail(record.email),
       location: new HotelLocation(record.location),
       picture: record.picture ? new HotelPicture(record.picture) : undefined,

@@ -3,11 +3,10 @@ import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/routers/ExpressUserRouter";
 import { config } from "./config/config";
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
-
+import { HttpError } from "./lib/Shared/domain/exeptions";
 //import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
 
 import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
-import { HttpError } from "./lib/Shared/domain/exeptions";
 import { ExpressSuperAdminRouter } from "./lib/superadmin/infrastructure/routers/express";
 import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/ExpressHotelRouter";
 import { ApiResponse } from "./lib/Shared/Infraestructure/ApiResponse";

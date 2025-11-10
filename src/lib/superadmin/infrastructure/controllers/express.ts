@@ -1,6 +1,6 @@
-import { ServiceContainer } from "~/lib/Shared/Infraestructure/ServiceContainer";
+import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
 import { express as ex } from "../../../Shared/Infraestructure/External";
-import { ApiResponse } from "~/lib/User/infrastructure/ApiResponse";
+import { ApiResponse } from "../../../Shared/Infraestructure/ApiResponse";
 
 export class ExpressSuperAdminController {
   async create(req: ex.Request, res: ex.Response) {
