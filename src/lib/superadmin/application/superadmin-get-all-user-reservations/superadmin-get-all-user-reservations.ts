@@ -1,4 +1,4 @@
-import { ForViewReservations } from "../../domain";
+import { ForViewReservations } from '../../domain';
 
 export class SuperAdminGetAllUserReservations {
   constructor(private readonly viewReservations: ForViewReservations) {}

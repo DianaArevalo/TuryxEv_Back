@@ -1,5 +1,5 @@
-import { Limit, Page } from "../../../Shared/domain";
-import { BusinessRepository } from "../../domain";
+import { Limit, Page } from '../../../Shared/domain';
+import { BusinessRepository } from '../../domain';
 
 interface GetAllBusinessHandlerProps {
   page?: number;
@@ -12,7 +12,7 @@ export class GetAllBusiness {
   async handler(props: GetAllBusinessHandlerProps) {
     const result = await this.repository.getAll(
       Page.create(props.page),
-      Limit.create(props.limit)
+      Limit.create(props.limit),
     );
 
     return result.map((it) => it.toPublicResponse());

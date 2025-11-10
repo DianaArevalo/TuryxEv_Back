@@ -1,18 +1,18 @@
-import { SuperAdminRepository } from "../../../lib/superadmin/domain";
-import { InMemorySuperAdminRepository } from "../../../lib/superadmin/infrastructure/repositories/in-memory-superadmin-repository";
+import { HttpError } from '../../../lib/Shared/domain/exeptions';
 import {
   CreateSuperAdmin,
   EditSuperAdmin,
-} from "../../../lib/superadmin/application";
-import { HttpError } from "../../../lib/Shared/domain/exeptions";
+} from '../../../lib/superadmin/application';
+import { SuperAdminRepository } from '../../../lib/superadmin/domain';
+import { InMemorySuperAdminRepository } from '../../../lib/superadmin/infrastructure/repositories/in-memory-superadmin-repository';
 
 const SuperAdmin1Mock = {
-  name: "SuperAdmin1",
-  email: "superadmin1@domain.com",
-  password: "$uperAdmin1",
+  name: 'SuperAdmin1',
+  email: 'superadmin1@domain.com',
+  password: '$uperAdmin1',
 };
 
-describe("Superadmin/application/edit-superadmin", () => {
+describe('Superadmin/application/edit-superadmin', () => {
   let repository: SuperAdminRepository;
   let edit: EditSuperAdmin;
   let createdId: string;
@@ -26,12 +26,12 @@ describe("Superadmin/application/edit-superadmin", () => {
     ).superAdminId;
   });
 
-  it("should edit a superadmin", async () => {
+  it('should edit a superadmin', async () => {
     const lastLogin = new Date(Date.now());
     const edited = await edit.handler({
-      name: "Super Admin 1",
-      email: "superadmin_1@domain.com",
-      password: "$uperAdmin_1",
+      name: 'Super Admin 1',
+      email: 'superadmin_1@domain.com',
+      password: '$uperAdmin_1',
       superAdminId: createdId,
       canCreateSuperUser: true,
       canEditUsers: true,
@@ -42,8 +42,8 @@ describe("Superadmin/application/edit-superadmin", () => {
       lastLogin,
     });
 
-    expect(edited.name).toBe("Super Admin 1");
-    expect(edited.email).toBe("superadmin_1@domain.com");
+    expect(edited.name).toBe('Super Admin 1');
+    expect(edited.email).toBe('superadmin_1@domain.com');
     expect(edited.permissions.canCreateSuperUser).toBe(true);
     expect(edited.permissions.canEditUsers).toBe(true);
     expect(edited.permissions.canViewReservations).toBe(true);
@@ -53,13 +53,13 @@ describe("Superadmin/application/edit-superadmin", () => {
     expect(edited.lastLogin).toBe(lastLogin);
   });
 
-  it("should edit a superadmin when not change", async () => {
+  it('should edit a superadmin when not change', async () => {
     const edited = await edit.handler({
       superAdminId: createdId,
     });
 
-    expect(edited.name).toBe("SuperAdmin1");
-    expect(edited.email).toBe("superadmin1@domain.com");
+    expect(edited.name).toBe('SuperAdmin1');
+    expect(edited.email).toBe('superadmin1@domain.com');
     expect(edited.permissions.canCreateSuperUser).toBe(false);
     expect(edited.permissions.canEditUsers).toBe(false);
     expect(edited.permissions.canViewReservations).toBe(false);
@@ -69,9 +69,9 @@ describe("Superadmin/application/edit-superadmin", () => {
     expect(edited.lastLogin).toBe(undefined);
   });
 
-  it("should throw a error when superadmin not found", async () => {
-    expect(edit.handler({ superAdminId: "not-found" })).rejects.toThrow(
-      HttpError
+  it('should throw a error when superadmin not found', async () => {
+    await expect(edit.handler({ superAdminId: 'not-found' })).rejects.toThrow(
+      HttpError,
     );
   });
 });

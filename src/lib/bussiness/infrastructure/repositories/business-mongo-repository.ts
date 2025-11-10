@@ -1,4 +1,5 @@
-import { Page, Limit } from "../../../Shared/domain";
+import { Page, Limit } from '../../../Shared/domain';
+import { Hasher } from '../../../Shared/Infraestructure/Hasher';
 import {
   Business,
   BusinessCreatedAt,
@@ -15,16 +16,15 @@ import {
   BusinessScore,
   BusinessStatus,
   BusinessUpdatedAt,
-} from "../../domain";
-import BusinessModel from "../models/business-model";
-import { Hasher } from "../../../Shared/Infraestructure/Hasher";
+} from '../../domain';
+import BusinessModel, { IBusinessDocument } from '../models/business-model';
 
 export class MongoBusinessRepository implements BusinessRepository {
   async getAll(page: Page, limit: Limit): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
     const records = await BusinessModel.find({
-      status: { $ne: new BusinessStatus("BLOCKED").toPrimitives() },
+      status: { $ne: new BusinessStatus('BLOCKED').toPrimitives() },
     })
       .skip(offset)
       .limit(limit.value);
@@ -96,14 +96,14 @@ export class MongoBusinessRepository implements BusinessRepository {
   async softDelete(id: BusinessId): Promise<void> {
     await BusinessModel.updateOne(
       { _id: id.value },
-      { status: new BusinessStatus("BLOCKED").toPrimitives() }
+      { status: new BusinessStatus('BLOCKED').toPrimitives() },
     );
   }
 
   async getByPlan(
     plan: BusinessPlan,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
@@ -119,7 +119,7 @@ export class MongoBusinessRepository implements BusinessRepository {
   async getByRole(
     role: BusinessRole,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
@@ -135,7 +135,7 @@ export class MongoBusinessRepository implements BusinessRepository {
   async getByStatus(
     status: BusinessStatus,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
@@ -151,7 +151,7 @@ export class MongoBusinessRepository implements BusinessRepository {
   async getByProvider(
     providerData: BusinessProviderData,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
@@ -164,7 +164,7 @@ export class MongoBusinessRepository implements BusinessRepository {
     return records.map((record) => this.createBusinessEntity(record));
   }
 
-  private createBusinessEntity(record: any): Business {
+  private createBusinessEntity(record: IBusinessDocument): Business {
     return new Business({
       bussinessId: new BusinessId(String(record._id)),
       name: new BusinessName(record.name),

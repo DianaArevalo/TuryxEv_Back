@@ -1,27 +1,26 @@
-import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
-import { express as ex } from "../../../Shared/Infraestructure/External";
-import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
-import { ValidationError } from "../../../../lib/Shared/domain";
+import { ValidationError } from '../../../../lib/Shared/domain';
+import { express as ex } from '../../../Shared/Infraestructure/External';
+import { ServiceContainer } from '../../../Shared/Infraestructure/ServiceContainer';
 
+import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
 
 export class ExpressUserController {
   async create(req: ex.Request, res: ex.Response) {
-    const {name, email, password} =  req.body  as {
+    const { name, email, password } = req.body as {
       name: string;
       email: string;
-      password: string;         
+      password: string;
     };
 
     const newUser = await ServiceContainer.user.create.handler({
       name,
       email,
-      password,     
-      
+      password,
     });
 
     const response: ApiResponse<typeof newUser> = {
       success: true,
-      title: "Usuario creado correctamente",
+      title: 'Usuario creado correctamente',
       message: `Se creo el usuario ${name}`,
       body: newUser,
     };
@@ -30,19 +29,19 @@ export class ExpressUserController {
   }
 
   async getOneById(req: ex.Request, res: ex.Response) {
-    const id = req.query.id;
+    const { id } = req.query as { id?: string };
 
-    if(!id) throw new ValidationError("La query id es necesario");
+    if (!id) throw new ValidationError('La query id es necesario');
 
     const user = await ServiceContainer.user.getOneById.handler({
-      id: id.toString(),
+      id: id,
     });
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Usuario",
-      message: "Se retorna un usuario dado un id",
-      body: user
+      title: 'Usuario',
+      message: 'Se retorna un usuario dado un id',
+      body: user,
     };
 
     return res.status(201).json(response);
@@ -52,36 +51,34 @@ export class ExpressUserController {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
 
-  const users = await ServiceContainer.user.getAll.handler({
-    page,
-    limit,
-  });
+    const users = await ServiceContainer.user.getAll.handler({
+      page,
+      limit,
+    });
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Usuarios",
-      message: "Se listan todos los usuarios",
-      body: users
-    }
+      title: 'Usuarios',
+      message: 'Se listan todos los usuarios',
+      body: users,
+    };
 
-    return res.status(200).json(response)
+    return res.status(200).json(response);
   }
 
   async getOneByEmail(req: ex.Request, res: ex.Response) {
-    const email = req.query.email;
+    const { email } = req.query as { email?: string };
 
-    if(!email) throw new ValidationError("La query email es necesaria");
+    if (!email) throw new ValidationError('La query email es necesaria');
 
     const user = await ServiceContainer.user.getOneByEmail.handler({
-      email: email.toString(),
+      email: email,
     });
 
-
-    const response: ApiResponse<any> ={
+    const response: ApiResponse<any> = {
       success: true,
-      title: "user",
-      message: "Se retorna el negocio dado un email",
-      body: user
-      
+      title: 'user',
+      message: 'Se retorna el negocio dado un email',
+      body: user,
     };
 
     return res.status(201).json(response);
@@ -102,39 +99,38 @@ export class ExpressUserController {
 
     const response: ApiResponse<typeof editedUser> = {
       success: true,
-      title: "Usuario editado correctamente",
+      title: 'Usuario editado correctamente',
       message: `Se editó el usuario ${editedUser.name}`,
       body: editedUser,
-
     };
 
-    return res.status(201).json(response)
+    return res.status(201).json(response);
   }
 
   async softDelete(req: ex.Request, res: ex.Response) {
-     const { id } = req.params;
+    const { id } = req.params;
 
-    if(!id) throw new ValidationError("La query id es necesario");
+    if (!id) throw new ValidationError('La query id es necesario');
 
-    const user = await ServiceContainer.user.softDelete.handler({id});
+    const user = await ServiceContainer.user.softDelete.handler({ id });
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Usuario bloqueado",
+      title: 'Usuario bloqueado',
       message: `Eliminacion temporal en estado bloqueado del usuario`,
       body: user,
     };
 
-    return res.status(200).json(response)
+    return res.status(200).json(response);
   }
 
-   async getAllByStatus(req: ex.Request, res: ex.Response) {
+  async getAllByStatus(req: ex.Request, res: ex.Response) {
     const { status } = req.query;
 
     if (status === undefined)
       throw new ValidationError("La query 'status' es necesaria");
 
-    const isActive = status === "true";
+    const isActive = status === 'true';
 
     const users = await ServiceContainer.user.getAllByStatus.handler({
       status: isActive,
@@ -142,7 +138,7 @@ export class ExpressUserController {
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Usuarios filtrados por estado",
+      title: 'Usuarios filtrados por estado',
       message: `Se listan todos los usuarios con estado ${isActive}`,
       body: users,
     };

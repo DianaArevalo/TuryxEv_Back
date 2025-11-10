@@ -1,9 +1,9 @@
-import { CityRepository, Hotel, HotelLocation } from "../../domain";
+import { CityRepository, HotelLocation } from '../../domain';
 
 export class InMemoryCityRepository implements CityRepository {
-  private readonly allowedCities = ["Bogotá", "Medellín", "Cali"];
+  private readonly allowedCities = ['Bogotá', 'Medellín', 'Cali'];
 
-   createCity(city: string): HotelLocation {
+  createCity(city: string): HotelLocation {
     // Si no existe, lo creamos (por ahora simplemente devolvemos el string)
     if (!this.allowedCities.includes(city)) {
       this.allowedCities.push(city);
@@ -11,14 +11,13 @@ export class InMemoryCityRepository implements CityRepository {
     return new HotelLocation(city);
   }
 
-
-  async isValidCity(city: HotelLocation): Promise<boolean> {
-    return this.allowedCities.includes(city.getValue());
+  isValidCity(city: HotelLocation): Promise<boolean> {
+    return Promise.resolve(this.allowedCities.includes(city.getValue()));
   }
 
- 
-
-  async getValidCities(): Promise<HotelLocation[]> {
-      return this.allowedCities.map((city) => new HotelLocation(city));
+  getValidCities(): Promise<HotelLocation[]> {
+    return Promise.resolve(
+      this.allowedCities.map((city) => new HotelLocation(city)),
+    );
   }
 }

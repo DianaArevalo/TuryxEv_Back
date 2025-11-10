@@ -1,4 +1,4 @@
-import { mongoose as mg } from "../../../Shared/Infraestructure/External";
+import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 
 export interface IBusinessDocument extends mg.Document {
   name: string;
@@ -30,7 +30,7 @@ const BusinessSchema = new mg.Schema<IBusinessDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mg.model<IBusinessDocument>("Business", BusinessSchema);
+export default mg.model<IBusinessDocument>('Business', BusinessSchema);

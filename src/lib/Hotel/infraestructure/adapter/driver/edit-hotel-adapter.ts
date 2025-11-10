@@ -1,14 +1,14 @@
-import { HotelEdit } from "../../../../Hotel/application";
-import { CityRepository, HotelRepository } from "../../../../Hotel/domain";
+import { HotelEdit } from '../../../../Hotel/application';
+import { CityRepository, HotelRepository } from '../../../../Hotel/domain';
 import {
   ForEditHotel,
   EditProps,
-} from "../../../domain/ports/driver/for-edit-hotel";
+} from '../../../domain/ports/driver/for-edit-hotel';
 
 export class EditHotelAdapter implements ForEditHotel {
   constructor(
     private readonly repository: HotelRepository,
-    private readonly cityRepository: CityRepository
+    private readonly cityRepository: CityRepository,
   ) {}
 
   async edit(props: EditProps): Promise<void> {

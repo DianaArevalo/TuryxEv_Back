@@ -5,7 +5,7 @@ import {
   ReservationNotFoundError,
   ReservationRepository,
   ReservationUpdatedAt,
-} from "../../domain";
+} from '../../domain';
 
 interface EditReservationHanlderProps {
   reservationId: string;
@@ -20,7 +20,7 @@ export class EditReservation {
     if (!props.checkInDate && !props.checkOutDate) return;
 
     const reservation = await this.repository.getOneByReservationId(
-      new ReservationId(props.reservationId)
+      new ReservationId(props.reservationId),
     );
 
     if (!reservation) throw new ReservationNotFoundError();
@@ -34,10 +34,10 @@ export class EditReservation {
           props.checkInDate < reservation.checkOutDate.value)
       ) {
         reservation.checkInDate = ReservationCheckInDate.create(
-          props.checkInDate
+          props.checkInDate,
         );
         hasChanges = true;
-      } else throw new Error("Check-in date inválido");
+      } else throw new Error('Check-in date inválido');
     }
 
     if (
@@ -46,7 +46,7 @@ export class EditReservation {
     ) {
       reservation.checkOutDate = ReservationCheckOutDate.create(
         props.checkOutDate,
-        reservation.checkInDate.value
+        reservation.checkInDate.value,
       );
       hasChanges = true;
     }
@@ -55,7 +55,7 @@ export class EditReservation {
 
     reservation.updatedAt = ReservationUpdatedAt.create(
       new Date(),
-      reservation.createdAt
+      reservation.createdAt,
     );
 
     const edited = await this.repository.edit(reservation);

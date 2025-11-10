@@ -1,4 +1,4 @@
-import { CityName, LocationRepository } from "../../domain";
+import { CityName, LocationRepository } from '../../domain';
 
 interface CreateCityHandlerProps {
   name: string;

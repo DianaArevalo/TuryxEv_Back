@@ -1,4 +1,3 @@
-import { Limit, Page } from "~/lib/Shared/domain";
 import {
   Business,
   BusinessEmail,
@@ -7,7 +6,9 @@ import {
   BusinessProviderData,
   BusinessRole,
   BusinessStatus,
-} from "../entities";
+} from '../entities';
+
+import { Limit, Page } from '~/lib/Shared/domain';
 
 export interface BusinessRepository {
   getAll(page: Page, limit: Limit): Promise<Business[]>;
@@ -22,11 +23,11 @@ export interface BusinessRepository {
   getByStatus(
     status: BusinessStatus,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Business[]>;
   getByProvider(
     providerData: BusinessProviderData,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Business[]>;
 }

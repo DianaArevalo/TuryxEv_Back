@@ -12,7 +12,7 @@ import {
   SuperAdminNotFoundError,
   SuperAdminPassword,
   SuperAdminRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface EditSuperAdminHandlerProps {
   superAdminId: string;
@@ -33,7 +33,7 @@ export class EditSuperAdmin {
 
   async handler(props: EditSuperAdminHandlerProps) {
     const record = await this.repository.getOneById(
-      new SuperAdminId(props.superAdminId)
+      new SuperAdminId(props.superAdminId),
     );
 
     if (!record) throw new SuperAdminNotFoundError();
@@ -44,23 +44,23 @@ export class EditSuperAdmin {
       record.password = new SuperAdminPassword(props.password);
     if (props.canCreateSuperUser)
       record.canCreateSuperUser = new SuperAdminCanCreateSuperUsers(
-        props.canCreateSuperUser
+        props.canCreateSuperUser,
       );
     if (props.canEditUsers)
       record.canEditUsers = new SuperAdminCanEditUsers(props.canEditUsers);
     if (props.canViewReservations)
       record.canViewReservations = new SuperAdminCanViewReservations(
-        props.canViewReservations
+        props.canViewReservations,
       );
     if (props.canBlockAccounts)
       record.canBlockAccounts = new SuperAdminCanBlockAccounts(
-        props.canBlockAccounts
+        props.canBlockAccounts,
       );
     if (props.canEditHotels)
       record.canEditHotels = new SuperAdminCanEditHotels(props.canEditHotels);
     if (props.canEditBusiness)
       record.canEditBusiness = new SuperAdminCanEditBusiness(
-        props.canEditBusiness
+        props.canEditBusiness,
       );
     if (props.lastLogin)
       record.lastLogin = new SuperAdminLastLogin(props.lastLogin);

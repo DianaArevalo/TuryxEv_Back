@@ -1,3 +1,3 @@
-import { StringValueObject } from "./string";
+import { StringValueObject } from './string';
 
 export class IdValueObject extends StringValueObject {}

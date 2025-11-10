@@ -5,7 +5,7 @@ import {
   SuperAdminName,
   SuperAdminPassword,
   SuperAdminRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface CreateSuperAdminHandlerProps {
   name: string;
@@ -18,7 +18,7 @@ export class CreateSuperAdmin {
 
   async handler(props: CreateSuperAdminHandlerProps) {
     const superAdmin = new SuperAdmin({
-      superAdminId: new SuperAdminId(""),
+      superAdminId: new SuperAdminId(''),
       name: new SuperAdminName(props.name),
       email: new SuperAdminEmail(props.email),
       password: new SuperAdminPassword(props.password),

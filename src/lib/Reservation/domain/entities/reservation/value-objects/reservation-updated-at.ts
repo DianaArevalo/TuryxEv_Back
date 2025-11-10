@@ -1,4 +1,4 @@
-import { ReservationCreatedAt } from "./reservation-created-at";
+import { ReservationCreatedAt } from './reservation-created-at';
 
 export class ReservationUpdatedAt {
   constructor(readonly value: Date) {}
@@ -11,18 +11,18 @@ export class ReservationUpdatedAt {
   // Crear manualmente (ej: tests)
   static create(
     value: Date,
-    createdAt: ReservationCreatedAt
+    createdAt: ReservationCreatedAt,
   ): ReservationUpdatedAt {
-    if (!value) throw new Error("UpdatedAt no puede ser nulo");
-    if (isNaN(value.getTime())) throw new Error("UpdatedAt inválido");
+    if (!value) throw new Error('UpdatedAt no puede ser nulo');
+    if (isNaN(value.getTime())) throw new Error('UpdatedAt inválido');
 
     const now = new Date();
     if (value > now) {
-      throw new Error("UpdatedAt no puede estar en el futuro");
+      throw new Error('UpdatedAt no puede estar en el futuro');
     }
 
     if (value < createdAt.value) {
-      throw new Error("UpdatedAt no puede ser menor que CreatedAt");
+      throw new Error('UpdatedAt no puede ser menor que CreatedAt');
     }
 
     return new ReservationUpdatedAt(value);

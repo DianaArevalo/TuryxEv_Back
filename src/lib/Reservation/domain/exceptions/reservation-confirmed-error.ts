@@ -3,7 +3,7 @@ export class ReservationConfirmedError extends Error {
 
   constructor(message = "Reservation are confirmed. Can't cancel.") {
     super(message);
-    this.name = "ReservationConfirmedError";
+    this.name = 'ReservationConfirmedError';
     this.statusCode = 400;
 
     Object.setPrototypeOf(this, ReservationConfirmedError.prototype);

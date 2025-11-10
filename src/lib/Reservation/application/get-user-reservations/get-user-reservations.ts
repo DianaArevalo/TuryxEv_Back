@@ -2,7 +2,7 @@ import {
   Reservation,
   ReservationRepository,
   ReservationUserId,
-} from "../../domain";
+} from '../../domain';
 
 interface GetUserReservationHandlerProps {
   userId: string;
@@ -13,7 +13,7 @@ export class GetUserReservations {
 
   async handler(props: GetUserReservationHandlerProps): Promise<Reservation[]> {
     return this.repository.getAllUserReservations(
-      new ReservationUserId(props.userId)
+      new ReservationUserId(props.userId),
     );
   }
 }

@@ -1,8 +1,8 @@
+import { ValidationError } from '../../../Shared/domain/exeptions';
+import { express as ex } from '../../../Shared/Infraestructure/External';
+import { ServiceContainer } from '../../../Shared/Infraestructure/ServiceContainer';
 
-import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
-import { express as ex } from "../../../Shared/Infraestructure/External";
-import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
-import { ValidationError } from "../../../Shared/domain/exeptions";
+import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
 
 export class ExpressBusinessController {
   async create(req: ex.Request, res: ex.Response) {
@@ -16,17 +16,17 @@ export class ExpressBusinessController {
     await ServiceContainer.business.create.handler({
       name,
       email,
-      idRole: "BUSINESS",
-      idPlan: "FREE",
-      status: "OPEN",
+      idRole: 'BUSINESS',
+      idPlan: 'FREE',
+      status: 'OPEN',
       password,
       location,
-      providerData: "AUTH",
+      providerData: 'AUTH',
     });
 
     const response: ApiResponse<null> = {
       success: true,
-      title: "Negocio creado correctamente",
+      title: 'Negocio creado correctamente',
       message: `Se creó el negocio.`,
       body: null,
     };
@@ -50,7 +50,7 @@ export class ExpressBusinessController {
 
     const response: ApiResponse<null> = {
       success: true,
-      title: "Negocio editado correctamente",
+      title: 'Negocio editado correctamente',
       message: `Se editó el negocio.`,
       body: null,
     };
@@ -59,18 +59,17 @@ export class ExpressBusinessController {
   }
 
   async getAll(req: ex.Request, res: ex.Response) {
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const { page, limit } = req.query as { page?: string; limit?: string };
 
     const business = await ServiceContainer.business.getAll.handler({
-      page: page ? Number(page.toString()) : undefined,
-      limit: limit ? Number(limit.toString()) : undefined,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
     });
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Negocios",
-      message: "Se listan todos los negocios correctamente",
+      title: 'Negocios',
+      message: 'Se listan todos los negocios correctamente',
       body: business,
     };
 
@@ -78,22 +77,24 @@ export class ExpressBusinessController {
   }
 
   async getAllByPlan(req: ex.Request, res: ex.Response) {
-    const plan = req.query.plan;
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const { page, limit, plan } = req.query as {
+      page?: string;
+      limit?: string;
+      plan?: string;
+    };
 
-    if (!plan) throw new ValidationError("La query plan es necesario");
+    if (!plan) throw new ValidationError('La query plan es necesario');
 
     const business = await ServiceContainer.business.getAllByPlan.handler({
-      plan: plan.toString(),
-      page: page ? Number(page.toString()) : undefined,
-      limit: limit ? Number(limit.toString()) : undefined,
+      plan: plan,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
     });
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Negocios",
-      message: "Se listan todos los negocios correctamente",
+      title: 'Negocios',
+      message: 'Se listan todos los negocios correctamente',
       body: business,
     };
 
@@ -101,22 +102,24 @@ export class ExpressBusinessController {
   }
 
   async getAllByRole(req: ex.Request, res: ex.Response) {
-    const role = req.query.role;
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const { page, limit, role } = req.query as {
+      page?: string;
+      limit?: string;
+      role?: string;
+    };
 
-    if (!role) throw new ValidationError("La query role es necesario");
+    if (!role) throw new ValidationError('La query role es necesario');
 
     const business = await ServiceContainer.business.getAllByRole.handler({
-      role: role.toString(),
-      page: page ? Number(page.toString()) : undefined,
-      limit: limit ? Number(limit.toString()) : undefined,
+      role: role,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
     });
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Negocios",
-      message: "Se listan todos los negocios correctamente",
+      title: 'Negocios',
+      message: 'Se listan todos los negocios correctamente',
       body: business,
     };
 
@@ -124,22 +127,24 @@ export class ExpressBusinessController {
   }
 
   async getAllByStatus(req: ex.Request, res: ex.Response) {
-    const status = req.query.status;
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const { page, limit, status } = req.query as {
+      page?: string;
+      limit?: string;
+      status?: string;
+    };
 
-    if (!status) throw new ValidationError("La query plan es necesario");
+    if (!status) throw new ValidationError('La query plan es necesario');
 
     const business = await ServiceContainer.business.getAllByStatus.handler({
-      status: status.toString(),
-      page: page ? Number(page.toString()) : undefined,
-      limit: limit ? Number(limit.toString()) : undefined,
+      status: status,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
     });
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Negocios",
-      message: "Se listan todos los negocios correctamente",
+      title: 'Negocios',
+      message: 'Se listan todos los negocios correctamente',
       body: business,
     };
 
@@ -147,22 +152,24 @@ export class ExpressBusinessController {
   }
 
   async getAllByProviderData(req: ex.Request, res: ex.Response) {
-    const provider = req.query.provider;
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const { page, limit, provider } = req.query as {
+      page?: string;
+      limit?: string;
+      provider?: string;
+    };
 
-    if (!provider) throw new ValidationError("La query provider es necesaria");
+    if (!provider) throw new ValidationError('La query provider es necesaria');
 
     const business = await ServiceContainer.business.getAllByProvider.handler({
-      providerData: provider.toString(),
-      page: page ? Number(page.toString()) : undefined,
-      limit: limit ? Number(limit.toString()) : undefined,
+      providerData: provider,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
     });
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Negocios",
-      message: "Se listan todos los negocios dado un provider correctamente",
+      title: 'Negocios',
+      message: 'Se listan todos los negocios dado un provider correctamente',
       body: business,
     };
 
@@ -170,18 +177,18 @@ export class ExpressBusinessController {
   }
 
   async getOneByEmail(req: ex.Request, res: ex.Response) {
-    const email = req.query.email;
+    const { email } = req.query as { email?: string };
 
-    if (!email) throw new ValidationError("La query email es necesario");
+    if (!email) throw new ValidationError('La query email es necesario');
 
     const business = await ServiceContainer.business.getOneByEmail.handler({
-      email: email.toString(),
+      email: email,
     });
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Negocio",
-      message: "Se retorna el negocio dado un email",
+      title: 'Negocio',
+      message: 'Se retorna el negocio dado un email',
       body: business,
     };
 
@@ -189,18 +196,18 @@ export class ExpressBusinessController {
   }
 
   async getOneById(req: ex.Request, res: ex.Response) {
-    const id = req.query.id;
+    const { id } = req.query as { id?: string };
 
-    if (!id) throw new ValidationError("La query id es necesario");
+    if (!id) throw new ValidationError('La query id es necesario');
 
     const business = await ServiceContainer.business.getOneById.handler({
-      id: id.toString(),
+      id: id,
     });
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Negocio",
-      message: "Se retorna un negocio dado un id correctamente",
+      title: 'Negocio',
+      message: 'Se retorna un negocio dado un id correctamente',
       body: business,
     };
 
@@ -208,18 +215,18 @@ export class ExpressBusinessController {
   }
 
   async softDelete(req: ex.Request, res: ex.Response) {
-    const id = req.query.id;
+    const { id } = req.query as { id?: string };
 
-    if (!id) throw new ValidationError("La query id es necesario");
+    if (!id) throw new ValidationError('La query id es necesario');
 
     const business = await ServiceContainer.business.softDelete.handler({
-      id: id.toString(),
+      id: id,
     });
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Negocio eliminado",
-      message: "Se eliminó un negocio",
+      title: 'Negocio eliminado',
+      message: 'Se eliminó un negocio',
       body: business,
     };
 

@@ -1,1 +1,1 @@
-export * from "./UserNotFoundError"
+export * from './UserNotFoundError';

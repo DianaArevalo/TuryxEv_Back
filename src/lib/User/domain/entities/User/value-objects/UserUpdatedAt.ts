@@ -1,5 +1,3 @@
-import { UpdatedAtValueObject } from "../../../../../../lib/Shared/domain";
+import { UpdatedAtValueObject } from '../../../../../../lib/Shared/domain';
 
-export class UserUpdatedAt extends UpdatedAtValueObject {
-    
-}
+export class UserUpdatedAt extends UpdatedAtValueObject {}

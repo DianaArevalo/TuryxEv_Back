@@ -10,7 +10,7 @@ import {
   ReservationTotalAmount,
   ReservationUpdatedAt,
   ReservationUserId,
-} from "../../domain";
+} from '../../domain';
 
 interface CreateReservationHandlerProps {
   userId: string;
@@ -27,13 +27,13 @@ export class CreateReservation {
     const createdAt = ReservationCreatedAt.create(now);
 
     const reservation = new Reservation({
-      reservationId: new ReservationId(""),
+      reservationId: new ReservationId(''),
       userId: new ReservationUserId(props.userId),
       hotelId: new ReservationHotelId(props.hotelId),
       checkInDate: ReservationCheckInDate.create(props.checkInDate),
       checkOutDate: ReservationCheckOutDate.create(
         props.checkOutDate,
-        props.checkInDate
+        props.checkInDate,
       ),
       status: ReservationStatus.create(),
       totalAmount: ReservationTotalAmount.create(0),

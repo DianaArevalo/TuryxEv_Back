@@ -1,5 +1,6 @@
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
+import { Limit } from '../../../../lib/Shared/domain/value-objects/limit';
+import { Page } from '../../../../lib/Shared/domain/value-objects/page';
+import { Hasher } from '../../../../lib/Shared/Infraestructure/Hasher';
 import {
   Hotel,
   HotelCreatedAt,
@@ -15,18 +16,17 @@ import {
   HotelScore,
   HotelStatus,
   HotelUpdatedAt,
-} from "../../domain";
-import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
-import HotelModel from "../models/HotelModel";
-import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
-import { HotelNotFoundError } from "../../domain/exceptions/HotelNotFoundError";
+} from '../../domain';
+import { HotelPicture } from '../../domain/entities/Hotel/value-objects/HotelPicture';
+import { HotelNotFoundError } from '../../domain/exceptions/HotelNotFoundError';
+import HotelModel, { IHotelDocument } from '../models/HotelModel';
 
 export class MongoHotelRepository implements HotelRepository {
   async getAll(page: Page, limit: Limit): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
     const records = await HotelModel.find({
-      status: { $ne: new HotelStatus("BLOCKED").toPrimitives() },
+      status: { $ne: new HotelStatus('BLOCKED').toPrimitives() },
     })
       .skip(offSet)
       .limit(limit.value);
@@ -71,7 +71,7 @@ export class MongoHotelRepository implements HotelRepository {
       providerData: hotel.providerData.toPrimitives(),
     });
 
-    console.log("Creating Hotel with values:", {
+    console.log('Creating Hotel with values:', {
       idRole: hotel.role.toPrimitives(),
       idPlan: hotel.plan.toPrimitives(),
       status: hotel.status.toPrimitives(),
@@ -106,7 +106,7 @@ export class MongoHotelRepository implements HotelRepository {
   async updateStatus(id: HotelId, status: HotelStatus): Promise<void> {
     await HotelModel.updateOne(
       { _id: id.value },
-      { status: HotelStatus.create("BLOCKED").toPrimitives() }
+      { status: HotelStatus.create(status.getValue()).toPrimitives() },
     );
   }
 
@@ -139,7 +139,7 @@ export class MongoHotelRepository implements HotelRepository {
   async getByStatus(
     status: HotelStatus,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
@@ -155,7 +155,7 @@ export class MongoHotelRepository implements HotelRepository {
   async getByProvider(
     provider: HotelProviderData,
     page: Page,
-    limit: Limit
+    limit: Limit,
   ): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
@@ -170,15 +170,15 @@ export class MongoHotelRepository implements HotelRepository {
 
   async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
     const records = await HotelModel.find({
-      idPlan: "FREE", // o 0 si en tu modelo se guarda como número
+      idPlan: 'FREE', // o 0 si en tu modelo se guarda como número
       freePlanEnd: { $lte: currentDate },
-      status: { $ne: "BLOCKED" },
+      status: { $ne: 'BLOCKED' },
     });
 
     return records.map((record) => this.createHotelEntity(record));
   }
 
-  private createHotelEntity(record: any): Hotel {
+  private createHotelEntity(record: IHotelDocument): Hotel {
     return new Hotel({
       hotelId: new HotelId(String(record._id)),
       name: new HotelName(record.name),
@@ -188,15 +188,8 @@ export class MongoHotelRepository implements HotelRepository {
       score: new HotelScore(record.score),
       createdAt: new HotelCreatedAt(record.createdAt),
       updatedAt: new HotelUpdatedAt(record.updatedAt),
-      role:
-        typeof record.idRole === "number"
-          ? HotelRole.fromPrimitives(record.idRole)
-          : HotelRole.create(record.idRole),
-      plan:
-        typeof record.idPlan === "number"
-          ? HotelPlan.fromPrimitives(record.idPlan)
-          : HotelPlan.fromPrimitives(record.plan),
-
+      role: HotelRole.fromPrimitives(record.idRole),
+      plan: HotelPlan.fromPrimitives(record.idPlan),
       status: HotelStatus.fromPrimitives(record.status),
       providerData: HotelProviderData.fromPrimitives(record.providerData),
     });

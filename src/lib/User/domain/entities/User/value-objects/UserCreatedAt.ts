@@ -1,5 +1,3 @@
-import { CreatedAtValueObject } from "../../../../../../lib/Shared/domain";
+import { CreatedAtValueObject } from '../../../../../../lib/Shared/domain';
 
-export class UserCreatedAt extends CreatedAtValueObject {
-
-}
+export class UserCreatedAt extends CreatedAtValueObject {}

@@ -1,5 +1,5 @@
-import { Limit, Page } from "../../../Shared/domain";
-import { BusinessProviderData, BusinessRepository } from "../../domain";
+import { Limit, Page } from '../../../Shared/domain';
+import { BusinessProviderData, BusinessRepository } from '../../domain';
 
 interface GetBusinessByProviderDataHandlerProps {
   providerData: string;
@@ -14,7 +14,7 @@ export class GetBusinessByProviderData {
     const result = await this.repository.getByProvider(
       BusinessProviderData.create(props.providerData),
       Page.create(props.page),
-      Limit.create(props.limit)
+      Limit.create(props.limit),
     );
 
     return result.map((it) => it.toPublicResponse());

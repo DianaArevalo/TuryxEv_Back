@@ -1,16 +1,16 @@
 import {
   Reservation,
   ReservationRepository,
-} from "../../../../Reservation/domain";
-import { ForViewReservations } from "../../../domain";
-import { ViewReservationsAdapter } from "../../../../Reservation/infrastructure/adapters/driven/view-reservations-adapter";
+} from '../../../../Reservation/domain';
+import { ViewReservationsAdapter } from '../../../../Reservation/infrastructure/adapters/driven/view-reservations-adapter';
+import { ForViewReservations } from '../../../domain';
 
 export class ForViewReservationsAdapter implements ForViewReservations {
   viewReservations: ViewReservationsAdapter;
 
   constructor(private readonly reservationRepository: ReservationRepository) {
     this.viewReservations = new ViewReservationsAdapter(
-      this.reservationRepository
+      this.reservationRepository,
     );
   }
 

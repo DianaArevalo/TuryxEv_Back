@@ -1,4 +1,4 @@
-import { Business, BusinessLocation } from "../entities";
+import { Business, BusinessLocation } from '../entities';
 
 export interface LocationRepository {
   getValidLocations(): Promise<BusinessLocation[]>;

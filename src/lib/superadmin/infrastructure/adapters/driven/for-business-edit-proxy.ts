@@ -1,20 +1,20 @@
-import { EditBusinessProps, ForBusinessEdit } from "../../../domain";
-import { EditBusinessAdapter } from "../../../../bussiness/infrastructure/adapters/driver/edit-business-adapter";
 import {
   BusinessRepository,
   LocationRepository,
-} from "../../../../bussiness/domain";
+} from '../../../../bussiness/domain';
+import { EditBusinessAdapter } from '../../../../bussiness/infrastructure/adapters/driver/edit-business-adapter';
+import { EditBusinessProps, ForBusinessEdit } from '../../../domain';
 
 export class ForBusinessEditAdapter implements ForBusinessEdit {
   editBusiness: EditBusinessAdapter;
 
   constructor(
     private readonly businessRepository: BusinessRepository,
-    private readonly locationRepository: LocationRepository
+    private readonly locationRepository: LocationRepository,
   ) {
     this.editBusiness = new EditBusinessAdapter(
       this.businessRepository,
-      this.locationRepository
+      this.locationRepository,
     );
   }
 

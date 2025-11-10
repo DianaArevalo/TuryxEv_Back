@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../Shared/domain/exeptions";
+import { ValidationError } from '../../../Shared/domain/exeptions';
 import {
   BusinessId,
   BusinessLocation,
@@ -11,7 +11,7 @@ import {
   BusinessScore,
   BusinessStatus,
   LocationRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface EditBusinessHandlerProps {
   businessId: string;
@@ -27,32 +27,32 @@ interface EditBusinessHandlerProps {
 export class EditBusiness {
   constructor(
     private readonly repository: BusinessRepository,
-    private readonly locationRepository: LocationRepository
+    private readonly locationRepository: LocationRepository,
   ) {}
 
   async handler(props: EditBusinessHandlerProps) {
     const business = await this.repository.getOneById(
-      new BusinessId(props.businessId)
+      new BusinessId(props.businessId),
     );
 
     if (
       props.location &&
       !(await this.locationRepository.isValidLocation(
-        BusinessLocation.create(props.location)
+        BusinessLocation.create(props.location),
       ))
     )
-      throw new ValidationError("Location is invalid");
+      throw new ValidationError('Location is invalid');
 
     if (!business) throw new BusinessNotFoundError();
 
     if (props.name && props.name !== business.name.value)
       business.name = BusinessName.create(props.name);
 
-    if (props.password && business.providerData.value === "AUTH")
+    if (props.password && business.providerData.value === 'AUTH')
       business.password = BusinessPassword.create(props.password);
     else if (props.password)
       throw new ValidationError(
-        "Can't update password when you signed with OAuth provider"
+        "Can't update password when you signed with OAuth provider",
       );
 
     if (props.location)

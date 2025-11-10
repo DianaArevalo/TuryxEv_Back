@@ -1,6 +1,6 @@
-import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
-import { express as ex } from "../../../Shared/Infraestructure/External";
-import { ApiResponse } from "../../../Shared/Infraestructure/ApiResponse";
+import { ApiResponse } from '../../../Shared/Infraestructure/ApiResponse';
+import { express as ex } from '../../../Shared/Infraestructure/External';
+import { ServiceContainer } from '../../../Shared/Infraestructure/ServiceContainer';
 
 export class ExpressSuperAdminController {
   async create(req: ex.Request, res: ex.Response) {
@@ -10,8 +10,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<null> = {
       success: true,
-      title: "Superadministrador creado correctamente",
-      message: "Se creó el superadministrador",
+      title: 'Superadministrador creado correctamente',
+      message: 'Se creó el superadministrador',
       body: null,
     };
 
@@ -37,8 +37,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<null> = {
       success: true,
-      title: "Superadministrador editado correctamente",
-      message: "Se editó el superadministrador",
+      title: 'Superadministrador editado correctamente',
+      message: 'Se editó el superadministrador',
       body: null,
     };
 
@@ -50,8 +50,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Superadministradores",
-      message: "Superadministradores proveidos correctamente",
+      title: 'Superadministradores',
+      message: 'Superadministradores proveidos correctamente',
       body: superAdmins,
     };
 
@@ -68,8 +68,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Superadministradores",
-      message: "Superadministradores proveidos correctamente",
+      title: 'Superadministradores',
+      message: 'Superadministradores proveidos correctamente',
       body: superAdmins,
     };
 
@@ -85,8 +85,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Superadministrador",
-      message: "Superadministrador proveido correctamente",
+      title: 'Superadministrador',
+      message: 'Superadministrador proveido correctamente',
       body: superAdmin,
     };
 
@@ -102,8 +102,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Superadministrador",
-      message: "Superadministrador proveido correctamente",
+      title: 'Superadministrador',
+      message: 'Superadministrador proveido correctamente',
       body: superAdmin,
     };
 
@@ -117,8 +117,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<null> = {
       success: true,
-      title: "Negocio",
-      message: "Negocio editado correctamente",
+      title: 'Negocio',
+      message: 'Negocio editado correctamente',
       body: null,
     };
 
@@ -126,18 +126,18 @@ export class ExpressSuperAdminController {
   }
 
   async editHotel(req: ex.Request, res: ex.Response) {
-    const body = req.body as {
-      hotelId: string;
-      name?: string;
-      location?: string;
-      plan?: string;
-      status?: string;
-      score?: string;
-      picture?: string;
-      freePlanEnd?: Date;
-    };
-
-    await ServiceContainer.superAdmin.edit;
+    // const body = req.body as {
+    //   hotelId: string;
+    //   name?: string;
+    //   location?: string;
+    //   plan?: string;
+    //   status?: string;
+    //   score?: string;
+    //   picture?: string;
+    //   freePlanEnd?: Date;
+    // };
+    // await ServiceContainer.superAdmin.edit.handler(body);
+    // TODO
   }
 
   async getAllReservationsByHotelId(req: ex.Request, res: ex.Response) {
@@ -145,13 +145,13 @@ export class ExpressSuperAdminController {
 
     const reservations =
       await ServiceContainer.superAdmin.getAllReservationsByHotelId.handler(
-        hotelId
+        hotelId,
       );
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Reservas",
-      message: "Reservas proveidas correctamente",
+      title: 'Reservas',
+      message: 'Reservas proveidas correctamente',
       body: reservations,
     };
 
@@ -166,8 +166,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<any[]> = {
       success: true,
-      title: "Reservas",
-      message: "Reservas proveidas correctamente",
+      title: 'Reservas',
+      message: 'Reservas proveidas correctamente',
       body: reservations,
     };
 
@@ -182,8 +182,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<any> = {
       success: true,
-      title: "Reserva",
-      message: "Reserva proveida correctamente",
+      title: 'Reserva',
+      message: 'Reserva proveida correctamente',
       body: superAdmin,
     };
 
@@ -197,8 +197,8 @@ export class ExpressSuperAdminController {
 
     const response: ApiResponse<null> = {
       success: true,
-      title: "Superadmin eliminado",
-      message: "Superadmin eliminado correctamente",
+      title: 'Superadmin eliminado',
+      message: 'Superadmin eliminado correctamente',
       body: null,
     };
 

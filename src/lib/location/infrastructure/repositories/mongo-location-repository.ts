@@ -9,9 +9,9 @@ import {
   LocationId,
   LocationNotFoundError,
   LocationRepository,
-} from "../../domain";
-import CitySchema from "../models/city-model";
-import LocationSchema from "../models/location-model";
+} from '../../domain';
+import CitySchema, { ICityDocument } from '../models/city-model';
+import LocationSchema, { ILocationDocument } from '../models/location-model';
 
 export class MongoLocationRepository implements LocationRepository {
   async getValidCities(): Promise<City[]> {
@@ -79,7 +79,7 @@ export class MongoLocationRepository implements LocationRepository {
         city: location.city.value,
         address: location.address.value,
       },
-      { new: true }
+      { new: true },
     ).lean();
 
     if (!record) throw new LocationNotFoundError();
@@ -87,17 +87,17 @@ export class MongoLocationRepository implements LocationRepository {
     return this.createLocationEntity(record);
   }
 
-  private createCityEntity(record: any) {
+  private createCityEntity(record: ICityDocument) {
     return new City({
       cityId: new CityId(String(record._id)),
       name: new CityName(record.name),
     });
   }
 
-  private createLocationEntity(record: any) {
+  private createLocationEntity(record: ILocationDocument) {
     return new Location({
       locationId: new LocationId(String(record._id)),
-      city: new CityId(String(record.city)),
+      city: new CityId(record.city.toString()),
       address: new LocationAddress(record.address),
       businessId: record.businessId
         ? new LocationBusinessId(record.businessId)

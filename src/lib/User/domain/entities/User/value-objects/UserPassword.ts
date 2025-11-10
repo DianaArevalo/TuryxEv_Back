@@ -1,5 +1,3 @@
-import { PasswordValueObject } from "../../../../../../lib/Shared/domain";
+import { PasswordValueObject } from '../../../../../../lib/Shared/domain';
 
-export class UserPassword extends PasswordValueObject {
- 
-}
+export class UserPassword extends PasswordValueObject {}

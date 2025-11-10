@@ -13,7 +13,7 @@ import {
   SuperAdminName,
   SuperAdminPassword,
   SuperAdminUpdatedAt,
-} from "./value-objects";
+} from './value-objects';
 
 interface SuperAdminI {
   superAdminId: SuperAdminId;

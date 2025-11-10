@@ -1,5 +1,5 @@
-import { Limit, Page } from "../../../Shared/domain";
-import { BusinessPlan, BusinessRepository } from "../../domain";
+import { Limit, Page } from '../../../Shared/domain';
+import { BusinessPlan, BusinessRepository } from '../../domain';
 
 interface GetAllBusinessByPlanHandlerProps {
   plan: string;
@@ -14,7 +14,7 @@ export class GetAllBusinessByPlan {
     const result = await this.repository.getByPlan(
       BusinessPlan.create(props.plan),
       Page.create(props.page),
-      Limit.create(props.limit)
+      Limit.create(props.limit),
     );
 
     return result.map((it) => it.toPublicResponse());

@@ -5,30 +5,34 @@ import {
   SuperAdminIsActive,
   SuperAdminNotFoundError,
   SuperAdminRepository,
-} from "../../domain";
+} from '../../domain';
 
 export class InMemorySuperAdminRepository implements SuperAdminRepository {
   superadmins: SuperAdmin[] = [];
 
-  async getAll(): Promise<SuperAdmin[]> {
-    return this.superadmins;
+  getAll(): Promise<SuperAdmin[]> {
+    return Promise.resolve(this.superadmins);
   }
 
-  async getAllByIsActive(isActive: SuperAdminIsActive): Promise<SuperAdmin[]> {
-    return this.superadmins.filter((s) => s.isActive.value === isActive.value);
-  }
-
-  async getOneByEmail(email: SuperAdminEmail): Promise<SuperAdmin | null> {
-    return this.superadmins.find((s) => s.email.value === email.value) || null;
-  }
-
-  async getOneById(id: SuperAdminId): Promise<SuperAdmin | null> {
-    return (
-      this.superadmins.find((s) => s.superAdminId.value === id.value) || null
+  getAllByIsActive(isActive: SuperAdminIsActive): Promise<SuperAdmin[]> {
+    return Promise.resolve(
+      this.superadmins.filter((s) => s.isActive.value === isActive.value),
     );
   }
 
-  async create(superadmin: SuperAdmin): Promise<SuperAdmin> {
+  getOneByEmail(email: SuperAdminEmail): Promise<SuperAdmin | null> {
+    return Promise.resolve(
+      this.superadmins.find((s) => s.email.value === email.value) || null,
+    );
+  }
+
+  getOneById(id: SuperAdminId): Promise<SuperAdmin | null> {
+    return Promise.resolve(
+      this.superadmins.find((s) => s.superAdminId.value === id.value) || null,
+    );
+  }
+
+  create(superadmin: SuperAdmin): Promise<SuperAdmin> {
     // Solo para pasar el tests de creación de SuperAdmin entity
     const newSuperAdmin = new SuperAdmin({
       superAdminId: new SuperAdminId(superadmin.name.value),
@@ -49,28 +53,29 @@ export class InMemorySuperAdminRepository implements SuperAdminRepository {
 
     this.superadmins.push(newSuperAdmin);
 
-    return newSuperAdmin;
+    return Promise.resolve(newSuperAdmin);
   }
 
-  async edit(superadmin: SuperAdmin): Promise<SuperAdmin> {
+  edit(superadmin: SuperAdmin): Promise<SuperAdmin> {
     const index = this.superadmins.findIndex(
-      (s) => s.superAdminId.value === superadmin.superAdminId.value
+      (s) => s.superAdminId.value === superadmin.superAdminId.value,
     );
 
     if (index === -1) throw new SuperAdminNotFoundError();
 
     this.superadmins[index] = superadmin;
 
-    return superadmin;
+    return Promise.resolve(superadmin);
   }
 
-  async softDelete(id: SuperAdminId): Promise<void> {
+  softDelete(id: SuperAdminId): Promise<void> {
     const index = this.superadmins.findIndex(
-      (s) => s.superAdminId.value === id.value
+      (s) => s.superAdminId.value === id.value,
     );
 
     if (index === -1) throw new SuperAdminNotFoundError();
 
     this.superadmins[index].isActive = new SuperAdminIsActive(false);
+    return Promise.resolve();
   }
 }

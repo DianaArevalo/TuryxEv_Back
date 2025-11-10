@@ -4,7 +4,7 @@ import {
   ReservationNotFoundError,
   ReservationPaymentId,
   ReservationRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface ConfirmReservationHandlerProps {
   reservationId: string;
@@ -16,18 +16,18 @@ export class ConfirmReservation {
 
   async handler(props: ConfirmReservationHandlerProps) {
     const reservation = await this.repository.getOneByReservationId(
-      new ReservationId(props.reservationId)
+      new ReservationId(props.reservationId),
     );
 
     if (!reservation) throw new ReservationNotFoundError();
 
-    if (reservation.status.value === "CANCELLED")
+    if (reservation.status.value === 'CANCELLED')
       throw new ReservationCancelledError();
 
     // TODO: validar el paymentId
     return this.repository.confirm(
       new ReservationId(props.reservationId),
-      new ReservationPaymentId(props.paymentId)
+      new ReservationPaymentId(props.paymentId),
     );
   }
 }

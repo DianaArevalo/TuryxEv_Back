@@ -1,7 +1,7 @@
-import { ValidationError } from "../exeptions";
+import { ValidationError } from '../exeptions';
 
 const checker =
-  /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+  /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
 export class EmailValueObject {
   constructor(readonly value: string) {}
@@ -9,13 +9,13 @@ export class EmailValueObject {
   // Adaptado de https://github.com/manishsaraan/email-validator/blob/master/index.js
   static create<T extends typeof EmailValueObject>(
     this: T,
-    value: string
+    value: string,
   ): InstanceType<T> {
-    const err = new ValidationError("The email provided is invalid.");
+    const err = new ValidationError('The email provided is invalid.');
 
     if (!value) throw err;
 
-    const splitted = value.split("@");
+    const splitted = value.split('@');
 
     if (splitted.length !== 2) throw err;
 
@@ -25,7 +25,7 @@ export class EmailValueObject {
     if (account.length > 64) throw err;
     else if (domain.length > 255) throw err;
 
-    const domainSplitted = domain.split(".");
+    const domainSplitted = domain.split('.');
 
     if (domainSplitted.some((it) => it.length > 63)) throw err;
 

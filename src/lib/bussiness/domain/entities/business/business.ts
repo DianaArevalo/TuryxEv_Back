@@ -12,7 +12,7 @@ import {
   BusinessScore,
   BusinessStatus,
   BusinessUpdatedAt,
-} from "./value-objects";
+} from './value-objects';
 
 export interface BusinessI {
   bussinessId: BusinessId;

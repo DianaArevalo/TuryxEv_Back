@@ -3,7 +3,7 @@ import {
   SuperAdminEmail,
   SuperAdminId,
   SuperAdminIsActive,
-} from "../entities";
+} from '../entities';
 
 export interface SuperAdminRepository {
   getAll(): Promise<SuperAdmin[]>;

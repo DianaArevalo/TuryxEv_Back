@@ -1,3 +1,3 @@
-import { IdValueObject } from "../../../../../Shared/domain";
+import { IdValueObject } from '../../../../../Shared/domain';
 
 export class LocationId extends IdValueObject {}

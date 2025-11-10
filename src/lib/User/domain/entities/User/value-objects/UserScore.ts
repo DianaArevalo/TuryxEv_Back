@@ -1,5 +1,3 @@
-import { ScoreValueObject } from "../../../../../../lib/Shared/domain";
+import { ScoreValueObject } from '../../../../../../lib/Shared/domain';
 
-export class UserScore extends ScoreValueObject {
-
-}
+export class UserScore extends ScoreValueObject {}

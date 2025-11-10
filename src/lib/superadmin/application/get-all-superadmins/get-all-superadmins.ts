@@ -1,4 +1,4 @@
-import { SuperAdminRepository } from "../../domain";
+import { SuperAdminRepository } from '../../domain';
 
 export class GetAllSuperAdmins {
   constructor(private readonly repository: SuperAdminRepository) {}

@@ -4,11 +4,11 @@ import {
   ReservationId,
   ReservationPaymentId,
   ReservationUserId,
-} from "../entities";
+} from '../entities';
 
 export interface ReservationRepository {
   getOneByReservationId(
-    reservationid: ReservationId
+    reservationid: ReservationId,
   ): Promise<Reservation | null>;
   // Reservas de un usuario
   getAllUserReservations(userId: ReservationUserId): Promise<Reservation[]>;
@@ -18,7 +18,7 @@ export interface ReservationRepository {
   edit(reservation: Reservation): Promise<Reservation>;
   confirm(
     reservationid: ReservationId,
-    paymentId: ReservationPaymentId
+    paymentId: ReservationPaymentId,
   ): Promise<void>;
   cancel(reservationId: ReservationId): Promise<void>;
 }

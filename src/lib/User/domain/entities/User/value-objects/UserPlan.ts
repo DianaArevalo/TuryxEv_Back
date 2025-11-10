@@ -1,6 +1,6 @@
-import { ValidationError } from "../../../../../Shared/domain/exeptions";
+import { ValidationError } from '../../../../../Shared/domain/exeptions';
 
-export type UserPlanT = "FREE" | "BASIC" | "PREMIUM";
+export type UserPlanT = 'FREE' | 'BASIC' | 'PREMIUM';
 
 const UserPlanTMap: Record<UserPlanT, 0 | 1 | 2> = {
   FREE: 0,
@@ -9,9 +9,9 @@ const UserPlanTMap: Record<UserPlanT, 0 | 1 | 2> = {
 };
 
 const UserPlanTReverseMap: Record<0 | 1 | 2, UserPlanT> = {
-  0: "FREE",
-  1: "BASIC",
-  2: "PREMIUM",
+  0: 'FREE',
+  1: 'BASIC',
+  2: 'PREMIUM',
 };
 
 /**
@@ -30,7 +30,7 @@ export class UserPlan {
    * Crea una instancia de UserPlan desde un string validado.
    */
   static create(value: string): UserPlan {
-    if (!Object.values(UserPlanTReverseMap).includes(value as any)) {
+    if (!['FREE', 'BASIC', 'PREMIUM'].includes(value)) {
       throw new ValidationError(`Invalid value: ${value}`);
     }
     return new UserPlan(value as UserPlanT);
@@ -58,6 +58,6 @@ export class UserPlan {
    * Aquí solo se provee como método auxiliar puro.
    */
   static default(): UserPlan {
-    return new UserPlan("FREE");
+    return new UserPlan('FREE');
   }
 }

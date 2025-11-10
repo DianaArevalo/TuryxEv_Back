@@ -2,12 +2,12 @@ import {
   GetAllByHotelId,
   GetOneByReservationId,
   GetUserReservations,
-} from "../../../application";
+} from '../../../application';
 import {
   ForViewReservations,
   Reservation,
   ReservationRepository,
-} from "../../../domain";
+} from '../../../domain';
 
 export class ViewReservationsAdapter implements ForViewReservations {
   constructor(private readonly repository: ReservationRepository) {}

@@ -2,7 +2,7 @@ import {
   SuperAdminEmail,
   SuperAdminNotFoundError,
   SuperAdminRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface GetOneSuperAdminByEmailHandlerProps {
   email: string;
@@ -13,7 +13,7 @@ export class GetOneSuperAdminByEmail {
 
   async handler(props: GetOneSuperAdminByEmailHandlerProps) {
     const record = await this.repository.getOneByEmail(
-      new SuperAdminEmail(props.email)
+      new SuperAdminEmail(props.email),
     );
 
     if (!record) throw new SuperAdminNotFoundError();

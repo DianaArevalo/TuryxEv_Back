@@ -2,7 +2,7 @@ import {
   BusinessId,
   BusinessNotFoundError,
   BusinessRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface GetOneBusinessByIdHandlerProps {
   id: string;

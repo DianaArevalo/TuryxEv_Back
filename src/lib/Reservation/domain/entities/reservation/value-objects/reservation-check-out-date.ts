@@ -13,11 +13,11 @@ export class ReservationCheckOutDate {
 
   // Crear un nuevo checkout desde lógica de dominio
   static create(checkOut: Date, checkIn: Date): ReservationCheckOutDate {
-    if (!checkOut) throw new Error("Check-out date no puede ser nulo");
-    if (isNaN(checkOut.getTime())) throw new Error("Check-out date inválido");
+    if (!checkOut) throw new Error('Check-out date no puede ser nulo');
+    if (isNaN(checkOut.getTime())) throw new Error('Check-out date inválido');
 
     if (checkOut <= checkIn) {
-      throw new Error("Check-out debe ser después del check-in");
+      throw new Error('Check-out debe ser después del check-in');
     }
 
     return new ReservationCheckOutDate(checkOut);

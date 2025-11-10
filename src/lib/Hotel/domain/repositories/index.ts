@@ -1,2 +1,2 @@
-export *from "./HotelRepository";
-export *from "./CityRepository";
+export * from './HotelRepository';
+export * from './CityRepository';

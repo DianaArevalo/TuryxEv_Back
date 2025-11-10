@@ -6,7 +6,7 @@ export class LastLoginValueObject {
   }
 
   static never<T extends typeof LastLoginValueObject>(
-    this: T
+    this: T,
   ): InstanceType<T> {
     return new this(undefined) as InstanceType<T>;
   }
@@ -17,7 +17,7 @@ export class LastLoginValueObject {
 
   static fromPrimitives<T extends typeof LastLoginValueObject>(
     this: T,
-    value: string
+    value: string,
   ): InstanceType<T> {
     return new this(new Date(value)) as InstanceType<T>;
   }

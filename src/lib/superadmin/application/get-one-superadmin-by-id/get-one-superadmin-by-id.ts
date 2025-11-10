@@ -2,7 +2,7 @@ import {
   SuperAdminId,
   SuperAdminNotFoundError,
   SuperAdminRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface GetOneSuperAdminByIdHandlerProps {
   id: string;

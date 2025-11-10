@@ -1,6 +1,6 @@
-import { ValidationError } from "../../../../../Shared/domain/exeptions";
+import { ValidationError } from '../../../../../Shared/domain/exeptions';
 
-export type BusinessRoleT = "BUSINESS" | "STAFF";
+export type BusinessRoleT = 'BUSINESS' | 'STAFF';
 
 const BusinessRoleTMap: Record<BusinessRoleT, 0 | 1> = {
   BUSINESS: 0,
@@ -8,15 +8,15 @@ const BusinessRoleTMap: Record<BusinessRoleT, 0 | 1> = {
 };
 
 const BusinessRoleTReverseMap: Record<0 | 1, BusinessRoleT> = {
-  0: "BUSINESS",
-  1: "STAFF",
+  0: 'BUSINESS',
+  1: 'STAFF',
 };
 
 export class BusinessRole {
   constructor(readonly value: BusinessRoleT) {}
 
   static create(value: string) {
-    if (!Object.values(BusinessRoleTReverseMap).includes(value as any))
+    if (!['BUSINESS', 'STAFF'].includes(value))
       throw new ValidationError(`Invalid value: ${value}`);
 
     return new BusinessRole(value as BusinessRoleT);
@@ -30,7 +30,7 @@ export class BusinessRole {
   }
 
   toPrimitives(): 0 | 1 {
-    const numberValue = BusinessRoleTMap[this.value as BusinessRoleT];
+    const numberValue = BusinessRoleTMap[this.value];
     if (numberValue === undefined)
       throw new ValidationError(`Invalid value: ${this.value}`);
 

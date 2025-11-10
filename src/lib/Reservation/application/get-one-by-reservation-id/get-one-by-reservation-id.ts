@@ -3,7 +3,7 @@ import {
   ReservationId,
   ReservationNotFoundError,
   ReservationRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface GetOneByReservationIdHandlerProps {
   reservationId: string;
@@ -13,10 +13,10 @@ export class GetOneByReservationId {
   constructor(private readonly repository: ReservationRepository) {}
 
   async handler(
-    props: GetOneByReservationIdHandlerProps
+    props: GetOneByReservationIdHandlerProps,
   ): Promise<Reservation> {
     const result = await this.repository.getOneByReservationId(
-      new ReservationId(props.reservationId)
+      new ReservationId(props.reservationId),
     );
 
     if (!result) throw new ReservationNotFoundError();

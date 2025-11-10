@@ -7,59 +7,61 @@ import {
   ReservationRepository,
   ReservationStatus,
   ReservationUserId,
-} from "../../domain";
+} from '../../domain';
 
 export class InMemoryReservationRepository implements ReservationRepository {
   private reservations: Reservation[] = [];
 
-  async getOneByReservationId(
-    reservationId: ReservationId
+  getOneByReservationId(
+    reservationId: ReservationId,
   ): Promise<Reservation | null> {
-    return (
+    return Promise.resolve(
       this.reservations.find(
-        (r) => r.reservationId.value === reservationId.value
-      ) ?? null
+        (r) => r.reservationId.value === reservationId.value,
+      ) ?? null,
     );
   }
 
-  async getAllUserReservations(
-    userId: ReservationUserId
-  ): Promise<Reservation[]> {
-    return this.reservations.filter((r) => r.userId.value === userId.value);
+  getAllUserReservations(userId: ReservationUserId): Promise<Reservation[]> {
+    return Promise.resolve(
+      this.reservations.filter((r) => r.userId.value === userId.value),
+    );
   }
 
-  async getAllByHotelId(hotelId: ReservationHotelId): Promise<Reservation[]> {
-    return this.reservations.filter((r) => r.hotelId.value === hotelId.value);
+  getAllByHotelId(hotelId: ReservationHotelId): Promise<Reservation[]> {
+    return Promise.resolve(
+      this.reservations.filter((r) => r.hotelId.value === hotelId.value),
+    );
   }
 
-  async create(reservation: Reservation): Promise<Reservation> {
-    if (reservation.reservationId.value === "")
+  create(reservation: Reservation): Promise<Reservation> {
+    if (reservation.reservationId.value === '')
       reservation.reservationId = new ReservationId(
-        `${reservation.userId.value}*${reservation.hotelId.value}`
+        `${reservation.userId.value}*${reservation.hotelId.value}`,
       );
     this.reservations.push(reservation);
 
-    return reservation;
+    return Promise.resolve(reservation);
   }
 
-  async edit(reservation: Reservation): Promise<Reservation> {
+  edit(reservation: Reservation): Promise<Reservation> {
     const index = this.reservations.findIndex(
-      (r) => r.reservationId.value === reservation.reservationId.value
+      (r) => r.reservationId.value === reservation.reservationId.value,
     );
     if (index === -1) throw new ReservationNotFoundError();
     this.reservations[index] = reservation;
 
-    return reservation;
+    return Promise.resolve(reservation);
   }
 
   async confirm(
     reservationId: ReservationId,
-    paymentId: ReservationPaymentId
+    paymentId: ReservationPaymentId,
   ): Promise<void> {
     const reservation = await this.getOneByReservationId(reservationId);
     if (!reservation) throw new ReservationNotFoundError();
 
-    reservation.status = ReservationStatus.create("CONFIRMED");
+    reservation.status = ReservationStatus.create('CONFIRMED');
     reservation.paymentId = paymentId;
   }
 
@@ -67,6 +69,6 @@ export class InMemoryReservationRepository implements ReservationRepository {
     const reservation = await this.getOneByReservationId(reservationId);
     if (!reservation) throw new ReservationNotFoundError();
 
-    reservation.status = ReservationStatus.create("CANCELLED");
+    reservation.status = ReservationStatus.create('CANCELLED');
   }
 }

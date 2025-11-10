@@ -1,4 +1,4 @@
-import { Hasher } from "../../../Shared/Infraestructure/Hasher";
+import { Hasher } from '../../../Shared/Infraestructure/Hasher';
 import {
   SuperAdmin,
   SuperAdminCanBlockAccounts,
@@ -17,8 +17,10 @@ import {
   SuperAdminPassword,
   SuperAdminRepository,
   SuperAdminUpdatedAt,
-} from "../../domain";
-import SuperAdminModel from "../models/superadmin-model";
+} from '../../domain';
+import SuperAdminModel, {
+  ISuperAdminDocument,
+} from '../models/superadmin-model';
 
 export class MongoSuperAdminRepository implements SuperAdminRepository {
   async getAll(): Promise<SuperAdmin[]> {
@@ -93,18 +95,18 @@ export class MongoSuperAdminRepository implements SuperAdminRepository {
     await SuperAdminModel.updateOne({ _id: id.value }, { isActive: false });
   }
 
-  private createSuperAdminEntity(record: any): SuperAdmin {
+  private createSuperAdminEntity(record: ISuperAdminDocument): SuperAdmin {
     return new SuperAdmin({
       superAdminId: new SuperAdminId(String(record._id)),
       name: new SuperAdminName(record.name),
       email: new SuperAdminEmail(record.email),
       password: new SuperAdminPassword(record.password),
       canCreateSuperUser: new SuperAdminCanCreateSuperUsers(
-        record.canCreateSuperUser
+        record.canCreateSuperUser,
       ),
       canEditUsers: new SuperAdminCanEditUsers(record.canEditUsers),
       canViewReservations: new SuperAdminCanViewReservations(
-        record.canViewReservations
+        record.canViewReservations,
       ),
       canBlockAccounts: new SuperAdminCanBlockAccounts(record.canBlockAccounts),
       canEditHotels: new SuperAdminCanEditHotels(record.canEditHotels),

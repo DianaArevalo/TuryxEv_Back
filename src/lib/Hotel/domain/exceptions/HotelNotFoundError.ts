@@ -1,8 +1,7 @@
-import { NotFoundError } from "../../../Shared/domain/exeptions";
+import { NotFoundError } from '../../../Shared/domain/exeptions';
 
 export class HotelNotFoundError extends NotFoundError {
-    constructor(message: string = "Hotel not found"){
-        super(message);
-    }
+  constructor(message: string = 'Hotel not found') {
+    super(message);
+  }
 }
-

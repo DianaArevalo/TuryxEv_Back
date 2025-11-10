@@ -1,4 +1,4 @@
-import { mongoose as mg } from "../../../Shared/Infraestructure/External";
+import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 
 export interface IReservationDocument extends mg.Document {
   userId: string;
@@ -24,7 +24,7 @@ const ReservationSchema = new mg.Schema<IReservationDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mg.model<IReservationDocument>("Reservation", ReservationSchema);
+export default mg.model<IReservationDocument>('Reservation', ReservationSchema);

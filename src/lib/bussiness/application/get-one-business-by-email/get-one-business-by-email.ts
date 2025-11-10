@@ -2,7 +2,7 @@ import {
   BusinessEmail,
   BusinessNotFoundError,
   BusinessRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface GetOneBusinessByEmailHandlerProps {
   email: string;
@@ -13,7 +13,7 @@ export class GetOneBusinessByEmail {
 
   async handler(props: GetOneBusinessByEmailHandlerProps) {
     const result = await this.repository.getOneByEmail(
-      BusinessEmail.create(props.email)
+      BusinessEmail.create(props.email),
     );
 
     if (!result) throw new BusinessNotFoundError();

@@ -1,27 +1,27 @@
-import { CreateSuperAdmin } from "../../../lib/superadmin/application/create-superadmin/create-superadmin";
-import { SuperAdminRepository } from "../../../lib/superadmin/domain";
-import { InMemorySuperAdminRepository } from "../../../lib/superadmin/infrastructure/repositories/in-memory-superadmin-repository";
-import { GetAllSuperAdmins } from "../../../lib/superadmin/application";
+import { GetAllSuperAdmins } from '../../../lib/superadmin/application';
+import { CreateSuperAdmin } from '../../../lib/superadmin/application/create-superadmin/create-superadmin';
+import { SuperAdminRepository } from '../../../lib/superadmin/domain';
+import { InMemorySuperAdminRepository } from '../../../lib/superadmin/infrastructure/repositories/in-memory-superadmin-repository';
 
 const SuperAdmin1Mock = {
-  name: "SuperAdmin1",
-  email: "superadmin1@domain.com",
-  password: "$uperAdmin1",
+  name: 'SuperAdmin1',
+  email: 'superadmin1@domain.com',
+  password: '$uperAdmin1',
 };
 
 const SuperAdmin2Mock = {
-  name: "SuperAdmin2",
-  email: "superadmin2@domain.com",
-  password: "$uperAdmin2",
+  name: 'SuperAdmin2',
+  email: 'superadmin2@domain.com',
+  password: '$uperAdmin2',
 };
 
 const SuperAdmin3Mock = {
-  name: "SuperAdmin3",
-  email: "superadmin3@domain.com",
-  password: "$uperAdmin3",
+  name: 'SuperAdmin3',
+  email: 'superadmin3@domain.com',
+  password: '$uperAdmin3',
 };
 
-describe("Superadmin/application/get-all-superadmins", () => {
+describe('Superadmin/application/get-all-superadmins', () => {
   let repository: SuperAdminRepository;
   let create: CreateSuperAdmin;
   let getAll: GetAllSuperAdmins;
@@ -36,7 +36,7 @@ describe("Superadmin/application/get-all-superadmins", () => {
     getAll = new GetAllSuperAdmins(repository);
   });
 
-  it("should get all superadmins", async () => {
+  it('should get all superadmins', async () => {
     const result = await getAll.handler();
 
     expect(result).toHaveLength(3);

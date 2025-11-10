@@ -1,4 +1,4 @@
-import { CityId, CityName } from "./value-objects";
+import { CityId, CityName } from './value-objects';
 
 interface CityI {
   cityId: CityId;

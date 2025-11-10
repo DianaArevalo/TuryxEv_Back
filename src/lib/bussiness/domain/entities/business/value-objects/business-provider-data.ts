@@ -1,4 +1,4 @@
-export type BusinessProviderDataT = "AUTH" | "AUTHGOOGLE" | "AUTHFACEBOOK";
+export type BusinessProviderDataT = 'AUTH' | 'AUTHGOOGLE' | 'AUTHFACEBOOK';
 
 const BusinessProviderDataTMap: Record<BusinessProviderDataT, 0 | 1 | 2> = {
   AUTH: 0,
@@ -10,17 +10,17 @@ const BusinessProviderDataTReverseMap: Record<
   0 | 1 | 2,
   BusinessProviderDataT
 > = {
-  0: "AUTH",
-  1: "AUTHGOOGLE",
-  2: "AUTHFACEBOOK",
+  0: 'AUTH',
+  1: 'AUTHGOOGLE',
+  2: 'AUTHFACEBOOK',
 };
 export class BusinessProviderData {
   constructor(readonly value: BusinessProviderDataT) {}
 
   static create(value: string): BusinessProviderData {
-    if (!Object.keys(BusinessProviderDataTMap).includes(value as any)) {
+    if (!['AUTH', 'AUTHGOOGLE', 'AUTHFACEBOOK'].includes(value))
       throw new Error(`Invalid value: ${value}`);
-    }
+
     return new BusinessProviderData(value as BusinessProviderDataT);
   }
 

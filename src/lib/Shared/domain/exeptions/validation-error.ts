@@ -1,4 +1,4 @@
-import { HttpError } from "./http-error";
+import { HttpError } from './http-error';
 
 export class ValidationError extends HttpError {
   constructor(message: string) {

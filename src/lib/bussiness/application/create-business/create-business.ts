@@ -1,4 +1,4 @@
-import { ValidationError } from "../../../Shared/domain/exeptions";
+import { ValidationError } from '../../../Shared/domain/exeptions';
 import {
   Business,
   BusinessCreatedAt,
@@ -16,7 +16,7 @@ import {
   BusinessStatus,
   BusinessUpdatedAt,
   LocationRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface CreateBusinessHandlerProps {
   name: string;
@@ -33,21 +33,21 @@ interface CreateBusinessHandlerProps {
 export class CreateBusiness {
   constructor(
     private readonly repository: BusinessRepository,
-    private readonly locationRepository: LocationRepository
+    private readonly locationRepository: LocationRepository,
   ) {}
 
   async handler(props: CreateBusinessHandlerProps) {
     const createdAt = BusinessCreatedAt.now();
     const location = BusinessLocation.create(props.location);
 
-    if (!props.password && props.providerData === "AUTH")
-      throw new ValidationError("Password is required.");
+    if (!props.password && props.providerData === 'AUTH')
+      throw new ValidationError('Password is required.');
 
     if (!(await this.locationRepository.isValidLocation(location)))
-      throw new ValidationError("Location is invalid");
+      throw new ValidationError('Location is invalid');
 
     const business = new Business({
-      bussinessId: new BusinessId(""),
+      bussinessId: new BusinessId(''),
       name: BusinessName.create(props.name),
       email: BusinessEmail.create(props.email),
       password: props.password
@@ -59,7 +59,7 @@ export class CreateBusiness {
       createdAt: createdAt,
       updatedAt: BusinessUpdatedAt.now(createdAt),
       idRole: BusinessRole.create(props.idRole),
-      idPlan: BusinessPlan.create(props.idPlan || "FREE"),
+      idPlan: BusinessPlan.create(props.idPlan || 'FREE'),
       status: BusinessStatus.create(props.status),
       providerData: BusinessProviderData.create(props.providerData),
     });

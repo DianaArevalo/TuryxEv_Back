@@ -1,4 +1,4 @@
-import { BusinessId, BusinessRepository } from "../../domain";
+import { BusinessId, BusinessRepository } from '../../domain';
 
 interface SoftDeleteBusinessHandlerProps {
   id: string;

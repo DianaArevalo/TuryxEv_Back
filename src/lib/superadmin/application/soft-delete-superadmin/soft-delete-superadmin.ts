@@ -1,4 +1,4 @@
-import { SuperAdminId, SuperAdminRepository } from "../../domain";
+import { SuperAdminId, SuperAdminRepository } from '../../domain';
 
 interface SoftDeleteSuperAdminHandlerProps {
   id: string;

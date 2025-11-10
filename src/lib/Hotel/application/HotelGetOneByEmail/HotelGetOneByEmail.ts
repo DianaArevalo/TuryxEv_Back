@@ -1,20 +1,20 @@
-import { HotelEmail, HotelRepository } from "../../domain";
-import { HotelNotFoundError } from "../../domain/exceptions/HotelNotFoundError";
+import { HotelEmail, HotelRepository } from '../../domain';
+import { HotelNotFoundError } from '../../domain/exceptions/HotelNotFoundError';
 
 interface HotelGetOnByEmailProps {
-    email: string;
+  email: string;
 }
 
 export class HotelGetOnByEmail {
-    constructor(private readonly repository: HotelRepository){}
+  constructor(private readonly repository: HotelRepository) {}
 
-    async handler (props: HotelGetOnByEmailProps){
-        const result = await this.repository.getOneByEmail(
-            HotelEmail.create(props.email) as HotelEmail
-        );
+  async handler(props: HotelGetOnByEmailProps) {
+    const result = await this.repository.getOneByEmail(
+      HotelEmail.create(props.email),
+    );
 
-        if(!result) throw new HotelNotFoundError();
+    if (!result) throw new HotelNotFoundError();
 
-        return result.toResponse();
-    }
+    return result.toResponse();
+  }
 }

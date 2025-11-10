@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/main.js",
+    "format": "prettier --write \"src/**/*.ts\" && eslint . --fix",
     "build": "npx tsc ./src/main.ts --outDir ./dist/ --module commonjs --target es6",
     "dev": "npx ts-node ./src/main.ts",
     "test": "jest",
@@ -19,15 +20,23 @@
     "mongoose": "8.17.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "22.5.2",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
     "jest": "^30.2.0",
+    "prettier": "^3.6.2",
     "tailwindcss": "4.1.12",
     "ts-jest": "29.4.5",
     "ts-node": "10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.46.3"
   },
   "repository": {
     "type": "git",

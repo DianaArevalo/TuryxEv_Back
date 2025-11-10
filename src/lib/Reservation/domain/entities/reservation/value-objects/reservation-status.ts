@@ -1,4 +1,4 @@
-export type ReservationStatusT = "PENDING" | "CONFIRMED" | "CANCELLED";
+export type ReservationStatusT = 'PENDING' | 'CONFIRMED' | 'CANCELLED';
 
 const ReservationStatusMap: Record<ReservationStatusT, 0 | 1 | 2> = {
   PENDING: 0,
@@ -7,15 +7,15 @@ const ReservationStatusMap: Record<ReservationStatusT, 0 | 1 | 2> = {
 };
 
 const ReservationStatusReverseMap: Record<number, ReservationStatusT> = {
-  0: "PENDING",
-  1: "CONFIRMED",
-  2: "CANCELLED",
+  0: 'PENDING',
+  1: 'CONFIRMED',
+  2: 'CANCELLED',
 };
 
 export class ReservationStatus {
   constructor(readonly value: ReservationStatusT) {}
 
-  static create(value: ReservationStatusT = "PENDING"): ReservationStatus {
+  static create(value: ReservationStatusT = 'PENDING'): ReservationStatus {
     return new ReservationStatus(value);
   }
 

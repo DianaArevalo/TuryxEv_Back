@@ -1,7 +1,7 @@
-import { HttpError } from "../../../Shared/domain/exeptions";
+import { HttpError } from '../../../Shared/domain/exeptions';
 
 export class SuperAdminNotFoundError extends HttpError {
-  constructor(message = "Super admin not found") {
+  constructor(message = 'Super admin not found') {
     super(message, 404);
   }
 }

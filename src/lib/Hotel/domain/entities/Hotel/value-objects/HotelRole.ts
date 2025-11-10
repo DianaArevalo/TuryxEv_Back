@@ -1,5 +1,4 @@
-
-export type HotelRoleT = "HOTEL" | "STAFF";
+export type HotelRoleT = 'HOTEL' | 'STAFF';
 
 const HotelRoleTMap: Record<HotelRoleT, 1 | 2> = {
   HOTEL: 1,
@@ -7,17 +6,17 @@ const HotelRoleTMap: Record<HotelRoleT, 1 | 2> = {
 };
 
 const HotelRoleTReverseMap: Record<1 | 2, HotelRoleT> = {
-  1: "HOTEL",
-  2: "STAFF", //cambiar a staff
+  1: 'HOTEL',
+  2: 'STAFF', //cambiar a staff
 };
 
 export class HotelRole {
   constructor(readonly value: HotelRoleT) {}
 
   static create(value: HotelRoleT): HotelRole {
-   if (!Object.keys(HotelRoleTMap).includes(value)) {
-    throw new Error(`Invalid value: ${value}`);
-  }
+    if (!Object.keys(HotelRoleTMap).includes(value)) {
+      throw new Error(`Invalid value: ${value}`);
+    }
     return new HotelRole(value);
   }
 
@@ -31,7 +30,7 @@ export class HotelRole {
   }
 
   toPrimitives(): 1 | 2 {
-    const numberValue = HotelRoleTMap[this.value as HotelRoleT];
+    const numberValue = HotelRoleTMap[this.value];
     if (numberValue === undefined) {
       throw new Error(`Invalid value: ${this.value}`);
     }

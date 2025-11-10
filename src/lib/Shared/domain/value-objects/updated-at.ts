@@ -1,31 +1,31 @@
-import { ValidationError } from "../exeptions";
-import { CreatedAtValueObject } from "./created-at";
+import { ValidationError } from '../exeptions';
+import { CreatedAtValueObject } from './created-at';
 
 export class UpdatedAtValueObject {
   constructor(readonly value: Date) {}
 
   static now<T extends typeof UpdatedAtValueObject>(
     this: T,
-    createdAt: CreatedAtValueObject
+    createdAt: CreatedAtValueObject,
   ): InstanceType<T> {
-    return this.create(new Date(), createdAt) as InstanceType<T>;
+    return this.create(new Date(), createdAt);
   }
 
   static create<T extends typeof UpdatedAtValueObject>(
     this: T,
     value: Date,
-    createdAt: CreatedAtValueObject
+    createdAt: CreatedAtValueObject,
   ): InstanceType<T> {
-    if (!value) throw new ValidationError("UpdatedAt no puede ser nulo");
-    if (isNaN(value.getTime())) throw new ValidationError("UpdatedAt inválido");
+    if (!value) throw new ValidationError('UpdatedAt no puede ser nulo');
+    if (isNaN(value.getTime())) throw new ValidationError('UpdatedAt inválido');
 
     const now = new Date();
     if (value > now) {
-      throw new ValidationError("UpdatedAt no puede estar en el futuro");
+      throw new ValidationError('UpdatedAt no puede estar en el futuro');
     }
 
     if (value < createdAt.value) {
-      throw new ValidationError("UpdatedAt no puede ser menor que CreatedAt");
+      throw new ValidationError('UpdatedAt no puede ser menor que CreatedAt');
     }
 
     return new this(value) as InstanceType<T>;

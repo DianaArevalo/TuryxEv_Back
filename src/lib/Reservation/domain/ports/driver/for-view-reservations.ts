@@ -1,4 +1,4 @@
-import { Reservation } from "../../entities";
+import { Reservation } from '../../entities';
 
 export interface ForViewReservations {
   getAllByHotel(hotelId: string): Promise<Reservation[]>;

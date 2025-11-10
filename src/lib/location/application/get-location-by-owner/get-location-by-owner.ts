@@ -1,9 +1,9 @@
-import { ValidationError } from "../../../Shared/domain";
+import { ValidationError } from '../../../Shared/domain';
 import {
   LocationBusinessId,
   LocationHotelId,
   LocationRepository,
-} from "../../domain";
+} from '../../domain';
 
 interface GetLocationByOwnerHandlerProps {
   ownerId: string;
@@ -14,15 +14,15 @@ export class GetLocationByOwner {
   constructor(private readonly repository: LocationRepository) {}
 
   async handler(props: GetLocationByOwnerHandlerProps) {
-    if (props.ownerType === "HOTEL")
+    if (props.ownerType === 'HOTEL')
       return this.repository.getLocationByHotel(
-        new LocationHotelId(props.ownerId)
+        new LocationHotelId(props.ownerId),
       );
-    else if (props.ownerType === "BUSINESS")
+    else if (props.ownerType === 'BUSINESS')
       return this.repository.getLocationByBusiness(
-        new LocationBusinessId(props.ownerId)
+        new LocationBusinessId(props.ownerId),
       );
 
-    throw new ValidationError("Invalid owner type");
+    throw new ValidationError('Invalid owner type');
   }
 }

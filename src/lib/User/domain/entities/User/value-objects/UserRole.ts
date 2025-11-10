@@ -1,20 +1,20 @@
-import { ValidationError } from "../../../../../Shared/domain/exeptions";
+import { ValidationError } from '../../../../../Shared/domain/exeptions';
 
-export type UserRoleT = "USER"; // Solo un rol por ahora
+export type UserRoleT = 'USER'; // Solo un rol por ahora
 
 const UserRoleTMap: Record<UserRoleT, 0> = {
   USER: 0,
 };
 
 const UserRoleTReverseMap: Record<0, UserRoleT> = {
-  0: "USER",
+  0: 'USER',
 };
 
 export class UserRole {
   constructor(readonly value: UserRoleT) {}
 
   static create(value: string) {
-    if (!Object.values(UserRoleTReverseMap).includes(value as any))
+    if (!['USER'].includes(value))
       throw new ValidationError(`Invalid value: ${value}`);
 
     return new UserRole(value as UserRoleT);

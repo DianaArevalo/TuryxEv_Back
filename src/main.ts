@@ -1,15 +1,13 @@
-import { express as ex, cors } from "./lib/Shared/Infraestructure/External";
-import { connectMongo } from "./lib/db/mongoose";
-import { ExpressUserRouter } from "./lib/User/infrastructure/routers/ExpressUserRouter";
-import { config } from "./config/config";
-import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
-import { HttpError } from "./lib/Shared/domain/exeptions";
-//import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
-
-import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
-import { ExpressSuperAdminRouter } from "./lib/superadmin/infrastructure/routers/express";
-import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/ExpressHotelRouter";
-import { ApiResponse } from "./lib/Shared/Infraestructure/ApiResponse";
+import { config } from './config/config';
+import { ExpressBusinessRouter } from './lib/bussiness/infrastructure/routers/express';
+import { connectMongo } from './lib/db/mongoose';
+import { ExpressHotelRouter } from './lib/Hotel/infraestructure/routers/ExpressHotelRouter';
+import { ExpressReservationRouter } from './lib/Reservation/infrastructure/routers/express';
+import { HttpError } from './lib/Shared/domain/exeptions';
+import { ApiResponse } from './lib/Shared/Infraestructure/ApiResponse';
+import { express as ex, cors } from './lib/Shared/Infraestructure/External';
+import { ExpressSuperAdminRouter } from './lib/superadmin/infrastructure/routers/express';
+import { ExpressUserRouter } from './lib/User/infrastructure/routers/ExpressUserRouter';
 
 const app = ex();
 
@@ -19,34 +17,32 @@ app.use(cors({ origin: config.mongoUri, credentials: true }));
 app.use(ex.json());
 
 // Rutas
-app.use("/api/business", ExpressBusinessRouter);
-app.use("/api/users", ExpressUserRouter);
-app.use("/api/reservations", ExpressReservationRouter);
-app.use("/api/hotel", ExpressHotelRouter);
-app.use("/api/superadmin", ExpressSuperAdminRouter);
+app.use('/api/business', ExpressBusinessRouter);
+app.use('/api/users', ExpressUserRouter);
+app.use('/api/reservations', ExpressReservationRouter);
+app.use('/api/hotel', ExpressHotelRouter);
+app.use('/api/superadmin', ExpressSuperAdminRouter);
 
 // Middleware de errores
-app.use(
-  (err: unknown, req: ex.Request, res: ex.Response, next: ex.NextFunction) => {
-    if (err instanceof HttpError) {
-      const response: ApiResponse<null> = {
-        success: false,
-        title: "Ocurrio un error",
-        message: err.message,
-        body: null,
-      };
+app.use((err: unknown, _req: ex.Request, res: ex.Response) => {
+  if (err instanceof HttpError) {
+    const response: ApiResponse<null> = {
+      success: false,
+      title: 'Ocurrio un error',
+      message: err.message,
+      body: null,
+    };
 
-      return res.status(err.statusCode).json(response);
-    }
-
-    if (err instanceof Error) {
-      console.error(err.stack);
-      return res.status(500).json(err.message);
-    }
-    console.error(err);
-    return res.status(500).json("Something wrong!");
+    return res.status(err.statusCode).json(response);
   }
-);
+
+  if (err instanceof Error) {
+    console.error(err.stack);
+    return res.status(500).json(err.message);
+  }
+  console.error(err);
+  return res.status(500).json('Something wrong!');
+});
 
 // Conectar DB y levantar servidor
 connectMongo(config.mongoUri)
@@ -56,5 +52,5 @@ connectMongo(config.mongoUri)
     });
   })
   .catch((err) => {
-    console.error("❌ Error connecting to MongoDB:", err);
+    console.error('❌ Error connecting to MongoDB:', err);
   });

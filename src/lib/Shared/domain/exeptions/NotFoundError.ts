@@ -1,7 +1,7 @@
-import { HttpError } from "./http-error";
+import { HttpError } from './http-error';
 
-export class NotFoundError extends HttpError{
-    constructor(message: string){
-        super(message, 404)
-    }
+export class NotFoundError extends HttpError {
+  constructor(message: string) {
+    super(message, 404);
+  }
 }

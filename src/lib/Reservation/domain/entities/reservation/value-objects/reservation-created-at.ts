@@ -8,12 +8,12 @@ export class ReservationCreatedAt {
 
   // Si lo quieres crear manualmente (ej: al hidratar desde API o tests)
   static create(value: Date): ReservationCreatedAt {
-    if (!value) throw new Error("CreatedAt no puede ser nulo");
-    if (isNaN(value.getTime())) throw new Error("CreatedAt inválido");
+    if (!value) throw new Error('CreatedAt no puede ser nulo');
+    if (isNaN(value.getTime())) throw new Error('CreatedAt inválido');
 
     const now = new Date();
     if (value > now) {
-      throw new Error("CreatedAt no puede estar en el futuro");
+      throw new Error('CreatedAt no puede estar en el futuro');
     }
 
     return new ReservationCreatedAt(value);

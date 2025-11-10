@@ -1,23 +1,3 @@
-import { UserCreate } from "../../User/application/UserCreate/UserCreate";
-import { UserGetOneById } from "../../User/application/UserGetOneById/UserGetOneById";
-import { UserEdit } from "../../User/application/UserEdit/UserEdit";
-import { UserSoftDelete } from "../../User/application/UserSoftDelete/UserSoftDelete";
-import { MongoUserRepository } from "../../User/infrastructure/repositories/MongoUserRepository";
-import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
-import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
-import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
-import { InMemoryCityRepository } from "../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
-
-import {
-  CancelReservation,
-  ConfirmReservation,
-  CreateReservation,
-  EditReservation,
-  GetAllByHotelId,
-  GetOneByReservationId,
-  GetUserReservations,
-} from "../../Reservation/application";
-
 import {
   CheckHotelFreePlans,
   HotelCreate,
@@ -30,8 +10,13 @@ import {
   HotelGetOnByEmail,
   HotelGetOneById,
   HotelUpdatedStatus,
-} from "../../../lib/Hotel/application";
-
+} from '../../../lib/Hotel/application';
+import { InMemoryCityRepository } from '../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository';
+import { MongoHotelRepository } from '../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository';
+import {
+  UserGetAllByStatus,
+  UserGetOneByEmail,
+} from '../../../lib/User/application';
 import {
   CreateBusiness,
   EditBusiness,
@@ -43,18 +28,19 @@ import {
   GetOneBusinessByEmail,
   GetOneBusinessById,
   SoftDeleteBusiness,
-} from "../../bussiness/application";
+} from '../../bussiness/application';
+import { MongoBusinessRepository } from '../../bussiness/infrastructure/repositories/business-mongo-repository';
+import { InMemoryLocationRepository } from '../../bussiness/infrastructure/repositories/location-in-memory-repository';
 import {
-  UserGetAllByStatus,
-  UserGetOneByEmail,
-} from "../../../lib/User/application";
-import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
-import { InMemoryLocationRepository } from "../../bussiness/infrastructure/repositories/location-in-memory-repository";
-import { MongoSuperAdminRepository } from "../../superadmin/infrastructure/repositories";
-import {
-  ForBusinessEditAdapter,
-  ForViewReservationsAdapter,
-} from "../../superadmin/infrastructure/adapters";
+  CancelReservation,
+  ConfirmReservation,
+  CreateReservation,
+  EditReservation,
+  GetAllByHotelId,
+  GetOneByReservationId,
+  GetUserReservations,
+} from '../../Reservation/application';
+import { MongoReservationRepository } from '../../Reservation/infrastructure/repositories/mongo-reservation-repository';
 import {
   CreateSuperAdmin,
   EditSuperAdmin,
@@ -68,8 +54,19 @@ import {
   SuperAdminGetAllReservationsByHotelId,
   SuperAdminGetAllUserReservations,
   SuperAdminGetOneReservationById,
-} from "../../superadmin/application";
-import { ForHotelEditAdapter } from "../../superadmin/infrastructure/adapters/driven/for-edit-hotel-proxy";
+} from '../../superadmin/application';
+import {
+  ForBusinessEditAdapter,
+  ForViewReservationsAdapter,
+} from '../../superadmin/infrastructure/adapters';
+import { ForHotelEditAdapter } from '../../superadmin/infrastructure/adapters/driven/for-edit-hotel-proxy';
+import { MongoSuperAdminRepository } from '../../superadmin/infrastructure/repositories';
+import { UserCreate } from '../../User/application/UserCreate/UserCreate';
+import { UserEdit } from '../../User/application/UserEdit/UserEdit';
+import { UserGetAll } from '../../User/application/UserGetAll/UserGetAll';
+import { UserGetOneById } from '../../User/application/UserGetOneById/UserGetOneById';
+import { UserSoftDelete } from '../../User/application/UserSoftDelete/UserSoftDelete';
+import { MongoUserRepository } from '../../User/infrastructure/repositories/MongoUserRepository';
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
@@ -81,14 +78,14 @@ const superAdminRepository = new MongoSuperAdminRepository();
 
 const superAdminForEditbusiness = new ForBusinessEditAdapter(
   businessRepository,
-  locationRepository
+  locationRepository,
 );
 const superAdminFoEditHotel = new ForHotelEditAdapter(
   hotelRepository,
-  cityRepository
+  cityRepository,
 );
 const superAdminForViewReservations = new ForViewReservationsAdapter(
-  reservationRepository
+  reservationRepository,
 );
 
 export const ServiceContainer = {
@@ -151,13 +148,13 @@ export const ServiceContainer = {
     editHotel: new SuperAdminEditHotel(superAdminFoEditHotel),
 
     getAllReservationsByHotelId: new SuperAdminGetAllReservationsByHotelId(
-      superAdminForViewReservations
+      superAdminForViewReservations,
     ),
     getAllUserReservations: new SuperAdminGetAllUserReservations(
-      superAdminForViewReservations
+      superAdminForViewReservations,
     ),
     getOneReservation: new SuperAdminGetOneReservationById(
-      superAdminForViewReservations
+      superAdminForViewReservations,
     ),
   },
 };

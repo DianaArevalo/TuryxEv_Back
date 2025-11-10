@@ -1,5 +1,5 @@
-import { Limit, Page } from "../../../Shared/domain";
-import { BusinessRepository, BusinessRole } from "../../domain";
+import { Limit, Page } from '../../../Shared/domain';
+import { BusinessRepository, BusinessRole } from '../../domain';
 
 interface GetAllBusinessByRoleHandlerProps {
   role: string;
@@ -14,7 +14,7 @@ export class GetAllBusinessByRole {
     const result = await this.repository.getByRole(
       BusinessRole.create(props.role),
       Page.create(props.page),
-      Limit.create(props.limit)
+      Limit.create(props.limit),
     );
 
     return result.map((it) => it.toPublicResponse());

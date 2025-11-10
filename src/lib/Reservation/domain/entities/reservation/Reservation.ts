@@ -9,7 +9,7 @@ import {
   ReservationTotalAmount,
   ReservationUpdatedAt,
   ReservationUserId,
-} from "./value-objects";
+} from './value-objects';
 
 export interface ReservationI {
   reservationId: ReservationId;

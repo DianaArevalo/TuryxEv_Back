@@ -1,31 +1,31 @@
-import { CreateSuperAdmin } from "../../../lib/superadmin/application/create-superadmin/create-superadmin";
+import { HttpError } from '../../../lib/Shared/domain/exeptions';
+import { SoftDeleteSuperAdmin } from '../../../lib/superadmin/application';
+import { CreateSuperAdmin } from '../../../lib/superadmin/application/create-superadmin/create-superadmin';
 import {
   SuperAdminIsActive,
   SuperAdminRepository,
-} from "../../../lib/superadmin/domain";
-import { InMemorySuperAdminRepository } from "../../../lib/superadmin/infrastructure/repositories/in-memory-superadmin-repository";
-import { SoftDeleteSuperAdmin } from "../../../lib/superadmin/application";
-import { HttpError } from "../../../lib/Shared/domain/exeptions";
+} from '../../../lib/superadmin/domain';
+import { InMemorySuperAdminRepository } from '../../../lib/superadmin/infrastructure/repositories/in-memory-superadmin-repository';
 
 const SuperAdmin1Mock = {
-  name: "SuperAdmin1",
-  email: "superadmin1@domain.com",
-  password: "$uperAdmin1",
+  name: 'SuperAdmin1',
+  email: 'superadmin1@domain.com',
+  password: '$uperAdmin1',
 };
 
 const SuperAdmin2Mock = {
-  name: "SuperAdmin2",
-  email: "superadmin2@domain.com",
-  password: "$uperAdmin2",
+  name: 'SuperAdmin2',
+  email: 'superadmin2@domain.com',
+  password: '$uperAdmin2',
 };
 
 const SuperAdmin3Mock = {
-  name: "SuperAdmin3",
-  email: "superadmin3@domain.com",
-  password: "$uperAdmin3",
+  name: 'SuperAdmin3',
+  email: 'superadmin3@domain.com',
+  password: '$uperAdmin3',
 };
 
-describe("Superadmin/application/soft-delete-superadmin", () => {
+describe('Superadmin/application/soft-delete-superadmin', () => {
   let repository: SuperAdminRepository;
   let create: CreateSuperAdmin;
   let softDelete: SoftDeleteSuperAdmin;
@@ -39,19 +39,19 @@ describe("Superadmin/application/soft-delete-superadmin", () => {
     softDelete = new SoftDeleteSuperAdmin(repository);
   });
 
-  it("should inactive a superadmin", async () => {
-    await softDelete.handler({ id: "SuperAdmin1" });
+  it('should inactive a superadmin', async () => {
+    await softDelete.handler({ id: 'SuperAdmin1' });
 
     const result = await repository.getAllByIsActive(
-      new SuperAdminIsActive(true)
+      new SuperAdminIsActive(true),
     );
 
     expect(result).toHaveLength(2);
   });
 
-  it("should throw a error when superadmin is not founded", async () => {
-    expect(softDelete.handler({ id: "SuperAdmin5" })).rejects.toThrow(
-      HttpError
+  it('should throw a error when superadmin is not founded', async () => {
+    await expect(softDelete.handler({ id: 'SuperAdmin5' })).rejects.toThrow(
+      HttpError,
     );
   });
 });

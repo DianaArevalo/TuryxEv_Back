@@ -1,4 +1,4 @@
-import { SuperAdminIsActive, SuperAdminRepository } from "../../domain";
+import { SuperAdminIsActive, SuperAdminRepository } from '../../domain';
 
 interface GetAllSuperAdminsByIsActiveHandlerProps {
   isActive: boolean;
@@ -9,7 +9,7 @@ export class GetAllSuperAdminsByIsActive {
 
   async handler(props: GetAllSuperAdminsByIsActiveHandlerProps) {
     const records = await this.repository.getAllByIsActive(
-      new SuperAdminIsActive(props.isActive)
+      new SuperAdminIsActive(props.isActive),
     );
 
     return records.map((record) => record.toResponse());

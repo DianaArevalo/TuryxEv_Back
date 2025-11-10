@@ -1,33 +1,33 @@
 import {
   CreateBusiness,
   GetAllBusinessByPlan,
-} from "~/lib/bussiness/application";
-import { BusinessRepository, LocationRepository } from "~/lib/bussiness/domain";
-import { InMemoryBusinessRepository } from "~/lib/bussiness/infrastructure/repositories/business-in-memory-repository";
-import { InMemoryLocationRepository } from "~/lib/bussiness/infrastructure/repositories/location-in-memory-repository";
+} from '~/lib/bussiness/application';
+import { BusinessRepository, LocationRepository } from '~/lib/bussiness/domain';
+import { InMemoryBusinessRepository } from '~/lib/bussiness/infrastructure/repositories/business-in-memory-repository';
+import { InMemoryLocationRepository } from '~/lib/bussiness/infrastructure/repositories/location-in-memory-repository';
 
 const Business1 = {
-  name: "Business 1",
-  email: "info@business1.com",
-  idRole: "BUSINESS",
-  idPlan: "FREE",
-  status: "OPEN",
-  password: "$uperPassword159",
-  location: "Bogotá",
-  providerData: "AUTH",
+  name: 'Business 1',
+  email: 'info@business1.com',
+  idRole: 'BUSINESS',
+  idPlan: 'FREE',
+  status: 'OPEN',
+  password: '$uperPassword159',
+  location: 'Bogotá',
+  providerData: 'AUTH',
 };
 
 const Business2 = {
-  name: "Business 2",
-  email: "info@business1.com",
-  idRole: "BUSINESS",
-  idPlan: "PREMIUM",
-  status: "OPEN",
-  location: "Bogotá",
-  providerData: "AUTHGOOGLE",
+  name: 'Business 2',
+  email: 'info@business1.com',
+  idRole: 'BUSINESS',
+  idPlan: 'PREMIUM',
+  status: 'OPEN',
+  location: 'Bogotá',
+  providerData: 'AUTHGOOGLE',
 };
 
-describe("Business/application/get-all-by-plan", () => {
+describe('Business/application/get-all-by-plan', () => {
   let repository: BusinessRepository;
   let locationRepository: LocationRepository;
   let createBusiness: CreateBusiness;
@@ -43,9 +43,9 @@ describe("Business/application/get-all-by-plan", () => {
     await createBusiness.handler(Business2);
   });
 
-  it("should get all FREE business", async () => {
+  it('should get all FREE business', async () => {
     const business = await getAllBusinessByPlan.handler({
-      plan: "FREE",
+      plan: 'FREE',
       page: 1,
       limit: 10,
     });

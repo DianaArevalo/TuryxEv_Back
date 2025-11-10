@@ -1,4 +1,4 @@
-export type BusinessStatusT = "OPEN" | "CLOSED" | "BLOCKED";
+export type BusinessStatusT = 'OPEN' | 'CLOSED' | 'BLOCKED';
 
 const BusinessStatusTMap: Record<BusinessStatusT, 0 | 1 | 2> = {
   OPEN: 0,
@@ -7,9 +7,9 @@ const BusinessStatusTMap: Record<BusinessStatusT, 0 | 1 | 2> = {
 };
 
 const BusinessStatusTReverseMap: Record<0 | 1 | 2, BusinessStatusT> = {
-  0: "OPEN",
-  1: "CLOSED",
-  2: "BLOCKED",
+  0: 'OPEN',
+  1: 'CLOSED',
+  2: 'BLOCKED',
 };
 export class BusinessStatus {
   constructor(readonly value: BusinessStatusT) {
@@ -17,7 +17,7 @@ export class BusinessStatus {
   }
 
   public static create(value: string): BusinessStatus {
-    if (!Object.values(BusinessStatusTReverseMap).includes(value as any))
+    if (!['OPEN', 'CLOSED', 'BLOCKED'].includes(value))
       throw new Error(`Invalid statusvalue: ${value}`);
 
     return new BusinessStatus(value as BusinessStatusT);
@@ -32,6 +32,6 @@ export class BusinessStatus {
   }
 
   public toPrimitives(): 0 | 1 | 2 {
-    return BusinessStatusTMap[this.value as BusinessStatusT];
+    return BusinessStatusTMap[this.value];
   }
 }

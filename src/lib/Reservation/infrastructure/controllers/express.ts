@@ -1,13 +1,13 @@
-import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
-import { express as ex } from "../../../Shared/Infraestructure/External";
-import { ApiResponse } from "../../../Shared/Infraestructure/ApiResponse";
-import { ReservationNotFoundError } from "../../../Reservation/domain";
+import { ReservationNotFoundError } from '../../../Reservation/domain';
+import { ApiResponse } from '../../../Shared/Infraestructure/ApiResponse';
+import { express as ex } from '../../../Shared/Infraestructure/External';
+import { ServiceContainer } from '../../../Shared/Infraestructure/ServiceContainer';
 
 export class ExpressReservationController {
   async getOneByReservationId(
     req: ex.Request,
     res: ex.Response,
-    next: ex.NextFunction
+    next: ex.NextFunction,
   ) {
     try {
       const reservation =
@@ -18,7 +18,7 @@ export class ExpressReservationController {
       if (!reservation) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Reserva no encontrada",
+          title: 'Reserva no encontrada',
           message: `No se encontro la reserva con id ${req.params.reservationId}`,
           body: null,
         };
@@ -28,7 +28,7 @@ export class ExpressReservationController {
 
       const response: ApiResponse<any> = {
         success: true,
-        title: "Reservacion encontrada",
+        title: 'Reservacion encontrada',
         message: `Reserva ${req.params.reservationId} encontrada`,
         body: reservation.toResponse(),
       };
@@ -38,7 +38,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };
@@ -53,7 +53,7 @@ export class ExpressReservationController {
   async getAllUserReservations(
     req: ex.Request,
     res: ex.Response,
-    next: ex.NextFunction
+    next: ex.NextFunction,
   ) {
     try {
       const reservations =
@@ -63,8 +63,8 @@ export class ExpressReservationController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Reservaciones de usuario",
-        message: "Se listan todas las reservas del usuario correctamente",
+        title: 'Reservaciones de usuario',
+        message: 'Se listan todas las reservas del usuario correctamente',
         body: reservations.map((reservation) => reservation.toResponse()),
       };
 
@@ -73,7 +73,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };
@@ -88,7 +88,7 @@ export class ExpressReservationController {
   async getAllByHotelId(
     req: ex.Request,
     res: ex.Response,
-    next: ex.NextFunction
+    next: ex.NextFunction,
   ) {
     try {
       const reservations =
@@ -98,8 +98,8 @@ export class ExpressReservationController {
 
       const response: ApiResponse<any[]> = {
         success: true,
-        title: "Reservas del hotel",
-        message: "Se listan todas las reservas del hotel",
+        title: 'Reservas del hotel',
+        message: 'Se listan todas las reservas del hotel',
         body: reservations.map((reservation) => reservation.toResponse()),
       };
 
@@ -108,7 +108,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };
@@ -138,7 +138,7 @@ export class ExpressReservationController {
 
       const response: ApiResponse<null> = {
         success: true,
-        title: "Reserva creada correctamente",
+        title: 'Reserva creada correctamente',
         message: `Se creo la reserva.`,
         body: null,
       };
@@ -148,7 +148,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };
@@ -176,7 +176,7 @@ export class ExpressReservationController {
 
       const response: ApiResponse<null> = {
         success: true,
-        title: "Reserva editada correctamente",
+        title: 'Reserva editada correctamente',
         message: `Se edito la reserva.`,
         body: null,
       };
@@ -186,7 +186,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };
@@ -209,7 +209,7 @@ export class ExpressReservationController {
 
       const response: ApiResponse<null> = {
         success: true,
-        title: "Reserva confirmada correctamente",
+        title: 'Reserva confirmada correctamente',
         message: `Se confirmó la reserva.`,
         body: null,
       };
@@ -219,7 +219,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };
@@ -241,7 +241,7 @@ export class ExpressReservationController {
 
       const response: ApiResponse<null> = {
         success: true,
-        title: "Reserva cancelada correctamente",
+        title: 'Reserva cancelada correctamente',
         message: `Se cancelo la reserva con id ${reservationId}.`,
         body: null,
       };
@@ -251,7 +251,7 @@ export class ExpressReservationController {
       if (error instanceof ReservationNotFoundError) {
         const response: ApiResponse<null> = {
           success: false,
-          title: "Ocurrio un error",
+          title: 'Ocurrio un error',
           message: error.message,
           body: null,
         };

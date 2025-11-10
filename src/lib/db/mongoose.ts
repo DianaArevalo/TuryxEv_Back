@@ -1,14 +1,13 @@
-import { mongoose } from "../Shared/Infraestructure/External";
-
+import { mongoose } from '../Shared/Infraestructure/External';
 
 export async function connectMongo(uri: string) {
-
   try {
-    if (mongoose.connection.readyState >= 1) return;
+    if (mongoose.connection.readyState >= mongoose.ConnectionStates.connected)
+      return;
     await mongoose.connect(uri);
-    console.log("✅ Connected to MongoDB");
+    console.log('✅ Connected to MongoDB');
   } catch (error) {
-    console.error("❌ MongoDB connection error:", error);
+    console.error('❌ MongoDB connection error:', error);
     process.exit(1);
   }
 }

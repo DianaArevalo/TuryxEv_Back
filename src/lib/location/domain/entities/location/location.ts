@@ -1,10 +1,10 @@
-import { CityId } from "../city/value-objects";
 import {
   LocationAddress,
   LocationBusinessId,
   LocationHotelId,
   LocationId,
-} from "./value-objects";
+} from './value-objects';
+import { CityId } from '../city/value-objects';
 
 interface LocationI {
   locationId: LocationId;

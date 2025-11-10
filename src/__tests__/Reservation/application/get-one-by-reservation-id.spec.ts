@@ -1,12 +1,12 @@
 import {
   CreateReservation,
   GetOneByReservationId,
-} from "~/lib/Reservation/application";
+} from '~/lib/Reservation/application';
 import {
   ReservationNotFoundError,
   ReservationRepository,
-} from "~/lib/Reservation/domain";
-import { InMemoryReservationRepository } from "~/lib/Reservation/infrastructure/repositories/in-memory-reservation-repository";
+} from '~/lib/Reservation/domain';
+import { InMemoryReservationRepository } from '~/lib/Reservation/infrastructure/repositories/in-memory-reservation-repository';
 
 function getMockReservations() {
   const today = new Date(Date.now());
@@ -15,27 +15,27 @@ function getMockReservations() {
 
   return [
     {
-      userId: "user-1",
-      hotelId: "hotel-1",
+      userId: 'user-1',
+      hotelId: 'hotel-1',
       checkInDate: tomorrow,
       checkOutDate: aDayAfterTomorrow,
     },
     {
-      userId: "user-2",
-      hotelId: "hotel-1",
+      userId: 'user-2',
+      hotelId: 'hotel-1',
       checkInDate: tomorrow,
       checkOutDate: aDayAfterTomorrow,
     },
     {
-      userId: "user-1",
-      hotelId: "hotel-2",
+      userId: 'user-1',
+      hotelId: 'hotel-2',
       checkInDate: tomorrow,
       checkOutDate: aDayAfterTomorrow,
     },
   ];
 }
 
-describe("Reservation/application/get-one-by-reservation-id", () => {
+describe('Reservation/application/get-one-by-reservation-id', () => {
   let repository: ReservationRepository;
   let getOneByReservationId: GetOneByReservationId;
   let createReservation: CreateReservation;
@@ -46,27 +46,31 @@ describe("Reservation/application/get-one-by-reservation-id", () => {
     createReservation = new CreateReservation(repository);
   });
 
-  it("should return one reservation by hotelId", async () => {
+  it('should return one reservation by hotelId', async () => {
     const reservations = getMockReservations();
 
-    reservations.map((reservation) => createReservation.handler(reservation));
+    await Promise.all(
+      reservations.map((reservation) => createReservation.handler(reservation)),
+    );
 
     const result = await getOneByReservationId.handler({
-      reservationId: "user-1*hotel-1",
+      reservationId: 'user-1*hotel-1',
     });
 
     expect(result).not.toBeNull();
   });
 
-  it("should throw if reservation not found", async () => {
+  it('should throw if reservation not found', async () => {
     const reservations = getMockReservations();
 
-    reservations.map((reservation) => createReservation.handler(reservation));
+    await Promise.all(
+      reservations.map((reservation) => createReservation.handler(reservation)),
+    );
 
     await expect(
       getOneByReservationId.handler({
-        reservationId: "not-found",
-      })
+        reservationId: 'not-found',
+      }),
     ).rejects.toBeInstanceOf(ReservationNotFoundError);
   });
 });

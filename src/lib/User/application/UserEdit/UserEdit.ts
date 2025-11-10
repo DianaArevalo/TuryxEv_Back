@@ -1,13 +1,13 @@
-import { ValidationError } from "../../../../lib/Shared/domain";
+import { ValidationError } from '../../../../lib/Shared/domain';
 import {
   UserId,
   UserPassword,
   UserPicture,
   UserScore,
   UserStatus,
-} from "../../domain/entities/User/value-objects";
-import { UserRepository } from "../../domain/repositories";
-import { UserNotFoundError } from "../../domain/exceptions";
+} from '../../domain/entities/User/value-objects';
+import { UserNotFoundError } from '../../domain/exceptions';
+import { UserRepository } from '../../domain/repositories';
 
 interface UserEditProps {
   userId: string;
@@ -26,17 +26,17 @@ export class UserEdit {
 
     if (!user) throw new UserNotFoundError();
 
-    if (props.password && user.providerData.value === "AUTH")
+    if (props.password && user.providerData.value === 'AUTH')
       user.password = UserPassword.create(props.password);
     else if (props.password)
       throw new ValidationError(
-        "Can't update password when you signed with OAuth provider"
+        "Can't update password when you signed with OAuth provider",
       );
 
-      //el score lo editan demas negocios y hoteles, comportamiento de usuario
+    //el score lo editan demas negocios y hoteles, comportamiento de usuario
     if (props.score !== undefined && props.score !== user.score?.value) {
-      if (props.currentRole === "USER") {
-        throw new ValidationError("You are not allowed to modify your score.");
+      if (props.currentRole === 'USER') {
+        throw new ValidationError('You are not allowed to modify your score.');
       }
       user.score = UserScore.create(props.score);
     }

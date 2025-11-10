@@ -1,6 +1,6 @@
-import { ValidationError } from "../../../../../Shared/domain/exeptions";
+import { ValidationError } from '../../../../../Shared/domain/exeptions';
 
-export type BusinessPlanT = "FREE" | "BASIC" | "PREMIUM";
+export type BusinessPlanT = 'FREE' | 'BASIC' | 'PREMIUM';
 
 const BusinessPlanTMap: Record<BusinessPlanT, 0 | 1 | 2> = {
   FREE: 0,
@@ -9,16 +9,16 @@ const BusinessPlanTMap: Record<BusinessPlanT, 0 | 1 | 2> = {
 };
 
 const BusinessPlanTReverseMap: Record<0 | 1 | 2, BusinessPlanT> = {
-  0: "FREE",
-  1: "BASIC",
-  2: "PREMIUM",
+  0: 'FREE',
+  1: 'BASIC',
+  2: 'PREMIUM',
 };
 
 export class BusinessPlan {
   constructor(readonly value: BusinessPlanT) {}
 
   static create(value: string): BusinessPlan {
-    if (!Object.values(BusinessPlanTReverseMap).includes(value as any))
+    if (!['FREE', 'BASIC', 'PREMIUM'].includes(value))
       throw new ValidationError(`Invalid value: ${value}`);
 
     return new BusinessPlan(value as BusinessPlanT);
@@ -33,6 +33,6 @@ export class BusinessPlan {
   }
 
   toPrimitives(): 0 | 1 | 2 {
-    return BusinessPlanTMap[this.value as BusinessPlanT];
+    return BusinessPlanTMap[this.value];
   }
 }

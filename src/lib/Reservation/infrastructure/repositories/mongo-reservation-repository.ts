@@ -12,12 +12,14 @@ import {
   ReservationTotalAmount,
   ReservationUpdatedAt,
   ReservationUserId,
-} from "../../domain";
-import ReservationModel from "../models/reservation-model";
+} from '../../domain';
+import ReservationModel, {
+  IReservationDocument,
+} from '../models/reservation-model';
 
 export class MongoReservationRepository implements ReservationRepository {
   async getOneByReservationId(
-    reservationid: ReservationId
+    reservationid: ReservationId,
   ): Promise<Reservation | null> {
     const record = await ReservationModel.findById(reservationid.value).exec();
 
@@ -27,7 +29,7 @@ export class MongoReservationRepository implements ReservationRepository {
   }
 
   async getAllUserReservations(
-    userId: ReservationUserId
+    userId: ReservationUserId,
   ): Promise<Reservation[]> {
     const records = await ReservationModel.find({
       userId: userId.value,
@@ -62,7 +64,7 @@ export class MongoReservationRepository implements ReservationRepository {
 
   async edit(reservation: Reservation): Promise<Reservation> {
     const record = await ReservationModel.findById(
-      reservation.reservationId.value
+      reservation.reservationId.value,
     ).exec();
 
     if (!record) throw new ReservationNotFoundError();
@@ -78,13 +80,13 @@ export class MongoReservationRepository implements ReservationRepository {
 
   async confirm(
     reservationId: ReservationId,
-    paymentId: ReservationPaymentId
+    paymentId: ReservationPaymentId,
   ): Promise<void> {
     const record = await ReservationModel.findById(reservationId.value).exec();
 
     if (!record) throw new ReservationNotFoundError();
 
-    record.status = new ReservationStatus("CONFIRMED").toPrimitives();
+    record.status = new ReservationStatus('CONFIRMED').toPrimitives();
     record.paymentId = paymentId.value;
 
     await record.save();
@@ -95,12 +97,12 @@ export class MongoReservationRepository implements ReservationRepository {
 
     if (!record) throw new ReservationNotFoundError();
 
-    record.status = new ReservationStatus("CANCELLED").toPrimitives();
+    record.status = new ReservationStatus('CANCELLED').toPrimitives();
 
     await record.save();
   }
 
-  private createReservationEntity(record: any) {
+  private createReservationEntity(record: IReservationDocument) {
     return new Reservation({
       reservationId: new ReservationId(String(record._id)),
       userId: new ReservationUserId(record.userId),

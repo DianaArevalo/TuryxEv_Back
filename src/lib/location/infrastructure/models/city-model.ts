@@ -1,4 +1,4 @@
-import { mongoose as mg } from "../../../Shared/Infraestructure/External";
+import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 
 export interface ICityDocument extends mg.Document {
   name: string;
@@ -10,7 +10,7 @@ const CitySchema = new mg.Schema<ICityDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mg.model<ICityDocument>("City", CitySchema);
+export default mg.model<ICityDocument>('City', CitySchema);

@@ -3,7 +3,7 @@ export class ReservationTotalAmount {
 
   static create(value: number): ReservationTotalAmount {
     if (value < 0) {
-      throw new Error("TotalAmount no puede ser negativo");
+      throw new Error('TotalAmount no puede ser negativo');
     }
 
     const cents = Math.round(value * 100);

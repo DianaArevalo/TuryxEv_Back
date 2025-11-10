@@ -1,4 +1,4 @@
-export type ProviderDataT = "AUTH" | "AUTHGOOGLE" | "AUTHFACEBOOK";
+export type ProviderDataT = 'AUTH' | 'AUTHGOOGLE' | 'AUTHFACEBOOK';
 
 const ProviderDataTMap: Record<ProviderDataT, 0 | 1 | 2> = {
   AUTH: 0,
@@ -7,9 +7,9 @@ const ProviderDataTMap: Record<ProviderDataT, 0 | 1 | 2> = {
 };
 
 const ProviderDataTReverseMap: Record<0 | 1 | 2, ProviderDataT> = {
-  0: "AUTH",
-  1: "AUTHGOOGLE",
-  2: "AUTHFACEBOOK",
+  0: 'AUTH',
+  1: 'AUTHGOOGLE',
+  2: 'AUTHFACEBOOK',
 };
 export class ProviderData {
   constructor(readonly value: ProviderDataT) {}
@@ -32,5 +32,4 @@ export class ProviderData {
   toPrimitives(): 0 | 1 | 2 {
     return ProviderDataTMap[this.value];
   }
-
 }

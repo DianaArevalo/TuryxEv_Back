@@ -1,4 +1,4 @@
-import { mongoose as mg } from "../../../Shared/Infraestructure/External";
+import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 
 export interface ISuperAdminDocument extends mg.Document {
   name: string;
@@ -34,7 +34,7 @@ const SuperAdminSchema = new mg.Schema<ISuperAdminDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mg.model<ISuperAdminDocument>("SuperAdmin", SuperAdminSchema);
+export default mg.model<ISuperAdminDocument>('SuperAdmin', SuperAdminSchema);

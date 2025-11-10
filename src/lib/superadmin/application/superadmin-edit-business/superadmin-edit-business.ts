@@ -1,4 +1,4 @@
-import { EditBusinessProps, ForBusinessEdit } from "../../domain";
+import { EditBusinessProps, ForBusinessEdit } from '../../domain';
 
 export class SuperAdminEditBusiness {
   constructor(private readonly editBusiness: ForBusinessEdit) {}

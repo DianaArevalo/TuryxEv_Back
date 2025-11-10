@@ -1,4 +1,4 @@
-import { LocationRepository } from "../../domain";
+import { LocationRepository } from '../../domain';
 
 export class GetValidCities {
   constructor(private readonly repository: LocationRepository) {}
