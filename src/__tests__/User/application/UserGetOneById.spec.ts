@@ -1,47 +1,40 @@
-import { UserGetOneById } from "~/lib/User/application/UserGetOneById/UserGetOneById";
-import { User } from "~/lib/User/domain/User";
-import { UserCreatedAt } from "~/lib/User/domain/UserCreatedAt";
-import { UserEmail } from "~/lib/User/domain/UserEmail";
-import { UserId } from "~/lib/User/domain/UserId";
-import { UserName } from "~/lib/User/domain/UserName";
-import { UserPassword } from "~/lib/User/domain/UserPassword";
-import { UserRepository } from "~/lib/User/domain/UserRepository";
-import { UserNotFoundError } from "~/lib/User/domain/UserNotFoundError";
-import { InMemoryUserRepository } from "~/lib/User/infrastructure/InMemoryUserRepository";
-import { UserUpdatedAt } from "~/lib/User/domain/UserUpdatedAt";
-import { UserStatus } from "~/lib/User/domain/UserStatus";
+import { HttpError } from "~/lib/Shared/domain";
+import { UserCreate, UserGetOneById } from "~/lib/User/application";
+import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/InMemoryUserRepository";
 
 describe("application/UserGetOneById", () => {
-  let repository: UserRepository;
-  let getOneById: UserGetOneById;
+  let repository: InMemoryUserRepository;
+  let userCreate: UserCreate;
+  let userGetOneById: UserGetOneById;
+  let existingUser: any;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     repository = new InMemoryUserRepository();
-    getOneById = new UserGetOneById(repository);
+    userCreate = new UserCreate(repository);
+    userGetOneById = new UserGetOneById(repository);
+
+    // Creamos un usuario base antes de cada test
+    existingUser = await userCreate.handler({
+      name: "Test User",
+      email: "testuser@example.com",
+      password: "$uper$ecretPassword12!",
+      providerData: "AUTH",
+    });
   });
 
   it("should return an existing user", async () => {
-    const user = new User(
-      new UserId("123"),
-      new UserName("Angel"),
-      new UserEmail("test@example.com"),
-      new UserPassword("Secret1234&"),
-      new UserCreatedAt(new Date("2025-01-01T00:00:00Z")),
-      new UserUpdatedAt(new Date("2025-01-01T00:00:00Z")),
-      "CLIENT",
-      new UserStatus(true)
-    );
+    const user = await userGetOneById.handler({
+      id: existingUser.idUser!,
+    });
 
-    await repository.create(user);
-
-    const found = await getOneById.handle("123");
-
-    expect(found).toBeInstanceOf(User);
-    expect(found.id).toEqual(new UserId("123"));
-    expect(found.email.value).toBe("test@example.com");
+    expect(user).toHaveProperty("idUser", existingUser.idUser!);
+    expect(user).toHaveProperty("name", existingUser.name);
+    expect(user).toHaveProperty("email", existingUser.email);
   });
 
   it("should throw UserNotFoundError if user does not exist", async () => {
-    await expect(getOneById.handle("999")).rejects.toThrow(UserNotFoundError);
+    await expect(
+      userGetOneById.handler({ id: "non-existing-id" })
+    ).rejects.toBeInstanceOf(HttpError);
   });
 });

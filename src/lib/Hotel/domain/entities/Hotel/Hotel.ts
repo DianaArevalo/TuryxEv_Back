@@ -10,7 +10,7 @@ import {
     HotelLocation, 
     HotelPlan, 
     HotelStatus,
-    ProviderData,
+    HotelProviderData,
     HotelFreePlanEnd} from "./value-objects"
 import { HotelPicture } from "./value-objects/HotelPicture"
 
@@ -29,7 +29,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
         createdAt: HotelCreatedAt
         updatedAt: HotelUpdatedAt
         freePlanEnd?: HotelFreePlanEnd,
-        providerData: ProviderData
+        providerData: HotelProviderData
     }
 
     export class Hotel implements HotelI {
@@ -47,7 +47,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
         createdAt: HotelCreatedAt;
         updatedAt: HotelUpdatedAt;
         freePlanEnd?: HotelFreePlanEnd;
-        providerData: ProviderData;
+        providerData: HotelProviderData;
 
 
         constructor(attr: HotelI) {
@@ -86,7 +86,7 @@ import { HotelPicture } from "./value-objects/HotelPicture"
                 createdAt: this.createdAt.value,
                 updatedAt: this.updatedAt.value,
                 freePlanEnd: this.freePlanEnd?.getValue(),
-                providerData: this.providerData.getValue(),
+                providerData: this.providerData.value,
             };
         }
 

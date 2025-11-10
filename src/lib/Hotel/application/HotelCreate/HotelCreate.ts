@@ -1,3 +1,4 @@
+import { ProviderData, ProviderDataT } from "../../../../lib/Shared/domain";
 import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
 import {
   CityRepository,
@@ -16,8 +17,7 @@ import {
   HotelStatus,
   HotelStatusT,
   HotelUpdatedAt,
-  ProviderData,
-  ProviderDataT,
+  
 } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
 

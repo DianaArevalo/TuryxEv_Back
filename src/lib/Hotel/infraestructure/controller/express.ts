@@ -2,7 +2,8 @@ import { ServiceContainer } from "../../../../lib/Shared/Infraestructure/Service
 import {express  as ex} from "../../../Shared/Infraestructure/External"
 import { ApiResponse } from "../../../../lib/Shared/Infraestructure/ApiResponse";
 import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
-import { HotelId, HotelPlanT, HotelRoleT, HotelStatusT, ProviderDataT } from "../../domain";
+import { HotelPlanT, HotelStatusT } from "../../domain";
+import { ProviderDataT } from "~/lib/Shared/domain/value-objects";
 
 export class ExpressHotelController {
     async getAll(req: ex.Request, res: ex.Response) {

@@ -1,10 +1,19 @@
-import { User } from "../../domain/User";
-import { UserRepository } from "../../domain/UserRepository";
+import { Limit, Page } from "../../../../lib/Shared/domain";
+import { UserRepository } from "../../domain/repositories";
 
+interface UserGetAllProps {
+    page?: number;
+    limit?: number;
+}
 export class UserGetAll {
-    constructor(private repository: UserRepository){}
+    constructor(private readonly repository: UserRepository){}
 
-    async handle(): Promise<User[]> {
-        return this.repository.getAll();
+    async handler(props: UserGetAllProps) {
+        const result = await this.repository.getAll(
+            Page.create(props.page),
+            Limit.create(props.limit)
+        );
+        
+        return result.map((it) => it.toResponse());
     }
 }

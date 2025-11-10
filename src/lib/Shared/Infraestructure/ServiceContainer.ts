@@ -1,8 +1,8 @@
 import { UserCreate } from "../../User/application/UserCreate/UserCreate";
 import { UserGetOneById } from "../../User/application/UserGetOneById/UserGetOneById";
 import { UserEdit } from "../../User/application/UserEdit/UserEdit";
-import { UserDelete } from "../../User/application/UserDelete/UserDelete";
-import { MongoUserRepository } from "../../User/infrastructure/MongoUserRepository";
+import { UserSoftDelete } from "../../User/application/UserSoftDelete/UserSoftDelete";
+import { MongoUserRepository } from "../../User/infrastructure/repositories/MongoUserRepository";
 import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
 import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
 import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
@@ -34,12 +34,7 @@ import {
   HotelUpdatedStatus 
 } from "../../../lib/Hotel/application";
 
-const userRepository = new MongoUserRepository();
-const reservationRepository = new MongoReservationRepository();
-const hotelRepository = new MongoHotelRepository();
-const cityRepository = new InMemoryCityRepository();
-const businessRepository = new MongoBusinessRepository();
-const locationRepository = new InMemoryLocationRepository(); 
+
 
 import {
   CreateBusiness,
@@ -53,6 +48,14 @@ import {
   GetOneBusinessById,
   SoftDeleteBusiness,
 } from "../../bussiness/application";
+import { UserGetAllByStatus, UserGetOneByEmail } from "../../../lib/User/application";
+
+const userRepository = new MongoUserRepository();
+const reservationRepository = new MongoReservationRepository();
+const hotelRepository = new MongoHotelRepository();
+const cityRepository = new InMemoryCityRepository();
+const businessRepository = new MongoBusinessRepository();
+const locationRepository = new InMemoryLocationRepository(); 
 
 export const ServiceContainer = {
   user: {
@@ -60,7 +63,9 @@ export const ServiceContainer = {
     create: new UserCreate(userRepository),
     getOneById: new UserGetOneById(userRepository),
     edit: new UserEdit(userRepository),
-    delete: new UserDelete(userRepository),
+    softDelete: new UserSoftDelete(userRepository),
+    getOneByEmail: new UserGetOneByEmail(userRepository),
+    getAllByStatus: new UserGetAllByStatus(userRepository),   
   },
   reservation: {
     getOneByReservationId: new GetOneByReservationId(reservationRepository),

@@ -10,13 +10,13 @@ import {
   HotelLocation,
   HotelName,
   HotelPlan,
+  HotelProviderData,
   HotelRepository,
   HotelRole,
   HotelScore,
   HotelStatus,
   HotelUpdatedAt,
-  ProviderData,
-  ProviderDataT,
+
 } from "../../domain";
 import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPicture";
 import HotelModel from "../models/HotelModel";
@@ -156,7 +156,7 @@ export class MongoHotelRepository implements HotelRepository {
   }
 
   async getByProvider(
-    provider: ProviderData,
+    provider: HotelProviderData,
     page: Page,
     limit: Limit
   ): Promise<Hotel[]> {
@@ -202,7 +202,7 @@ export class MongoHotelRepository implements HotelRepository {
           : HotelPlan.fromPrimitives(record.plan),
 
       status: HotelStatus.fromPrimitives(record.status),
-      providerData: ProviderData.fromPrimitives(record.providerData),
+      providerData: HotelProviderData.fromPrimitives(record.providerData),
     });
   }
 }
