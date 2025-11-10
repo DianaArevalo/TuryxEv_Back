@@ -86,7 +86,7 @@ export class MongoUserRepository implements UserRepository {
       id.value,
       { status: userStatus.value},
       {new: true}
-    )
+    ).lean();
 
     if(!updated) throw new UserNotFoundError();   
   }
