@@ -1,6 +1,7 @@
 import { Page } from "../../../../lib/Shared/domain/value-objects/page";
-import { HotelRepository, ProviderData, ProviderDataT } from "../../domain";
+import { HotelRepository, HotelProviderData } from "../../domain";
 import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
+import { ProviderDataT } from "~/lib/Shared/domain";
 
 interface HotelGetByProviderProps {
     providerData: string;
@@ -13,7 +14,7 @@ export class HotelGetByProvider{
 
     async handler(props: HotelGetByProviderProps){
         const result = await this.repository.getByProvider(
-            ProviderData.create(props.providerData as ProviderDataT ),
+            HotelProviderData.create(props.providerData as ProviderDataT ),
             Page.create(props.page),
             Limit.create(props.limit) 
         )

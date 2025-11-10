@@ -12,7 +12,7 @@ import {
   HotelStatus,
   HotelPicture,
   HotelLocation,
-  ProviderData,
+  HotelProviderData
 } from "../../domain";
 
 export class InMemoryHotelRepository {
@@ -35,13 +35,16 @@ export class InMemoryHotelRepository {
   h.score instanceof HotelScore
     ? h.score
     : HotelScore.create(typeof h.score === "number" ? h.score : Number(h.score) || 1),
-      plan: h.plan instanceof Object ? h.plan : HotelPlan.create(h.plan as any),
+      plan: 
+          h.plan instanceof Object 
+      ? h.plan 
+      : HotelPlan.create(h.plan as any),
       role: h.role instanceof Object ? h.role : HotelRole.create(h.role as any),
       status: h.status instanceof Object ? h.status : HotelStatus.create(h.status as any),
       providerData:
         h.providerData instanceof Object
           ? h.providerData
-          : ProviderData.create(h.providerData as any),
+          : HotelProviderData.create(h.providerData as any),
       createdAt: h.createdAt,
       updatedAt: h.updatedAt,
       freePlanEnd: h.freePlanEnd,
@@ -108,9 +111,9 @@ export class InMemoryHotelRepository {
     return this.paginate(filtered, page, limit);
   }
 
-  async getByProvider(providerData: ProviderData, page: Page, limit: Limit): Promise<Hotel[]> {
+  async getByProvider(providerData: HotelProviderData, page: Page, limit: Limit): Promise<Hotel[]> {
     const filtered = this.hotels.filter(
-      h => h.providerData.getValue() === providerData.getValue()
+      h => h.providerData.value === providerData.value
     );
     return this.paginate(filtered, page, limit);
   }

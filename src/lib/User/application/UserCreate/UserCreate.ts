@@ -1,39 +1,73 @@
-import { User } from "../../domain/User";
-import { UserCreatedAt } from "../../domain/UserCreatedAt";
-import { UserEmail } from "../../domain/UserEmail";
-import { UserId } from "../../domain/UserId";
-import { UserName } from "../../domain/UserName";
-import { UserPassword } from "../../domain/UserPassword";
-import { UserRepository } from "../../domain/UserRepository";
-import { UserStatus } from "../../domain/UserStatus";
-import { UserUpdatedAt } from "../../domain/UserUpdatedAt";
+import { ProviderData, ProviderDataT, ValidationError } from "../../../../lib/Shared/domain";
+import { User } from "../../domain/entities/User/User";
+import { 
+    UserCreatedAt, 
+    UserEmail,        
+    UserName, 
+    UserPassword, 
+    UserPicture, 
+    UserPlan,      
+    UserProvider, 
+    UserRole, 
+    UserScore,     
+    UserStatus,     
+    UserUpdatedAt 
+} from "../../domain/entities/User/value-objects";
+import { UserRepository } from "../../domain/repositories";
+
+
+interface UserCreateProps {
+    name: string;
+    email: string;
+    password?: string;
+    picture?: string;
+    plan?: string;
+    role?: string;
+    score?: number;
+    providerData?: string;        
+}
 
 export class UserCreate {
-    constructor (private repository: UserRepository){}
+    constructor (private readonly repository: UserRepository){}
+
+    async handler(props: UserCreateProps){
+        const createdAt = UserCreatedAt.now();
+
+        const provider: ProviderDataT = props.providerData
+        ? (props.providerData as ProviderDataT)
+        : "AUTH"
+
+        if(!props.password && props.providerData === "AUTH"){
+            throw new ValidationError(
+                "Password is required when providerData is AUTH"
+            )
+        }
+        
+        const user = new User({                       
+            name: UserName.create(props.name),
+            email: UserEmail.create(props.email),
+            password: props.password
+                ? UserPassword.create(props.password)
+                : undefined,
+            picture: props.picture
+                ? new UserPicture(props.picture)
+                : undefined,
+            score: UserScore.create(props.score?? 5),
+            createdAt: createdAt,
+            updatedAt: UserUpdatedAt.now(createdAt),
+            role: UserRole.create(props.role ?? "USER"),
+            plan: props.plan 
+                    ? UserPlan.create(props.plan) 
+                    : UserPlan.default(),
+            providerData: UserProvider.create(
+                provider
+            ),
+            status: new UserStatus(true)
+        });
 
 
-    async handler(
-        id: string,
-        name: string,
-        email: string,
-        password: string,
-        createdAt: Date,        
+        const created = await this.repository.create(user);
 
-        role: 'CLIENT' | 'HOTEL' | 'BUSINESS' | 'ADMIN',
-        status: boolean
-
-    ): Promise <void>{
-        const user = new User(
-            new UserId(id),
-            new UserName(name),
-            new UserEmail(email),
-            new UserPassword(password),
-            new UserCreatedAt(createdAt),
-            new UserUpdatedAt(new Date()),            
-            role,
-            new UserStatus(status),
-        );
-
-        return this.repository.create(user)
-    }
+        return created.toResponse();
+    }   
 }

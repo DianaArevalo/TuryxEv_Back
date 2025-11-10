@@ -1,4 +1,5 @@
-import { ApiResponse } from "../../../User/infrastructure/ApiResponse";
+
+import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
 import { express as ex } from "../../../Shared/Infraestructure/External";
 import { ServiceContainer } from "../../../Shared/Infraestructure/ServiceContainer";
 import { ValidationError } from "../../../Shared/domain/exeptions";
