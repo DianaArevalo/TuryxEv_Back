@@ -56,7 +56,7 @@ export class User implements UserI {
         this.role = attr.role;
         this.score = attr.score;
         this.providerData = attr.providerData;
-        this.status = attr.status;
+        this.status = attr.status ?? new UserStatus(true);;
         this.createdAt = attr.createdAt;
         this.updatedAt = attr.updatedAt        
     }
