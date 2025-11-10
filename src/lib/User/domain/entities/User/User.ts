@@ -22,7 +22,7 @@ export interface UserI {
     picture?: UserPicture;
     plan: UserPlan;
     role: UserRole;
-    score?: UserScore;
+    score: UserScore;
     providerData: UserProvider;
     status?: UserStatus;
     createdAt: UserCreatedAt;
@@ -38,7 +38,7 @@ export class User implements UserI {
     picture?: UserPicture;
     plan: UserPlan;
     role: UserRole;
-    score?: UserScore;
+    score: UserScore;
     providerData: UserProvider;
     status?: UserStatus;
     createdAt: UserCreatedAt;
@@ -70,7 +70,7 @@ export class User implements UserI {
             picture: this.picture?.value,
             plan: this.plan.value,
             role: this.role.value,
-            score: this.score?.value,
+            score: this.score.value,
             providerData: this.providerData.value,
             status: this.status?.value
         }
