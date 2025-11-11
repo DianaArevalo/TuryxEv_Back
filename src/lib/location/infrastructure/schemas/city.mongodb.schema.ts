@@ -4,7 +4,7 @@ export interface ICityDocument extends mg.Document {
   name: string;
 }
 
-const CitySchema = new mg.Schema<ICityDocument>(
+const City = new mg.Schema<ICityDocument>(
   {
     name: { type: String, required: true, unique: true },
   },
@@ -13,4 +13,4 @@ const CitySchema = new mg.Schema<ICityDocument>(
   },
 );
 
-export default mg.model<ICityDocument>('City', CitySchema);
+export const CitySchema = mg.model<ICityDocument>('City', City);

@@ -7,7 +7,7 @@ export interface ILocationDocument extends mg.Document {
   businessId?: string;
 }
 
-const LocationSchema = new mg.Schema<ILocationDocument>(
+const Location = new mg.Schema<ILocationDocument>(
   {
     city: { type: mg.Schema.Types.ObjectId, required: true, ref: 'City' },
     address: { type: String, required: true },
@@ -23,4 +23,4 @@ const LocationSchema = new mg.Schema<ILocationDocument>(
   },
 );
 
-export default mg.model<ILocationDocument>('Location', LocationSchema);
+export const LocationSchema = mg.model<ILocationDocument>('Location', Location);
