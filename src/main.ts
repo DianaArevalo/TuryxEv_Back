@@ -2,6 +2,7 @@ import { config } from './config/config';
 import { ExpressBusinessRouter } from './lib/bussiness/infrastructure/routers/express';
 import { connectMongo } from './lib/db/mongoose';
 import { ExpressHotelRouter } from './lib/Hotel/infraestructure/routers/ExpressHotelRouter';
+import { ExpressLocationRouter } from './lib/location/infrastructure/location.router';
 import { ExpressReservationRouter } from './lib/Reservation/infrastructure/routers/express';
 import { HttpError } from './lib/Shared/domain/exeptions';
 import { ApiResponse } from './lib/Shared/Infraestructure/ApiResponse';
@@ -22,6 +23,9 @@ app.use('/api/users', ExpressUserRouter);
 app.use('/api/reservations', ExpressReservationRouter);
 app.use('/api/hotel', ExpressHotelRouter);
 app.use('/api/superadmin', ExpressSuperAdminRouter);
+
+// Versionado de API's
+app.use('/api/v1/location', ExpressLocationRouter);
 
 // Middleware de errores
 app.use((err: unknown, _req: ex.Request, res: ex.Response) => {

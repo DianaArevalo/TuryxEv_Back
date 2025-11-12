@@ -5,9 +5,9 @@ import {
   LocationBusinessId,
   LocationHotelId,
   LocationId,
-} from '../entities';
+} from '../../entities';
 
-export interface LocationRepository {
+export interface LocationRepositoryPort {
   getValidCities(): Promise<City[]>;
   getLocationByHotel(hotel: LocationHotelId): Promise<Location>;
   getLocationByBusiness(business: LocationBusinessId): Promise<Location>;

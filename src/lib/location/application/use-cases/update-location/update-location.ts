@@ -3,19 +3,21 @@ import {
   LocationAddress,
   LocationId,
   LocationNotFoundError,
-  LocationRepository,
-} from '../../domain';
+  LocationRepositoryPort,
+} from '../../../domain';
 
-interface UpdatelocationHandlerProps {
+import { UseCase } from '~/lib/Shared/application/usecase';
+
+export interface UpdatelocationDTO {
   locationId: string;
   cityName?: string;
   address?: string;
 }
 
-export class UpdateLocation {
-  constructor(private readonly repository: LocationRepository) {}
+export class UpdateLocationUseCase implements UseCase<UpdatelocationDTO, void> {
+  constructor(private readonly repository: LocationRepositoryPort) {}
 
-  async handler(props: UpdatelocationHandlerProps) {
+  async execute(props: UpdatelocationDTO) {
     const result = await this.repository.getOneLocation(
       new LocationId(props.locationId),
     );
