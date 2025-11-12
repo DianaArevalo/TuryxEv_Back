@@ -1,7 +1,11 @@
-import {jwt} from "../../../../lib/Shared/Infraestructure/External"
+import { jwt } from "../../../../lib/Shared/Infraestructure/External";
 import { ForSignToken, ForVerifyToken } from "../../domain/ports/driven";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
-import { AccessToken, RefreshToken, TokenExpiration } from "../../domain/entities/JWT/value-objects";
+import {
+  AccessToken,
+  RefreshToken,
+  TokenExpiration,
+} from "../../domain/entities/JWT/value-objects";
 
 export class JwtAdapter implements ForSignToken, ForVerifyToken {
   private readonly secret = process.env.JWT_SECRET!;

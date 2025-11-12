@@ -2,7 +2,11 @@ import { ForTokenRepository } from "../../domain/ports/driven";
 import { TokenModel } from "../models/token-model";
 
 export class JwtRepository implements ForTokenRepository {
-  async saveToken(userId: string, token: string, expiresAt: Date): Promise<void> {
+  async saveToken(
+    userId: string,
+    token: string,
+    expiresAt: Date
+  ): Promise<void> {
     await TokenModel.create({ userId, token, expiresAt });
   }
 

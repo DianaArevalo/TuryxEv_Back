@@ -1,6 +1,5 @@
 import { AccessToken, RefreshToken, TokenExpiration } from "./value-objects";
 
-
 export interface JwtI {
   accessToken: string;
   refreshToken: string;

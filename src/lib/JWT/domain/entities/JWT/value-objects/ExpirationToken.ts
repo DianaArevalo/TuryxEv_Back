@@ -7,9 +7,9 @@ export class TokenExpiration {
     this.value = value;
   }
 
-  static create(value: string | number | Date): TokenExpiration {    
+  static create(value: string | number | Date): TokenExpiration {
     const expirationDate = new Date(value);
-    
+
     if (isNaN(expirationDate.getTime())) {
       throw new ValidationError("Invalid expiration date");
     }
