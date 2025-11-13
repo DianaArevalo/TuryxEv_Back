@@ -1,3 +1,5 @@
+import { JwtPayload } from "jsonwebtoken";
+
 /**
  * Puerto para la verificación y decodificación de tokens JWT
  * (Implementado por JwtAdapter)
@@ -8,5 +10,5 @@ export interface ForVerifyToken {
    * @param token Token JWT recibido
    * @throws Error si el token es inválido, caducado o alterado
    */
-  verify(token: string): Promise<object>;
+  verify(token: string): Promise<JwtPayload>;
 }
