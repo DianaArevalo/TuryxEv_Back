@@ -1,15 +1,15 @@
 import {
-  UpdatelocationDTO,
-  UpdateLocationUseCase,
+  EditLocationDTO,
+  EditLocationUseCase,
 } from '~/lib/location/application/use-cases';
 import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
 import { express as ex } from '~/lib/Shared/Infraestructure/External';
 
-export class UpdateLocationController {
-  constructor(private readonly updateLocationUseCase: UpdateLocationUseCase) {}
+export class EditLocationController {
+  constructor(private readonly updateLocationUseCase: EditLocationUseCase) {}
 
   async handle(req: ex.Request, res: ex.Response) {
-    const body = req.body as UpdatelocationDTO;
+    const body = req.body as EditLocationDTO;
     await this.updateLocationUseCase.execute(body);
 
     const response: ApiResponse<null> = {

@@ -1,1 +1,1 @@
-export * from './location-repository.mongo.adapter';
+export * from './location-repository.mongodb.adapter';

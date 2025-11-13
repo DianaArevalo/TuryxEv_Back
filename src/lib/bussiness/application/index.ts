@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export * from "./create-business/create-business";
 export * from "./edit-business/edit-business";
 export * from "./get-all-business/get-all-business";
@@ -8,3 +9,7 @@ export * from "./get-business-by-status/get-business-by-status";
 export * from "./get-one-business-by-email/get-one-business-by-email";
 export * from "./get-one-business-by-id/get-one-business-by-id";
 export * from "./soft-delete-business/soft-delete-business";
+=======
+export * from './use-cases';
+export * from './adapters';
+>>>>>>> f17658e (refactor(business): business hexagon refactorized)

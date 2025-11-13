@@ -7,12 +7,17 @@ import {
   BusinessPassword,
   BusinessPicture,
   BusinessPlan,
+  BusinessPlanT,
   BusinessProviderData,
   BusinessRole,
+  BusinessRoleT,
   BusinessScore,
   BusinessStatus,
+  BusinessStatusT,
   BusinessUpdatedAt,
 } from "./value-objects";
+
+import { LocationValueObjectI, ProviderDataT } from '~/lib/Shared/domain';
 
 export interface BusinessI {
   bussinessId: BusinessId;
@@ -28,6 +33,31 @@ export interface BusinessI {
   idPlan: BusinessPlan;
   status: BusinessStatus;
   providerData: BusinessProviderData;
+}
+
+export interface BusinessPrivateResponse {
+  bussinessId: string;
+  name: string;
+  email: string;
+  location: LocationValueObjectI | undefined;
+  picture: string | undefined;
+  score: number;
+  createdAt: Date;
+  updatedAt: Date;
+  idRole: BusinessRoleT;
+  idPlan: BusinessPlanT;
+  status: BusinessStatusT;
+  providerData: ProviderDataT;
+}
+
+export interface BusinessPublicResponse {
+  bussinessId: string;
+  name: string;
+  email: string;
+  location: LocationValueObjectI | undefined;
+  picture: string | undefined;
+  score: number;
+  status: BusinessStatusT;
 }
 
 export class Business implements BusinessI {
@@ -62,7 +92,7 @@ export class Business implements BusinessI {
   }
 
   // Para sí mismos
-  toPrivateResponse() {
+  toPrivateResponse(): BusinessPrivateResponse {
     return {
       bussinessId: this.bussinessId.value,
       name: this.name.value,
@@ -80,7 +110,7 @@ export class Business implements BusinessI {
   }
 
   // Para clientes
-  toPublicResponse() {
+  toPublicResponse(): BusinessPublicResponse {
     return {
       bussinessId: this.bussinessId.value,
       name: this.name.value,

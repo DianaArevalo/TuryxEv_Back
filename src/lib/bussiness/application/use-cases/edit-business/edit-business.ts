@@ -1,4 +1,7 @@
+<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
 import { ValidationError } from "../../../Shared/domain/exeptions";
+=======
+>>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
 import {
   BusinessId,
   BusinessLocation,
@@ -7,34 +10,54 @@ import {
   BusinessPassword,
   BusinessPicture,
   BusinessPlan,
-  BusinessRepository,
+  BusinessPrivateResponse,
+  BusinessRepositoryPort,
   BusinessScore,
   BusinessStatus,
+<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
   LocationRepository,
 } from "../../domain";
+=======
+  LocationServicePort,
+} from '~/lib/bussiness/domain';
+import { UseCase } from '~/lib/Shared/application/usecase';
+import { ValidationError } from '~/lib/Shared/domain';
+>>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
 
-interface EditBusinessHandlerProps {
+export interface EditBusinessDTO {
   businessId: string;
   name?: string;
   password?: string;
-  location?: string;
+  location?: {
+    locationId: string;
+    cityName: string;
+    address: string;
+  };
   idPlan?: string;
   score?: number;
   status?: string;
   picture?: string;
 }
 
-export class EditBusiness {
+export class EditBusinessUseCase
+  implements UseCase<EditBusinessDTO, BusinessPrivateResponse>
+{
   constructor(
+<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
     private readonly repository: BusinessRepository,
     private readonly locationRepository: LocationRepository
+=======
+    private readonly repository: BusinessRepositoryPort,
+    private readonly locationService: LocationServicePort,
+>>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
   ) {}
 
-  async handler(props: EditBusinessHandlerProps) {
+  async execute(props: EditBusinessDTO): Promise<BusinessPrivateResponse> {
     const business = await this.repository.getOneById(
       new BusinessId(props.businessId)
     );
 
+<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
     if (
       props.location &&
       !(await this.locationRepository.isValidLocation(
@@ -43,6 +66,8 @@ export class EditBusiness {
     )
       throw new ValidationError("Location is invalid");
 
+=======
+>>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
     if (!business) throw new BusinessNotFoundError();
 
     if (props.name && props.name !== business.name.value)
@@ -56,7 +81,7 @@ export class EditBusiness {
       );
 
     if (props.location)
-      business.location = BusinessLocation.create(props.location);
+      await this.locationService.edit(new BusinessLocation(props.location));
 
     if (props.idPlan && props.idPlan !== business.idPlan.value)
       business.idPlan = BusinessPlan.create(props.idPlan);
@@ -71,6 +96,9 @@ export class EditBusiness {
 
     const edited = await this.repository.edit(business);
 
-    return edited.toPrivateResponse();
+    return {
+      ...edited.toPrivateResponse(),
+      location: props.location ? props.location : edited.location?.value,
+    };
   }
 }

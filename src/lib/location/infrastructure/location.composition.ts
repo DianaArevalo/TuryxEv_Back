@@ -1,12 +1,19 @@
+<<<<<<< HEAD
 import { LocationRepositoryMongoAdapter } from "./adapters";
 import { buildLocationControllers } from "./controllers";
 import { LocationServiceAdapter } from "../application/adapters/location-service.adapter";
+=======
+import { LocationRepositoryMongoAdapter } from './adapters';
+import { buildLocationControllers } from './controllers';
+import { LocationServiceAdapter } from '../application';
+>>>>>>> f17658e (refactor(business): business hexagon refactorized)
 
 const locationComposition = () => {
   const locationRepository = new LocationRepositoryMongoAdapter();
 
   const {
     controllers,
+<<<<<<< HEAD
     useCases: {
       getLocationByOwnerUseCase,
       getValidCitiesUseCase,
@@ -20,6 +27,15 @@ const locationComposition = () => {
     getValidCitiesUseCase,
     updateLocationUseCase
   );
+=======
+    useCases: { createLocationUseCase, editLocationUseCase },
+  } = buildLocationControllers(locationRepository);
+
+  const locationService = new LocationServiceAdapter({
+    createLocationUseCase,
+    editLocationUseCase,
+  });
+>>>>>>> f17658e (refactor(business): business hexagon refactorized)
 
   return {
     controllers,
