@@ -25,6 +25,4 @@ export class RefreshToken {
   getValue(): string {
     return this.value;
   }
-
-  //hola
 }

@@ -7,4 +7,6 @@ export const jwtConfig = {
   accessTokenExpiresIn: "15m",
   refreshTokenExpiresIn: "7d",
   algorithm: "HS256",
+  accessTokenTTL: 900, // 15 minutos
+  refreshTokenTTL: 7 * 24 * 60 * 60, // 7 días
 };
