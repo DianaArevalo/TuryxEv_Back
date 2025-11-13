@@ -2,8 +2,9 @@
 import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
-import { JwtServiceAdapter } from "../adapters/JwtServiceAdapter";
-import { randomUUID } from "crypto";
+import { JwtServiceAdapter } from "../adapters/jwt-service";
+import { ValidationError } from "~/lib/Shared/domain";
+import { nanoid } from "nanoid";
 
 export class SignTokenHandler {
   constructor(
@@ -12,7 +13,9 @@ export class SignTokenHandler {
   ) {}
 
   async handler(userId: string, payload: object): Promise<JwtEntity> {
-    const tokenId = randomUUID();
+     if (!userId) throw new ValidationError("UserId required");
+
+    const tokenId = nanoid();
 
     const jwtEntity = await this.jwtService.signToken({
       ...payload,

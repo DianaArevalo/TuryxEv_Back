@@ -1,9 +1,10 @@
 import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
 import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
-import { JwtServiceAdapter } from "../adapters/JwtServiceAdapter";
+import { JwtServiceAdapter } from "../adapters/jwt-service";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { randomUUID } from "crypto";
 import { ValidationError } from "~/lib/Shared/domain";
+import { nanoid } from "nanoid";
 
 export class RefreshTokenHandler {
   constructor(
@@ -12,9 +13,15 @@ export class RefreshTokenHandler {
   ) {}
 
   async handler(oldRefreshToken: string, userId: string, payload: object): Promise<JwtEntity> {
-    const decoded = await this.jwtService.verifyToken(oldRefreshToken);
-    const oldTokenId = decoded["tid"];
 
+    if(!oldRefreshToken) throw new ValidationError("Refresh token required");
+
+    const decoded = await this.jwtService.verifyToken(oldRefreshToken);
+    const oldTokenId = decoded.tid;
+
+     if (decoded.sub !== userId) {
+      throw new ValidationError("Refresh token does not belong to the user");
+    }
 
     const oldRecord = await this.tokenRepository.findRefreshTokenById(oldTokenId);
     if (!oldRecord || oldRecord.revoked) throw new ValidationError("Invalid or revoked refresh token");
@@ -22,9 +29,7 @@ export class RefreshTokenHandler {
     const isValid = await Hasher.verify(oldRefreshToken, oldRecord.tokenHash);
     if (!isValid) throw new ValidationError("Token verification failed");
 
-
-
-    const newTokenId = randomUUID();
+    const newTokenId = nanoid();
 
   const jwtEntity = await this.jwtService.signToken({
     ...payload,
@@ -36,7 +41,12 @@ export class RefreshTokenHandler {
   const newHash = await Hasher.hash(newRefreshToken);
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-  await this.tokenRepository.saveRefreshToken(oldTokenId, newTokenId, newHash, expiresAt);
+  await this.tokenRepository.saveRefreshToken(
+    oldTokenId, 
+    newTokenId, 
+    newHash, 
+    expiresAt);
+    
   return jwtEntity;
   }
 }
