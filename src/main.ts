@@ -1,5 +1,5 @@
 import { config } from './config/config';
-import { ExpressBusinessRouter } from './lib/bussiness/infrastructure/routers/express';
+import { ExpressBusinessRouter } from './lib/bussiness/infrastructure/business.router';
 import { connectMongo } from './lib/db/mongoose';
 import { ExpressHotelRouter } from './lib/Hotel/infraestructure/routers/ExpressHotelRouter';
 import { ExpressLocationRouter } from './lib/location/infrastructure/location.router';
@@ -18,7 +18,6 @@ app.use(cors({ origin: config.mongoUri, credentials: true }));
 app.use(ex.json());
 
 // Rutas
-app.use('/api/business', ExpressBusinessRouter);
 app.use('/api/users', ExpressUserRouter);
 app.use('/api/reservations', ExpressReservationRouter);
 app.use('/api/hotel', ExpressHotelRouter);
@@ -26,6 +25,7 @@ app.use('/api/superadmin', ExpressSuperAdminRouter);
 
 // Versionado de API's
 app.use('/api/v1/location', ExpressLocationRouter);
+app.use('/api/v1/business', ExpressBusinessRouter);
 
 // Middleware de errores
 app.use((err: unknown, _req: ex.Request, res: ex.Response) => {

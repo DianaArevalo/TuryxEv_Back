@@ -1,36 +1,25 @@
-import { CityResponse, LocationResponse } from '../../domain';
-import { LocationServicePort } from '../../domain/ports';
+import { LocationServicePort } from '../../domain';
 import {
-  CreateCityUseCase,
-  CreateCityDTO,
-  GetLocationByOwnerDTO,
-  GetLocationByOwnerUseCase,
-  UpdatelocationDTO,
-  GetValidCitiesUseCase,
-  UpdateLocationUseCase,
+  CreateLocationDTO,
+  CreateLocationResponse,
+  CreateLocationUseCase,
+  EditLocationDTO,
+  EditLocationUseCase,
 } from '../use-cases';
 
+interface LocationAdapterProps {
+  createLocationUseCase: CreateLocationUseCase;
+  editLocationUseCase: EditLocationUseCase;
+}
+
 export class LocationServiceAdapter implements LocationServicePort {
-  constructor(
-    private readonly createCityUseCase: CreateCityUseCase,
-    private readonly getLocationByOwnerUseCase: GetLocationByOwnerUseCase,
-    private readonly getValidCitiesUseCase: GetValidCitiesUseCase,
-    private readonly updateLocationUseCase: UpdateLocationUseCase,
-  ) {}
+  constructor(private readonly params: LocationAdapterProps) {}
 
-  createCity(props: CreateCityDTO): Promise<CityResponse> {
-    return this.createCityUseCase.execute(props);
+  createLocation(props: CreateLocationDTO): Promise<CreateLocationResponse> {
+    return this.params.createLocationUseCase.execute(props);
   }
 
-  getLocationByOwner(props: GetLocationByOwnerDTO): Promise<LocationResponse> {
-    return this.getLocationByOwnerUseCase.execute(props);
-  }
-
-  getValidCities(): Promise<CityResponse[]> {
-    return this.getValidCitiesUseCase.execute();
-  }
-
-  updateLocation(props: UpdatelocationDTO): Promise<void> {
-    return this.updateLocationUseCase.execute(props);
+  editLocation(props: EditLocationDTO) {
+    return this.params.editLocationUseCase.execute(props);
   }
 }
