@@ -7,12 +7,17 @@ const locationComposition = () => {
 
   const {
     controllers,
-    useCases: { createLocationUseCase, editLocationUseCase },
+    useCases: {
+      createLocationUseCase,
+      editLocationUseCase,
+      getLocationByIdUseCase,
+    },
   } = buildLocationControllers(locationRepository);
 
   const locationService = new LocationServiceAdapter({
     createLocationUseCase,
     editLocationUseCase,
+    getLocationByIdUseCase,
   });
 
   return {

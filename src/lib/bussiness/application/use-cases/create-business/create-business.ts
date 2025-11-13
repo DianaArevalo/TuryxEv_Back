@@ -47,7 +47,16 @@ export class CreateBusinessUseCase
     const createdAt = BusinessCreatedAt.now();
     const location = BusinessLocation.create(props.location);
 
-    if (!props.password && props.providerData === ProviderDataE.AUTH)
+    if (
+      !Object.values(ProviderDataE).includes(
+        props.providerData as ProviderDataE,
+      )
+    )
+      throw new ValidationError('Invalid provider data.');
+
+    const providerData = props.providerData as ProviderDataE;
+
+    if (!props.password && providerData === ProviderDataE.AUTH)
       throw new ValidationError('Password is required.');
 
     const business = new Business({

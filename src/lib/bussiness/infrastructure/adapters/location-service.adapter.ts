@@ -3,7 +3,9 @@ import {
   BusinessLocation,
   LocationServicePort,
 } from '../../domain';
+
 import { LocationServicePort as LocationService } from '~/lib/location/domain';
+import { IdValueObject } from '~/lib/Shared/domain';
 
 export class LocationServiceAdapter implements LocationServicePort {
   constructor(private readonly locationService: LocationService) {}
@@ -32,5 +34,13 @@ export class LocationServiceAdapter implements LocationServicePort {
       address: location.value.address,
       cityName: location.value.cityName,
     });
+  }
+
+  async getLocationById(id: IdValueObject): Promise<BusinessLocation> {
+    const location = await this.locationService.getPopulatedLocationById(
+      id.value,
+    );
+
+    return new BusinessLocation(location);
   }
 }

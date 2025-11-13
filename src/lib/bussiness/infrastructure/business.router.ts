@@ -1,5 +1,6 @@
-import { express as ex } from '~/lib/Shared/Infraestructure/External';
 import { controllers } from './business.composition';
+
+import { express as ex } from '~/lib/Shared/Infraestructure/External';
 
 const ExpressBusinessRouter = ex.Router();
 

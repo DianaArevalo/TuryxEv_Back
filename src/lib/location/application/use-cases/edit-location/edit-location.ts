@@ -1,6 +1,5 @@
 import {
   CityName,
-  CityResponse,
   LocationAddress,
   LocationId,
   LocationNotFoundError,

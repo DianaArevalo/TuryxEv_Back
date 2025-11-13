@@ -1,6 +1,6 @@
 import { ValidationError } from '../exeptions';
 
-const DEFAULT_LIMIT = 50;
+const DEFAULT_LIMIT = 20;
 
 export class LimitValueObject {
   constructor(readonly value: number) {}

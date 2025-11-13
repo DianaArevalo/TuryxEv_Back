@@ -1,7 +1,3 @@
-import {
-  ProviderDataPrimitiveArray,
-  ProviderDataPrimitiveT,
-} from '~/lib/Shared/domain';
 import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 import {
   BusinessPlanPrimitiveArray,
@@ -11,6 +7,11 @@ import {
   BusinessStatusPrimitiveArray,
   BusinessStatusPrimitiveT,
 } from '../../domain';
+
+import {
+  ProviderDataPrimitiveArray,
+  ProviderDataPrimitiveT,
+} from '~/lib/Shared/domain';
 
 export interface IBusinessDocument extends mg.Document {
   name: string;

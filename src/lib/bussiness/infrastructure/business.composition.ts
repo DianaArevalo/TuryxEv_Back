@@ -1,12 +1,15 @@
-import { locationService as locationHexagon } from '~/lib/location/infrastructure/location.composition';
+import { BusinessServiceAdapter } from '../application';
 import { BusinessRepositoryMongoAdapter } from './adapters/business-repository.mongodb.adapter';
 import { LocationServiceAdapter } from './adapters/location-service.adapter';
 import { buildBusinessControllers } from './controllers/express/business.controller-factory';
-import { BusinessServiceAdapter } from '../application';
+
+import { locationService as locationHexagon } from '~/lib/location/infrastructure/location.composition';
 
 const businessComposition = () => {
-  const businessRepository = new BusinessRepositoryMongoAdapter();
   const locationService = new LocationServiceAdapter(locationHexagon);
+  const businessRepository = new BusinessRepositoryMongoAdapter(
+    locationService,
+  );
 
   const {
     controllers,

@@ -67,6 +67,15 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
     }
   }
 
+  async getOneCity(cityId: CityId): Promise<City | null> {
+    try {
+      const record = await CitySchema.findOne({ id: cityId.value });
+      return record ? this.createCityEntity(record) : null;
+    } catch {
+      throw new HttpError('Error fetching city by name', 500);
+    }
+  }
+
   async getOneCityByName(cityName: CityName): Promise<City | null> {
     try {
       const record = await CitySchema.findOne({ name: cityName.value });

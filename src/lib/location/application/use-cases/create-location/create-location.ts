@@ -1,4 +1,3 @@
-import { UseCase } from '~/lib/Shared/application/usecase';
 import {
   CityName,
   CityResponse,
@@ -10,6 +9,8 @@ import {
   LocationNotFoundError,
   LocationRepositoryPort,
 } from '../../../domain';
+
+import { UseCase } from '~/lib/Shared/application/usecase';
 
 export interface CreateLocationDTO {
   cityName: string;
