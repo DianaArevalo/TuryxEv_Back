@@ -1,4 +1,3 @@
-
 import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
@@ -21,14 +20,19 @@ export class SignTokenHandler {
       ...payload,
       sub: userId,
       tid: tokenId,
-    })
-    
+    });
+
     const refreshToken = jwtEntity.toPrimitives().refreshToken;
     const refreshHash = await Hasher.hash(refreshToken);
 
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 días
 
-    await this.tokenRepository.saveRefreshToken(userId, tokenId, refreshHash, expiresAt);
+    await this.tokenRepository.saveRefreshToken(
+      userId,
+      tokenId,
+      refreshHash,
+      expiresAt
+    );
     return jwtEntity;
   }
 }

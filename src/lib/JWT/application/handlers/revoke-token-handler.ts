@@ -8,7 +8,7 @@ export class RevokeTokenHandler {
     private readonly tokenRepository: RefreshTokenRepository
   ) {}
 
-  async handler(refreshToken: string, userId:string): Promise<void> {
+  async handler(refreshToken: string, userId: string): Promise<void> {
     if (!refreshToken) throw new ValidationError("Token required");
 
     const payload = await this.jwtService.verifyToken(refreshToken);
@@ -18,9 +18,10 @@ export class RevokeTokenHandler {
       throw new ValidationError("Token does not belong to the user");
     }
 
-    const tokenRecord = await this.tokenRepository.findRefreshTokenById(tokenId);
-  if (!tokenRecord) throw new ValidationError("Token not found");
-  
+    const tokenRecord = await this.tokenRepository.findRefreshTokenById(
+      tokenId
+    );
+    if (!tokenRecord) throw new ValidationError("Token not found");
 
     await this.tokenRepository.revokeRefreshToken(tokenId);
   }

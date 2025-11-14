@@ -2,7 +2,12 @@ import { ForTokenRepository } from "../../domain/ports/driven/for-token-reposito
 import { RefreshTokenModel } from "../models/refresh-token-model";
 
 export class RefreshTokenRepository implements ForTokenRepository {
-  async saveRefreshToken(userId: string, tokenId: string, tokenHash: string, expiresAt: Date): Promise<void> {
+  async saveRefreshToken(
+    userId: string,
+    tokenId: string,
+    tokenHash: string,
+    expiresAt: Date
+  ): Promise<void> {
     await RefreshTokenModel.create({ userId, tokenId, tokenHash, expiresAt });
   }
 
@@ -27,7 +32,12 @@ export class RefreshTokenRepository implements ForTokenRepository {
     oldToken.replacedByToken = newTokenId;
     await oldToken.save();
 
-    await this.saveRefreshToken(oldToken.userId, newTokenId, newHash, newExpiresAt);
+    await this.saveRefreshToken(
+      oldToken.userId,
+      newTokenId,
+      newHash,
+      newExpiresAt
+    );
   }
 
   async purgeExpiredTokens(): Promise<void> {
