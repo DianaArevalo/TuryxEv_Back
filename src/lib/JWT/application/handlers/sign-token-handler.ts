@@ -13,7 +13,7 @@ export class SignTokenHandler {
   ) {}
 
   async handler(userId: string, payload: object): Promise<JwtEntity> {
-     if (!userId) throw new ValidationError("UserId required");
+    if (!userId) throw new ValidationError("UserId required");
 
     const tokenId = nanoid();
 
