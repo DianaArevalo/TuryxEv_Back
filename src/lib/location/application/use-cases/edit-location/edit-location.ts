@@ -25,12 +25,6 @@ export class EditLocationUseCase implements UseCase<EditLocationDTO, void> {
     if (!result) throw new LocationNotFoundError();
 
     if (props.cityName) {
-      const isValidCity = await this.repository.isValidCity(
-        new CityName(props.cityName),
-      );
-
-      if (!isValidCity) throw new LocationNotFoundError();
-
       const city = await this.repository.getOneCityByName(
         new CityName(props.cityName),
       );

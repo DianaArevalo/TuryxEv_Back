@@ -9,6 +9,7 @@ import {
   LocationAddress,
   LocationNotFoundError,
 } from '../../domain';
+import { LocationAlreadyExistsError } from '../../domain/exceptions/already-exists-error';
 import { LocationRepositoryPort } from '../../domain/ports';
 import {
   ICityDocument,
@@ -18,6 +19,7 @@ import {
 } from '../schemas';
 
 import { HttpError } from '~/lib/Shared/domain';
+import { mongoose as mg } from '~/lib/Shared/Infraestructure/External';
 
 export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async getValidCities(): Promise<City[]> {
@@ -96,25 +98,45 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
 
   async create(location: Location): Promise<Location> {
     try {
+      const validCity = await CitySchema.findById(location.city.value);
+      if (!validCity) {
+        throw new HttpError('Invalid city', 400);
+      }
+
+      if (location.businessId) {
+        const exists = await LocationSchema.findOne({
+          businessId: location.businessId.value,
+        });
+        if (exists) throw new LocationAlreadyExistsError();
+      }
+
+      if (location.hotelId) {
+        const exists = await LocationSchema.findOne({
+          hotelId: location.hotelId.value,
+        });
+        if (exists) throw new LocationAlreadyExistsError();
+      }
+
       const record = await LocationSchema.create({
-        city: location.city.value,
+        city: new mg.Types.ObjectId(location.city.value),
         address: location.address.value,
-        hotelId: location.hotelId?.value,
-        businessId: location.businessId?.value,
+        hotelId: new mg.Types.ObjectId(location.hotelId?.value),
+        businessId: new mg.Types.ObjectId(location.businessId?.value),
       });
 
       return this.createLocationEntity(record);
-    } catch {
+    } catch (error) {
+      if (error instanceof LocationAlreadyExistsError) throw error;
       throw new HttpError('Error creating location', 500);
     }
   }
 
   async createCity(cityName: CityName): Promise<City> {
     try {
-      const existing = await CitySchema.findOne({ name: cityName.value });
-      if (existing) throw new HttpError('City already exists', 409);
+      let record = await CitySchema.findOne({ name: cityName.value });
 
-      const record = await CitySchema.create({ name: cityName.value });
+      if (!record) record = await CitySchema.create({ name: cityName.value });
+
       return this.createCityEntity(record);
     } catch (error) {
       if (error instanceof HttpError) throw error;
@@ -125,15 +147,16 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async update(location: Location): Promise<Location> {
     try {
       const record = await LocationSchema.findByIdAndUpdate(
-        location.city.value,
+        location.locationId.value,
         {
-          city: location.city.value,
+          city: new mg.Types.ObjectId(location.city.value),
           address: location.address.value,
         },
         { new: true },
-      ).lean();
+      );
 
       if (!record) throw new LocationNotFoundError();
+
       return this.createLocationEntity(record);
     } catch (error) {
       if (error instanceof LocationNotFoundError) throw error;

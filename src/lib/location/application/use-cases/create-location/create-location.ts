@@ -11,6 +11,7 @@ import {
 } from '../../../domain';
 
 import { UseCase } from '~/lib/Shared/application/usecase';
+import { ValidationError } from '~/lib/Shared/domain';
 
 export interface CreateLocationDTO {
   cityName: string;
@@ -33,6 +34,11 @@ export class CreateLocationUseCase
   constructor(private readonly repository: LocationRepositoryPort) {}
 
   async execute(props: CreateLocationDTO): Promise<CreateLocationResponse> {
+    if ([props.hotelId, props.businessId].filter(Boolean).length !== 1)
+      throw new ValidationError(
+        'Exactly one of hotelId or businessId must be defined.',
+      );
+
     const city = await this.repository.getOneCityByName(
       new CityName(props.cityName),
     );
@@ -52,6 +58,7 @@ export class CreateLocationUseCase
     const createdLocation = (
       await this.repository.create(newLocation)
     ).toResponse();
+
     const cityResponse = city.toResponse();
 
     return {

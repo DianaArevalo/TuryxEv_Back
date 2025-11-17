@@ -10,7 +10,7 @@ export interface GetPopulatedLocationByIdDTO {
   id: string;
 }
 
-export class GetLocationByIdUseCase
+export class GetPopulatedLocationByIdUseCase
   implements UseCase<GetPopulatedLocationByIdDTO, LocationValueObjectI>
 {
   constructor(private readonly repository: LocationRepositoryPort) {}

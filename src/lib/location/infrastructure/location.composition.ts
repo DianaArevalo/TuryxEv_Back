@@ -10,14 +10,14 @@ const locationComposition = () => {
     useCases: {
       createLocationUseCase,
       editLocationUseCase,
-      getLocationByIdUseCase,
+      getPopulatedLocationByIdUseCase,
     },
   } = buildLocationControllers(locationRepository);
 
   const locationService = new LocationServiceAdapter({
     createLocationUseCase,
     editLocationUseCase,
-    getLocationByIdUseCase,
+    getPopulatedLocationByIdUseCase,
   });
 
   return {

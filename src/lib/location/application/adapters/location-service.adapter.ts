@@ -6,14 +6,14 @@ import {
   EditLocationDTO,
   EditLocationUseCase,
 } from '../use-cases';
-import { GetLocationByIdUseCase } from '../use-cases/get-populated-location-by-id/get-populated-location-by-id';
+import { GetPopulatedLocationByIdUseCase } from '../use-cases/get-populated-location-by-id/get-populated-location-by-id';
 
 import { LocationValueObjectI } from '~/lib/Shared/domain';
 
 interface LocationAdapterProps {
   createLocationUseCase: CreateLocationUseCase;
   editLocationUseCase: EditLocationUseCase;
-  getLocationByIdUseCase: GetLocationByIdUseCase;
+  getPopulatedLocationByIdUseCase: GetPopulatedLocationByIdUseCase;
 }
 
 export class LocationServiceAdapter implements LocationServicePort {
@@ -28,6 +28,6 @@ export class LocationServiceAdapter implements LocationServicePort {
   }
 
   async getPopulatedLocationById(id: string): Promise<LocationValueObjectI> {
-    return await this.params.getLocationByIdUseCase.execute({ id });
+    return await this.params.getPopulatedLocationByIdUseCase.execute({ id });
   }
 }
