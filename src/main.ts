@@ -1,5 +1,5 @@
 import { config } from './config/config';
-import { ExpressBusinessRouter } from './lib/bussiness/infrastructure/business.router';
+import { ExpressBusinessRouter } from './lib/business/infrastructure/business.router';
 import { connectMongo } from './lib/db/mongoose';
 import { ExpressHotelRouter } from './lib/Hotel/infraestructure/routers/ExpressHotelRouter';
 import { ExpressLocationRouter } from './lib/location/infrastructure/location.router';

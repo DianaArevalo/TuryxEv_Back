@@ -1,11 +1,6 @@
 export type ProviderDataT = 'AUTH' | 'AUTHGOOGLE' | 'AUTHFACEBOOK';
 export type ProviderDataPrimitiveT = 0 | 1 | 2;
 export const ProviderDataPrimitiveArray = [0, 1, 2];
-export enum ProviderDataE {
-  AUTH = 'AUTH',
-  AUTHGOOGLE = 'AUTHGOOGLE',
-  AUTHFACEBOOK = 'AUTHFACEBOOK',
-}
 
 const ProviderDataTMap: Record<ProviderDataT, ProviderDataPrimitiveT> = {
   AUTH: 0,

@@ -1,26 +1,27 @@
-import { Page, Limit } from "../../../Shared/domain";
+
+import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
 import {
   Business,
   BusinessEmail,
   BusinessId,
   BusinessNotFoundError,
   BusinessPlan,
-  BusinessProviderData,
-  BusinessRepository,
+  BusinessProviderData,  
   BusinessRole,
   BusinessStatus,
 } from "../../domain";
+import { BusinessRepository } from "../../domain/repositories/business-repository";
 
 export class InMemoryBusinessRepository implements BusinessRepository {
   private businesses: Business[] = [];
 
-  private paginate(items: Business[], page: Page, limit: Limit): Business[] {
+  private paginate(items: Business[], page: PageValueObject, limit: LimitValueObject): Business[] {
     const start = (page.value - 1) * limit.value;
     const end = start + limit.value;
     return items.slice(start, end);
   }
 
-  async getAll(page: Page, limit: Limit): Promise<Business[]> {
+  async getAll(page: PageValueObject, limit: LimitValueObject): Promise<Business[]> {
     const active = this.businesses.filter((b) => b.status.value !== "BLOCKED");
     return this.paginate(active, page, limit);
   }
@@ -68,8 +69,8 @@ export class InMemoryBusinessRepository implements BusinessRepository {
 
   async getByPlan(
     plan: BusinessPlan,
-    page: Page,
-    limit: Limit
+    page: PageValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
       (b) => b.idPlan.value === plan.value
@@ -79,8 +80,8 @@ export class InMemoryBusinessRepository implements BusinessRepository {
 
   async getByRole(
     role: BusinessRole,
-    page: Page,
-    limit: Limit
+    page: PageValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
       (b) => b.idRole.value === role.value
@@ -90,8 +91,8 @@ export class InMemoryBusinessRepository implements BusinessRepository {
 
   async getByStatus(
     status: BusinessStatus,
-    page: Page,
-    limit: Limit
+    page: PageValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
       (b) => b.status.value === status.value
@@ -101,8 +102,8 @@ export class InMemoryBusinessRepository implements BusinessRepository {
 
   async getByProvider(
     providerData: BusinessProviderData,
-    page: Page,
-    limit: Limit
+    page: PageValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
     const filtered = this.businesses.filter(
       (b) => b.providerData.value === providerData.value

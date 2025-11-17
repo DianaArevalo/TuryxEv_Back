@@ -47,8 +47,50 @@ import {
   GetOneBusinessByEmail,
   GetOneBusinessById,
   SoftDeleteBusiness,
+<<<<<<< HEAD
 } from "../../bussiness/application";
 import { UserGetAllByStatus, UserGetOneByEmail } from "../../../lib/User/application";
+=======
+} from '../../business/application';
+import { MongoBusinessRepository } from '../../business/infrastructure/repositories/business-mongo-repository';
+import { InMemoryLocationRepository } from '../../business/infrastructure/repositories/location-in-memory-repository';
+import {
+  CancelReservation,
+  ConfirmReservation,
+  CreateReservation,
+  EditReservation,
+  GetAllByHotelId,
+  GetOneByReservationId,
+  GetUserReservations,
+} from '../../Reservation/application';
+import { MongoReservationRepository } from '../../Reservation/infrastructure/repositories/mongo-reservation-repository';
+import {
+  CreateSuperAdmin,
+  EditSuperAdmin,
+  GetAllSuperAdmins,
+  GetAllSuperAdminsByIsActive,
+  GetOneSuperAdminByEmail,
+  GetOneSuperAdminById,
+  SoftDeleteSuperAdmin,
+  SuperAdminEditBusiness,
+  SuperAdminEditHotel,
+  SuperAdminGetAllReservationsByHotelId,
+  SuperAdminGetAllUserReservations,
+  SuperAdminGetOneReservationById,
+} from '../../superadmin/application';
+import {
+  ForBusinessEditAdapter,
+  ForViewReservationsAdapter,
+} from '../../superadmin/infrastructure/adapters';
+import { ForHotelEditAdapter } from '../../superadmin/infrastructure/adapters/driven/for-edit-hotel-proxy';
+import { MongoSuperAdminRepository } from '../../superadmin/infrastructure/repositories';
+import { UserCreate } from '../../User/application/UserCreate/UserCreate';
+import { UserEdit } from '../../User/application/UserEdit/UserEdit';
+import { UserGetAll } from '../../User/application/UserGetAll/UserGetAll';
+import { UserGetOneById } from '../../User/application/UserGetOneById/UserGetOneById';
+import { UserSoftDelete } from '../../User/application/UserSoftDelete/UserSoftDelete';
+import { MongoUserRepository } from '../../User/infrastructure/repositories/MongoUserRepository';
+>>>>>>> 7cef941 (test(business): business tested)
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
