@@ -1,7 +1,7 @@
-import { HttpError } from '../../../Shared/domain';
+import { NotFoundError } from '../../../Shared/domain';
 
-export class LocationNotFoundError extends HttpError {
+export class LocationNotFoundError extends NotFoundError {
   constructor(message = 'Location not found') {
-    super(message, 404);
+    super(message);
   }
 }

@@ -15,6 +15,9 @@ const locationComposition = () => {
     controllers,
 <<<<<<< HEAD
     useCases: {
+      createLocationUseCase,
+      editLocationUseCase,
+      getPopulatedLocationByIdUseCase,
       getLocationByOwnerUseCase,
       getValidCitiesUseCase,
       updateLocationUseCase,
@@ -34,6 +37,7 @@ const locationComposition = () => {
   const locationService = new LocationServiceAdapter({
     createLocationUseCase,
     editLocationUseCase,
+    getPopulatedLocationByIdUseCase,
   });
 >>>>>>> f17658e (refactor(business): business hexagon refactorized)
 

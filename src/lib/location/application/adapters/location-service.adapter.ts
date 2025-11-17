@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { CityResponse, LocationResponse } from "../../domain";
 import { LocationServicePort } from "../../domain/ports";
 import {
@@ -8,24 +7,8 @@ import {
   GetValidCitiesUseCase,
   UpdateLocationUseCase,
 } from "../use-cases";
-=======
-import { LocationServicePort } from '../../domain';
-import {
-  CreateLocationDTO,
-  CreateLocationResponse,
-  CreateLocationUseCase,
-  EditLocationDTO,
-  EditLocationUseCase,
-} from '../use-cases';
->>>>>>> f17658e (refactor(business): business hexagon refactorized)
-
-interface LocationAdapterProps {
-  createLocationUseCase: CreateLocationUseCase;
-  editLocationUseCase: EditLocationUseCase;
-}
 
 export class LocationServiceAdapter implements LocationServicePort {
-<<<<<<< HEAD
   constructor(
     private readonly getLocationByOwnerUseCase: GetLocationByOwnerUseCase,
     private readonly getValidCitiesUseCase: GetValidCitiesUseCase,
@@ -42,15 +25,5 @@ export class LocationServiceAdapter implements LocationServicePort {
 
   updateLocation(props: UpdatelocationDTO): Promise<void> {
     return this.updateLocationUseCase.execute(props);
-=======
-  constructor(private readonly params: LocationAdapterProps) {}
-
-  createLocation(props: CreateLocationDTO): Promise<CreateLocationResponse> {
-    return this.params.createLocationUseCase.execute(props);
-  }
-
-  editLocation(props: EditLocationDTO) {
-    return this.params.editLocationUseCase.execute(props);
->>>>>>> f17658e (refactor(business): business hexagon refactorized)
   }
 }
