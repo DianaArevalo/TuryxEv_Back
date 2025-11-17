@@ -28,9 +28,9 @@ import {
   GetOneBusinessByEmail,
   GetOneBusinessById,
   SoftDeleteBusiness,
-} from '../../bussiness/application';
-import { MongoBusinessRepository } from '../../bussiness/infrastructure/repositories/business-mongo-repository';
-import { InMemoryLocationRepository } from '../../bussiness/infrastructure/repositories/location-in-memory-repository';
+} from '../../business/application';
+import { MongoBusinessRepository } from '../../business/infrastructure/repositories/business-mongo-repository';
+import { InMemoryLocationRepository } from '../../business/infrastructure/repositories/location-in-memory-repository';
 import {
   CancelReservation,
   ConfirmReservation,
