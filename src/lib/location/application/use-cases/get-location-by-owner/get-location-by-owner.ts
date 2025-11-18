@@ -1,6 +1,5 @@
 import { ValidationError } from '../../../../Shared/domain';
 import {
-  Location,
   LocationBusinessId,
   LocationHotelId,
   LocationRepositoryPort,

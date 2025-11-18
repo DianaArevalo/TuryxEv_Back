@@ -1,8 +1,8 @@
 import {
   BusinessRepository,
   LocationRepository,
-} from '../../../../bussiness/domain';
-import { EditBusinessAdapter } from '../../../../bussiness/infrastructure/adapters/driver/edit-business-adapter';
+} from '../../../../business/domain';
+import { EditBusinessAdapter } from '../../../../business/infrastructure/adapters/driver/edit-business-adapter';
 import { EditBusinessProps, ForBusinessEdit } from '../../../domain';
 
 export class ForBusinessEditAdapter implements ForBusinessEdit {

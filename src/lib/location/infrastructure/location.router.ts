@@ -8,7 +8,7 @@ const {
   createCityController,
   getLocationByOwnerController,
   getValidCitiesController,
-  updateLocationController,
+  editLocationController,
 } = controllers;
 
 ExpressLocationRouter.post(
@@ -27,8 +27,8 @@ ExpressLocationRouter.get(
 );
 
 ExpressLocationRouter.patch(
-  '/update-location',
-  updateLocationController.handle.bind(updateLocationController),
+  '/edit-location',
+  editLocationController.handle.bind(editLocationController),
 );
 
 export { ExpressLocationRouter };

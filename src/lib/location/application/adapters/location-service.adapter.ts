@@ -1,36 +1,33 @@
-import { CityResponse, LocationResponse } from '../../domain';
-import { LocationServicePort } from '../../domain/ports';
+import { LocationServicePort } from '../../domain';
 import {
-  CreateCityUseCase,
-  CreateCityDTO,
-  GetLocationByOwnerDTO,
-  GetLocationByOwnerUseCase,
-  UpdatelocationDTO,
-  GetValidCitiesUseCase,
-  UpdateLocationUseCase,
+  CreateLocationDTO,
+  CreateLocationResponse,
+  CreateLocationUseCase,
+  EditLocationDTO,
+  EditLocationUseCase,
 } from '../use-cases';
+import { GetPopulatedLocationByIdUseCase } from '../use-cases/get-populated-location-by-id/get-populated-location-by-id';
+
+import { LocationValueObjectI } from '~/lib/Shared/domain';
+
+interface LocationAdapterProps {
+  createLocationUseCase: CreateLocationUseCase;
+  editLocationUseCase: EditLocationUseCase;
+  getPopulatedLocationByIdUseCase: GetPopulatedLocationByIdUseCase;
+}
 
 export class LocationServiceAdapter implements LocationServicePort {
-  constructor(
-    private readonly createCityUseCase: CreateCityUseCase,
-    private readonly getLocationByOwnerUseCase: GetLocationByOwnerUseCase,
-    private readonly getValidCitiesUseCase: GetValidCitiesUseCase,
-    private readonly updateLocationUseCase: UpdateLocationUseCase,
-  ) {}
+  constructor(private readonly params: LocationAdapterProps) {}
 
-  createCity(props: CreateCityDTO): Promise<CityResponse> {
-    return this.createCityUseCase.execute(props);
+  createLocation(props: CreateLocationDTO): Promise<CreateLocationResponse> {
+    return this.params.createLocationUseCase.execute(props);
   }
 
-  getLocationByOwner(props: GetLocationByOwnerDTO): Promise<LocationResponse> {
-    return this.getLocationByOwnerUseCase.execute(props);
+  editLocation(props: EditLocationDTO) {
+    return this.params.editLocationUseCase.execute(props);
   }
 
-  getValidCities(): Promise<CityResponse[]> {
-    return this.getValidCitiesUseCase.execute();
-  }
-
-  updateLocation(props: UpdatelocationDTO): Promise<void> {
-    return this.updateLocationUseCase.execute(props);
+  async getPopulatedLocationById(id: string): Promise<LocationValueObjectI> {
+    return await this.params.getPopulatedLocationByIdUseCase.execute({ id });
   }
 }

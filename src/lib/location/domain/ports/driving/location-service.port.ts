@@ -1,13 +1,13 @@
 import {
-  CreateCityDTO,
-  GetLocationByOwnerDTO,
-  UpdatelocationDTO,
+  CreateLocationDTO,
+  CreateLocationResponse,
+  EditLocationDTO,
 } from '../../../application/use-cases';
-import { CityResponse, LocationResponse } from '../../entities';
+
+import { LocationValueObjectI } from '~/lib/Shared/domain';
 
 export interface LocationServicePort {
-  createCity(props: CreateCityDTO): Promise<CityResponse>;
-  getLocationByOwner(props: GetLocationByOwnerDTO): Promise<LocationResponse>;
-  getValidCities(): Promise<CityResponse[]>;
-  updateLocation(props: UpdatelocationDTO): Promise<void>;
+  createLocation(props: CreateLocationDTO): Promise<CreateLocationResponse>;
+  editLocation(props: EditLocationDTO): Promise<void>;
+  getPopulatedLocationById(id: string): Promise<LocationValueObjectI>;
 }

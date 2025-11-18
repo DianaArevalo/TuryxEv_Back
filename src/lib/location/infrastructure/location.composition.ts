@@ -1,6 +1,6 @@
 import { LocationRepositoryMongoAdapter } from './adapters';
 import { buildLocationControllers } from './controllers';
-import { LocationServiceAdapter } from '../application/adapters/location-service.adapter';
+import { LocationServiceAdapter } from '../application';
 
 const locationComposition = () => {
   const locationRepository = new LocationRepositoryMongoAdapter();
@@ -8,20 +8,17 @@ const locationComposition = () => {
   const {
     controllers,
     useCases: {
-      createCityUseCase,
-      getLocationByOwnerUseCase,
-      getValidCitiesUseCase,
-      updateLocationUseCase,
+      createLocationUseCase,
+      editLocationUseCase,
+      getPopulatedLocationByIdUseCase,
     },
   } = buildLocationControllers(locationRepository);
 
-  // Esto será usado por los demás hexágonos
-  const locationService = new LocationServiceAdapter(
-    createCityUseCase,
-    getLocationByOwnerUseCase,
-    getValidCitiesUseCase,
-    updateLocationUseCase,
-  );
+  const locationService = new LocationServiceAdapter({
+    createLocationUseCase,
+    editLocationUseCase,
+    getPopulatedLocationByIdUseCase,
+  });
 
   return {
     controllers,

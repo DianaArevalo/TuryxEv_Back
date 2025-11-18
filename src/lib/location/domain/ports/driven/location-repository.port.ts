@@ -1,5 +1,6 @@
 import {
   City,
+  CityId,
   CityName,
   Location,
   LocationBusinessId,
@@ -12,6 +13,7 @@ export interface LocationRepositoryPort {
   getLocationByHotel(hotel: LocationHotelId): Promise<Location>;
   getLocationByBusiness(business: LocationBusinessId): Promise<Location>;
   getOneLocation(locationId: LocationId): Promise<Location | null>;
+  getOneCity(cityId: CityId): Promise<City | null>;
   getOneCityByName(cityName: CityName): Promise<City | null>;
   isValidCity(cityName: CityName): Promise<boolean>;
   create(location: Location): Promise<Location>;
