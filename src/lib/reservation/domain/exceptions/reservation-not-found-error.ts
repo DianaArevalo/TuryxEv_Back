@@ -1,12 +1,7 @@
-export class ReservationNotFoundError extends Error {
-  readonly statusCode: number;
+import { NotFoundError } from '~/lib/Shared/domain';
 
+export class ReservationNotFoundError extends NotFoundError {
   constructor(message = 'Reservation not found') {
     super(message);
-    this.name = 'ReservationNotFoundError';
-    this.statusCode = 404;
-
-    // Necesario para que instanceof funcione bien en TS/JS
-    Object.setPrototypeOf(this, ReservationNotFoundError.prototype);
   }
 }

@@ -1,34 +1,3 @@
-import { ReservationCreatedAt } from './reservation-created-at';
+import { UpdatedAtValueObject } from '~/lib/Shared/domain';
 
-export class ReservationUpdatedAt {
-  constructor(readonly value: Date) {}
-
-  // Cuando se actualiza la reserva → se setea automáticamente
-  static now(createdAt: ReservationCreatedAt): ReservationUpdatedAt {
-    return this.create(new Date(), createdAt);
-  }
-
-  // Crear manualmente (ej: tests)
-  static create(
-    value: Date,
-    createdAt: ReservationCreatedAt,
-  ): ReservationUpdatedAt {
-    if (!value) throw new Error('UpdatedAt no puede ser nulo');
-    if (isNaN(value.getTime())) throw new Error('UpdatedAt inválido');
-
-    const now = new Date();
-    if (value > now) {
-      throw new Error('UpdatedAt no puede estar en el futuro');
-    }
-
-    if (value < createdAt.value) {
-      throw new Error('UpdatedAt no puede ser menor que CreatedAt');
-    }
-
-    return new ReservationUpdatedAt(value);
-  }
-
-  toPrimitives(): Date {
-    return this.value;
-  }
-}
+export class ReservationUpdatedAt extends UpdatedAtValueObject {}

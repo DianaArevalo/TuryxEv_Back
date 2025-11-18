@@ -1,7 +1,3 @@
-export class ReservationPaymentId {
-  value: string;
+import { IdValueObject } from '~/lib/Shared/domain';
 
-  constructor(value: string) {
-    this.value = value;
-  }
-}
+export class ReservationPaymentId extends IdValueObject {}

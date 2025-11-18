@@ -1,12 +1,19 @@
+import { ValidationError } from '~/lib/Shared/domain';
+
 export class ReservationTotalAmount {
-  constructor(readonly value: number) {}
+  private constructor(readonly value: number) {}
 
   static create(value: number): ReservationTotalAmount {
-    if (value < 0) {
-      throw new Error('TotalAmount no puede ser negativo');
-    }
+    if (value < 0)
+      throw new ValidationError('TotalAmount no puede ser negativo');
 
     const cents = Math.round(value * 100);
+    return new ReservationTotalAmount(cents);
+  }
+
+  static fromPrimitives(cents: number): ReservationTotalAmount {
+    if (cents < 0)
+      throw new ValidationError('TotalAmount no puede ser negativo');
     return new ReservationTotalAmount(cents);
   }
 

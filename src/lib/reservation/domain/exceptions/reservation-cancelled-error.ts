@@ -1,11 +1,7 @@
-export class ReservationCancelledError extends Error {
-  readonly statusCode: number;
+import { HttpError } from '~/lib/Shared/domain';
 
+export class ReservationCancelledError extends HttpError {
   constructor(message = 'Reservation are cancelled') {
-    super(message);
-    this.name = 'ReservationCancelledError';
-    this.statusCode = 400;
-
-    Object.setPrototypeOf(this, ReservationCancelledError.prototype);
+    super(message, 400);
   }
 }

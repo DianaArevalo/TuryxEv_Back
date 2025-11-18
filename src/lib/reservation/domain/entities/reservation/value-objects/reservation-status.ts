@@ -1,3 +1,5 @@
+import { ValidationError } from '~/lib/Shared/domain';
+
 export type ReservationStatusT = 'PENDING' | 'CONFIRMED' | 'CANCELLED';
 
 const ReservationStatusMap: Record<ReservationStatusT, 0 | 1 | 2> = {
@@ -21,7 +23,8 @@ export class ReservationStatus {
 
   static fromPrimitives(value: number): ReservationStatus {
     const mapped = ReservationStatusReverseMap[value];
-    if (!mapped) throw new Error(`ReservationStatus inválido: ${value}`);
+    if (!mapped)
+      throw new ValidationError(`ReservationStatus inválido: ${value}`);
     return new ReservationStatus(mapped);
   }
 
