@@ -24,15 +24,12 @@ export class GetOneBusinessUseCase
 
     let result = null;
 
-    if (props.id) {
+    if (props.id)
       result = await this.repository.getOneById(new BusinessId(props.id));
-    }
-
-    if (props.email) {
+    else if (props.email)
       result = await this.repository.getOneByEmail(
         BusinessEmail.create(props.email),
       );
-    }
 
     if (!result) throw new BusinessNotFoundError();
 

@@ -21,8 +21,4 @@ export class CreatedAtValueObject {
   static now<T extends typeof CreatedAtValueObject>(this: T): InstanceType<T> {
     return new this(new Date()) as InstanceType<T>;
   }
-
-  toPrimitives(): Date {
-    return this.value;
-  }
 }

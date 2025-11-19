@@ -12,15 +12,23 @@ import {
   HotelStatus,
   HotelProviderData,
   HotelFreePlanEnd,
+  HotelPicture,
+  HotelPlanT,
+  HotelRoleT,
 } from './value-objects';
-import { HotelPicture } from './value-objects/HotelPicture';
+
+import {
+  LocationValueObjectI,
+  ProviderDataT,
+  StatusT,
+} from '~/lib/Shared/domain';
 
 export interface HotelI {
   hotelId?: HotelId;
   name: HotelName;
   email: HotelEmail;
   password?: HotelPassword;
-  location: HotelLocation;
+  location?: HotelLocation;
   picture?: HotelPicture;
   plan: HotelPlan;
   role: HotelRole;
@@ -32,13 +40,30 @@ export interface HotelI {
   providerData: HotelProviderData;
 }
 
+export interface HotelResponse {
+  id: string | undefined;
+  name: string;
+  email: string;
+  password: string | undefined;
+  location: LocationValueObjectI | undefined;
+  picture: string | undefined;
+  plan: HotelPlanT;
+  role: HotelRoleT;
+  score: number;
+  status: StatusT;
+  createdAt: Date;
+  updatedAt: Date;
+  freePlanEnd: Date | undefined;
+  providerData: ProviderDataT;
+}
+
 export class Hotel implements HotelI {
   hotelId?: HotelId;
   name: HotelName;
   email: HotelEmail;
   password?: HotelPassword;
-  location: HotelLocation;
-  picture?: HotelPicture | undefined;
+  location?: HotelLocation;
+  picture?: HotelPicture;
   plan: HotelPlan;
   role: HotelRole;
   score: HotelScore;
@@ -69,21 +94,21 @@ export class Hotel implements HotelI {
     this.status = HotelStatus.create('BLOCKED');
   }
 
-  toResponse() {
+  toResponse(): HotelResponse {
     return {
-      hotelId: this.hotelId?.value,
+      id: this.hotelId?.value,
       name: this.name.value,
       email: this.email.value,
       password: this.password?.value,
-      location: this.location.getValue(),
+      location: this.location?.value,
       picture: this.picture?.value,
-      plan: this.plan.getValue(),
-      role: this.role.getValue(),
+      plan: this.plan.value,
+      role: this.role.value,
       score: this.score.value,
-      status: this.status.getValue(),
+      status: this.status.value,
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt.value,
-      freePlanEnd: this.freePlanEnd?.getValue(),
+      freePlanEnd: this.freePlanEnd?.value,
       providerData: this.providerData.value,
     };
   }

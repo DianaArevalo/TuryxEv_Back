@@ -1,6 +1,7 @@
-import { ReservationRepositoryPort } from '~/lib/reservation/domain';
-import { CreateReservationUseCase } from '../create-reservation/create-reservation';
 import { GetReservationsByHotelIdUseCase } from './get-reservations-by-hotel-id';
+import { CreateReservationUseCase } from '../create-reservation/create-reservation';
+
+import { ReservationRepositoryPort } from '~/lib/reservation/domain';
 import { ReservationRepositoryInMemoryAdapter } from '~/lib/reservation/infrastructure/adapters';
 
 describe('Get reservations by hotel id - Use Case', () => {

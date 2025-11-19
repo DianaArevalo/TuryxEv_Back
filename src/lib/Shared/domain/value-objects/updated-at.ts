@@ -30,4 +30,8 @@ export class UpdatedAtValueObject {
 
     return new this(value) as InstanceType<T>;
   }
+
+  toPrimitives(): Date {
+    return this.value;
+  }
 }

@@ -1,1 +1,1 @@
-export * from './HotelNotFoundError';
+export * from './hotel-not-found-error';

@@ -49,7 +49,9 @@ export class CreateBusinessUseCase
     const providerData = BusinessProviderData.create(props.providerData);
 
     if (!props.password && providerData.value === 'AUTH')
-      throw new ValidationError('Password is required.');
+      throw new ValidationError(
+        'Password is required when providerData is AUTH.',
+      );
 
     const business = new Business({
       bussinessId: new BusinessId(''),

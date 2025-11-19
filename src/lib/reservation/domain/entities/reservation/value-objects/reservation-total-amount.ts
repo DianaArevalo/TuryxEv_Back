@@ -1,7 +1,7 @@
 import { ValidationError } from '~/lib/Shared/domain';
 
 export class ReservationTotalAmount {
-  private constructor(readonly value: number) {}
+  constructor(readonly value: number) {}
 
   static create(value: number): ReservationTotalAmount {
     if (value < 0)

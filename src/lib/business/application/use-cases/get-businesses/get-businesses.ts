@@ -36,29 +36,25 @@ export class GetBusinessesUseCase
         page,
         limit,
       );
-
-    if (props.providerData)
+    else if (props.providerData)
       result = await this.repository.getByProvider(
         BusinessProviderData.create(props.providerData),
         page,
         limit,
       );
-
-    if (props.role)
+    else if (props.role)
       result = await this.repository.getByRole(
         BusinessRole.create(props.role),
         page,
         limit,
       );
-
-    if (props.status)
+    else if (props.status)
       result = await this.repository.getByStatus(
         BusinessStatus.create(props.status),
         page,
         limit,
       );
-
-    if (!result) result = await this.repository.getAll(page, limit);
+    else result = await this.repository.getAll(page, limit);
 
     return result.map((it) => it.toPublicResponse());
   }
