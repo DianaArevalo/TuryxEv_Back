@@ -1,10 +1,11 @@
+import { ConfirmReservationUseCase } from './confirm-reservation';
+import { CreateReservationUseCase } from '../create-reservation/create-reservation';
+
 import {
   ReservationId,
   ReservationRepositoryPort,
   ReservationResponse,
 } from '~/lib/reservation/domain';
-import { CreateReservationUseCase } from '../create-reservation/create-reservation';
-import { ConfirmReservationUseCase } from './confirm-reservation';
 import { ReservationRepositoryInMemoryAdapter } from '~/lib/reservation/infrastructure/adapters';
 import { HttpError } from '~/lib/Shared/domain';
 

@@ -1,5 +1,6 @@
-import { HttpError } from '~/lib/Shared/domain';
 import { ReservationCheckInDate } from './reservation-check-in-date';
+
+import { HttpError } from '~/lib/Shared/domain';
 
 describe('ReservationCheckInDate - Value Object', () => {
   test('should throw if value is null', () => {

@@ -1,4 +1,3 @@
-import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 import {
   Business,
   BusinessCreatedAt,
@@ -23,6 +22,7 @@ import {
   LimitValueObject,
   IdValueObject,
 } from '~/lib/Shared/domain';
+import { mongoose as mg } from '~/lib/Shared/Infraestructure/External';
 import { Hasher } from '~/lib/Shared/Infraestructure/Hasher';
 
 export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {

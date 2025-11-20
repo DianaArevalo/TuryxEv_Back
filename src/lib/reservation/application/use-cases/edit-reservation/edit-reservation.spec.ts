@@ -1,10 +1,11 @@
+import { EditReservationUseCase } from './edit-reservation';
+import { CreateReservationUseCase } from '../create-reservation/create-reservation';
+
 import {
   ReservationRepositoryPort,
   ReservationResponse,
 } from '~/lib/reservation/domain';
-import { CreateReservationUseCase } from '../create-reservation/create-reservation';
 import { ReservationRepositoryInMemoryAdapter } from '~/lib/reservation/infrastructure/adapters';
-import { EditReservationUseCase } from './edit-reservation';
 import { HttpError } from '~/lib/Shared/domain';
 
 describe('Edit reservation - Use Case', () => {

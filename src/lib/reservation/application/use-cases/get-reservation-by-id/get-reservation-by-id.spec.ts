@@ -1,9 +1,10 @@
+import { GetReservationByIdUseCase } from './get-reservation-by-id';
+import { CreateReservationUseCase } from '../create-reservation/create-reservation';
+
 import {
   ReservationRepositoryPort,
   ReservationResponse,
 } from '~/lib/reservation/domain';
-import { CreateReservationUseCase } from '../create-reservation/create-reservation';
-import { GetReservationByIdUseCase } from './get-reservation-by-id';
 import { ReservationRepositoryInMemoryAdapter } from '~/lib/reservation/infrastructure/adapters';
 import { HttpError } from '~/lib/Shared/domain';
 
