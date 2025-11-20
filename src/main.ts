@@ -1,7 +1,7 @@
 import { config } from './config/config';
 import { ExpressBusinessRouter } from './lib/business/infrastructure/business.router';
 import { connectMongo } from './lib/db/mongoose';
-import { ExpressHotelRouter } from './lib/hotel/infraestructure/hotel.router';
+import { ExpressHotelRouter } from './lib/hotel/infrastructure/hotel.router';
 import { ExpressLocationRouter } from './lib/location/infrastructure/location.router';
 import { ExpressReservationRouter } from './lib/reservation/infrastructure/reservation.router';
 import { HttpError } from './lib/Shared/domain/exeptions';

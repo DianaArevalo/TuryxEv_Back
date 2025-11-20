@@ -41,7 +41,7 @@ export interface HotelI {
 }
 
 export interface HotelResponse {
-  id: string | undefined;
+  id: string;
   name: string;
   email: string;
   password: string | undefined;
@@ -90,13 +90,9 @@ export class Hotel implements HotelI {
     this.providerData = attr.providerData;
   }
 
-  block() {
-    this.status = HotelStatus.create('BLOCKED');
-  }
-
   toResponse(): HotelResponse {
     return {
-      id: this.hotelId?.value,
+      id: this.hotelId?.value!,
       name: this.name.value,
       email: this.email.value,
       password: this.password?.value,

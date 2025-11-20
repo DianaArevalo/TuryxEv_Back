@@ -29,7 +29,8 @@ export class GetOneHotelUseCase
       result = await this.repository.getOneByEmail(
         HotelEmail.create(props.email),
       );
-    else if (props.id)
+
+    if (props.id)
       result = await this.repository.getOneById(new HotelId(props.id));
 
     if (!result) throw new HotelNotFoundError();

@@ -23,8 +23,8 @@ import { ValidationError } from '~/lib/Shared/domain';
 export interface CreateHotelDTO {
   name: string;
   email: string;
-  idRole: string;
-  idPlan: string;
+  role: string;
+  plan: string;
   status: string;
   password?: string;
   location: {
@@ -65,8 +65,8 @@ export class CreateHotelUseCase
       score: HotelScore.create(1),
       createdAt,
       updatedAt: HotelUpdatedAt.now(createdAt),
-      role: HotelRole.create(props.idRole),
-      plan: HotelPlan.create(props.idPlan || 'FREE'),
+      role: HotelRole.create(props.role),
+      plan: HotelPlan.create(props.plan),
       status: HotelStatus.create(props.status),
       freePlanEnd: props.freePlanExpiresAt
         ? new HotelFreePlanEnd(props.freePlanExpiresAt)

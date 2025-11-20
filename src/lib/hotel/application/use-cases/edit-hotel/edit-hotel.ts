@@ -43,15 +43,17 @@ export class EditHotelUseCase implements UseCase<EditHotelDTO, HotelResponse> {
     const hotel = await this.repository.getOneById(new HotelId(props.hotelId));
     if (!hotel) throw new HotelNotFoundError();
 
-    if (props.location)
-      await this.locationService.edit(new HotelLocation(props.location));
+    if (props.location) {
+      const newLocation = new HotelLocation(props.location);
+      await this.locationService.edit(newLocation);
+      hotel.location = newLocation;
+    }
 
     //nombre, cambiar nombre
     if (props.name && props.name !== hotel.name.value)
       hotel.name = HotelName.create(props.name);
 
     //password, cambiar password
-
     if (props.password) {
       if (hotel.providerData.value !== 'AUTH')
         throw new ValidationError(

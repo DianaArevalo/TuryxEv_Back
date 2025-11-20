@@ -15,7 +15,7 @@ export class BlockHotelUseCase implements UseCase<BlockHotelDTO> {
     await this.repository.updateStatus(hotelId, status);
 
     console.info(
-      'The user has been blocked and is under verification for account desactivation, with no monetary refund',
+      'The hotel has been blocked and is under verification for account desactivation, with no monetary refund',
     );
   }
 }

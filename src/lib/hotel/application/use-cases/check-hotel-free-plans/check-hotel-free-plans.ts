@@ -7,6 +7,7 @@ import { UseCase } from '~/lib/Shared/application/usecase';
 import { LimitValueObject, PageValueObject } from '~/lib/Shared/domain';
 
 export interface CheckHotelFreePlansDTO {
+  currentDate?: Date;
   page?: number;
   limit?: number;
 }
@@ -17,13 +18,13 @@ export class CheckHotelFreePlansUseCase
   constructor(private readonly repository: HotelRepositoryPort) {}
 
   async execute({
+    currentDate = new Date(Date.now()),
     page = 1,
     limit = 50,
   }: CheckHotelFreePlansDTO): Promise<void> {
     const plan = HotelPlan.create('FREE');
     const pageVO = new PageValueObject(page);
     const limitVO = new LimitValueObject(limit);
-    const currentDate = new Date(Date.now());
 
     const freeHotels = await this.repository.getByPlan(plan, pageVO, limitVO);
 
@@ -33,7 +34,7 @@ export class CheckHotelFreePlansUseCase
         const statusValue = hotel.status.value;
 
         const isFreePlan = planValue === 'FREE';
-        const isExpired = hotel.freePlanEnd?.hasExpired(currentDate) ?? false;
+        const isExpired = hotel.freePlanEnd?.hasExpired(currentDate);
 
         if (isFreePlan && statusValue !== 'BLOCKED' && isExpired) {
           hotel.status = HotelStatus.create('BLOCKED');

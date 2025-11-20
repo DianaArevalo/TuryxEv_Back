@@ -1,29 +1,39 @@
-import { CheckHotelFreePlans } from '~/lib/Hotel/application';
+import { CheckHotelFreePlansUseCase } from './check-hotel-free-plans';
+
 import {
-  Hotel,
-  HotelEmail,
-  HotelFreePlanEnd,
+  HotelRepositoryPort,
+  LocationServicePort as HotelLocationServicePort,
   HotelLocation,
+  Hotel,
   HotelName,
+  HotelEmail,
   HotelPassword,
   HotelPlan,
   HotelRole,
   HotelScore,
   HotelStatus,
-  HotelProviderData,
   HotelCreatedAt,
   HotelUpdatedAt,
-} from '~/lib/Hotel/domain';
-import { InMemoryHotelRepository } from '~/lib/Hotel/infraestructure/repositories/InMemoryHotelRepository';
-import { Limit, Page } from '~/lib/Shared/domain';
+  HotelFreePlanEnd,
+  HotelProviderData,
+} from '~/lib/hotel/domain';
+import { HotelRepositoryInMemoryAdapter } from '~/lib/hotel/infrastructure/adapters/hotel-repository.in-memory.adapter';
+import { LocationServiceAdapter as HotelLocationServiceAdapter } from '~/lib/hotel/infrastructure/adapters/location-service.adapter';
+import { LocationServicePort } from '~/lib/location/domain';
+import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
+import { LimitValueObject, PageValueObject } from '~/lib/Shared/domain';
 
 describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
-  let repository: InMemoryHotelRepository;
-  let useCase: CheckHotelFreePlans;
+  let hotelLocationService: HotelLocationServicePort;
+  let repository: HotelRepositoryPort;
+  let locationService: LocationServicePort;
+  let useCase: CheckHotelFreePlansUseCase;
 
   beforeEach(() => {
-    repository = new InMemoryHotelRepository();
-    useCase = new CheckHotelFreePlans(repository);
+    locationService = locationCompositionMock().locationService;
+    hotelLocationService = new HotelLocationServiceAdapter(locationService);
+    repository = new HotelRepositoryInMemoryAdapter(hotelLocationService);
+    useCase = new CheckHotelFreePlansUseCase(repository);
   });
 
   it('should block hotels whose FREE plan has expired', async () => {
@@ -35,7 +45,10 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
       name: HotelName.create('Hotel Expired'),
       email: HotelEmail.create('expired@example.com'),
       password: HotelPassword.create('$ecretPassword456'),
-      location: HotelLocation.create('Bogotá'),
+      location: HotelLocation.create({
+        address: 'Some addres',
+        cityName: 'Bogotá',
+      }),
       plan: HotelPlan.create('FREE'),
       role: HotelRole.create('STAFF'),
       score: HotelScore.create(5),
@@ -51,7 +64,10 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
       name: HotelName.create('Hotel Active'),
       email: HotelEmail.create('active@example.com'),
       password: HotelPassword.create('$ecretPassword789'),
-      location: HotelLocation.create('Medellín'),
+      location: HotelLocation.create({
+        address: 'Some addres',
+        cityName: 'Medellín',
+      }),
       plan: HotelPlan.create('FREE'),
       role: HotelRole.create('HOTEL'),
       score: HotelScore.create(4),
@@ -66,10 +82,13 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
     await repository.create(activeHotel);
 
     // Act
-    await useCase.handler({ currentDate: now });
+    await useCase.execute({ currentDate: now });
 
     // Assert
-    const allHotels = await repository.getAll(new Page(1), new Limit(10));
+    const allHotels = await repository.getAll(
+      new PageValueObject(1),
+      new LimitValueObject(10),
+    );
     const expired = allHotels.find(
       (h) => h.email.value === 'expired@example.com',
     );
@@ -77,36 +96,42 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
       (h) => h.email.value === 'active@example.com',
     );
 
-    expect(expired?.status.getValue()).toBe('BLOCKED');
-    expect(active?.status.getValue()).toBe('CLOSED');
+    expect(expired?.status.value).toBe('BLOCKED');
+    expect(active?.status.value).toBe('CLOSED');
   });
 
   it('should not modify hotels with paid plans', async () => {
-    const now = new Date('2025-11-01');
+    const now = new Date(Date.now());
 
     const paidHotel = new Hotel({
       name: HotelName.create('Hotel Premium'),
       email: HotelEmail.create('premium@example.com'),
       password: HotelPassword.create('$ecretPassword123'),
-      location: HotelLocation.create('Cali'),
+      location: HotelLocation.create({
+        address: 'Some addres',
+        cityName: 'Cali',
+      }),
       plan: HotelPlan.create('PREMIUM'),
       role: HotelRole.create('HOTEL'),
       score: HotelScore.create(5),
       status: HotelStatus.create('OPEN'),
-      createdAt: new HotelCreatedAt(new Date('2025-09-01')),
-      updatedAt: new HotelUpdatedAt(new Date('2025-09-01')),
+      createdAt: new HotelCreatedAt(now),
+      updatedAt: new HotelUpdatedAt(now),
       providerData: HotelProviderData.create('AUTHFACEBOOK'),
     });
 
     await repository.create(paidHotel);
 
-    await useCase.handler({ currentDate: now });
+    await useCase.execute({});
 
-    const allHotels = await repository.getAll(new Page(1), new Limit(10));
+    const allHotels = await repository.getAll(
+      new PageValueObject(1),
+      new LimitValueObject(10),
+    );
     const premium = allHotels.find(
       (h) => h.email.value === 'premium@example.com',
     );
 
-    expect(premium?.status.getValue()).toBe('OPEN');
+    expect(premium?.status.value).toBe('OPEN');
   });
 });
