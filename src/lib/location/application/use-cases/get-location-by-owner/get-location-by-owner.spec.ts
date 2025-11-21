@@ -3,7 +3,7 @@ import { CreateLocationUseCase } from '../create-location/create-location';
 
 import { LocationRepositoryPort } from '~/lib/location/domain';
 import { LocationRepositoryInMemoryAdapter } from '~/lib/location/infrastructure/adapters';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('get location by owner - Use Case', () => {
   let repository: LocationRepositoryPort;

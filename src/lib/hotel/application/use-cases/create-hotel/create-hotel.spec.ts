@@ -13,7 +13,7 @@ import {
   HttpError,
   LimitValueObject,
   PageValueObject,
-} from '~/lib/Shared/domain';
+} from '~/lib/shared/domain';
 
 describe('Create hotel - Use Case', () => {
   let hotelLocationService: HotelLocationServicePort;

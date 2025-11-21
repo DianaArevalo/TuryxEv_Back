@@ -1,4 +1,4 @@
-import { Limit, Page } from '../../../../lib/Shared/domain';
+import { Limit, Page } from '../../../../lib/shared/domain';
 import { User } from '../../domain/entities/User/User';
 import {
   UserEmail,
@@ -9,7 +9,7 @@ import {
 import { UserNotFoundError } from '../../domain/exceptions';
 import { UserRepository } from '../../domain/repositories';
 
-import { Hasher } from '~/lib/Shared/Infraestructure/Hasher';
+import { Hasher } from '~/lib/shared/Infraestructure/Hasher';
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = [];

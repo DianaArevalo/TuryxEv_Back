@@ -9,7 +9,7 @@ import { BusinessRepositoryInMemoryAdapter } from '~/lib/business/infrastructure
 import { LocationServiceAdapter as BusinessLocationServiceAdapter } from '~/lib/business/infrastructure/adapters/location-service.adapter';
 import { LocationServicePort } from '~/lib/location/domain';
 import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 const businesses = [
   {

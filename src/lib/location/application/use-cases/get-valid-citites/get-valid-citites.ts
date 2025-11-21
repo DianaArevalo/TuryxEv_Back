@@ -1,6 +1,6 @@
 import { CityResponse, LocationRepositoryPort } from '../../../domain';
 
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from '~/lib/shared/application/usecase';
 
 export class GetValidCitiesUseCase implements UseCase<void, CityResponse[]> {
   constructor(private readonly repository: LocationRepositoryPort) {}

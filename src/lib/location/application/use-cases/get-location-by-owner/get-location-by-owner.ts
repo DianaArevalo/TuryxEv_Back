@@ -1,4 +1,4 @@
-import { ValidationError } from '../../../../Shared/domain';
+import { ValidationError } from '../../../../shared/domain';
 import {
   LocationBusinessId,
   LocationHotelId,
@@ -6,7 +6,7 @@ import {
   LocationResponse,
 } from '../../../domain';
 
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from '~/lib/shared/application/usecase';
 
 export interface GetLocationByOwnerDTO {
   ownerId: string;

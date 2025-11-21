@@ -1,5 +1,5 @@
 import { HotelId, HotelRepositoryPort, HotelStatus } from '~/lib/hotel/domain';
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from '~/lib/shared/application/usecase';
 
 export interface BlockHotelDTO {
   id: string;

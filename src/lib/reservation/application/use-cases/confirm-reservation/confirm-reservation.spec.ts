@@ -7,7 +7,7 @@ import {
   ReservationResponse,
 } from '~/lib/reservation/domain';
 import { ReservationRepositoryInMemoryAdapter } from '~/lib/reservation/infrastructure/adapters';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('Confirm reservation - Use Case', () => {
   let repository: ReservationRepositoryPort;

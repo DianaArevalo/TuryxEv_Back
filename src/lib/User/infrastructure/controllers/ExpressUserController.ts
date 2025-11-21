@@ -1,8 +1,8 @@
-import { ValidationError } from '../../../../lib/Shared/domain';
-import { express as ex } from '../../../Shared/Infraestructure/External';
-import { ServiceContainer } from '../../../Shared/Infraestructure/ServiceContainer';
+import { ValidationError } from '../../../../lib/shared/domain';
+import { express as ex } from '../../../shared/Infraestructure/External';
+import { ServiceContainer } from '../../../shared/Infraestructure/ServiceContainer';
 
-import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
+import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
 
 export class ExpressUserController {
   async create(req: ex.Request, res: ex.Response) {

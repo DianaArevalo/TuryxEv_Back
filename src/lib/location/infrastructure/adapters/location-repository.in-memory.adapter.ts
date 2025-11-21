@@ -95,7 +95,7 @@ export class LocationRepositoryInMemoryAdapter
 
     this.locations.push(location);
 
-    return location;
+    return Promise.resolve(location);
   }
 
   async createCity(cityName: CityName): Promise<City> {

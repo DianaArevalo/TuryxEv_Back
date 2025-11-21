@@ -1,7 +1,7 @@
 import { HotelId, HotelLocation, LocationServicePort } from '../../domain';
 
 import { LocationServicePort as LocationService } from '~/lib/location/domain';
-import { IdValueObject } from '~/lib/Shared/domain';
+import { IdValueObject } from '~/lib/shared/domain';
 
 export class LocationServiceAdapter implements LocationServicePort {
   constructor(private readonly locationService: LocationService) {}

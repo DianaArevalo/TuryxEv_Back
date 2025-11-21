@@ -1,4 +1,4 @@
-import { NotFoundError } from '../../../Shared/domain';
+import { NotFoundError } from '../../../shared/domain';
 
 export class LocationNotFoundError extends NotFoundError {
   constructor(message = 'Location not found') {

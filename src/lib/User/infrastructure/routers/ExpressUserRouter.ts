@@ -1,4 +1,4 @@
-import { express as ex } from '../../../Shared/Infraestructure/External';
+import { express as ex } from '../../../shared/Infraestructure/External';
 import { ExpressUserController } from '../controllers/ExpressUserController';
 
 const controller = new ExpressUserController();

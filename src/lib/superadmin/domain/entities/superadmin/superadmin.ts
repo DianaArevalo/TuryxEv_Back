@@ -32,6 +32,25 @@ interface SuperAdminI {
   lastLogin?: SuperAdminLastLogin;
 }
 
+export interface SuperAdminResponse {
+  superAdminId: string;
+  name: string;
+  email: string;
+  password: string;
+  permissions: {
+    canCreateSuperUser: boolean;
+    canEditUsers: boolean;
+    canViewReservations: boolean;
+    canBlockAccounts: boolean;
+    canEditHotels: boolean;
+    canEditBusiness: boolean;
+  };
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  lastLogin: Date | undefined;
+}
+
 export class SuperAdmin {
   superAdminId: SuperAdminId;
   name: SuperAdminName;
@@ -85,7 +104,7 @@ export class SuperAdmin {
       : SuperAdminLastLogin.never();
   }
 
-  toResponse() {
+  toResponse(): SuperAdminResponse {
     return {
       superAdminId: this.superAdminId.value,
       name: this.name.value,

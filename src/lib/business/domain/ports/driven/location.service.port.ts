@@ -1,6 +1,6 @@
 import { BusinessId, BusinessLocation } from '../../entities';
 
-import { IdValueObject } from '~/lib/Shared/domain';
+import { IdValueObject } from '~/lib/shared/domain';
 
 export interface LocationServicePort {
   create(

@@ -1,3 +1,3 @@
-import { ScoreValueObject } from '../../../../../Shared/domain';
+import { ScoreValueObject } from '../../../../../shared/domain';
 
 export class BusinessScore extends ScoreValueObject {}

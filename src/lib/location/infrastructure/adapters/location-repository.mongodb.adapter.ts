@@ -18,8 +18,8 @@ import {
   LocationSchema,
 } from '../schemas';
 
-import { HttpError } from '~/lib/Shared/domain';
-import { mongoose as mg } from '~/lib/Shared/Infraestructure/External';
+import { HttpError } from '~/lib/shared/domain';
+import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
 
 export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async getValidCities(): Promise<City[]> {

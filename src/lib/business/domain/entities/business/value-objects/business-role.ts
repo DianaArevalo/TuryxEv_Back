@@ -1,4 +1,4 @@
-import { ValidationError } from '../../../../../Shared/domain/exeptions';
+import { ValidationError } from '../../../../../shared/domain/exeptions';
 
 export type BusinessRoleT = 'BUSINESS' | 'STAFF';
 export type BusinessRolePrimitiveT = 0 | 1;

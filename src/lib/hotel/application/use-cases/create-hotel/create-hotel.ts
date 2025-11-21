@@ -17,8 +17,8 @@ import {
   HotelUpdatedAt,
   LocationServicePort,
 } from '~/lib/hotel/domain';
-import { UseCase } from '~/lib/Shared/application/usecase';
-import { ValidationError } from '~/lib/Shared/domain';
+import { UseCase } from '~/lib/shared/application/usecase';
+import { ValidationError } from '~/lib/shared/domain';
 
 export interface CreateHotelDTO {
   name: string;
@@ -78,7 +78,7 @@ export class CreateHotelUseCase
 
     const locationCreated = await this.locationService.create(
       location,
-      created.hotelId!, // Always poblated, because repository.create should give an ID.
+      created.hotelId, // Always poblated, because repository.create should give an ID.
     );
 
     hotel.location = locationCreated;

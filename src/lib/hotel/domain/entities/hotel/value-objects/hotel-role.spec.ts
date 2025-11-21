@@ -1,5 +1,6 @@
-import { HttpError } from '~/lib/Shared/domain/exeptions';
 import { HotelRole } from './hotel-role';
+
+import { HttpError } from '~/lib/shared/domain/exeptions';
 
 describe('HotelRole - Value Object', () => {
   describe('create()', () => {

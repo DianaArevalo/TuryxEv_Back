@@ -1,3 +1,3 @@
-import { BooleanValueObject } from '../../../../../../lib/Shared/domain';
+import { BooleanValueObject } from '../../../../../../lib/shared/domain';
 
 export class UserStatus extends BooleanValueObject {}

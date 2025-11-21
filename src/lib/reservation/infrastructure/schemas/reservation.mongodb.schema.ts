@@ -1,4 +1,4 @@
-import { mongoose as mg } from '~/lib/Shared/Infraestructure/External';
+import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
 
 export interface IReservationDocument extends mg.Document {
   userId: string;

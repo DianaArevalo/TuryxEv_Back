@@ -10,7 +10,7 @@ import {
   LocationServicePort,
 } from '../../domain';
 
-import { PageValueObject, LimitValueObject } from '~/lib/Shared/domain';
+import { PageValueObject, LimitValueObject } from '~/lib/shared/domain';
 
 export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
   private hotels: Hotel[] = [];
@@ -52,7 +52,9 @@ export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
   }
 
   updateStatus(id: HotelId, status: HotelStatus): Promise<void> {
-    const hotel = this.hotels.find((h) => h.hotelId && h.hotelId.equals(id));
+    const hotel = this.hotels.find(
+      (h) => h.hotelId && h.hotelId.value === id.value,
+    );
     if (!hotel) throw new Error('Hotel not found');
     hotel.status = status;
     return Promise.resolve();

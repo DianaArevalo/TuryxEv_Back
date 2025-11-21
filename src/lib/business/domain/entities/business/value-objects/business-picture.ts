@@ -1,3 +1,3 @@
-import { StringValueObject } from '../../../../../Shared/domain';
+import { StringValueObject } from '../../../../../shared/domain';
 
 export class BusinessPicture extends StringValueObject {}

@@ -1,3 +1,3 @@
-import { ProviderDataValueObject } from '../../../../../Shared/domain';
+import { ProviderDataValueObject } from '../../../../../shared/domain';
 
 export class BusinessProviderData extends ProviderDataValueObject {}

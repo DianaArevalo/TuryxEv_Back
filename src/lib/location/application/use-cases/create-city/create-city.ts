@@ -4,7 +4,7 @@ import {
   LocationRepositoryPort,
 } from '../../../domain';
 
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from '~/lib/shared/application/usecase';
 
 export interface CreateCityDTO {
   name: string;

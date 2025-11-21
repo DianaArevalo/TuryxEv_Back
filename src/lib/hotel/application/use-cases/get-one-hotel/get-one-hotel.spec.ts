@@ -1,3 +1,6 @@
+import { GetOneHotelUseCase } from './get-one-hotel';
+import { CreateHotelUseCase } from '../create-hotel/create-hotel';
+
 import {
   HotelRepositoryPort,
   LocationServicePort as HotelLocationServicePort,
@@ -6,9 +9,7 @@ import { HotelRepositoryInMemoryAdapter } from '~/lib/hotel/infrastructure/adapt
 import { LocationServiceAdapter as HotelLocationServiceAdapter } from '~/lib/hotel/infrastructure/adapters/location-service.adapter';
 import { LocationServicePort } from '~/lib/location/domain';
 import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import { CreateHotelUseCase } from '../create-hotel/create-hotel';
-import { GetOneHotelUseCase } from './get-one-hotel';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 const hotels = [
   {

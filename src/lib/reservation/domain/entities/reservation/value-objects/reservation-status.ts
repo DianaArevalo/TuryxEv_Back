@@ -1,4 +1,4 @@
-import { ValidationError } from '~/lib/Shared/domain';
+import { ValidationError } from '~/lib/shared/domain';
 
 export type ReservationStatusT = 'PENDING' | 'CONFIRMED' | 'CANCELLED';
 

@@ -1,4 +1,4 @@
-import { NotFoundError } from '~/lib/Shared/domain';
+import { NotFoundError } from '~/lib/shared/domain';
 
 export class ReservationNotFoundError extends NotFoundError {
   constructor(message = 'Reservation not found') {

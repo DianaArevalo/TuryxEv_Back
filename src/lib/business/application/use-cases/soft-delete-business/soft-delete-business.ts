@@ -1,5 +1,5 @@
 import { BusinessId, BusinessRepositoryPort } from '~/lib/business/domain';
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from '~/lib/shared/application/usecase';
 
 export interface SoftDeleteBusinessDTO {
   id: string;

@@ -1,3 +1,3 @@
-import { UpdatedAtValueObject } from '~/lib/Shared/domain';
+import { UpdatedAtValueObject } from '~/lib/shared/domain';
 
 export class HotelUpdatedAt extends UpdatedAtValueObject {}

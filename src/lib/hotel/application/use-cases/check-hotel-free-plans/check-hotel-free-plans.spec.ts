@@ -21,7 +21,7 @@ import { HotelRepositoryInMemoryAdapter } from '~/lib/hotel/infrastructure/adapt
 import { LocationServiceAdapter as HotelLocationServiceAdapter } from '~/lib/hotel/infrastructure/adapters/location-service.adapter';
 import { LocationServicePort } from '~/lib/location/domain';
 import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import { LimitValueObject, PageValueObject } from '~/lib/Shared/domain';
+import { LimitValueObject, PageValueObject } from '~/lib/shared/domain';
 
 describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
   let hotelLocationService: HotelLocationServicePort;

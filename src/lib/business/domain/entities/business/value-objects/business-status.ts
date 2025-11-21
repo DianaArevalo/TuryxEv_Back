@@ -3,7 +3,7 @@ import {
   StatusPrimitiveT,
   StatusT,
   StatusValueObject,
-} from '~/lib/Shared/domain/value-objects/status';
+} from '~/lib/shared/domain/value-objects/status';
 
 export type BusinessStatusT = StatusT;
 export type BusinessStatusPrimitiveT = StatusPrimitiveT;

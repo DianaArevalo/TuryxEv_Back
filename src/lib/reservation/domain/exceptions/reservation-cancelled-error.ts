@@ -1,4 +1,4 @@
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 export class ReservationCancelledError extends HttpError {
   constructor(message = 'Reservation are cancelled') {

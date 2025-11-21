@@ -8,7 +8,7 @@
     "format": "prettier --write \"src/**/*.ts\" && eslint . --fix",
     "fix": "eslint . --fix",
     "build": "npx tsc ./src/main.ts --outDir ./dist/ --module commonjs --target es6",
-    "dev": "npx ts-node ./src/main.ts",
+    "dev": "npx ts-node -r tsconfig-paths/register ./src/main.ts",
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:business": "jest src/lib/business",
@@ -38,6 +38,7 @@
     "tailwindcss": "4.1.12",
     "ts-jest": "29.4.5",
     "ts-node": "10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.46.3"
   },

@@ -1,6 +1,6 @@
 import { BusinessStatus } from './business-status';
 
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('BusinessStatus', () => {
   describe('create', () => {

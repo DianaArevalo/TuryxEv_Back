@@ -3,8 +3,8 @@ import {
   GetBusinessesUseCase,
 } from '~/lib/business/application';
 import { BusinessPublicResponse } from '~/lib/business/domain';
-import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/Shared/Infraestructure/External';
+import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
+import { express as ex } from '~/lib/shared/Infraestructure/External';
 
 export class GetBusinessesController {
   constructor(private readonly getBusinessesUseCase: GetBusinessesUseCase) {}

@@ -6,7 +6,7 @@ import {
 
 import { LocationRepositoryPort } from '~/lib/location/domain';
 import { LocationRepositoryInMemoryAdapter } from '~/lib/location/infrastructure/adapters';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('Get populated location by id - Use Case', () => {
   let repository: LocationRepositoryPort;

@@ -1,4 +1,4 @@
-import { HttpError, Limit, Page } from '~/lib/Shared/domain';
+import { HttpError, Limit, Page } from '~/lib/shared/domain';
 import { UserCreate, UserCreateProps } from '~/lib/User/application';
 import { UserRepository } from '~/lib/User/domain/repositories';
 import { InMemoryUserRepository } from '~/lib/User/infrastructure/repositories/InMemoryUserRepository';

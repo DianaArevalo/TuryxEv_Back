@@ -1,7 +1,7 @@
 import { User } from '../entities/User/User';
 import { UserEmail, UserId, UserStatus } from '../entities/User/value-objects';
 
-import { Limit, Page } from '~/lib/Shared/domain';
+import { Limit, Page } from '~/lib/shared/domain';
 
 export interface UserRepository {
   create(user: User): Promise<User>;

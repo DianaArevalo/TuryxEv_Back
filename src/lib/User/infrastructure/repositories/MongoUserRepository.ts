@@ -1,5 +1,5 @@
-import { Limit, Page } from '../../../../lib/Shared/domain';
-import { Hasher } from '../../../../lib/Shared/Infraestructure/Hasher';
+import { Limit, Page } from '../../../../lib/shared/domain';
+import { Hasher } from '../../../../lib/shared/Infraestructure/Hasher';
 import { User } from '../../domain/entities/User/User';
 import {
   UserCreatedAt,

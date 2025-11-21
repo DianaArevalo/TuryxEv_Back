@@ -6,7 +6,7 @@ import {
   ReservationResponse,
 } from '~/lib/reservation/domain';
 import { ReservationRepositoryInMemoryAdapter } from '~/lib/reservation/infrastructure/adapters';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('Get reservation by id - Use Case', () => {
   let repository: ReservationRepositoryPort;

@@ -1,6 +1,6 @@
 import { BusinessRole } from './business-role';
 
-import { HttpError } from '~/lib/Shared/domain/exeptions';
+import { HttpError } from '~/lib/shared/domain/exeptions';
 
 describe('BusinessRole - Value Object', () => {
   describe('create()', () => {

@@ -4,10 +4,10 @@ import { connectMongo } from './lib/db/mongoose';
 import { ExpressHotelRouter } from './lib/hotel/infrastructure/hotel.router';
 import { ExpressLocationRouter } from './lib/location/infrastructure/location.router';
 import { ExpressReservationRouter } from './lib/reservation/infrastructure/reservation.router';
-import { HttpError } from './lib/Shared/domain/exeptions';
-import { ApiResponse } from './lib/Shared/Infraestructure/ApiResponse';
-import { express as ex, cors } from './lib/Shared/Infraestructure/External';
-import { ExpressSuperAdminRouter } from './lib/superadmin/infrastructure/routers/express';
+import { HttpError } from './lib/shared/domain/exeptions';
+import { ApiResponse } from './lib/shared/Infraestructure/ApiResponse';
+import { express as ex, cors } from './lib/shared/Infraestructure/External';
+import { ExpressSuperAdminRouter } from './lib/superadmin/infrastructure/superadmin.router';
 import { ExpressUserRouter } from './lib/User/infrastructure/routers/ExpressUserRouter';
 
 const app = ex();
@@ -19,12 +19,12 @@ app.use(ex.json());
 
 // Rutas
 app.use('/api/users', ExpressUserRouter);
-app.use('/api/superadmin', ExpressSuperAdminRouter);
 
 // Versionado de API's
 app.use('/api/v1/business', ExpressBusinessRouter);
 app.use('/api/v1/location', ExpressLocationRouter);
 app.use('/api/v1/hotel', ExpressHotelRouter);
+app.use('/api/v1/superadmin', ExpressSuperAdminRouter);
 app.use('/api/v1/reservations', ExpressReservationRouter);
 
 // Middleware de errores

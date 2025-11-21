@@ -1,3 +1,3 @@
-import { NameValueObject } from '../../../../../Shared/domain';
+import { NameValueObject } from '../../../../../shared/domain';
 
 export class CityName extends NameValueObject {}

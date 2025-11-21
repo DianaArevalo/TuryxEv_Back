@@ -10,7 +10,7 @@ import { HotelRepositoryInMemoryAdapter } from '~/lib/hotel/infrastructure/adapt
 import { LocationServiceAdapter as HotelLocationServiceAdapter } from '~/lib/hotel/infrastructure/adapters/location-service.adapter';
 import { LocationServicePort } from '~/lib/location/domain';
 import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 const Hotel1 = {
   name: 'Hotel 1',
@@ -66,7 +66,7 @@ describe('Edit hotel - Use Case', () => {
       name: 'Hotel 2',
       password: '$uperPassword555',
       location: {
-        locationId: createdHotel.location?.locationId!,
+        locationId: must(createdHotel.location?.locationId),
         address: 'X address',
         cityName: 'Medellín',
       },
@@ -108,7 +108,7 @@ describe('Edit hotel - Use Case', () => {
     const edit = {
       hotelId,
       location: {
-        locationId: createdHotel.location?.locationId!,
+        locationId: must(createdHotel.location?.locationId),
         address: 'Any address',
         cityName: 'Any city',
       },
@@ -141,3 +141,8 @@ describe('Edit hotel - Use Case', () => {
     );
   });
 });
+
+function must<T>(value: T | undefined): T {
+  if (!value) throw new Error('Value should be defined in test');
+  return value;
+}

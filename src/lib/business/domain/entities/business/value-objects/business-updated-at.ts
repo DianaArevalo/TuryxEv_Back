@@ -1,3 +1,3 @@
-import { UpdatedAtValueObject } from '../../../../../Shared/domain';
+import { UpdatedAtValueObject } from '../../../../../shared/domain';
 
 export class BusinessUpdatedAt extends UpdatedAtValueObject {}

@@ -1,3 +1,3 @@
-import { EmailValueObject } from '../../../../../../lib/Shared/domain';
+import { EmailValueObject } from '../../../../../../lib/shared/domain';
 
 export class UserEmail extends EmailValueObject {}

@@ -21,9 +21,9 @@ import {
   PageValueObject,
   LimitValueObject,
   IdValueObject,
-} from '~/lib/Shared/domain';
-import { mongoose as mg } from '~/lib/Shared/Infraestructure/External';
-import { Hasher } from '~/lib/Shared/Infraestructure/Hasher';
+} from '~/lib/shared/domain';
+import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
+import { Hasher } from '~/lib/shared/Infraestructure/Hasher';
 
 export class HotelRepositoryMongoDBAdapter implements HotelRepositoryPort {
   constructor(private readonly locationService: LocationServicePort) {}

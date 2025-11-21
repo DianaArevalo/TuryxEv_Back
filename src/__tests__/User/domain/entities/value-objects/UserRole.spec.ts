@@ -1,4 +1,4 @@
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 import { UserRole } from '~/lib/User/domain/entities/User/value-objects';
 
 describe('UserRole Value Object', () => {

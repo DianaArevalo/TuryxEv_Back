@@ -1,4 +1,4 @@
-import { mongoose } from '../Shared/Infraestructure/External';
+import { mongoose } from '../shared/Infraestructure/External';
 
 export async function connectMongo(uri: string) {
   try {

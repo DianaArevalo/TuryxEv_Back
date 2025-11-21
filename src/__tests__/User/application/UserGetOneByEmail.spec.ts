@@ -1,4 +1,4 @@
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 import { UserCreate, UserGetOneByEmail } from '~/lib/User/application';
 import { InMemoryUserRepository } from '~/lib/User/infrastructure/repositories/InMemoryUserRepository';
 

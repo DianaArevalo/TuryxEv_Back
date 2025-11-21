@@ -1,3 +1,3 @@
-import { EmailValueObject } from '../../../../../Shared/domain';
+import { EmailValueObject } from '../../../../../shared/domain';
 
 export class BusinessEmail extends EmailValueObject {}

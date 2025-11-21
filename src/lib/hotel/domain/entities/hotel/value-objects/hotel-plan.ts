@@ -3,7 +3,7 @@ import {
   PlanPrimitiveT,
   PlanT,
   PlanValueObject,
-} from '~/lib/Shared/domain';
+} from '~/lib/shared/domain';
 
 export type HotelPlanT = PlanT;
 export type HotelPrimitiveT = PlanPrimitiveT;

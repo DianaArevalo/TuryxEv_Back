@@ -17,7 +17,7 @@ import {
   PageValueObject,
   LimitValueObject,
   IdValueObject,
-} from '~/lib/Shared/domain';
+} from '~/lib/shared/domain';
 
 export class BusinessRepositoryInMemoryAdapter
   implements BusinessRepositoryPort

@@ -3,7 +3,7 @@ import {
   StatusPrimitiveT,
   StatusT,
   StatusValueObject,
-} from '~/lib/Shared/domain';
+} from '~/lib/shared/domain';
 
 export type HotelStatusT = StatusT;
 export type HotelStatusPrimitiveT = StatusPrimitiveT;

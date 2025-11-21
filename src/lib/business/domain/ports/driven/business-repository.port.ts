@@ -1,4 +1,4 @@
-import { LimitValueObject, PageValueObject } from '../../../../Shared/domain';
+import { LimitValueObject, PageValueObject } from '../../../../shared/domain';
 import {
   Business,
   BusinessEmail,

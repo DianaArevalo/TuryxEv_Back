@@ -2,7 +2,7 @@ import { CreateLocationUseCase } from './create-location';
 
 import { LocationRepositoryPort } from '~/lib/location/domain';
 import { LocationRepositoryInMemoryAdapter } from '~/lib/location/infrastructure/adapters';
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('Create Location - Use Case', () => {
   let repository: LocationRepositoryPort;

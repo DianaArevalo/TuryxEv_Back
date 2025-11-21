@@ -3,9 +3,9 @@ import {
   GetReservationsByHotelIdUseCase,
 } from '~/lib/reservation/application';
 import { ReservationResponse } from '~/lib/reservation/domain';
-import { HttpError } from '~/lib/Shared/domain';
-import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/Shared/Infraestructure/External';
+import { HttpError } from '~/lib/shared/domain';
+import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
+import { express as ex } from '~/lib/shared/Infraestructure/External';
 
 export class GetReservationsByHotelIdController {
   constructor(

@@ -1,3 +1,3 @@
-import { CreatedAtValueObject } from '~/lib/Shared/domain';
+import { CreatedAtValueObject } from '~/lib/shared/domain';
 
 export class ReservationCreatedAt extends CreatedAtValueObject {}

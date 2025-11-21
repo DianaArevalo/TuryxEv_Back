@@ -1,4 +1,4 @@
-import { mongoose as mg } from '../../../Shared/Infraestructure/External';
+import { mongoose as mg } from '../../../shared/Infraestructure/External';
 
 export interface IUserDocument extends mg.Document {
   name: string;

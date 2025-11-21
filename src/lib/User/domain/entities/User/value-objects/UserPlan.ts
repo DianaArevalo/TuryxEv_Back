@@ -1,4 +1,4 @@
-import { ValidationError } from '../../../../../Shared/domain/exeptions';
+import { ValidationError } from '../../../../../shared/domain/exeptions';
 
 export type UserPlanT = 'FREE' | 'BASIC' | 'PREMIUM';
 

@@ -1,6 +1,6 @@
 import { ReservationTotalAmount } from './reservation-total-amount';
 
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from '~/lib/shared/domain';
 
 describe('ReservationTotalAmount - Value Object', () => {
   it('should create a valid amount', () => {

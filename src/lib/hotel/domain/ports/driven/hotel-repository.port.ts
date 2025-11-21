@@ -8,7 +8,7 @@ import {
   HotelStatus,
 } from '../../entities';
 
-import { LimitValueObject, PageValueObject } from '~/lib/Shared/domain';
+import { LimitValueObject, PageValueObject } from '~/lib/shared/domain';
 
 export interface HotelRepositoryPort {
   getAll(page: PageValueObject, limit: LimitValueObject): Promise<Hotel[]>;

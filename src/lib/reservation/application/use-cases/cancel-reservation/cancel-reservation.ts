@@ -4,7 +4,7 @@ import {
   ReservationNotFoundError,
   ReservationRepositoryPort,
 } from '~/lib/reservation/domain';
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from '~/lib/shared/application/usecase';
 
 export interface CancelReservationDTO {
   reservationId: string;

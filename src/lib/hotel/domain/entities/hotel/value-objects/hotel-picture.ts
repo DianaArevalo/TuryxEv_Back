@@ -1,3 +1,3 @@
-import { StringValueObject } from '~/lib/Shared/domain';
+import { StringValueObject } from '~/lib/shared/domain';
 
 export class HotelPicture extends StringValueObject {}

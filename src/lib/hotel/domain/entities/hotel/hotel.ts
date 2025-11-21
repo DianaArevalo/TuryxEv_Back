@@ -21,7 +21,7 @@ import {
   LocationValueObjectI,
   ProviderDataT,
   StatusT,
-} from '~/lib/Shared/domain';
+} from '~/lib/shared/domain';
 
 export interface HotelI {
   hotelId?: HotelId;
@@ -58,7 +58,7 @@ export interface HotelResponse {
 }
 
 export class Hotel implements HotelI {
-  hotelId?: HotelId;
+  hotelId: HotelId;
   name: HotelName;
   email: HotelEmail;
   password?: HotelPassword;
@@ -74,7 +74,7 @@ export class Hotel implements HotelI {
   providerData: HotelProviderData;
 
   constructor(attr: HotelI) {
-    this.hotelId = attr.hotelId;
+    this.hotelId = attr.hotelId ? attr.hotelId : new HotelId('');
     this.name = attr.name;
     this.email = attr.email;
     this.password = attr.password;
@@ -92,7 +92,7 @@ export class Hotel implements HotelI {
 
   toResponse(): HotelResponse {
     return {
-      id: this.hotelId?.value!,
+      id: this.hotelId.value,
       name: this.name.value,
       email: this.email.value,
       password: this.password?.value,

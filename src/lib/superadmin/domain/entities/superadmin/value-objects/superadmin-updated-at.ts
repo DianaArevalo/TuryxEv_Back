@@ -1,3 +1,3 @@
-import { UpdatedAtValueObject } from '../../../../../Shared/domain';
+import { UpdatedAtValueObject } from '~/lib/shared/domain';
 
 export class SuperAdminUpdatedAt extends UpdatedAtValueObject {}

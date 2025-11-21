@@ -1,6 +1,6 @@
 import { controllers } from './hotel.composition';
 
-import { express as ex } from '~/lib/Shared/Infraestructure/External';
+import { express as ex } from '~/lib/shared/Infraestructure/External';
 
 const ExpressHotelRouter = ex.Router();
 

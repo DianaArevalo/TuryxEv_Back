@@ -1,3 +1,3 @@
-import { BooleanValueObject } from '../../../../../Shared/domain';
+import { BooleanValueObject } from '~/lib/shared/domain';
 
 export class SuperAdminIsActive extends BooleanValueObject {}

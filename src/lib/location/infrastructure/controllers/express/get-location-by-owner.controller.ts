@@ -3,8 +3,8 @@ import {
   GetLocationByOwnerUseCase,
 } from '~/lib/location/application/use-cases';
 import { LocationResponse } from '~/lib/location/domain';
-import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/Shared/Infraestructure/External';
+import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
+import { express as ex } from '~/lib/shared/Infraestructure/External';
 
 export class GetLocationByOwnerController {
   constructor(

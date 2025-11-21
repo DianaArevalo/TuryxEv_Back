@@ -3,7 +3,7 @@ import {
   ProviderDataPrimitiveT,
   ProviderDataT,
   ProviderDataValueObject,
-} from '~/lib/Shared/domain';
+} from '~/lib/shared/domain';
 
 export type HotelProviderDataT = ProviderDataT;
 export type HotelProviderDataPrimitiveT = ProviderDataPrimitiveT;
