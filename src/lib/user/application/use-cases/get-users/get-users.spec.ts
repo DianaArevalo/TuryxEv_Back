@@ -1,22 +1,20 @@
-import { UserGetAll } from '~/lib/User/application';
-import {
-  UserCreate,
-  UserCreateProps,
-} from '~/lib/User/application/UserCreate/UserCreate';
-import { InMemoryUserRepository } from '~/lib/User/infrastructure/repositories/InMemoryUserRepository';
+import { GetUsersUseCase } from './get-users';
+import { CreateUserDTO, CreateUserUseCase } from '../create-user/create-user';
 
-describe('UserGetAll application', () => {
-  let repository: InMemoryUserRepository;
-  let userCreate: UserCreate;
-  let userGetAll: UserGetAll;
-  let baseUsers: UserCreateProps[];
+import { UserId, UserRepositoryPort } from '~/lib/user/domain';
+import { UserRepositoryInMemoryAdapter } from '~/lib/user/infrastructure/adapters';
+
+describe('Get users - Use Case', () => {
+  let repository: UserRepositoryPort;
+  let userCreate: CreateUserUseCase;
+  let getUsers: GetUsersUseCase;
+  let baseUsers: CreateUserDTO[];
 
   beforeEach(async () => {
-    repository = new InMemoryUserRepository();
-    userCreate = new UserCreate(repository);
-    userGetAll = new UserGetAll(repository);
+    repository = new UserRepositoryInMemoryAdapter();
+    userCreate = new CreateUserUseCase(repository);
+    getUsers = new GetUsersUseCase(repository);
 
-    // Usuarios base que se crearán antes de cada test
     baseUsers = [
       {
         name: 'Alice',
@@ -50,14 +48,13 @@ describe('UserGetAll application', () => {
       },
     ];
 
-    // Creamos los usuarios base antes de cada test
     for (const user of baseUsers) {
-      await userCreate.handler(user);
+      await userCreate.execute(user);
     }
   });
 
   it('should return all users', async () => {
-    const users = await userGetAll.handler({ page: 1, limit: 10 });
+    const users = await getUsers.execute({ page: 1, limit: 10 });
 
     expect(users).toHaveLength(5);
     expect(users.map((u) => u.name)).toEqual(
@@ -67,21 +64,34 @@ describe('UserGetAll application', () => {
 
   it('should respect pagination', async () => {
     // Página 1, 2 usuarios por página
-    const page1 = await userGetAll.handler({ page: 1, limit: 2 });
+    const page1 = await getUsers.execute({ page: 1, limit: 2 });
     expect(page1).toHaveLength(2);
     expect(page1[0].name).toBe('Alice');
     expect(page1[1].name).toBe('Bob');
 
     // Página 2, 2 usuarios por página
-    const page2 = await userGetAll.handler({ page: 2, limit: 2 });
+    const page2 = await getUsers.execute({ page: 2, limit: 2 });
     expect(page2).toHaveLength(2);
     expect(page2[0].name).toBe('Charlie');
     expect(page2[1].name).toBe('David');
   });
 
   it('should use default page and limit if not provided', async () => {
-    const users = await userGetAll.handler({});
+    const users = await getUsers.execute({});
     expect(users.length).toBeGreaterThan(0);
     expect(users[0].name).toBeDefined();
+  });
+
+  it('should return only active and inactive users correctly', async () => {
+    const activeUsers = await getUsers.execute({
+      status: true,
+    });
+    expect(activeUsers).toHaveLength(5);
+
+    await repository.softDelete(new UserId('Bob'));
+
+    const inactiveUsers = await getUsers.execute({ status: false });
+    expect(inactiveUsers).toHaveLength(1);
+    expect(inactiveUsers[0].email).toBe('bob@example.com');
   });
 });

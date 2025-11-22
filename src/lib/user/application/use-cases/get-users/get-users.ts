@@ -22,14 +22,13 @@ export class GetUsersUseCase implements UseCase<GetUsersDTO, UserResponse[]> {
 
     let result: User[] | null = null;
 
-    if (props.status)
+    if (props.status !== undefined)
       result = await this.repository.getByStatus(
         page,
         limit,
         new UserStatus(props.status),
       );
-
-    if (!result) result = await this.repository.getAll(page, limit);
+    else result = await this.repository.getAll(page, limit);
 
     return result.map((it) => it.toResponse());
   }

@@ -1,37 +1,38 @@
+import { EditUserUseCase } from './edit-user';
+import { CreateUserUseCase } from '../create-user/create-user';
+
 import { HttpError } from '~/lib/shared/domain';
-import { UserCreate, UserEdit } from '~/lib/User/application';
-import { InMemoryUserRepository } from '~/lib/User/infrastructure/repositories/InMemoryUserRepository';
+import { UserRepositoryPort, UserResponse } from '~/lib/user/domain';
+import { UserRepositoryInMemoryAdapter } from '~/lib/user/infrastructure/adapters';
 
-describe('UserEdit application', () => {
-  let repository: InMemoryUserRepository;
-  let userCreate: UserCreate;
-  let userEdit: UserEdit;
+describe('Edir user - Use Case', () => {
+  let repository: UserRepositoryPort;
+  let userCreate: CreateUserUseCase;
+  let userEdit: EditUserUseCase;
 
-  // Variables para reutilizar usuarios en los tests
-  let authUser: Awaited<ReturnType<typeof userCreate.handler>>;
-  let googleUser: Awaited<ReturnType<typeof userCreate.handler>>;
-  let userRoleUser: Awaited<ReturnType<typeof userCreate.handler>>;
+  let authUser: UserResponse;
+  let googleUser: UserResponse;
+  let userRoleUser: UserResponse;
 
   beforeEach(async () => {
-    repository = new InMemoryUserRepository();
-    userCreate = new UserCreate(repository);
-    userEdit = new UserEdit(repository);
+    repository = new UserRepositoryInMemoryAdapter();
+    userCreate = new CreateUserUseCase(repository);
+    userEdit = new EditUserUseCase(repository);
 
-    // Creamos los usuarios base antes de cada test
-    authUser = await userCreate.handler({
+    authUser = await userCreate.execute({
       name: 'Angel',
       email: 'angel@example.com',
       password: 'Secret1234&',
       providerData: 'AUTH',
     });
 
-    googleUser = await userCreate.handler({
+    googleUser = await userCreate.execute({
       name: 'GoogleUser',
       email: 'google@example.com',
       providerData: 'AUTHGOOGLE',
     });
 
-    userRoleUser = await userCreate.handler({
+    userRoleUser = await userCreate.execute({
       name: 'UserRoleUser',
       email: 'user@example.com',
       password: 'Secret1234&',
@@ -41,22 +42,22 @@ describe('UserEdit application', () => {
 
   it('should edit user password if provider is AUTH', async () => {
     await expect(
-      userEdit.handler({
-        userId: authUser.idUser!,
+      userEdit.execute({
+        userId: authUser.idUser,
         password: 'NewSecret123!',
       }),
     ).resolves.not.toThrow();
 
     const userEntity = await repository.getOneById({
-      value: authUser.idUser!,
+      value: authUser.idUser,
     });
     expect(userEntity!.password!.value).not.toBe('Secret1234&');
   });
 
   it('should throw HttpError if trying to update password for OAuth provider', async () => {
     await expect(
-      userEdit.handler({
-        userId: googleUser.idUser!,
+      userEdit.execute({
+        userId: googleUser.idUser,
         password: 'NewSecret123',
       }),
     ).rejects.toBeInstanceOf(HttpError);
@@ -64,8 +65,8 @@ describe('UserEdit application', () => {
 
   it('should throw HttpError if a USER tries to modify their own score', async () => {
     await expect(
-      userEdit.handler({
-        userId: userRoleUser.idUser!,
+      userEdit.execute({
+        userId: userRoleUser.idUser,
         score: 4,
         currentRole: 'USER',
       }),
@@ -73,8 +74,8 @@ describe('UserEdit application', () => {
   });
 
   it('should update user picture, score, and status for allowed roles', async () => {
-    const updated = await userEdit.handler({
-      userId: authUser.idUser!,
+    const updated = await userEdit.execute({
+      userId: authUser.idUser,
       picture: 'newpic.png',
       score: 5,
       status: false,

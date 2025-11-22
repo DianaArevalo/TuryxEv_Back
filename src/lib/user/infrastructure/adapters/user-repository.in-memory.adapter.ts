@@ -15,9 +15,8 @@ export class UserRepositoryInMemoryAdapter implements UserRepositoryPort {
   private users: User[] = [];
 
   async create(user: User): Promise<User> {
-    if (!user.status) {
-      user.status = new UserStatus(true);
-    }
+    user.idUser = new UserId(user.name.value);
+    if (!user.status) user.status = new UserStatus(true);
 
     if (user.password) {
       const hashed = await Hasher.hash(user.password.value);
@@ -45,11 +44,14 @@ export class UserRepositoryInMemoryAdapter implements UserRepositoryPort {
     isActive: UserStatus,
   ): Promise<User[]> {
     const offSet = (page.value - 1) * limit.value;
-    return Promise.resolve(
-      this.users
-        .slice(offSet, offSet + limit.value)
-        .filter((user) => user.status === isActive),
+
+    const filtered = this.users.filter(
+      (user) => user.status.value === isActive.value,
     );
+
+    const paginated = filtered.slice(offSet, offSet + limit.value);
+
+    return Promise.resolve(paginated);
   }
 
   getOneByEmail(email: UserEmail): Promise<User | null> {

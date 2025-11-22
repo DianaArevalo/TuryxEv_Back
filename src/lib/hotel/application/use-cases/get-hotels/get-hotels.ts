@@ -54,8 +54,7 @@ export class GetHotelsUseCase
         page,
         limit,
       );
-
-    if (!result) result = await this.repository.getAll(page, limit);
+    else result = await this.repository.getAll(page, limit);
 
     return result.map((it) => it.toResponse());
   }
