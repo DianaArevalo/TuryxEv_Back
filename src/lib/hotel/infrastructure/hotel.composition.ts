@@ -1,7 +1,9 @@
 import { HotelServiceAdapter } from '../application';
-import { HotelRepositoryMongoDBAdapter } from './adapters/hotel-repository.mongodb.adapter';
-import { LocationServiceAdapter } from './adapters/location-service.adapter';
-import { buildHotelControllers } from './controller/express/hotel.controller-factory';
+import {
+  HotelRepositoryMongoDBAdapter,
+  LocationServiceAdapter,
+} from './adapters';
+import { buildHotelControllers } from './controller';
 
 import { locationService as locationHexagon } from '~/lib/location/infrastructure/location.composition';
 

@@ -3,8 +3,7 @@ import {
   GetHotelsUseCase,
 } from '~/lib/hotel/application/use-cases';
 import { HotelResponse } from '~/lib/hotel/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class GetHotelsController {
   constructor(private readonly getHotelsUseCase: GetHotelsUseCase) {}

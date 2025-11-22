@@ -2,7 +2,6 @@ import { CheckHotelFreePlansUseCase } from './check-hotel-free-plans';
 
 import {
   HotelRepositoryPort,
-  LocationServicePort as HotelLocationServicePort,
   HotelLocation,
   Hotel,
   HotelName,
@@ -18,21 +17,14 @@ import {
   HotelProviderData,
 } from '~/lib/hotel/domain';
 import { HotelRepositoryInMemoryAdapter } from '~/lib/hotel/infrastructure/adapters/hotel-repository.in-memory.adapter';
-import { LocationServiceAdapter as HotelLocationServiceAdapter } from '~/lib/hotel/infrastructure/adapters/location-service.adapter';
-import { LocationServicePort } from '~/lib/location/domain';
-import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
 import { LimitValueObject, PageValueObject } from '~/lib/shared/domain';
 
 describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
-  let hotelLocationService: HotelLocationServicePort;
   let repository: HotelRepositoryPort;
-  let locationService: LocationServicePort;
   let useCase: CheckHotelFreePlansUseCase;
 
   beforeEach(() => {
-    locationService = locationCompositionMock().locationService;
-    hotelLocationService = new HotelLocationServiceAdapter(locationService);
-    repository = new HotelRepositoryInMemoryAdapter(hotelLocationService);
+    repository = new HotelRepositoryInMemoryAdapter();
     useCase = new CheckHotelFreePlansUseCase(repository);
   });
 

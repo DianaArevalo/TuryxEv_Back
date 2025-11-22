@@ -1,4 +1,4 @@
-import { mongoose as mg } from '../../../shared/Infraestructure/External';
+import { mongoose as mg } from '~/lib/shared/infrastructure';
 
 export interface ILocationDocument extends mg.Document {
   city: mg.Types.ObjectId;

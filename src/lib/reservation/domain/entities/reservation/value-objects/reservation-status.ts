@@ -1,14 +1,22 @@
 import { ValidationError } from '~/lib/shared/domain';
 
 export type ReservationStatusT = 'PENDING' | 'CONFIRMED' | 'CANCELLED';
+export type ReservationStatusPrimitiveT = 0 | 1 | 2;
+export const ReservationStatusPrimitiveArray = [0, 1, 2];
 
-const ReservationStatusMap: Record<ReservationStatusT, 0 | 1 | 2> = {
+const ReservationStatusMap: Record<
+  ReservationStatusT,
+  ReservationStatusPrimitiveT
+> = {
   PENDING: 0,
   CONFIRMED: 1,
   CANCELLED: 2,
 };
 
-const ReservationStatusReverseMap: Record<number, ReservationStatusT> = {
+const ReservationStatusReverseMap: Record<
+  ReservationStatusPrimitiveT,
+  ReservationStatusT
+> = {
   0: 'PENDING',
   1: 'CONFIRMED',
   2: 'CANCELLED',
@@ -21,14 +29,14 @@ export class ReservationStatus {
     return new ReservationStatus(value);
   }
 
-  static fromPrimitives(value: number): ReservationStatus {
+  static fromPrimitives(value: ReservationStatusPrimitiveT): ReservationStatus {
     const mapped = ReservationStatusReverseMap[value];
     if (!mapped)
       throw new ValidationError(`ReservationStatus inválido: ${value}`);
     return new ReservationStatus(mapped);
   }
 
-  toPrimitives(): 0 | 1 | 2 {
+  toPrimitives(): ReservationStatusPrimitiveT {
     return ReservationStatusMap[this.value];
   }
 }

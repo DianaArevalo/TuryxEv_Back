@@ -1,10 +1,6 @@
-import {
-  CreateCityDTO,
-  CreateCityUseCase,
-} from '~/lib/location/application/use-cases';
+import { CreateCityDTO, CreateCityUseCase } from '~/lib/location/application';
 import { CityResponse } from '~/lib/location/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class CreateCityController {
   constructor(private readonly createCityUseCase: CreateCityUseCase) {}

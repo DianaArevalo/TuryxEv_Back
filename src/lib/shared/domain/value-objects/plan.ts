@@ -39,6 +39,10 @@ export class PlanValueObject {
     return new this(mapped) as InstanceType<T>;
   }
 
+  static default<T extends typeof PlanValueObject>(this: T): InstanceType<T> {
+    return new this('FREE') as InstanceType<T>;
+  }
+
   toPrimitives(): PlanPrimitiveT {
     return PlanTMap[this.value];
   }

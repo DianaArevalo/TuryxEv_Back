@@ -60,7 +60,7 @@ describe('Get hotels - Use Case', () => {
   beforeEach(async () => {
     locationService = locationCompositionMock().locationService;
     hotelLocationService = new HotelLocationServiceAdapter(locationService);
-    repository = new HotelRepositoryInMemoryAdapter(hotelLocationService);
+    repository = new HotelRepositoryInMemoryAdapter();
     createHotel = new CreateHotelUseCase(repository, hotelLocationService);
     getAllHotels = new GetHotelsUseCase(repository);
 

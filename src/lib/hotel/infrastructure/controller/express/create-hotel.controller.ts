@@ -3,8 +3,7 @@ import {
   CreateHotelUseCase,
 } from '~/lib/hotel/application/use-cases';
 import { HotelResponse } from '~/lib/hotel/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class CreateHotelController {
   constructor(private readonly createHotelUseCase: CreateHotelUseCase) {}
@@ -21,6 +20,6 @@ export class CreateHotelController {
       body: result,
     };
 
-    return res.status(200).json(response);
+    return res.status(201).json(response);
   }
 }

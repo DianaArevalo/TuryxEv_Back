@@ -6,7 +6,7 @@ import {
   LocationResponse,
 } from '../../../domain';
 
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 
 export interface GetLocationByOwnerDTO {
   ownerId: string;

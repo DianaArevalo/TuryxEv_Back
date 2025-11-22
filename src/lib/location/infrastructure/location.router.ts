@@ -1,6 +1,6 @@
 import { controllers } from './location.composition';
 
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { express as ex } from '~/lib/shared/infrastructure';
 
 const ExpressLocationRouter = ex.Router();
 

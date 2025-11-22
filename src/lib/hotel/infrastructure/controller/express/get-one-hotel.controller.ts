@@ -1,7 +1,6 @@
 import { GetOneHotelDTO, GetOneHotelUseCase } from '~/lib/hotel/application';
 import { HotelResponse } from '~/lib/hotel/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class GetOneHotelController {
   constructor(private readonly getOneHotelUseCase: GetOneHotelUseCase) {}

@@ -1,6 +1,6 @@
 import { ReservationServiceAdapter } from '../application';
 import { ReservationRepositoryMongoDBAdapter } from './adapters';
-import { buildReservationControllers } from './controllers/express/reservation.controller-factory';
+import { buildReservationControllers } from './controllers/';
 
 const reservationComposition = () => {
   const reservationRepository = new ReservationRepositoryMongoDBAdapter();

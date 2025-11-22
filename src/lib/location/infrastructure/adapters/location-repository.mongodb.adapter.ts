@@ -8,9 +8,9 @@ import {
   CityId,
   LocationAddress,
   LocationNotFoundError,
+  LocationAlreadyExistsError,
+  LocationRepositoryPort,
 } from '../../domain';
-import { LocationAlreadyExistsError } from '../../domain/exceptions/already-exists-error';
-import { LocationRepositoryPort } from '../../domain/ports';
 import {
   ICityDocument,
   ILocationDocument,
@@ -19,7 +19,7 @@ import {
 } from '../schemas';
 
 import { HttpError } from '~/lib/shared/domain';
-import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
+import { mongoose as mg } from '~/lib/shared/infrastructure';
 
 export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async getValidCities(): Promise<City[]> {

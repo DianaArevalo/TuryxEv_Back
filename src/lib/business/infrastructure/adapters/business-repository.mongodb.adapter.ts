@@ -22,8 +22,7 @@ import {
   LimitValueObject,
   IdValueObject,
 } from '~/lib/shared/domain';
-import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
-import { Hasher } from '~/lib/shared/Infraestructure/Hasher';
+import { mongoose as mg, Hasher } from '~/lib/shared/infrastructure';
 
 export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
   constructor(private readonly locationService: LocationServicePort) {}

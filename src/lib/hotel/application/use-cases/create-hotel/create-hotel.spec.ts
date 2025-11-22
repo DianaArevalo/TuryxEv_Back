@@ -24,7 +24,7 @@ describe('Create hotel - Use Case', () => {
   beforeEach(() => {
     locationService = locationCompositionMock().locationService;
     hotelLocationService = new HotelLocationServiceAdapter(locationService);
-    repository = new HotelRepositoryInMemoryAdapter(hotelLocationService);
+    repository = new HotelRepositoryInMemoryAdapter();
     createHotel = new CreateHotelUseCase(repository, hotelLocationService);
   });
 

@@ -1,4 +1,4 @@
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import {
   SuperAdmin,
   SuperAdminIsActive,
@@ -22,8 +22,7 @@ export class GetSuperAdminsUseCase
       records = await this.repository.getAllByIsActive(
         new SuperAdminIsActive(props.isActive),
       );
-
-    if (!records) records = await this.repository.getAll();
+    else records = await this.repository.getAll();
 
     return records.map((record) => record.toResponse());
   }

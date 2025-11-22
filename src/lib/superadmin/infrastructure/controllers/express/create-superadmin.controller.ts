@@ -1,5 +1,4 @@
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 import {
   CreateSuperAdminDTO,
   CreateSuperAdminUseCase,
@@ -23,6 +22,6 @@ export class CreateSuperAdminController {
       body: result,
     };
 
-    return res.status(200).json(response);
+    return res.status(201).json(response);
   }
 }

@@ -1,11 +1,16 @@
-import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
+import {
+  ReservationStatusPrimitiveArray,
+  ReservationStatusPrimitiveT,
+} from '../../domain';
+
+import { mongoose as mg } from '~/lib/shared/infrastructure';
 
 export interface IReservationDocument extends mg.Document {
   userId: string;
   hotelId: string;
   checkInDate: Date;
   checkOutDate: Date;
-  status: 0 | 1 | 2;
+  status: ReservationStatusPrimitiveT;
   totalAmount: number;
   paymentId?: string;
   createdAt: Date;
@@ -18,7 +23,11 @@ const Reservation = new mg.Schema<IReservationDocument>(
     hotelId: { type: String, required: true },
     checkInDate: { type: Date, required: true },
     checkOutDate: { type: Date, required: true },
-    status: { type: Number, enum: [0, 1, 2], required: true },
+    status: {
+      type: Number,
+      enum: ReservationStatusPrimitiveArray,
+      required: true,
+    },
     totalAmount: { type: Number, required: true },
     paymentId: { type: String, required: false, default: null, unique: false },
   },

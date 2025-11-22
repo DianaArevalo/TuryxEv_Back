@@ -6,7 +6,7 @@ import {
   HotelRepositoryPort,
   HotelResponse,
 } from '~/lib/hotel/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import { HttpError } from '~/lib/shared/domain';
 
 export interface GetOneHotelDTO {

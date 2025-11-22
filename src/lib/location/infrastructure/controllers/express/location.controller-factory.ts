@@ -4,6 +4,7 @@ import { GetLocationByOwnerController } from './get-location-by-owner.controller
 import { GetValidCitiesController } from './get-valid-cities.controller';
 import { LocationRepositoryPort } from '../../../domain';
 
+import { GetPopulatedLocationByIdUseCase } from '~/lib/location/application';
 import {
   CreateCityUseCase,
   CreateLocationUseCase,
@@ -11,7 +12,6 @@ import {
   GetValidCitiesUseCase,
   EditLocationUseCase,
 } from '~/lib/location/application/use-cases';
-import { GetPopulatedLocationByIdUseCase } from '~/lib/location/application/use-cases/get-populated-location-by-id/get-populated-location-by-id';
 
 export const buildLocationControllers = (
   locationRepository: LocationRepositoryPort,

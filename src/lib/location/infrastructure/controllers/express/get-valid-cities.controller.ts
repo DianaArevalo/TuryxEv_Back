@@ -1,7 +1,6 @@
-import { GetValidCitiesUseCase } from '~/lib/location/application/use-cases';
+import { GetValidCitiesUseCase } from '~/lib/location/application';
 import { CityResponse } from '~/lib/location/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class GetValidCitiesController {
   constructor(private readonly getValidCitiesUsecase: GetValidCitiesUseCase) {}

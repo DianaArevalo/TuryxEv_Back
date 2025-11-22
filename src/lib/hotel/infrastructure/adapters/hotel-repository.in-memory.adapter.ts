@@ -7,15 +7,12 @@ import {
   HotelRepositoryPort,
   HotelRole,
   HotelStatus,
-  LocationServicePort,
 } from '../../domain';
 
 import { PageValueObject, LimitValueObject } from '~/lib/shared/domain';
 
 export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
   private hotels: Hotel[] = [];
-
-  constructor(private readonly locationService: LocationServicePort) {}
 
   getAll(page: PageValueObject, limit: LimitValueObject): Promise<Hotel[]> {
     return Promise.resolve(this.paginate(this.hotels, page, limit));

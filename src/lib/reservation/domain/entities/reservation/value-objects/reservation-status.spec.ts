@@ -24,6 +24,7 @@ describe('ReservationStatus - Value Object', () => {
   });
 
   test('should throw when creating from invalid primitive value', () => {
+    // @ts-expect-error testing invalid param intentionally
     expect(() => ReservationStatus.fromPrimitives(3)).toThrow(
       'ReservationStatus inválido: 3',
     );

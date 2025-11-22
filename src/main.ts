@@ -5,10 +5,9 @@ import { ExpressHotelRouter } from './lib/hotel/infrastructure/hotel.router';
 import { ExpressLocationRouter } from './lib/location/infrastructure/location.router';
 import { ExpressReservationRouter } from './lib/reservation/infrastructure/reservation.router';
 import { HttpError } from './lib/shared/domain/exeptions';
-import { ApiResponse } from './lib/shared/Infraestructure/ApiResponse';
-import { express as ex, cors } from './lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex, cors } from './lib/shared/infrastructure';
 import { ExpressSuperAdminRouter } from './lib/superadmin/infrastructure/superadmin.router';
-import { ExpressUserRouter } from './lib/User/infrastructure/routers/ExpressUserRouter';
+import { ExpressUserRouter } from './lib/user/infrastructure/user.router';
 
 const app = ex();
 
@@ -17,15 +16,13 @@ const app = ex();
 app.use(cors({ origin: config.mongoUri, credentials: true }));
 app.use(ex.json());
 
-// Rutas
-app.use('/api/users', ExpressUserRouter);
-
 // Versionado de API's
 app.use('/api/v1/business', ExpressBusinessRouter);
-app.use('/api/v1/location', ExpressLocationRouter);
 app.use('/api/v1/hotel', ExpressHotelRouter);
-app.use('/api/v1/superadmin', ExpressSuperAdminRouter);
+app.use('/api/v1/location', ExpressLocationRouter);
 app.use('/api/v1/reservations', ExpressReservationRouter);
+app.use('/api/v1/superadmin', ExpressSuperAdminRouter);
+app.use('/api/v1/user', ExpressUserRouter);
 
 // Middleware de errores
 app.use((err: unknown, _req: ex.Request, res: ex.Response) => {
