@@ -1,7 +1,6 @@
 import { ReservationResponse } from '~/lib/reservation/domain';
 import { HttpError } from '~/lib/shared/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 import { SuperAdminReservationServicePort } from '~/lib/superadmin/domain';
 
 export class SuperAdminGetOneReservationController {

@@ -3,7 +3,7 @@ import {
   LocationNotFoundError,
   LocationRepositoryPort,
 } from '~/lib/location/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import { LocationValueObjectI } from '~/lib/shared/domain';
 
 export interface GetPopulatedLocationByIdDTO {

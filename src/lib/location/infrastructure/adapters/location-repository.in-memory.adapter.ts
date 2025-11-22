@@ -9,7 +9,7 @@ import {
   LocationNotFoundError,
   LocationRepositoryPort,
 } from '../../domain';
-import { LocationAlreadyExistsError } from '../../domain/exceptions/already-exists-error';
+import { LocationAlreadyExistsError } from '../../domain';
 
 export class LocationRepositoryInMemoryAdapter
   implements LocationRepositoryPort

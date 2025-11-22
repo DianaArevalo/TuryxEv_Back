@@ -2,8 +2,7 @@ import {
   CancelReservationDTO,
   CancelReservationUseCase,
 } from '~/lib/reservation/application';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class CancelReservationController {
   constructor(

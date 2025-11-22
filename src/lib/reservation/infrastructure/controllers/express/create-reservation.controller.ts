@@ -3,8 +3,7 @@ import {
   CreateReservationUseCase,
 } from '~/lib/reservation/application';
 import { ReservationResponse } from '~/lib/reservation/domain';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class CreateReservationController {
   constructor(
@@ -23,6 +22,6 @@ export class CreateReservationController {
       body: result,
     };
 
-    return res.status(200).json(response);
+    return res.status(201).json(response);
   }
 }

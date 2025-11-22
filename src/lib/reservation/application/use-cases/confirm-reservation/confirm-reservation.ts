@@ -5,7 +5,7 @@ import {
   ReservationPaymentId,
   ReservationRepositoryPort,
 } from '~/lib/reservation/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 
 export interface ConfirmReservationDTO {
   reservationId: string;

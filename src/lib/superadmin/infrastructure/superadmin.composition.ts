@@ -4,7 +4,7 @@ import {
   SuperAdminRepositoryMongoDBAdapter,
   SuperAdminReservationServiceAdapter,
 } from './adapters';
-import { buildSuperAdminControllers } from './controllers/express/superadmin.controller-factory';
+import { buildSuperAdminControllers } from './controllers';
 
 import { businessService } from '~/lib/business/infrastructure/business.composition';
 import { hotelService } from '~/lib/hotel/infrastructure/hotel.composition';

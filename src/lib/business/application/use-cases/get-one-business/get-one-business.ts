@@ -5,7 +5,7 @@ import {
   BusinessPublicResponse,
   BusinessRepositoryPort,
 } from '~/lib/business/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import { HttpError } from '~/lib/shared/domain';
 
 export interface GetOneBusinessDTO {

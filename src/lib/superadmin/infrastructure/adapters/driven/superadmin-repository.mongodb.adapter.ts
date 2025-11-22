@@ -1,6 +1,6 @@
 import { ISuperAdminDocument, SuperAdminSchema } from '../../schemas';
 
-import { Hasher } from '~/lib/shared/Infraestructure/Hasher';
+import { Hasher } from '~/lib/shared/infrastructure';
 import {
   SuperAdmin,
   SuperAdminCanBlockAccounts,

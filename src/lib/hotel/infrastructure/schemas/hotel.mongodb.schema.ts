@@ -7,7 +7,7 @@ import {
   HotelStatusPrimitiveT,
 } from '../../domain';
 
-import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
+import { mongoose as mg } from '~/lib/shared/infrastructure';
 
 export interface IHotelDocument extends mg.Document {
   name: string;

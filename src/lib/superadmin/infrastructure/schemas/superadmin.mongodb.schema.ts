@@ -1,4 +1,4 @@
-import { mongoose as mg } from '~/lib/shared/Infraestructure/External';
+import { mongoose as mg } from '~/lib/shared/infrastructure';
 
 export interface ISuperAdminDocument extends mg.Document {
   name: string;

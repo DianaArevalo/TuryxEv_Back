@@ -12,7 +12,7 @@ import {
   BusinessStatus,
   LocationServicePort,
 } from '~/lib/business/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import { ValidationError } from '~/lib/shared/domain';
 
 export interface EditBusinessDTO {

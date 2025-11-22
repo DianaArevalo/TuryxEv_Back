@@ -13,10 +13,7 @@ import {
   ReservationUpdatedAt,
   ReservationUserId,
 } from '../../domain';
-import {
-  IReservationDocument,
-  ReservationSchema,
-} from '../schemas/reservation.mongodb.schema';
+import { IReservationDocument, ReservationSchema } from '../schemas';
 
 export class ReservationRepositoryMongoDBAdapter
   implements ReservationRepositoryPort

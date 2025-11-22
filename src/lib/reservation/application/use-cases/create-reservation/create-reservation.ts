@@ -12,7 +12,7 @@ import {
   ReservationUpdatedAt,
   ReservationUserId,
 } from '~/lib/reservation/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 
 export interface CreateReservationDTO {
   userId: string;

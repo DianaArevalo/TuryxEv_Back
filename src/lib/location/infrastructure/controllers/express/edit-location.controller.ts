@@ -1,9 +1,8 @@
 import {
   EditLocationDTO,
   EditLocationUseCase,
-} from '~/lib/location/application/use-cases';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+} from '~/lib/location/application';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class EditLocationController {
   constructor(private readonly updateLocationUseCase: EditLocationUseCase) {}

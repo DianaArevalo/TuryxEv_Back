@@ -7,7 +7,7 @@ import {
   BusinessRole,
   BusinessStatus,
 } from '~/lib/business/domain';
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import { LimitValueObject, PageValueObject } from '~/lib/shared/domain';
 
 export interface GetBusinessesDTO {

@@ -2,8 +2,7 @@ import {
   BlockHotelDTO,
   BlockHotelUseCase,
 } from '~/lib/hotel/application/use-cases';
-import { ApiResponse } from '~/lib/shared/Infraestructure/ApiResponse';
-import { express as ex } from '~/lib/shared/Infraestructure/External';
+import { ApiResponse, express as ex } from '~/lib/shared/infrastructure';
 
 export class BlockHotelController {
   constructor(private readonly blockHotelUseCase: BlockHotelUseCase) {}

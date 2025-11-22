@@ -1,4 +1,4 @@
-import { UseCase } from '~/lib/shared/application/usecase';
+import { UseCase } from '~/lib/shared/application';
 import {
   SuperAdmin,
   SuperAdminEmail,
