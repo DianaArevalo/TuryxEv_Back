@@ -26,7 +26,8 @@ export class GetOneBusinessUseCase
 
     if (props.id)
       result = await this.repository.getOneById(new BusinessId(props.id));
-    else if (props.email)
+
+    if (props.email)
       result = await this.repository.getOneByEmail(
         BusinessEmail.create(props.email),
       );
