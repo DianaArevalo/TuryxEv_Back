@@ -1,6 +1,6 @@
 import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
 import { express as ex } from "../../../Shared/Infraestructure/External";
-import { signTokenHandler } from "../composition/jwt-composition";
+import { refreshTokenHandler, revokeTokenHandler, signTokenHandler } from "../composition/jwt-composition";
 
 export class JwtHttpController {
   static async JwtSign(req: ex.Request, res: ex.Response) {
@@ -39,9 +39,8 @@ export class JwtHttpController {
         title: "jwt/sign",
         message: "jwt in sign",
         body: {
-          accessToken,
-          refreshToken,
-          expiration
+          authenticated: true,
+          expiration,
         },
       };
 
@@ -61,19 +60,19 @@ export class JwtHttpController {
 
   static async JwtRefresh(req: ex.Request, res: ex.Response) {
     try {
-        const refreshTokensign = req.cookies?.refreshToken;
+        const oldRefreshToken = req.cookies?.refreshToken;
         const {userId, payload } = req.body;
 
-        const wrong: ApiResponse<any[]> = {
+        const wrong: ApiResponse<null> = {
         success: false,
-        title: "jwt/sign",
-        message: "userId is required",
-        body: userId,
+        title: "jwt/refresh",
+        message: "refresh token missing",
+        body:  null,
       };
 
-      if(!refreshTokensign) return res.status(401).json(wrong);
+      if(!oldRefreshToken) return res.status(401).json(wrong);
 
-      const jwtEntity = await refreshTokensign.handler(refreshTokensign, userId, payload ?? {} );
+      const jwtEntity = await refreshTokenHandler.handler(oldRefreshToken, userId, payload ?? {} );
       const {accessToken, refreshToken: newRefresh, expiration} = jwtEntity.toPrimitives();
 
       //Set cookies again
@@ -96,9 +95,8 @@ export class JwtHttpController {
         title: "jwt/refresh",
         message: "tokens refreshed",
         body: {
-          accessToken,
-          newRefresh,
-          expiration
+          refreshed: true,
+          expiration,
         },
       };
 
@@ -119,6 +117,51 @@ export class JwtHttpController {
   }
 
   static async JwtRevoke(req: ex.Request, res: ex.Response) {
-    
+    try{
+
+      const refreshToken = req.cookies?.refreshToken;
+      const {userId} = req.body;
+
+       const wrong: ApiResponse<any[]> = {
+        success: false,
+        title: "jwt/revoked",
+        message: "Refresh token missing",
+        body: userId,
+      };
+
+      if (!refreshToken) {
+        return res
+        .status(400)
+        .json(wrong);        
+      }
+
+      await revokeTokenHandler.handler(refreshToken, userId);
+
+      //Borrar cookies
+
+      res.clearCookie("accessToken");
+      res.clearCookie("refreshToken");
+
+       const response: ApiResponse<any> = {
+        success: true,
+        title: "jwt/sign",
+        message: "jwt in sign",
+        body: {
+          revoked: true,          
+        },
+      };
+
+      return res
+      .status(200)
+      .json(response);
+
+    }
+    catch(err: any){
+      
+      console.error("revokeToken error: ", err);
+
+      return res.status(500)
+      .json({error: err.message || "Internal Server"});
+    }
   }
 }
