@@ -3,7 +3,7 @@ import { express as ex } from "../../../Shared/Infraestructure/External";
 import { refreshTokenHandler, revokeTokenHandler, signTokenHandler } from "../composition/jwt-composition";
 
 export class JwtHttpController {
-  static async JwtSign(req: ex.Request, res: ex.Response) {
+  async jwtSign(req: ex.Request, res: ex.Response) {
     try {
       const { userId, payload } = req.body;
 
@@ -22,15 +22,13 @@ export class JwtHttpController {
       res.cookie("accessToken", accessToken,
         {
           httpOnly: true,
-          secure: true,
-          sameSite: "strict",
+          secure: true,          
           maxAge: 15 * 60 * 1000,
         });
 
         res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict",
+        secure: true,        
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
@@ -58,7 +56,7 @@ export class JwtHttpController {
     }
   }
 
-  static async JwtRefresh(req: ex.Request, res: ex.Response) {
+  async jwtRefresh(req: ex.Request, res: ex.Response) {
     try {
         const oldRefreshToken = req.cookies?.refreshToken;
         const {userId, payload } = req.body;
@@ -78,15 +76,13 @@ export class JwtHttpController {
       //Set cookies again
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict",
+        secure: true,        
         maxAge: 15 *60 * 1000,
       });
 
       res.cookie("refreshToken", newRefresh, {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict",
+        secure: true,        
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
@@ -116,7 +112,7 @@ export class JwtHttpController {
     }
   }
 
-  static async JwtRevoke(req: ex.Request, res: ex.Response) {
+  async jwtRevoke(req: ex.Request, res: ex.Response) {
     try{
 
       const refreshToken = req.cookies?.refreshToken;
