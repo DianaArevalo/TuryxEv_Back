@@ -1,3 +1,5 @@
+import { ValidationError } from '../exeptions';
+
 export type ProviderDataT = 'AUTH' | 'AUTHGOOGLE' | 'AUTHFACEBOOK';
 export type ProviderDataPrimitiveT = 0 | 1 | 2;
 export const ProviderDataPrimitiveArray = [0, 1, 2];
@@ -21,7 +23,7 @@ export class ProviderDataValueObject {
     value: string,
   ): InstanceType<T> {
     if (!Object.keys(ProviderDataTMap).includes(value)) {
-      throw new Error(`Invalid value: ${value}`);
+      throw new ValidationError(`Invalid value: ${value}`);
     }
 
     return new this(value as ProviderDataT) as InstanceType<T>;
@@ -32,7 +34,7 @@ export class ProviderDataValueObject {
   ): InstanceType<T> {
     const mapped = ProviderDataTReverseMap[value];
     if (!mapped) {
-      throw new Error(`Invalid value: ${value}`);
+      throw new ValidationError(`Invalid value: ${value}`);
     }
     return new this(mapped) as InstanceType<T>;
   }

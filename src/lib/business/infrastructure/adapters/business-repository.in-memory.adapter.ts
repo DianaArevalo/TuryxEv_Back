@@ -17,6 +17,7 @@ import {
   PageValueObject,
   LimitValueObject,
   IdValueObject,
+  HttpError,
 } from '~/lib/shared/domain';
 
 export class BusinessRepositoryInMemoryAdapter
@@ -53,7 +54,7 @@ export class BusinessRepositoryInMemoryAdapter
       (b) => b.email.value === business.email.value,
     );
     if (existsByEmail)
-      throw new Error('Business with this email already exists');
+      throw new HttpError('Business with this email already exists', 409);
 
     let location = undefined;
 
@@ -65,9 +66,7 @@ export class BusinessRepositoryInMemoryAdapter
 
     const newBusiness = new Business({
       ...business,
-      bussinessId: new BusinessId(
-        business.bussinessId.value ?? (this.businesses.length + 1).toString(),
-      ),
+      bussinessId: new BusinessId(business.bussinessId.value),
       createdAt: new BusinessCreatedAt(new Date()),
       updatedAt: new BusinessUpdatedAt(new Date()),
       location,

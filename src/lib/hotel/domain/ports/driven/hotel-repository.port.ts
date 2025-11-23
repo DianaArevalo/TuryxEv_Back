@@ -40,6 +40,4 @@ export interface HotelRepositoryPort {
     page: PageValueObject,
     limit: LimitValueObject,
   ): Promise<Hotel[]>;
-
-  findExpiredFreePlans(currentDate: Date): Promise<Hotel[]>;
 }

@@ -9,7 +9,7 @@ export * from './name';
 export * from './page';
 export * from './password';
 export * from './plan';
-export * from './providerData';
+export * from './provider-data';
 export * from './score';
 export * from './status';
 export * from './string';

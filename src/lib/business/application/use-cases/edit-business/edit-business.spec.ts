@@ -5,6 +5,16 @@ import {
   BusinessRepositoryPort,
   LocationServicePort as BusinessLocationServicePort,
   BusinessId,
+  Business,
+  BusinessEmail,
+  BusinessName,
+  BusinessScore,
+  BusinessCreatedAt,
+  BusinessUpdatedAt,
+  BusinessRole,
+  BusinessPlan,
+  BusinessStatus,
+  BusinessProviderData,
 } from '~/lib/business/domain';
 import { BusinessRepositoryInMemoryAdapter } from '~/lib/business/infrastructure/adapters/business-repository.in-memory.adapter';
 import { LocationServiceAdapter as BusinessLocationServiceAdapter } from '~/lib/business/infrastructure/adapters/location-service.adapter';
@@ -86,6 +96,38 @@ describe('Edit business - Use Case', () => {
       new BusinessId(newBusiness.bussinessId),
     ))!;
 
+    await expect(
+      edit.execute({
+        businessId: business.bussinessId.value,
+        location: {
+          locationId: '',
+          cityName: 'Medellín',
+          address: 'Another address',
+        },
+      }),
+    ).rejects.toThrow(HttpError);
+  });
+
+  it('Should edit a business without location', async () => {
+    const newBusiness = await create.execute({
+      name: 'Business',
+      email: 'new@business.com',
+      idRole: 'BUSINESS',
+      idPlan: 'FREE',
+      status: 'OPEN',
+      password: 'BusinessPa$$w0rd',
+      location: {
+        cityName: 'Bogotá',
+        address: 'Some address',
+      },
+      picture: 'https://expressjs.com/images/favicon.png',
+      providerData: 'AUTH',
+    });
+
+    const business = (await repository.getOneById(
+      new BusinessId(newBusiness.bussinessId),
+    ))!;
+
     await edit.execute({
       businessId: business.bussinessId.value,
     });
@@ -124,6 +166,27 @@ describe('Edit business - Use Case', () => {
         businessId: 'xxxxx',
         password: 'BusinessPa$$w0rd',
       }),
+    ).rejects.toThrow(HttpError);
+  });
+
+  it('Should throw an error when business not found in repository', async () => {
+    const createdAt = BusinessCreatedAt.now();
+
+    await expect(
+      repository.edit(
+        new Business({
+          bussinessId: new BusinessId('xxxx'),
+          name: new BusinessName('Business'),
+          email: new BusinessEmail('new@business.com'),
+          score: BusinessScore.create(1),
+          createdAt,
+          updatedAt: BusinessUpdatedAt.now(createdAt),
+          idRole: new BusinessRole('BUSINESS'),
+          idPlan: new BusinessPlan('BASIC'),
+          status: new BusinessStatus('OPEN'),
+          providerData: new BusinessProviderData('AUTHGOOGLE'),
+        }),
+      ),
     ).rejects.toThrow(HttpError);
   });
 });

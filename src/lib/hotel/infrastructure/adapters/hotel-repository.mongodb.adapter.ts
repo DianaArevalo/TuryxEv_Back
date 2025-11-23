@@ -179,16 +179,6 @@ export class HotelRepositoryMongoDBAdapter implements HotelRepositoryPort {
     return Promise.all(records.map((record) => this.createHotelEntity(record)));
   }
 
-  async findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
-    const records = await HotelSchema.find({
-      plan: new HotelPlan('FREE').toPrimitives(),
-      freePlanEnd: { $lte: currentDate },
-      status: { $ne: 'BLOCKED' },
-    });
-
-    return Promise.all(records.map((record) => this.createHotelEntity(record)));
-  }
-
   private async createHotelEntity(record: IHotelDocument): Promise<Hotel> {
     // TODO: Crear un método getLocationsByIds(ids: IdValueObject[]) para disminuir la latencia
     const location = record.location

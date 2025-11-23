@@ -77,6 +77,24 @@ describe('Create hotel - Use Case', () => {
     expect(hotels).toHaveLength(1);
   });
 
+  it('should create a hotel when email is duplicated', async () => {
+    const props = {
+      name: 'Hotel 1',
+      email: 'info@hotel1.com',
+      role: 'HOTEL',
+      plan: 'FREE',
+      status: 'OPEN',
+      location: {
+        address: 'Other address',
+        cityName: 'Bogotá',
+      },
+      providerData: 'AUTHGOOGLE',
+    };
+
+    await createHotel.execute(props);
+    await expect(createHotel.execute(props)).rejects.toThrow(HttpError);
+  });
+
   it('should create a hotel when picture and freePlanExpiresAt is provided', async () => {
     const props = {
       name: 'Hotel 1',

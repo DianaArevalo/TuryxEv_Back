@@ -7,7 +7,7 @@ export class StringValueObject {
     this: T,
     value: string,
   ): InstanceType<T> {
-    if (value.length) return new this(value) as InstanceType<T>;
+    if (value.trim().length) return new this(value) as InstanceType<T>;
     throw new ValidationError('Invalid value');
   }
 }

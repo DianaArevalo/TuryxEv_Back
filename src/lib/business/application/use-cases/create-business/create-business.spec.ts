@@ -78,4 +78,32 @@ describe('Create business - Use Case', () => {
       }),
     ).rejects.toThrow(HttpError);
   });
+
+  it('Should throw an error when email is duplicated', async () => {
+    await create.execute({
+      name: 'Business2',
+      email: 'new@business.com',
+      idRole: 'BUSINESS',
+      status: 'OPEN',
+      location: {
+        cityName: 'Bogotá',
+        address: 'Another address',
+      },
+      providerData: 'AUTHGOOGLE',
+    });
+
+    await expect(
+      create.execute({
+        name: 'Business3',
+        email: 'new@business.com',
+        idRole: 'STAFF',
+        status: 'OPEN',
+        location: {
+          cityName: 'Bogotá',
+          address: 'Another address',
+        },
+        providerData: 'AUTHGOOGLE',
+      }),
+    ).rejects.toThrow(HttpError);
+  });
 });

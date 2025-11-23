@@ -73,6 +73,34 @@ describe('Edir user - Use Case', () => {
     ).rejects.toBeInstanceOf(HttpError);
   });
 
+  it('should throw HttpError if user not found', async () => {
+    await expect(
+      userEdit.execute({
+        userId: 'xxxxx',
+        score: 4,
+        currentRole: 'USER',
+      }),
+    ).rejects.toBeInstanceOf(HttpError);
+  });
+
+  it('should throw HttpError if user not found', async () => {
+    await userEdit.execute({
+      userId: authUser.idUser,
+      picture: 'newpic.png',
+      score: undefined,
+      status: false,
+      currentRole: 'ADMIN',
+    });
+
+    const edited = await userEdit.execute({
+      userId: authUser.idUser,
+      score: 4,
+      currentRole: 'ADMIN',
+    });
+
+    expect(edited.score).toBe(4);
+  });
+
   it('should update user picture, score, and status for allowed roles', async () => {
     const updated = await userEdit.execute({
       userId: authUser.idUser,

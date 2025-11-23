@@ -2,6 +2,7 @@ import {
   Hotel,
   HotelEmail,
   HotelId,
+  HotelNotFoundError,
   HotelPlan,
   HotelProviderData,
   HotelRepositoryPort,
@@ -9,7 +10,11 @@ import {
   HotelStatus,
 } from '../../domain';
 
-import { PageValueObject, LimitValueObject } from '~/lib/shared/domain';
+import {
+  PageValueObject,
+  LimitValueObject,
+  HttpError,
+} from '~/lib/shared/domain';
 
 export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
   private hotels: Hotel[] = [];
@@ -32,7 +37,7 @@ export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
     hotel.hotelId = new HotelId((this.hotels.length + 1).toString());
 
     const exists = this.hotels.some((h) => h.email.value === hotel.email.value);
-    if (exists) throw new Error('Hotel already exists');
+    if (exists) throw new HttpError('Hotel already exists', 409);
 
     this.hotels.push(hotel);
 
@@ -52,7 +57,7 @@ export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
     const hotel = this.hotels.find(
       (h) => h.hotelId && h.hotelId.value === id.value,
     );
-    if (!hotel) throw new Error('Hotel not found');
+    if (!hotel) throw new HotelNotFoundError();
     hotel.status = status;
     return Promise.resolve();
   }
@@ -93,17 +98,6 @@ export class HotelRepositoryInMemoryAdapter implements HotelRepositoryPort {
       (h) => h.providerData.value === provider.value,
     );
     return Promise.resolve(this.paginate(filtered, page, limit));
-  }
-
-  findExpiredFreePlans(currentDate: Date): Promise<Hotel[]> {
-    return Promise.resolve(
-      this.hotels.filter((hotel) => {
-        const planValue = hotel.plan.value;
-        const isFreePlan = planValue === 'FREE';
-        const isExpired = hotel.freePlanEnd?.hasExpired(currentDate) ?? false;
-        return isFreePlan && isExpired;
-      }),
-    );
   }
 
   private paginate(
