@@ -6,11 +6,11 @@ import {config} from "./config/config"
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
 import { HttpError } from "./lib/Shared/domain/exeptions";
 
-//import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/expressHotelRouter";
 
 import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
 import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/ExpressHotelRouter";
 import { ApiResponse } from "./lib/Shared/Infraestructure/ApiResponse";
+import { ExpressJwtRouter } from "./lib/JWT/infraestructure/routes/ExpressJwtRouter";
 
 
 
@@ -27,7 +27,8 @@ app.use(ex.json());
 app.use('/api/business', ExpressBusinessRouter);
 app.use("/api/users", ExpressUserRouter);
 app.use('/api/reservations', ExpressReservationRouter);
-app.use('/api/hotel', ExpressHotelRouter)
+app.use('/api/hotel', ExpressHotelRouter);
+app.use('/api/jwt', ExpressJwtRouter);
 
 // Middleware de errores
 app.use((
