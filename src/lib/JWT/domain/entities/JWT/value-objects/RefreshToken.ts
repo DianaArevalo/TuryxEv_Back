@@ -3,7 +3,7 @@ import { ValidationError } from "../../../../../../lib/Shared/domain";
 export class RefreshToken {
   private readonly value: string;
 
-  private constructor(value: string) {
+  constructor(value: string) {
     this.value = value;
   }
 

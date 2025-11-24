@@ -3,7 +3,7 @@ import { ValidationError } from "../../../../../../lib/Shared/domain";
 export class TokenExpiration {
   private readonly value: Date;
 
-  private constructor(value: Date) {
+  constructor(value: Date) {
     this.value = value;
   }
 

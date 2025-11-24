@@ -7,16 +7,25 @@ import { JwtServiceAdapter } from "../../application/adapters/jwt-service";
 import { JwtAdapter } from "../adapters/JwtAdapter";
 import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository";
 
-const jwtAdapter = new JwtAdapter();
-const refreshRepo = new RefreshTokenRepository();
-const jwtService = new JwtServiceAdapter(jwtAdapter, jwtAdapter); // sign + verify
+const jwtComposition = () => {
+  const jwtAdapter = new JwtAdapter();              // usa JWT_SECRET
+  const refreshTokenRepository = new RefreshTokenRepository();
 
-export const signTokenHandler = new SignTokenHandler(jwtService, refreshRepo);
-export const refreshTokenHandler = new RefreshTokenHandler(
-  jwtService,
-  refreshRepo
-);
-export const revokeTokenHandler = new RevokeTokenHandler(
-  jwtService,
-  refreshRepo
-);
+  const jwtService = new JwtServiceAdapter(jwtAdapter, jwtAdapter);
+
+  const signTokenHandler = new SignTokenHandler(jwtService, refreshTokenRepository);
+  const refreshTokenHandler = new RefreshTokenHandler(jwtService, refreshTokenRepository);
+  const revokeTokenHandler = new RevokeTokenHandler(jwtService, refreshTokenRepository);
+
+  return {
+    signTokenHandler,
+    refreshTokenHandler,
+    revokeTokenHandler,
+  };
+};
+
+export const { 
+  signTokenHandler, 
+  refreshTokenHandler, 
+  revokeTokenHandler 
+} = jwtComposition();
