@@ -8,7 +8,14 @@ import {
 } from "../../domain/entities/JWT/value-objects";
 
 export class JwtAdapter implements ForSignToken, ForVerifyToken {
-  private readonly secret = process.env.JWT_SECRET!;
+  private readonly secret: string;
+
+  constructor() {
+    this.secret = process.env.JWT_SECRET ?? "";
+    if (!this.secret) {
+      throw new Error("JWT_SECRET is not configured");
+    }
+  }
 
   async sign(payload: object, expiresIn = 900): Promise<JwtEntity> {
     const accessToken = jwt.sign(payload, this.secret, { expiresIn });

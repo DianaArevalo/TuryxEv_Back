@@ -11,7 +11,7 @@ export class SignTokenHandler {
     private readonly tokenRepository: RefreshTokenRepository
   ) {}
 
-  async handler(userId: string, payload: object): Promise<JwtEntity> {
+  async handler(userId: string, payload: object = {}): Promise<JwtEntity> {
     if (!userId) throw new ValidationError("UserId required");
 
     const tokenId = nanoid();
