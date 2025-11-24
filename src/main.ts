@@ -1,10 +1,11 @@
 
-import { express as ex, cors } from "./lib/Shared/Infraestructure/External";
+import { express as ex, cors, cookieParser } from "./lib/Shared/Infraestructure/External";
 import { connectMongo } from "./lib/db/mongoose";
 import { ExpressUserRouter } from "./lib/User/infrastructure/routers/ExpressUserRouter";
 import {config} from "./config/config"
 import { ExpressReservationRouter } from "./lib/Reservation/infrastructure/routers/express";
 import { HttpError } from "./lib/Shared/domain/exeptions";
+
 
 
 import { ExpressBusinessRouter } from "./lib/bussiness/infrastructure/routers/express";
@@ -15,12 +16,14 @@ import { ExpressJwtRouter } from "./lib/JWT/infraestructure/routes/ExpressJwtRou
 
 
 
-const app = ex();
 
+const app = ex();
+app.use(cookieParser());
 // Middlewares
 
 app.use(cors({ origin: config.mongoUri, credentials: true }));
 app.use(ex.json());
+
 
 
 // Rutas
