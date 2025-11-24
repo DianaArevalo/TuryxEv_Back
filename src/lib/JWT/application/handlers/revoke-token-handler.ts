@@ -1,4 +1,4 @@
-import { ValidationError } from "~/lib/Shared/domain";
+import { ValidationError } from "../../../../lib/Shared/domain";
 import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
 import { JwtServiceAdapter } from "../adapters/jwt-service";
 

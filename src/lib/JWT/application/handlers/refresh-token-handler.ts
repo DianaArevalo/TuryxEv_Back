@@ -1,4 +1,4 @@
-import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
+import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
 import { JwtServiceAdapter } from "../adapters/jwt-service";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";

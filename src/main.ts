@@ -27,11 +27,11 @@ app.use(ex.json());
 
 
 // Rutas
-app.use('/api/business', ExpressBusinessRouter);
-app.use("/api/users", ExpressUserRouter);
-app.use('/api/reservations', ExpressReservationRouter);
-app.use('/api/hotel', ExpressHotelRouter);
-app.use('/api/jwt', ExpressJwtRouter);
+app.use('/api/v1/business', ExpressBusinessRouter);
+app.use("/api/v1/user", ExpressUserRouter);
+app.use('/api/v1/reservations', ExpressReservationRouter);
+app.use('/api/v1/hotel', ExpressHotelRouter);
+app.use('/api/v1/jwt', ExpressJwtRouter);
 
 // Middleware de errores
 app.use((
