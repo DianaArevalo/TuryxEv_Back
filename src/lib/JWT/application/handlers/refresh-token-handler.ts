@@ -2,7 +2,7 @@ import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
 import { JwtServiceAdapter } from "../adapters/jwt-service";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
-import { ValidationError } from "~/lib/Shared/domain";
+import { ValidationError } from "../../../../lib/Shared/domain";
 import { nanoid } from "nanoid";
 
 export class RefreshTokenHandler {

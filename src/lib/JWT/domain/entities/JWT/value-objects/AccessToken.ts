@@ -1,4 +1,4 @@
-import { ValidationError } from "~/lib/Shared/domain";
+import { ValidationError } from "../../../../../../lib/Shared/domain";
 
 export class AccessToken {
   private readonly value: string;
