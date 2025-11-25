@@ -1,3 +1,3 @@
-export * from "./AccessToken";
-export * from "./RefreshToken";
-export * from "./ExpirationToken";
+export * from "./access-token/AccessToken";
+export * from "./refresh-token/RefreshToken";
+export * from "./expiration-token/ExpirationToken";
