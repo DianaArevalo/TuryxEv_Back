@@ -22,4 +22,10 @@ export class JwtServiceInMemory {
     if (!payload) throw new Error("Invalid token");
     return payload;
   }
-}
+
+  async revokeToken(token: string): Promise<void> {
+    if (this.tokens[token]) {
+      this.tokens[token].revoked = true;
+    }
+  }
+  }
