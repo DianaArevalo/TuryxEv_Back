@@ -20,6 +20,13 @@ const config: Config = {
   "<rootDir>/src/.*/infrastructure/routes/.*",
   "<rootDir>/src/.*/infrastructure/repositories/(?!in-memory/).*",
 ],
+
+ coveragePathIgnorePatterns: [
+  "/node_modules/",
+  "<rootDir>/src/lib/JWT/domain/ports/.*",           // puertos
+  "<rootDir>/src/lib/JWT/application/adapters/.*",   // adaptadores
+  "<rootDir>/src/lib/JWT/infraestructure/repositories/(?!in-memory/).*", // repositorios reales
+],
   coverageThreshold: {
     global: {
       branches: 90,
