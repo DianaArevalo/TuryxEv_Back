@@ -12,15 +12,14 @@ const config: Config = {
     "^~/(.*)$": "<rootDir>/src/$1",
   },
   testPathIgnorePatterns: [
-    "/node_modules/",
-    "<rootDir>/src/**/infrastructure/adapters/",
-    "<rootDir>/src/**/infrastructure/composition/",
-    "<rootDir>/src/**/infrastructure/controller/",
-    "<rootDir>/src/**/infrastructure/models/",
-    "<rootDir>/src/**/infrastructure/routes/",
-    "<rootDir>/src/**/infrastructure/repositories/(?!in-memory)", 
-    //
-  ],
+  "/node_modules/",
+  "<rootDir>/src/.*/infrastructure/adapters/.*",
+  "<rootDir>/src/.*/infrastructure/composition/.*",
+  "<rootDir>/src/.*/infrastructure/controller/.*",
+  "<rootDir>/src/.*/infrastructure/models/.*",
+  "<rootDir>/src/.*/infrastructure/routes/.*",
+  "<rootDir>/src/.*/infrastructure/repositories/(?!in-memory/).*",
+],
   coverageThreshold: {
     global: {
       branches: 90,
