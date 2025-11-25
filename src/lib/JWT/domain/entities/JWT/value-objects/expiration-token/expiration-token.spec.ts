@@ -2,8 +2,8 @@ import { HttpError } from "~/lib/Shared/domain";
 import { TokenExpiration } from "./ExpirationToken";
 
 describe("TokenExpiration", () => {
-  const futureDate = new Date(Date.now() + 1000 * 60 * 60); // 1 hora en el futuro
-  const pastDate = new Date(Date.now() - 1000 * 60 * 60); // 1 hora en el pasado
+  const futureDate = new Date(Date.now() + 1000 * 60 * 60); 
+  const pastDate = new Date(Date.now() - 1000 * 60 * 60); 
 
   it("should throw error if value is not a valid date", () => {
     expect(() => TokenExpiration.create("invalid-date")).toThrow(HttpError);
