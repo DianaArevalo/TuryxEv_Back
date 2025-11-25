@@ -5,7 +5,6 @@
  <h1>TuryxHotel</h1>
 
 
-
 ---
 <details>
  <summary><h2>🌃Arquitectura</h2></summary>
@@ -20,16 +19,16 @@
    <summary><h2>🏨 MODULOS PRINCIPALES</h2></summary>
 <p align="center">
 
-**TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**.
+**TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**. Su proposito es poder lograr el crecimiento del turismo domestico y levantar la visibilidad de sus clientes.
 
 <br>
 
 Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
 
+<h2>💹 SERVICIOS A INTEGRAR</h2>
+
 ✔ 🔐 Servicio de Reserva con Ciberseguridad Integrada  
 ✔ 💬 Integración con WhatsApp + Automatización (n8n)
-✔ 📲 Servicio de Mensajería Interna
-✔ 👥 Grupos Estilo Red Social
 ✔ 💳 Pasarela de Pago
 ✔ 🧑‍💼 Sistema de Roles y Perfiles
 ✔🖼️ Galería de Fotos
@@ -38,112 +37,6 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
 
 </p>
-
-<div>
-   <h2>🔥 MODULOS</h2>
-   <table>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">RES Servicio de Reserva con Ciberseguridad Integrada </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <ul>
-               <li>Gestión de reservas: crear, editar, cancelar</li>
-               <li>Ciberseguridad: cifrado AES-256, OAuth2</li>
-               <li>validación contra ataques y auditoría.</li>
-            </ul>
-         </td>
-      </tr>
-     <tr>
-         <td>
-            <div>
-               <h2 align="center">ROL Sistema de Roles y Perfiles </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Perfiles diferenciados: Cliente, Hotel/Empresario (mini landing), y Administrador, cada uno con panel propio.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">AUTH Autenticación Segura  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>OAuth2 con soporte para Google, Facebook y email. Recuperación de contraseña con tokens seguros y protección contra fuerza bruta.</p>
-         </td>
-      </tr>
- <tr>
-         <td>
-            <div>
-               <h2 align="center">ADMIN Panel de Administración  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <ul>
-               <li>Gestión de roles y perfiles (ROL).</li>
-               <li>Gestión de reservas (RES) para monitoreo y auditoría.</li>
-               <li>Mensajería (MENS) para moderación.</li>
-               <li>Pagos (PAY) para ver reportes y auditoría.</li>
-               <li>Integraciones (N8N) para revisar logs de automatización.</li>
-            </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">MENS Servicio de Mensajería Interna </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Chat privado entre usuarios (viajeros y empresarios) con historial, notificaciones y moderación opcional.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">SOCIAL Grupos Estilo Red Social  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Creación y gestión de grupos temáticos, roles, y chat grupal para compartir contenido.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">PAY Pasarela de Pago  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Integración con Stripe, PayU, MercadoPago o Wompi. Pagos tokenizados, soporte multimoneda y confirmaciones mediante webhooks.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">N8N Integración con WhatsApp + Automatización (n8n) </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Atogestion y generación de enlaces directos vía WALink, flujos automatizados en n8n para confirmaciones, recordatorios y seguimiento de conversaciones.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">PIC Galería de Fotos  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Hoteles pueden subir imágenes comprimidas, categorizadas y optimizadas para dispositivos móviles</p>
-         </td>
-      </tr>
-   </table>
-</div>
 
 </details>
 
@@ -154,17 +47,16 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
 ---
 
+<div>
+   <h2>🔥 MODULOS ACTUALES Y DOCUMENTACIÓN RESUMIDA</h2>   
+</div>
+
 <details>
    <summary><h2>🔐 RES Servicio de Reserva con Ciberseguridad Integrada </h2></summary>
 
    <ul>
-      <h1>GESTION DE RESERVAS</h1>
-         <li>☑ RES-001 Creación de reservas</li>
-         <li>☑ RES-002 Consulta de reservas existentes</li>
-         <li>☑ RES-003 Modificación de Reservas Existentes</li>
-         <li>☑ RES-004 Cancelación de Reservas</li>
-         <li>☑ RES-005 Cálculo Automático de Precios</li>
-         <li>☑ RES-006 Generación de Códigos de Confirmación</li>         
+      <h1>reservation</h1>
+         <li></li>               
 
    </ul>
 
@@ -177,18 +69,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>CREACION DE ROLES</h1>
-         <li>☑ ROL-001 Creación de entidad user para roles</li>
-         <li>☑ ROL-002 Creacion de nuevo usuario segun rol</li>
-         <li>☑ ROL-003 Encontrar usuarios por rol</li>
-         <li>☑ ROL-004 Editar usuarios por rol</li>
-         <li>☑ ROL-005 Eliminar usuarios</li>
-         <li>☑ ROL-006 Conexion a base de datos</li>
-         <li>☑ ROL-007 Encriptar contraseñas bcrypt</li> 
-         <li>☑ ROL-008 Estandarizar respuestas JSON</li> 
-         <li>☑ ROL-009 Identificador principal en la respuesta debe ser el email</li> 
-         <li>☑ ROL-010 Crear Modulo unico para imports de librerias externas</li> 
-         <li>☑ ROL-011 Relacionar el rol como coleccion separada</li> 
-      
+         
 
    </ul>
 
