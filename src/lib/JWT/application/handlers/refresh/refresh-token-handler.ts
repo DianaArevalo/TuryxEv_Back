@@ -1,8 +1,8 @@
-import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
-import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
-import { JwtServiceAdapter } from "../adapters/jwt-service";
-import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
-import { ValidationError } from "../../../../lib/Shared/domain";
+import { Hasher } from "../../../../Shared/Infraestructure/Hasher";
+import { RefreshTokenRepository } from "../../../infraestructure/repositories/RefreshTokenRepository";
+import { JwtServiceAdapter } from "../../adapters/jwt-service";
+import { JwtEntity } from "../../../domain/entities/JWT/JwtEntity";
+import { ValidationError } from "../../../../Shared/domain";
 import { nanoid } from "nanoid";
 
 export class RefreshTokenHandler {

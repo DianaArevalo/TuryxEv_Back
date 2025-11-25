@@ -1,6 +1,6 @@
-import { ValidationError } from "../../../../lib/Shared/domain";
-import { RefreshTokenRepository } from "../../infraestructure/repositories/RefreshTokenRepository";
-import { JwtServiceAdapter } from "../adapters/jwt-service";
+import { ValidationError } from "../../../../Shared/domain";
+import { RefreshTokenRepository } from "../../../infraestructure/repositories/RefreshTokenRepository";
+import { JwtServiceAdapter } from "../../adapters/jwt-service";
 
 export class RevokeTokenHandler {
   constructor(
