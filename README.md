@@ -123,7 +123,10 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          </tr>
           <tr>
          <td><h3>🅿️Pruebas Manuales</h3></td>
-         <td>         
+         <td> 
+            <img width="1112" height="685" alt="image" src="https://github.com/user-attachments/assets/824f697e-9ec4-40e3-8de0-120c8e6ef2ae" />
+            <img width="1301" height="733" alt="image" src="https://github.com/user-attachments/assets/fe3a5bfb-d7b0-4cde-a45b-57730faa0b4b" />
+            <img width="962" height="714" alt="image" src="https://github.com/user-attachments/assets/8f32b930-11e9-4c76-9370-49a4db153108" />            
          </td>
          </tr>
       </table>
