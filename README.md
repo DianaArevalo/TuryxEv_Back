@@ -112,14 +112,22 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
       <li>✔ Hashing con <strong>Argon2</strong> para Refresh Tokens almacenados en la base de datos</li>
       <li>✔ Generación de <em>token IDs</em> únicos con <strong>nanoid</strong> para evitar colisiones</li>
       <li>✔ Payload estándar, limpio y seguro</li>
-   </ul>
-<<<<<<< HEAD
-
-   <img width="973" height="617" alt="image" src=""  width="600"/>
-=======
+   </ul>   
     <img width="864" height="829" alt="Captura de pantalla 2025-11-25 214239" src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
->>>>>>> 05db54eccb4ac72c53491ee59e1b6acbf8ad7184
-
+    <br>
+      <table>
+         <tr>
+         <td><h3>🔥Dependencias</h3></td>
+         <td><strong>npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser
+</strong></td>
+         </tr>
+          <tr>
+         <td><h3>🅿️Pruebas Manuales</h3></td>
+         <td>         
+         </td>
+         </tr>
+      </table>
+s
 </details>
 
 ---
@@ -185,12 +193,12 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
             <td>⌨️5. Pruebas Manuales con Postman/Thunder Client/etc</td>
             <td>
                 <ul>
-         <li>1. Habilitar postman</li>
-         <li>2. Las respuestas deben de llevar el formato ApiResponse que se encuentra en la carpeta de Shared: <strong>success</strong>,
-         <strong>title</strong>, <strong>message</strong> y <strong>body</strong> </li>
-         <li>3. Las respuestas y peticiones deben ir documentados en el README y Pull Request</li>                 
-               </ul>
-            </td>
+                     <li>1. Habilitar postman</li>
+                     <li>2. Las respuestas deben de llevar el formato ApiResponse que se encuentra en la carpeta de Shared: <strong>success</strong>,
+                     <strong>title</strong>, <strong>message</strong> y <strong>body</strong> </li>
+                     <li>3. Las respuestas y peticiones deben ir documentados en el README y Pull Request</li>                 
+                           </ul>
+                        </td>
          </tr>
            <tr>
             <td>🖱️6. Ejecutar test y coverage</td>
