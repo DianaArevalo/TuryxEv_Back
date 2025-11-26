@@ -116,11 +116,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
       <li>✔ Generación de <em>token IDs</em> únicos con <strong>nanoid</strong> para evitar colisiones</li>
       <li>✔ Payload estándar, limpio y seguro</li>
    </ul>
-
-
-   <img width="973" height="617" alt="image" src=""  width="600"/>
-
-
+    <img width="864" height="829" alt="Captura de pantalla 2025-11-25 214239" src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
 
 </details>
 
