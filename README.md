@@ -150,7 +150,20 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
     <td>Revoca el RefreshToken del usuario (requiere middleware)</td>
   </tr>
 
-</table>
+</table>         
+   <h3>📄Justificacion tecnica</h3>
+      <ul>
+         <li>✔ Mantener sesiones seguras y escalables</li>
+         <li>✔ Separar token de acceso y token de refresco evita problemas de seguridad.</li>
+         <li>✔ Facilita logout forzado y expiración de sesión.</li>
+         <li>✔ Refresh token en cookies httpOnly, evita ataques XSS, ya que JavaScript no puede leer los tokens.</li>
+         <li>✔ Argon2 es el algoritmo recomendado por OWASP para contraseñas y tokens persistentes.</li> 
+         <li>✔ Cada refresh token necesita un ID único para su revocación individual, nanoid lo garantiza, ademas de colisiones practicamente imposibles</li>                   
+      </ul>
+       <h3>👌Fuentes</h3>
+       <strong>https://github.com/alperkilickaya/httpOnlyRefreshToken/blob/main/backend/server.js</strong>
+       <strong>https://medium.com/%40alperkilickaya/creating-a-jwt-authentication-system-with-http-only-refresh-token-using-react-and-node-js-6865f04087ce</strong>
+
 
 </details>
 
