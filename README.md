@@ -117,6 +117,11 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
       <li>✔ Payload estándar, limpio y seguro</li>
    </ul>
 
+
+   <img width="973" height="617" alt="image" src=""  width="600"/>
+
+
+
 </details>
 
 ---
