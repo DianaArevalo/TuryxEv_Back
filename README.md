@@ -119,7 +119,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          <tr>
          <td><h3>🔥Dependencias</h3></td>
          <td><strong>npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser
-</strong></td>
+            </strong></td>
          </tr>
           <tr>
          <td><h3>🅿️Pruebas Manuales</h3></td>
@@ -127,7 +127,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          </td>
          </tr>
       </table>
-s
+
 </details>
 
 ---
