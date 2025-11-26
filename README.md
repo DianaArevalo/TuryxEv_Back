@@ -4,16 +4,14 @@
  <img width="70" height="70" alt="logo" src="https://github.com/user-attachments/assets/49d3f374-97b2-44c9-a484-a70db38b5620" alt="TuryxHotel_logo" width="250" />
  <h1>TuryxHotel</h1>
 
-
 ---
+
 <details>
  <summary><h2>🌃Arquitectura</h2></summary>
 
 <img width="973" height="617" alt="image" src="https://github.com/user-attachments/assets/07c28638-4bdd-42f3-b56a-af677a0387db"  width="600"/>
 
-
-</details>
----
+## </details>
 
 <details>
    <summary><h2>🏨 MODULOS PRINCIPALES</h2></summary>
@@ -23,7 +21,7 @@
 
 <br>
 
-Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
+Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.
 
 <h2>💹 SERVICIOS A INTEGRAR</h2>
 
@@ -35,7 +33,6 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ✔ 🔐 Autenticación Segura
 ✔ 🔐 Panel Administrativo
 
-
 </p>
 
 </details>
@@ -43,7 +40,6 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <hr style="border: none; height: 3px; background: linear-gradient(90deg, #009688, #4CAF50, #8BC34A); margin: 20px 0;">
-
 
 ---
 
@@ -56,7 +52,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>reservation</h1>
-         <li></li>               
+         <li></li>
 
    </ul>
 
@@ -69,19 +65,20 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>hotel</h1>
-         
+
 
    </ul>
 
 </details>
 
 ---
+
 <details>
    <summary><h2>🧑 Rol User</h2></summary>
 
    <ul>
       <h1>user</h1>
-         
+
 
    </ul>
 
@@ -94,7 +91,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>hotel</h1>
-         
+
 
    </ul>
 
@@ -103,12 +100,21 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <details>
-   <summary><h2>🔐 JWT</h2></summary>
+   <summary><h2>🔐 Modulo JWT</h2></summary>
+    <p>Este módulo implementa un sistema de autenticación seguro basado en <strong>JWT (JSON Web Tokens)</strong>, siguiendo principios de <strong>arquitectura hexagonal</strong> y <strong>Domain-Driven Design (DDD)</strong>. Incluye un esquema robusto de seguridad con <strong>Refresh Tokens</strong> almacenados en cookies <code>httpOnly</code>.</p>
+
+   <p>El diseño basado en <em>puertos y adaptadores</em> asegura independencia del framework y de la infraestructura, lo que permite escalar, testear y reemplazar componentes sin afectar las reglas del dominio.</p>
+
+   <h3>🔥 Características principales</h3>
 
    <ul>
-      <h1>JWT</h1>
-         
-
+      <li>✔ Firma de tokens mediante <code>SignTokenHandler</code></li>
+      <li>✔ Rotación segura de Refresh Tokens con <code>RefreshTokenHandler</code></li>
+      <li>✔ Revocación individual por <em>token ID</em> usando <code>RevokeTokenHandler</code></li>
+      <li>✔ Cookies <code>httpOnly</code> con <code>SameSite=Strict</code></li>
+      <li>✔ Hashing con <strong>Argon2</strong> para Refresh Tokens almacenados en la base de datos</li>
+      <li>✔ Generación de <em>token IDs</em> únicos con <strong>nanoid</strong> para evitar colisiones</li>
+      <li>✔ Payload estándar, limpio y seguro</li>
    </ul>
 
 </details>
@@ -120,14 +126,14 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>JWT</h1>
-         
+      
+
 
    </ul>
 
 </details>
 
 ---
-
 
 <details>
    <summary><h2> TERMINOS Y CONDICIONES </h2></summary>
@@ -156,6 +162,3 @@ Este proyecto se desarrolla bajo las siguientes condiciones:
       <img src="https://github.com/user-attachments/assets/b0cd5e5c-bfd8-4f2c-ae3a-e0d5defadc76" alt="Gmail" width="50"></a>
    
 </div>
-
-
-
