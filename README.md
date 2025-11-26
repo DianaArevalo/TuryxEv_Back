@@ -130,6 +130,27 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
          </td>
          </tr>
       </table>
+   <br>
+   <h3>🔥 Sección EndPoints</h3>
+
+<table>  
+
+  <tr>
+    <td><code>POST /jwt/sign</code></td>
+    <td>Genera AccessToken + RefreshToken</td>
+  </tr>
+
+  <tr>
+    <td><code>POST /jwt/refresh</code></td>
+    <td>Genera nuevos tokens a partir del RefreshToken</td>
+  </tr>
+
+  <tr>
+    <td><code>POST /jwt/revoke</code></td>
+    <td>Revoca el RefreshToken del usuario (requiere middleware)</td>
+  </tr>
+
+</table>
 
 </details>
 
