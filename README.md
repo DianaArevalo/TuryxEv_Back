@@ -66,7 +66,6 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
    <ul>
       <h1>hotel</h1>
 
-
    </ul>
 
 </details>
@@ -79,7 +78,6 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
    <ul>
       <h1>user</h1>
 
-
    </ul>
 
 </details>
@@ -91,7 +89,6 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>hotel</h1>
-
 
    </ul>
 
@@ -117,10 +114,7 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
       <li>✔ Payload estándar, limpio y seguro</li>
    </ul>
 
-
    <img width="973" height="617" alt="image" src=""  width="600"/>
-
-
 
 </details>
 
@@ -131,12 +125,95 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
    <ul>
       <h1>JWT</h1>
-      
-
 
    </ul>
 
 </details>
+
+---
+
+<details>
+ <summary><h2>🔥Paso a paso para desarrollar con nosotros</h2></summary>
+
+  <div>   
+   <p>
+   <strong>🎶0. Requisitos Previos: </strong>   
+   </p>
+     <ul>
+         <li>✔ Node.js v18+ y npm</li>
+         <li>✔ Git</li>
+         <li>✔ Docker (opcional, recomendado para MongoDB local)</li>
+         <li>✔ Cookies <code>httpOnly</code> con <code>SameSite=Strict</code></li>
+         <li>✔ Editor (VSCode recomendado)</li>         
+     </ul>
+      <table>
+         <tr>
+            <td>♣️1. Clonar Repositorio</td>
+            <td><strong>git clone https://github.com/DianaArevalo/TuryxEv_Back.git</strong> cd TuryxEv_Back</td>
+         </tr>
+         <tr>
+            <td>✨2. Inicializar con Git Flow</td>
+            <td>
+               <strong>git flow init</strong> 
+               <strong>git flow feature start feat/nombre-asignado</strong> 
+            </td>
+         </tr>
+          <tr>
+            <td>💻3. Instalar dependencias necesarias para desarrollar</td>
+            <td>
+               <strong>npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser nanoid
+               </strong> 
+               <strong>npm install -D typescript ts-node nodemon jest ts-jest @types/jest @types/express @types/jsonwebtoken @types/cookie-parser
+               </strong> 
+            </td>
+         </tr>
+         <tr>
+            <td>🖥️4. Desarrollo</td>
+            <td>
+               <ul>
+         <li>✔ Seguir desarrollo segun historias de usuario que le seran asignadas</li>
+         <li>✔ Sigue la arquitectura: domain → application (handlers) → infrastructure (controllers, routes, middlewares).</li>
+         <li>✔ Añade tests unitarios en tests/ o junto a los archivos .spec.ts.</li>                 
+               </ul>
+            </td>
+         </tr>
+           <tr>
+            <td>⌨️5. Pruebas Manuales con Postman/Thunder Client/etc</td>
+            <td>
+                <ul>
+         <li>1. Habilitar postman</li>
+         <li>2. Las respuestas deben de llevar el formato ApiResponse que se encuentra en la carpeta de Shared: <strong>success</strong>,
+         <strong>title</strong>, <strong>message</strong> y <strong>body</strong> </li>
+         <li>3. Las respuestas y peticiones deben ir documentados en el README y Pull Request</li>                 
+               </ul>
+            </td>
+         </tr>
+           <tr>
+            <td>🖱️6. Ejecutar test y coverage</td>
+            <td>
+               <strong>npx jest --coverage</strong>             
+            </td>
+         </tr>
+           <tr>
+    <td>✨7. Habilitar Pull Request para revisión</td>
+    <td>
+
+### ✅ Checklist antes de enviar el PR
+
+- [ ] Código formateado (Prettier/ESLint)
+- [ ] Tests añadidos y todos pasan correctamente
+- [ ] Documentación actualizada (README del módulo si aplica)
+- [ ] Capturas de Postman incluidas
+- [ ] Coverage mínimo del 90% (incluir imagen en el PR)
+- [ ] Asignar reviewers
+- [ ] Etiquetar la historia de usuario correspondiente
+
+    </td>
+  </tr>
+      </table>   
+   </div>
+
+   </details>
 
 ---
 
