@@ -65,10 +65,10 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <details>
-   <summary><h2>🧑‍💼 ROL Sistema de Roles y Perfiles </h2></summary>
+   <summary><h2>🧑 Rol Business</h2></summary>
 
    <ul>
-      <h1>CREACION DE ROLES</h1>
+      <h1>hotel</h1>
          
 
    </ul>
@@ -76,6 +76,58 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 </details>
 
 ---
+<details>
+   <summary><h2>🧑 Rol User</h2></summary>
+
+   <ul>
+      <h1>user</h1>
+         
+
+   </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2>🧑‍💼 Rol Hotel</h2></summary>
+
+   <ul>
+      <h1>hotel</h1>
+         
+
+   </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2>🔐 JWT</h2></summary>
+
+   <ul>
+      <h1>JWT</h1>
+         
+
+   </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2>🔓 auth</h2></summary>
+
+   <ul>
+      <h1>JWT</h1>
+         
+
+   </ul>
+
+</details>
+
+---
+
 
 <details>
    <summary><h2> TERMINOS Y CONDICIONES </h2></summary>
