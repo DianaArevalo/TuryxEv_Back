@@ -3,7 +3,7 @@ name: CI - Tests
 on:
   pull_request:
     branches: [ develop ]
-    types: [ready_for_review]
+    types: [ready_for_review, synchronize]
   
 
 jobs:
