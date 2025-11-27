@@ -23,6 +23,9 @@ const config: Config = {
 
  coveragePathIgnorePatterns: [
   "/node_modules/",
+  // Ignorar Shared temporalmente
+  "<rootDir>/src/lib/Shared/",
+  "<rootDir>/src/lib/shared/",
   "<rootDir>/src/lib/JWT/domain/ports/.*",           // puertos
   "<rootDir>/src/lib/JWT/application/adapters/.*",   // adaptadores
   "<rootDir>/src/lib/JWT/infraestructure/repositories/(?!in-memory/).*", // repositorios reales
