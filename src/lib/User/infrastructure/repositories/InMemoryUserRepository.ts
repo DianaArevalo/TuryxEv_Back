@@ -5,15 +5,21 @@ import { UserEmail, UserId, UserPassword, UserStatus } from "../../domain/entiti
 import { UserRepository } from "../../domain/repositories";
 import { UserNotFoundError } from "../../domain/exceptions";
 
+
 export class InMemoryUserRepository implements UserRepository {
     private users: User[] = [];
+    private counter = 1;
 
-    async create(user: User): Promise<User> {
-     if (!user.status) {
-        user.status = new UserStatus(true); // usuario activo por defecto
-    }
+  async create(user: User): Promise<User> {
+        if (!user.idUser) {
+            user.idUser = new UserId((this.counter++).toString());
+        }
 
-        if(user.password){
+        if (!user.status) {
+            user.status = new UserStatus(true);
+        }
+
+        if (user.password) {
             const hashed = await Hasher.hash(user.password.value);
             user.password = new UserPassword(hashed);
         }
