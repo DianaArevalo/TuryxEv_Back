@@ -22,11 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test -- --coverage --runInBand
-
+      # ⬇️ Esta acción debe ir ANTES de los tests
       - name: Jest Annotations & Coverage
         uses: mattallty/jest-github-action@v1.0.3
 
-      
-
+      - name: Run tests
+        run: npm test -- --coverage --runInBand
