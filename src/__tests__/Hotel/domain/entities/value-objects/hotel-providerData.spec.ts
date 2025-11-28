@@ -1,4 +1,5 @@
-import { ProviderData } from "~/lib/Hotel/domain";
+import { ProviderData } from "~/lib/Shared/domain";
+
 
 describe("Hotel/domain/value-objects/hotel-providerData", () => {
   it("should create from primitives", () => {

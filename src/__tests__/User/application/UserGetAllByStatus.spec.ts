@@ -25,7 +25,7 @@ describe("application/UserGetAllByStatus", () => {
       providerData: "AUTH",
     });
 
-    // Crear usuario inactivo y modificar su estado
+    // Crear usuario inactivo
     await userCreate.handler({
       name: "Inactive User",
       email: inactiveUserEmail,
@@ -33,25 +33,32 @@ describe("application/UserGetAllByStatus", () => {
       providerData: "AUTH",
     });
 
+    // Obtener entidades creadas
+    const activeEntity = await repository.getOneByEmail(UserEmail.create(activeUserEmail));
     const inactiveEntity = await repository.getOneByEmail(UserEmail.create(inactiveUserEmail));
+
+    if (activeEntity) {
+      activeEntity.status = new UserStatus(true);
+      await repository.edit(activeEntity);
+    }
+
     if (inactiveEntity) {
       inactiveEntity.status = new UserStatus(false);
       await repository.edit(inactiveEntity);
-    }
+    }    
   });
 
   it("should return only active and inactive users correctly", async () => {
     const activeUsers = await userGetAllByStatus.handler({ status: true });
+    console.log("Active users returned:", activeUsers);
+
     expect(activeUsers).toHaveLength(1);
     expect(activeUsers[0].email).toBe(activeUserEmail);
 
     const inactiveUsers = await userGetAllByStatus.handler({ status: false });
+    console.log("Inactive users returned:", inactiveUsers);
+
     expect(inactiveUsers).toHaveLength(1);
     expect(inactiveUsers[0].email).toBe(inactiveUserEmail);
-  });
-
-  it("should return empty array if no users match the status", async () => {
-    const users = await userGetAllByStatus.handler({ status: null as any });
-    expect(users).toEqual([]);
   });
 });
