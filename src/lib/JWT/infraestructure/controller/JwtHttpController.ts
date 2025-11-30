@@ -1,10 +1,5 @@
 import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
 import { express as ex } from "../../../Shared/Infraestructure/External";
-import {
-  refreshTokenHandler,
-  revokeTokenHandler,
-  signTokenHandler,
-} from "../composition/jwt-composition";
 import { JwtControllerPort } from "../../domain/ports/driver/JwtControllerPort";
 
 export class JwtHttpController {

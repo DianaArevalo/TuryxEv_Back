@@ -5,8 +5,9 @@ import { JwtCustomPayload } from "../../domain/entities";
 import { SignTokenHandler } from "../handlers/sign/sign-token-handler";
 import { RefreshTokenHandler } from "../handlers/refresh/refresh-token-handler";
 import { RevokeTokenHandler } from "../handlers/revoke/revoke-token-handler";
+import { JwtControllerPort } from "../../domain/ports/driver/JwtControllerPort";
 
-export class JwtServiceAdapter {
+export class JwtServiceAdapter  {
   constructor(
     private readonly signPort: ForSignToken,
     private readonly verifyPort: ForVerifyToken    

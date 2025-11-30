@@ -1,9 +1,11 @@
+
 import {
   RefreshTokenHandler,
   RevokeTokenHandler,
   SignTokenHandler,
 } from "../../application";
 import { JwtServiceAdapter } from "../../application/adapters/jwt-service";
+import { JwtService } from "../../application/services/JwtService";
 import { JwtAdapter } from "../adapters/JwtAdapter";
 import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository";
 
@@ -24,8 +26,10 @@ const jwtComposition = () => {
   };
 };
 
-export const { 
-  signTokenHandler, 
-  refreshTokenHandler, 
-  revokeTokenHandler 
-} = jwtComposition();
+const { signTokenHandler, refreshTokenHandler, revokeTokenHandler } = jwtComposition();
+
+export const jwtService = new JwtService(
+  signTokenHandler,
+  refreshTokenHandler,
+  revokeTokenHandler
+);
