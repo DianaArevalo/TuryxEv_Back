@@ -1,3 +1,4 @@
+import { JwtCustomPayload } from "../../entities";
 import { JwtEntity } from "../../entities/JWT/JwtEntity";
 
 /**
@@ -10,5 +11,5 @@ export interface ForSignToken {
    * @param payload Datos a incluir en el token (por ejemplo, id del usuario, rol, proveedor)
    * @param expiresIn Duración en segundos del token de acceso
    */
-  sign(payload: object, expiresIn?: number): Promise<JwtEntity>;
+  sign(payload: JwtCustomPayload, expiresIn?: number): Promise<JwtEntity>;
 }

@@ -5,8 +5,11 @@ import {
   revokeTokenHandler,
   signTokenHandler,
 } from "../composition/jwt-composition";
+import { JwtControllerPort } from "../../domain/ports/driver/JwtControllerPort";
 
 export class JwtHttpController {
+
+  constructor(private readonly jwtService: JwtControllerPort){}
   async jwtSign(req: ex.Request, res: ex.Response) {
     try {
       const { userId, payload } = req.body;
@@ -20,7 +23,7 @@ export class JwtHttpController {
 
       if (!userId) return res.status(400).json(wrong);
 
-      const jwtEntity = await signTokenHandler.handler(userId, payload ?? {});
+      const jwtEntity = await this.jwtService.sign(userId, payload ?? {});
       const { accessToken, refreshToken, expiration } =
         jwtEntity.toPrimitives();
 
@@ -70,7 +73,7 @@ export class JwtHttpController {
 
       if (!oldRefreshToken) return res.status(401).json(wrong);
 
-      const jwtEntity = await refreshTokenHandler.handler(
+      const jwtEntity = await this.jwtService.refresh(
         oldRefreshToken,
         userId,
         payload ?? {}
@@ -130,7 +133,7 @@ export class JwtHttpController {
         return res.status(400).json(wrong);
       }
 
-      await revokeTokenHandler.handler(refreshToken, userId);
+      await this.jwtService.revoke(refreshToken, userId);
 
       //Borrar cookies
 

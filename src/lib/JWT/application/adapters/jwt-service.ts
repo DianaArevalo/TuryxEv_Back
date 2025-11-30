@@ -1,14 +1,18 @@
 import { ForSignToken, ForVerifyToken } from "../../domain/ports/driven";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { JwtPayload } from "../../domain/entities/JWT/JwtPayload";
+import { JwtCustomPayload } from "../../domain/entities";
+import { SignTokenHandler } from "../handlers/sign/sign-token-handler";
+import { RefreshTokenHandler } from "../handlers/refresh/refresh-token-handler";
+import { RevokeTokenHandler } from "../handlers/revoke/revoke-token-handler";
 
 export class JwtServiceAdapter {
   constructor(
     private readonly signPort: ForSignToken,
-    private readonly verifyPort: ForVerifyToken
+    private readonly verifyPort: ForVerifyToken    
   ) {}
 
-  async signToken(payload: object): Promise<JwtEntity> {
+  async signToken(payload: JwtCustomPayload): Promise<JwtEntity> {
     return this.signPort.sign(payload);
   }
 
