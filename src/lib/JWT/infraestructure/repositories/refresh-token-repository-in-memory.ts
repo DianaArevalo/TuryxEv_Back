@@ -63,7 +63,7 @@ export class RefreshTokenRepositoryInMemory implements ForTokenRepository {
     this.tokens = this.tokens.filter((t) => t.expiresAt > now);
   }
 
-  // Método útil para pruebas
+  // Útil para pruebas
   getAll() {
     return this.tokens;
   }
