@@ -6,7 +6,7 @@ import { HttpError } from "~/lib/Shared/domain";
 describe("RevokeTokenHandler - Use Case", () => {
   let handler: RevokeTokenHandler;
   let jwtService: JwtServiceInMemory;
-  let repository: RefreshTokenRepositoryInMemory;
+  let repository: RefreshTokenRepositoryInMemory;  
 
   beforeEach(() => {
     jwtService = new JwtServiceInMemory();
@@ -19,12 +19,15 @@ describe("RevokeTokenHandler - Use Case", () => {
     const jwt = await jwtService.signToken({ sub: "user123", tid: "token123" });
     const refreshToken = jwt.toPrimitives().refreshToken;
 
+    //UTC
+    const REFRESH_TOKEN_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
     // Guardamos en el repositorio
     await repository.saveRefreshToken(
       "user123",
       "token123",
       "hash",
-      new Date(Date.now() + 1000 * 60 * 60)
+      new Date(Date.now() + REFRESH_TOKEN_TTL_MS)
     );
 
     // Ejecutamos handler
@@ -64,4 +67,14 @@ describe("RevokeTokenHandler - Use Case", () => {
       HttpError
     );
   });
+
+  it("should throw if userId is empty", async () => {
+  const jwt = await jwtService.signToken({ sub: "user123", tid: "token123" });
+  const refreshToken = jwt.toPrimitives().refreshToken;
+
+  await expect(handler.handler(refreshToken, ""))
+    .rejects
+    .toThrow("User ID is required");
+});
+
 });
