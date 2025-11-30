@@ -9,6 +9,8 @@ export class RevokeTokenHandler {
   ) {}
 
   async handler(refreshToken: string, userId: string): Promise<void> {
+
+    if (!userId?.trim()) throw new ValidationError("User ID is required");
     if (!refreshToken) throw new ValidationError("Token required");
 
     const payload = await this.jwtService.verifyToken(refreshToken);

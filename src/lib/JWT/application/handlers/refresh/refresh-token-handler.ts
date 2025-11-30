@@ -21,9 +21,8 @@ export class RefreshTokenHandler {
 
     if (!oldRefreshToken) throw new ValidationError("Refresh token required");
 
-    if (!userId?.trim()) {
-  throw new ValidationError("User ID is required");
-}
+    if (!userId?.trim()) throw new ValidationError("User ID is required");
+
 
     const decoded = await this.jwtService.verifyToken(oldRefreshToken);
     const oldTokenId = decoded.tid;
