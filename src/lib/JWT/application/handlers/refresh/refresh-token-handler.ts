@@ -4,6 +4,7 @@ import { JwtServiceAdapter } from "../../adapters/jwt-service";
 import { JwtEntity } from "../../../domain/entities/JWT/JwtEntity";
 import { ValidationError } from "../../../../Shared/domain";
 import { nanoid } from "nanoid";
+import { JwtCustomPayload } from "~/lib/JWT/domain/entities";
 
 export class RefreshTokenHandler {
   constructor(
@@ -14,7 +15,7 @@ export class RefreshTokenHandler {
   async handler(
     oldRefreshToken: string,
     userId: string,
-    payload: object
+    payload: JwtCustomPayload
   ): Promise<JwtEntity> {
 
 
