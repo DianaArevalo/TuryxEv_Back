@@ -15,6 +15,8 @@ import { ExpressHotelRouter } from "./lib/Hotel/infraestructure/routers/ExpressH
 import { ApiResponse } from "./lib/Shared/Infraestructure/ApiResponse";
 import { ExpressJwtRouter } from "./lib/JWT/infraestructure/routes/ExpressJwtRouter";
 
+const API_PREFIX = "/api/v1";
+
 const app = ex();
 app.use(cookieParser());
 // Middlewares
@@ -23,11 +25,11 @@ app.use(cors({ origin: config.mongoUri, credentials: true }));
 app.use(ex.json());
 
 // Rutas
-app.use("/api/v1/business", ExpressBusinessRouter);
-app.use("/api/v1/user", ExpressUserRouter);
-app.use("/api/v1/reservations", ExpressReservationRouter);
-app.use("/api/v1/hotel", ExpressHotelRouter);
-app.use("/api/v1/jwt", ExpressJwtRouter);
+app.use(`${API_PREFIX}/business`, ExpressBusinessRouter);
+app.use(`${API_PREFIX}/user`, ExpressUserRouter);
+app.use(`${API_PREFIX}/reservations`, ExpressReservationRouter);
+app.use(`${API_PREFIX}/hotel`, ExpressHotelRouter);
+app.use(`${API_PREFIX}/jwt`, ExpressJwtRouter);
 
 // Middleware de errores
 app.use(
@@ -35,7 +37,7 @@ app.use(
     if (err instanceof HttpError) {
       const response: ApiResponse<null> = {
         success: false,
-        title: "Ocurrio un error",
+        title: "Something wrong",
         message: err.message,
         body: null,
       };
@@ -56,7 +58,7 @@ app.use(
 connectMongo(config.mongoUri)
   .then(() => {
     app.listen(config.port, () => {
-      console.log(`✅ Server is running on http://localhost:${config.port}`);
+      console.log(`✅ Server is running on ${config.port}`);
     });
   })
   .catch((err) => {
