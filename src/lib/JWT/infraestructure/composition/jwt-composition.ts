@@ -1,4 +1,3 @@
-
 import {
   RefreshTokenHandler,
   RevokeTokenHandler,
@@ -10,7 +9,7 @@ import { JwtAdapter } from "../adapters/JwtAdapter";
 import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository";
 
 const jwtComposition = () => {
-  const jwtAdapter = new JwtAdapter();              // usa JWT_SECRET
+  const jwtAdapter = new JwtAdapter();
   const refreshTokenRepository = new RefreshTokenRepository();
 
   const jwtService = new JwtServiceAdapter(jwtAdapter, jwtAdapter);
@@ -26,10 +25,17 @@ const jwtComposition = () => {
   };
 };
 
-const { signTokenHandler, refreshTokenHandler, revokeTokenHandler } = jwtComposition();
+// 🚀 Crear handlers
+const handlers = jwtComposition();
 
+// 🚀 Exportar handlers individuales 
+export const signTokenHandler = handlers.signTokenHandler;
+export const refreshTokenHandler = handlers.refreshTokenHandler;
+export const revokeTokenHandler = handlers.revokeTokenHandler;
+
+// 🚀 Exportar el aggregate service también
 export const jwtService = new JwtService(
-  signTokenHandler,
-  refreshTokenHandler,
-  revokeTokenHandler
+  handlers.signTokenHandler,
+  handlers.refreshTokenHandler,
+  handlers.revokeTokenHandler
 );
