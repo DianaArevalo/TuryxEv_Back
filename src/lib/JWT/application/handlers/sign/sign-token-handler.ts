@@ -5,6 +5,8 @@ import { JwtServiceAdapter } from "../../adapters/jwt-service";
 import { ValidationError } from "../../../../../lib/Shared/domain";
 import { nanoid } from "nanoid";
 
+const SEVEN_DAYS_IN_MS = 7 * 24 * 60 * 60 * 1000
+
 export class SignTokenHandler {
   constructor(
     private readonly jwtService: JwtServiceAdapter,
@@ -12,6 +14,8 @@ export class SignTokenHandler {
   ) {}
 
   async handler(userId: string, payload: object = {}): Promise<JwtEntity> {
+
+
     if (!userId) throw new ValidationError("UserId required");
 
     const tokenId = nanoid();
@@ -23,9 +27,9 @@ export class SignTokenHandler {
     });
 
     const refreshToken = jwtEntity.toPrimitives().refreshToken;
-    const refreshHash = await Hasher.hash(refreshToken);
+    const refreshHash = await Hasher.hash(refreshToken);    
 
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 días
+    const expiresAt = new Date(Date.now() + SEVEN_DAYS_IN_MS); // 7 días
 
     await this.tokenRepository.saveRefreshToken(
       userId,
