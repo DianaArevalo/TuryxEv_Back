@@ -12,11 +12,11 @@ const jwtComposition = () => {
   const jwtAdapter = new JwtAdapter();
   const refreshTokenRepository = new RefreshTokenRepository();
 
-  const jwtService = new JwtServiceAdapter(jwtAdapter, jwtAdapter);
+  const jwtServiceAdapter = new JwtServiceAdapter(jwtAdapter, jwtAdapter);
 
-  const signTokenHandler = new SignTokenHandler(jwtService, refreshTokenRepository);
-  const refreshTokenHandler = new RefreshTokenHandler(jwtService, refreshTokenRepository);
-  const revokeTokenHandler = new RevokeTokenHandler(jwtService, refreshTokenRepository);
+  const signTokenHandler = new SignTokenHandler(jwtServiceAdapter, refreshTokenRepository);
+  const refreshTokenHandler = new RefreshTokenHandler(jwtServiceAdapter, refreshTokenRepository);
+  const revokeTokenHandler = new RevokeTokenHandler(jwtServiceAdapter, refreshTokenRepository);
 
   return {
     signTokenHandler,

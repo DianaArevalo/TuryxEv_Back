@@ -3,7 +3,7 @@ import { express as ex } from "../../../Shared/Infraestructure/External";
 import { verifyAccessTokenMiddleware } from "../middlewares/VerifyAccessTokenMiddleware";
 import { jwtService } from "../composition/jwt-composition";
 
-const controller = new JwtHttpController(jwtService);
+export const controller = new JwtHttpController(jwtService);
 const ExpressJwtRouter = ex.Router();
 
 ExpressJwtRouter.post("/jwt/sign", controller.jwtSign);

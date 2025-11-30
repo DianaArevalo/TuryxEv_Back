@@ -5,7 +5,7 @@ import { JwtControllerPort } from "../../domain/ports/driver/JwtControllerPort";
 export class JwtHttpController {
 
   constructor(private readonly jwtService: JwtControllerPort){}
-  async jwtSign(req: ex.Request, res: ex.Response) {
+  jwtSign = async (req: ex.Request, res: ex.Response) => {
     try {
       const { userId, payload } = req.body;
 
@@ -54,7 +54,7 @@ export class JwtHttpController {
     }
   }
 
-  async jwtRefresh(req: ex.Request, res: ex.Response) {
+  jwtRefresh = async (req: ex.Request, res: ex.Response) => {
     try {
       const oldRefreshToken = req.cookies?.refreshToken;
       const { userId, payload } = req.body;
@@ -112,7 +112,7 @@ export class JwtHttpController {
     }
   }
 
-  async jwtRevoke(req: ex.Request, res: ex.Response) {
+  jwtRevoke = async (req: ex.Request, res: ex.Response) => {
     try {
       const refreshToken = req.cookies?.refreshToken;
       const { userId } = req.body;
