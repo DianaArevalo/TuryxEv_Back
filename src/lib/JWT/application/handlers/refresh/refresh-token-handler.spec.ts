@@ -42,4 +42,11 @@ describe("RefreshTokenHandler - Use Case", () => {
   it("should throw if old refresh token is missing", async () => {
     await expect(handler.handler("", "user123", {})).rejects.toThrow(HttpError);
   });
+
+  it("should throw if userId is empty", async () => {
+  await expect(handler.handler("any-refresh-token", "", {}))
+    .rejects
+    .toThrow("User ID is required");
+});
+
 });
