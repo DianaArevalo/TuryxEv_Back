@@ -3,20 +3,18 @@ import {
   HotelName,
   HotelEmail,
   HotelPassword,
-  HotelPicture,
   HotelScore,
   HotelUpdatedAt,
   HotelRole,
   HotelPlan,
   HotelStatus,
-  HotelFreePlanEnd,
   HotelProviderData,
   HotelCreatedAt,
   HotelId,
 } from './value-objects';
 
 describe('Hotel - Entity', () => {
-  it('should create a hotel entity with id', async () => {
+  it('should create a hotel entity with id', () => {
     const createdAt = HotelCreatedAt.now();
     const props = {
       id: 'id',
@@ -29,6 +27,8 @@ describe('Hotel - Entity', () => {
       location: {
         address: 'Some address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTH',
     };

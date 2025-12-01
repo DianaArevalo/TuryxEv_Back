@@ -1,5 +1,7 @@
 import {
   City,
+  CityCountry,
+  CityDepartment,
   CityId,
   CityName,
   Location,
@@ -18,14 +20,23 @@ export class LocationRepositoryInMemoryAdapter
   locations: Location[] = [];
 
   constructor() {
-    ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'].forEach(
-      (value, index) =>
-        this.cities.push(
-          new City({
-            cityId: CityId.create(index.toString()),
-            name: CityName.create(value),
-          }),
-        ),
+    const cities = [
+      { name: 'Bogotá', department: 'Distrito Capital' },
+      { name: 'Medellín', department: 'Antioquia' },
+      { name: 'Cali', department: 'Valle del Cauca' },
+      { name: 'Barranquilla', department: 'Atlántico' },
+      { name: 'Cartagena', department: 'Bolívar' },
+    ];
+
+    cities.forEach((item, index) =>
+      this.cities.push(
+        new City({
+          cityId: CityId.create(index.toString()),
+          country: new CityCountry('Colombia'),
+          department: new CityDepartment(item.department),
+          name: CityName.create(item.name),
+        }),
+      ),
     );
   }
 
@@ -96,21 +107,6 @@ export class LocationRepositoryInMemoryAdapter
     this.locations.push(location);
 
     return Promise.resolve(location);
-  }
-
-  async createCity(cityName: CityName): Promise<City> {
-    let city = await this.getOneCityByName(cityName);
-
-    if (!city) {
-      city = new City({
-        cityId: new CityId(cityName.value),
-        name: cityName,
-      });
-
-      this.cities.push(city);
-    }
-
-    return Promise.resolve(city);
   }
 
   update(location: Location): Promise<Location> {

@@ -39,6 +39,8 @@ describe('Create hotel - Use Case', () => {
       location: {
         address: 'Some address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTH',
     };
@@ -63,6 +65,8 @@ describe('Create hotel - Use Case', () => {
       location: {
         address: 'Other address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTHGOOGLE',
     };
@@ -87,6 +91,8 @@ describe('Create hotel - Use Case', () => {
       location: {
         address: 'Other address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTHGOOGLE',
     };
@@ -106,6 +112,8 @@ describe('Create hotel - Use Case', () => {
       location: {
         address: 'Another address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://worldvectorlogo.com/es/logo/expressjs',
       freePlanExpiresAt: new Date(Date.now() + 30 * 24 + 60 + 60 + 1000),
@@ -132,6 +140,8 @@ describe('Create hotel - Use Case', () => {
       location: {
         address: 'X address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTH',
     };
@@ -156,6 +166,8 @@ describe('Create hotel - Use Case', () => {
       HotelLocation.create({
         address: '',
         cityName: '',
+        lat: 10,
+        lng: 10,
       }),
     ).toThrow(HttpError);
   });

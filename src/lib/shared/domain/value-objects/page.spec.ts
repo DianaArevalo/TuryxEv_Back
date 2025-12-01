@@ -8,7 +8,8 @@ describe('PageValueObject', () => {
   });
 
   it('should return default page when value is null', () => {
-    const vo = PageValueObject.create(null as any);
+    // @ts-expect-error: intentionally passing an optional value for test
+    const vo = PageValueObject.create(null);
     expect(vo.value).toBe(1);
   });
 

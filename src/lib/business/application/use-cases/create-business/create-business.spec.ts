@@ -37,6 +37,8 @@ describe('Create business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Some address',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://expressjs.com/images/favicon.png',
       providerData: 'AUTH',
@@ -54,6 +56,8 @@ describe('Create business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Another address',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTHGOOGLE',
     });
@@ -72,6 +76,8 @@ describe('Create business - Use Case', () => {
         location: {
           cityName: 'Bogotá',
           address: 'Some address',
+          lat: 10,
+          lng: 10,
         },
         picture: 'https://expressjs.com/images/favicon.png',
         providerData: 'AUTH',
@@ -88,6 +94,8 @@ describe('Create business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Another address',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTHGOOGLE',
     });
@@ -101,6 +109,8 @@ describe('Create business - Use Case', () => {
         location: {
           cityName: 'Bogotá',
           address: 'Another address',
+          lat: 10,
+          lng: 10,
         },
         providerData: 'AUTHGOOGLE',
       }),

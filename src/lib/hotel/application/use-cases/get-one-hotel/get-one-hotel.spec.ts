@@ -22,6 +22,8 @@ const hotels = [
     location: {
       address: 'Some address',
       cityName: 'Bogotá',
+      lat: 10,
+      lng: 10,
     },
     providerData: 'AUTH',
   },
@@ -34,6 +36,8 @@ const hotels = [
     location: {
       address: 'Other address',
       cityName: 'Medellín',
+      lat: 10,
+      lng: 10,
     },
     providerData: 'AUTHGOOGLE',
   },
@@ -46,6 +50,8 @@ const hotels = [
     location: {
       address: 'Another address',
       cityName: 'Medellín',
+      lat: 10,
+      lng: 10,
     },
     providerData: 'AUTHGOOGLE',
   },

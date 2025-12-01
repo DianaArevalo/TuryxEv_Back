@@ -17,6 +17,5 @@ export interface LocationRepositoryPort {
   getOneCityByName(cityName: CityName): Promise<City | null>;
   isValidCity(cityName: CityName): Promise<boolean>;
   create(location: Location): Promise<Location>;
-  createCity(cityName: CityName): Promise<City>;
   update(location: Location): Promise<Location>;
 }

@@ -1,4 +1,3 @@
-export * from './create-city/create-city';
 export * from './create-location/create-location';
 export * from './edit-location/edit-location';
 export * from './get-location-by-owner/get-location-by-owner';

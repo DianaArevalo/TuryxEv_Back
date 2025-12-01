@@ -1,4 +1,5 @@
 import { PlanValueObject } from './plan';
+
 import { HttpError } from '~/lib/shared/domain';
 
 describe('PlanValueObject', () => {
@@ -49,7 +50,8 @@ describe('PlanValueObject', () => {
 
     it('should throw for invalid primitive', () => {
       expect(() => {
-        PlanValueObject.fromPrimitives(9 as any);
+        // @ts-expect-error: intentionally passing an optional value for test
+        PlanValueObject.fromPrimitives(9);
       }).toThrow(HttpError);
     });
   });

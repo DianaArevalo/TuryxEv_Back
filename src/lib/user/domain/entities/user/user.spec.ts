@@ -10,6 +10,7 @@ import {
   UserCreatedAt,
   UserUpdatedAt,
 } from './value-objects';
+
 import { HotelId } from '~/lib/hotel/domain';
 
 describe('User', () => {

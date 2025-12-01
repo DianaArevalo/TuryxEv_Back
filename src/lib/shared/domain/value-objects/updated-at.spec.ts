@@ -1,5 +1,5 @@
-import { UpdatedAtValueObject } from './updated-at';
 import { CreatedAtValueObject } from './created-at';
+import { UpdatedAtValueObject } from './updated-at';
 import { HttpError } from '../exeptions';
 
 describe('UpdatedAtValueObject', () => {

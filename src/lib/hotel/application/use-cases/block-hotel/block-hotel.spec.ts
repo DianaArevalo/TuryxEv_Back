@@ -1,7 +1,9 @@
+import { BlockHotelUseCase } from './block-hotel';
+import { CreateHotelUseCase } from '../create-hotel/create-hotel';
+
 import {
   HotelRepositoryPort,
   LocationServicePort as HotelLocationServicePort,
-  HotelLocation,
   HotelResponse,
   HotelId,
 } from '~/lib/hotel/domain';
@@ -9,13 +11,7 @@ import { HotelRepositoryInMemoryAdapter } from '~/lib/hotel/infrastructure/adapt
 import { LocationServiceAdapter as HotelLocationServiceAdapter } from '~/lib/hotel/infrastructure/adapters/location-service.adapter';
 import { LocationServicePort } from '~/lib/location/domain';
 import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import {
-  HttpError,
-  LimitValueObject,
-  PageValueObject,
-} from '~/lib/shared/domain';
-import { CreateHotelUseCase } from '../create-hotel/create-hotel';
-import { BlockHotelUseCase } from './block-hotel';
+import { HttpError } from '~/lib/shared/domain';
 
 describe(' - Use Case', () => {
   let hotelLocationService: HotelLocationServicePort;
@@ -42,6 +38,8 @@ describe(' - Use Case', () => {
       location: {
         address: 'Some address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       },
       providerData: 'AUTH',
     });

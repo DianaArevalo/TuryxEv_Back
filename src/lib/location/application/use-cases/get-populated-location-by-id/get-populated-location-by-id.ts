@@ -31,6 +31,8 @@ export class GetPopulatedLocationByIdUseCase
       address: location.address.value,
       cityId: location.city.value,
       cityName: city!.name.value,
+      lat: location.locationLat.value,
+      lng: location.locationLng.value,
     };
   }
 }

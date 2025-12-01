@@ -5,16 +5,10 @@ import { express as ex } from '~/lib/shared/infrastructure';
 const ExpressLocationRouter = ex.Router();
 
 const {
-  createCityController,
   getLocationByOwnerController,
   getValidCitiesController,
   editLocationController,
 } = controllers;
-
-ExpressLocationRouter.post(
-  '/create-city',
-  createCityController.handle.bind(createCityController),
-);
 
 ExpressLocationRouter.get(
   '/get-location-by-owner',

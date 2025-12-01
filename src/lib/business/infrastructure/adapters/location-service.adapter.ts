@@ -18,6 +18,8 @@ export class LocationServiceAdapter implements LocationServicePort {
       cityName: location.value.cityName,
       address: location.value.address,
       businessId: businessId.value,
+      lat: location.value.lat,
+      lng: location.value.lng,
     });
 
     return new BusinessLocation({
@@ -25,6 +27,8 @@ export class LocationServiceAdapter implements LocationServicePort {
       cityId: newLocation.city.id,
       cityName: newLocation.city.name,
       address: newLocation.address,
+      lat: newLocation.locationLat,
+      lng: newLocation.locationLng,
     });
   }
 

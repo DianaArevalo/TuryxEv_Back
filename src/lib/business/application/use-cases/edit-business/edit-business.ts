@@ -23,6 +23,8 @@ export interface EditBusinessDTO {
     locationId: string;
     cityName: string;
     address: string;
+    lat: number;
+    lng: number;
   };
   idPlan?: string;
   score?: number;
