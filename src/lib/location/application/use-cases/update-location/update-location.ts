@@ -4,9 +4,9 @@ import {
   LocationId,
   LocationNotFoundError,
   LocationRepositoryPort,
-} from '../../../domain';
+} from "../../../domain";
 
-import { UseCase } from '~/lib/Shared/application/usecase';
+import { UseCase } from "~/lib/Shared/application/usecase";
 
 export interface UpdatelocationDTO {
   locationId: string;
@@ -19,20 +19,20 @@ export class UpdateLocationUseCase implements UseCase<UpdatelocationDTO, void> {
 
   async execute(props: UpdatelocationDTO) {
     const result = await this.repository.getOneLocation(
-      new LocationId(props.locationId),
+      new LocationId(props.locationId)
     );
 
     if (!result) throw new LocationNotFoundError();
 
     if (props.cityName) {
       const isValidCity = await this.repository.isValidCity(
-        new CityName(props.cityName),
+        new CityName(props.cityName)
       );
 
       if (!isValidCity) throw new LocationNotFoundError();
 
       const city = await this.repository.getOneCityByName(
-        new CityName(props.cityName),
+        new CityName(props.cityName)
       );
 
       if (!city) throw new LocationNotFoundError();
