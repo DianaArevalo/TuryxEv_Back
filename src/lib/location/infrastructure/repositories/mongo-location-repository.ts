@@ -22,7 +22,8 @@ export class MongoLocationRepository implements LocationRepository {
   async getLocationByHotel(hotel: LocationHotelId): Promise<Location> {
     const record = await LocationSchema.findOne({ hotelId: hotel.value });
 
-    if (!record) throw new LocationNotFoundError();
+    if (!record)
+      throw new LocationNotFoundError("Location not found for hotel");
 
     return this.createLocationEntity(record);
   }
@@ -30,7 +31,8 @@ export class MongoLocationRepository implements LocationRepository {
   async getLocationByBusiness(business: LocationBusinessId): Promise<Location> {
     const record = await LocationSchema.findOne({ businessId: business.value });
 
-    if (!record) throw new LocationNotFoundError();
+    if (!record)
+      throw new LocationNotFoundError("Location not found for business");
 
     return this.createLocationEntity(record);
   }
@@ -62,14 +64,6 @@ export class MongoLocationRepository implements LocationRepository {
     });
 
     return this.createLocationEntity(record);
-  }
-
-  async createCity(cityName: CityName): Promise<City> {
-    const record = await CitySchema.create({
-      name: cityName.value,
-    });
-
-    return this.createCityEntity(record);
   }
 
   async update(location: Location): Promise<Location> {

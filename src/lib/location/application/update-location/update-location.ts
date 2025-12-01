@@ -5,7 +5,6 @@ import {
   LocationNotFoundError,
   LocationRepository,
 } from "../../domain";
-import { CreateCity } from "../create-city/create-city";
 
 interface UpdatelocationHandlerProps {
   locationId: string;
