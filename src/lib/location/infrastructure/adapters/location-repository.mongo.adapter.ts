@@ -8,16 +8,20 @@ import {
   CityId,
   LocationAddress,
   LocationNotFoundError,
-} from '../../domain';
-import { LocationRepositoryPort } from '../../domain/ports';
+  CityDepartment,
+  CityCountry,
+  LocationLatitude,
+  LocationLongitude,
+} from "../../domain";
+import { LocationRepositoryPort } from "../../domain/ports";
 import {
   ICityDocument,
   ILocationDocument,
   CitySchema,
   LocationSchema,
-} from '../schemas';
+} from "../schemas";
 
-import { HttpError } from '~/lib/Shared/domain';
+import { HttpError } from "~/lib/Shared/domain";
 
 export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async getValidCities(): Promise<City[]> {
@@ -25,7 +29,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
       const records = await CitySchema.find();
       return records.map((record) => this.createCityEntity(record));
     } catch {
-      throw new HttpError('Error fetching valid cities', 500);
+      throw new HttpError("Error fetching valid cities", 500);
     }
   }
 
@@ -38,7 +42,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
     } catch (error) {
       if (error instanceof LocationNotFoundError) throw error;
 
-      throw new HttpError('Error fetching location by hotel', 500);
+      throw new HttpError("Error fetching location by hotel", 500);
     }
   }
 
@@ -53,7 +57,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
     } catch (error) {
       if (error instanceof LocationNotFoundError) throw error;
 
-      throw new HttpError('Error fetching location by business', 500);
+      throw new HttpError("Error fetching location by business", 500);
     }
   }
 
@@ -63,7 +67,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
 
       return record ? this.createLocationEntity(record) : null;
     } catch {
-      throw new HttpError('Error fetching location', 500);
+      throw new HttpError("Error fetching location", 500);
     }
   }
 
@@ -72,7 +76,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
       const record = await CitySchema.findOne({ name: cityName.value });
       return record ? this.createCityEntity(record) : null;
     } catch {
-      throw new HttpError('Error fetching city by name', 500);
+      throw new HttpError("Error fetching city by name", 500);
     }
   }
 
@@ -81,7 +85,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
       const record = await CitySchema.findOne({ name: cityName.value });
       return !!record;
     } catch {
-      throw new HttpError('Error validating city', 500);
+      throw new HttpError("Error validating city", 500);
     }
   }
 
@@ -96,20 +100,20 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
 
       return this.createLocationEntity(record);
     } catch {
-      throw new HttpError('Error creating location', 500);
+      throw new HttpError("Error creating location", 500);
     }
   }
 
   async createCity(cityName: CityName): Promise<City> {
     try {
       const existing = await CitySchema.findOne({ name: cityName.value });
-      if (existing) throw new HttpError('City already exists', 409);
+      if (existing) throw new HttpError("City already exists", 409);
 
       const record = await CitySchema.create({ name: cityName.value });
       return this.createCityEntity(record);
     } catch (error) {
       if (error instanceof HttpError) throw error;
-      throw new HttpError('Error creating city', 500);
+      throw new HttpError("Error creating city", 500);
     }
   }
 
@@ -121,14 +125,14 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
           city: location.city.value,
           address: location.address.value,
         },
-        { new: true },
+        { new: true }
       ).lean();
 
       if (!record) throw new LocationNotFoundError();
       return this.createLocationEntity(record);
     } catch (error) {
       if (error instanceof LocationNotFoundError) throw error;
-      throw new HttpError('Error updating location', 500);
+      throw new HttpError("Error updating location", 500);
     }
   }
 
@@ -136,6 +140,8 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
     return new City({
       cityId: new CityId(String(record._id)),
       name: new CityName(record.name),
+      department: new CityDepartment(record.department),
+      country: new CityCountry(record.country),
     });
   }
 
@@ -144,6 +150,8 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
       locationId: new LocationId(String(record._id)),
       city: new CityId(record.city.toString()),
       address: new LocationAddress(record.address),
+      locationLat: new LocationLatitude(record.lat),
+      locationLng: new LocationLongitude(record.lng),
       businessId: record.businessId
         ? new LocationBusinessId(record.businessId)
         : undefined,

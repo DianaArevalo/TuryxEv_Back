@@ -1,3 +1,4 @@
+import { CityId } from "../city/value-objects";
 import {
   LocationAddress,
   LocationBusinessId,

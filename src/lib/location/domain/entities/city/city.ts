@@ -7,6 +7,13 @@ interface CityI {
   country: CityCountry;
 }
 
+export interface CityResponse {
+  id: string;
+  name: string;
+  department: string;
+  country: string;
+}
+
 export class City implements CityI {
   cityId: CityId;
   name: CityName;
@@ -18,5 +25,14 @@ export class City implements CityI {
     this.name = attr.name;
     this.department = attr.department;
     this.country = attr.country;
+  }
+
+  toResponse(): CityResponse {
+    return {
+      id: this.cityId.value,
+      name: this.name.value,
+      department: this.department.value,
+      country: this.country.value,
+    };
   }
 }
