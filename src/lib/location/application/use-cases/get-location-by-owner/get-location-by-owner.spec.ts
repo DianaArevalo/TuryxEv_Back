@@ -19,18 +19,24 @@ describe('get location by owner - Use Case', () => {
       address: 'Some address',
       cityName: 'Medellín',
       businessId: 'id',
+      lat: 10,
+      lng: 10,
     });
 
     await createLocation.execute({
       address: 'Other address',
       cityName: 'Bogotá',
       hotelId: 'id2',
+      lat: 10,
+      lng: 10,
     });
 
     await createLocation.execute({
       address: 'Another address',
       cityName: 'Cali',
       businessId: 'id3',
+      lat: 10,
+      lng: 10,
     });
   });
 

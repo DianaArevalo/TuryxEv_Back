@@ -12,7 +12,8 @@ describe('CreatedAtValueObject', () => {
   });
 
   it('should throw HttpError if value is null', () => {
-    expect(() => CreatedAtValueObject.create(null as any)).toThrow(HttpError);
+    // @ts-expect-error: intentionally passing an optional value for test
+    expect(() => CreatedAtValueObject.create(null)).toThrow(HttpError);
   });
 
   it('should throw HttpError if value is invalid date', () => {

@@ -30,6 +30,8 @@ export interface CreateHotelDTO {
   location: {
     cityName: string;
     address: string;
+    lat: number;
+    lng: number;
   };
   picture?: string;
   score?: string;

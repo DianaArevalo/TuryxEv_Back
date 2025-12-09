@@ -30,6 +30,8 @@ export interface CreateBusinessDTO {
   location: {
     cityName: string;
     address: string;
+    lat: number;
+    lng: number;
   };
   picture?: string;
   providerData: string;

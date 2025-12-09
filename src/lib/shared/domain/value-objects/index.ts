@@ -6,6 +6,7 @@ export * from './lastlogin';
 export * from './limit';
 export * from './location';
 export * from './name';
+export * from './number';
 export * from './page';
 export * from './password';
 export * from './plan';

@@ -23,6 +23,8 @@ describe('Get populated location by id - Use Case', () => {
       address: 'Some address',
       cityName: 'Bogotá',
       businessId: 'id',
+      lat: 10,
+      lng: 10,
     });
   });
 

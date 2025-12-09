@@ -6,6 +6,8 @@ import {
   LocationBusinessId,
   LocationHotelId,
   LocationId,
+  LocationLatitude,
+  LocationLongitude,
   LocationNotFoundError,
   LocationRepositoryPort,
 } from '../../../domain';
@@ -16,6 +18,8 @@ import { ValidationError } from '~/lib/shared/domain';
 export interface CreateLocationDTO {
   cityName: string;
   address: string;
+  lat: number;
+  lng: number;
   hotelId?: string;
   businessId?: string;
 }
@@ -24,6 +28,8 @@ export interface CreateLocationResponse {
   city: CityResponse;
   id: string;
   address: string;
+  locationLat: number;
+  locationLng: number;
   hotelId: string | undefined;
   businessId: string | undefined;
 }
@@ -49,6 +55,8 @@ export class CreateLocationUseCase
       locationId: new LocationId(''),
       city: city.cityId,
       address: LocationAddress.create(props.address),
+      locationLat: new LocationLatitude(props.lat),
+      locationLng: new LocationLongitude(props.lng),
       hotelId: props.hotelId ? new LocationHotelId(props.hotelId) : undefined,
       businessId: props.businessId
         ? new LocationBusinessId(props.businessId)

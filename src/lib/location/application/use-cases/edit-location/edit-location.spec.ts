@@ -23,6 +23,8 @@ describe('Edit Location - Use Case', () => {
       address: 'Some address',
       cityName: 'Bogotá',
       businessId: 'id',
+      lat: 10,
+      lng: 10,
     });
   });
 

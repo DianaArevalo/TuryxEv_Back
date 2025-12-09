@@ -5,6 +5,8 @@ export interface LocationValueObjectI {
   cityId?: string;
   cityName: string;
   address: string;
+  lat: number;
+  lng: number;
 }
 
 export class LocationValueObject {

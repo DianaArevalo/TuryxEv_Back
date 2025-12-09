@@ -14,6 +14,8 @@ export class LocationServiceAdapter implements LocationServicePort {
       cityName: location.value.cityName,
       address: location.value.address,
       hotelId: hotelId.value,
+      lat: location.value.lat,
+      lng: location.value.lng,
     });
 
     return new HotelLocation({
@@ -21,6 +23,8 @@ export class LocationServiceAdapter implements LocationServicePort {
       cityId: newLocation.city.id,
       cityName: newLocation.city.name,
       address: newLocation.address,
+      lat: newLocation.locationLat,
+      lng: newLocation.locationLng,
     });
   }
 

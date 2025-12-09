@@ -1,3 +1,6 @@
+import { SoftDeleteBusinessUseCase } from './soft-delete-business';
+import { CreateBusinessUseCase } from '../create-business/create-business';
+
 import {
   BusinessRepositoryPort,
   LocationServicePort as BusinessLocationServicePort,
@@ -9,8 +12,6 @@ import { LocationServiceAdapter as BusinessLocationServiceAdapter } from '~/lib/
 import { LocationServicePort } from '~/lib/location/domain';
 import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
 import { HttpError } from '~/lib/shared/domain';
-import { CreateBusinessUseCase } from '../create-business/create-business';
-import { SoftDeleteBusinessUseCase } from './soft-delete-business';
 
 describe('Soft delete business - Use Case', () => {
   let businessLocationService: BusinessLocationServicePort;
@@ -40,6 +41,8 @@ describe('Soft delete business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Some address',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://expressjs.com/images/favicon.png',
       providerData: 'AUTH',

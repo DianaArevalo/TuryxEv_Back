@@ -18,6 +18,8 @@ describe('Create Location - Use Case', () => {
       address: 'Some address',
       cityName: 'Bogotá',
       businessId: 'id',
+      lat: 10,
+      lng: 10,
     });
 
     expect(newLocation.address).toEqual('Some address');
@@ -32,6 +34,8 @@ describe('Create Location - Use Case', () => {
         address: 'Some address',
         cityName: 'New York',
         businessId: 'id',
+        lat: 10,
+        lng: 10,
       }),
     ).rejects.toThrow(HttpError);
   });
@@ -41,6 +45,8 @@ describe('Create Location - Use Case', () => {
       address: 'Some address',
       cityName: 'Bogotá',
       businessId: 'id',
+      lat: 10,
+      lng: 10,
     });
 
     await expect(
@@ -48,6 +54,8 @@ describe('Create Location - Use Case', () => {
         address: 'Some address',
         cityName: 'Bogotá',
         businessId: 'id',
+        lat: 10,
+        lng: 10,
       }),
     ).rejects.toThrow(HttpError);
   });
@@ -57,6 +65,8 @@ describe('Create Location - Use Case', () => {
       createLocation.execute({
         address: 'Some address',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       }),
     ).rejects.toThrow(HttpError);
   });
@@ -68,6 +78,8 @@ describe('Create Location - Use Case', () => {
         cityName: 'Bogotá',
         businessId: 'id',
         hotelId: 'id',
+        lat: 10,
+        lng: 10,
       }),
     ).rejects.toThrow(HttpError);
   });

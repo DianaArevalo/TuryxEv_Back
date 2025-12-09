@@ -22,6 +22,8 @@ const Hotel1 = {
   location: {
     address: 'Address',
     cityName: 'Bogotá',
+    lat: 10,
+    lng: 10,
   },
   providerData: 'AUTH',
 };
@@ -35,6 +37,8 @@ const Hotel2 = {
   location: {
     address: 'Other address',
     cityName: 'Bogotá',
+    lat: 10,
+    lng: 10,
   },
   providerData: 'AUTHGOOGLE',
 };
@@ -69,6 +73,8 @@ describe('Edit hotel - Use Case', () => {
         locationId: must(createdHotel.location?.locationId),
         address: 'X address',
         cityName: 'Medellín',
+        lat: 10,
+        lng: 10,
       },
       plan: 'BASIC',
       score: 5,
@@ -111,6 +117,8 @@ describe('Edit hotel - Use Case', () => {
         locationId: must(createdHotel.location?.locationId),
         address: 'Any address',
         cityName: 'Any city',
+        lat: 10,
+        lng: 10,
       },
     };
 

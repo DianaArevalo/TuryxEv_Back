@@ -1,6 +1,7 @@
+import { GetValidCitiesUseCase } from './get-valid-citites';
+
 import { LocationRepositoryPort } from '~/lib/location/domain';
 import { LocationRepositoryInMemoryAdapter } from '~/lib/location/infrastructure/adapters';
-import { GetValidCitiesUseCase } from './get-valid-citites';
 
 describe(' - Use Case', () => {
   let repository: LocationRepositoryPort;

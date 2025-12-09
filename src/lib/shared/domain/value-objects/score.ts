@@ -1,8 +1,7 @@
 import { ValidationError } from '../exeptions';
+import { NumberValueObject } from './number';
 
-export class ScoreValueObject {
-  constructor(readonly value: number) {}
-
+export class ScoreValueObject extends NumberValueObject {
   static create<T extends typeof ScoreValueObject>(
     this: T,
     value: number,

@@ -10,6 +10,10 @@ import {
   LocationNotFoundError,
   LocationAlreadyExistsError,
   LocationRepositoryPort,
+  CityCountry,
+  CityDepartment,
+  LocationLatitude,
+  LocationLongitude,
 } from '../../domain';
 import {
   ICityDocument,
@@ -131,19 +135,6 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
     }
   }
 
-  async createCity(cityName: CityName): Promise<City> {
-    try {
-      let record = await CitySchema.findOne({ name: cityName.value });
-
-      if (!record) record = await CitySchema.create({ name: cityName.value });
-
-      return this.createCityEntity(record);
-    } catch (error) {
-      if (error instanceof HttpError) throw error;
-      throw new HttpError('Error creating city', 500);
-    }
-  }
-
   async update(location: Location): Promise<Location> {
     try {
       const record = await LocationSchema.findByIdAndUpdate(
@@ -168,6 +159,8 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
     return new City({
       cityId: new CityId(String(record._id)),
       name: new CityName(record.name),
+      country: new CityCountry(record.country),
+      department: new CityDepartment(record.department),
     });
   }
 
@@ -176,6 +169,8 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
       locationId: new LocationId(String(record._id)),
       city: new CityId(record.city.toString()),
       address: new LocationAddress(record.address),
+      locationLat: new LocationLatitude(record.lat),
+      locationLng: new LocationLongitude(record.lng),
       businessId: record.businessId
         ? new LocationBusinessId(record.businessId)
         : undefined,

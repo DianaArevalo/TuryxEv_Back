@@ -1,4 +1,5 @@
 import { UserRole } from './user-role';
+
 import { HttpError } from '~/lib/shared/domain';
 
 describe('UserRole Value Object', () => {
@@ -23,8 +24,10 @@ describe('UserRole Value Object', () => {
   });
 
   it('should throw HttpError when creating from invalid primitive', () => {
-    expect(() => UserRole.fromPrimitives(1 as any)).toThrow(HttpError);
-    expect(() => UserRole.fromPrimitives(-1 as any)).toThrow(HttpError);
+    // @ts-expect-error: intentionally passing an optional value for test
+    expect(() => UserRole.fromPrimitives(1)).toThrow(HttpError);
+    // @ts-expect-error: intentionally passing an optional value for test
+    expect(() => UserRole.fromPrimitives(-1)).toThrow(HttpError);
   });
 
   it('should convert to primitives', () => {
@@ -36,10 +39,11 @@ describe('UserRole Value Object', () => {
   });
 
   it('should throw HttpError when internal value cannot be mapped', () => {
-    const fake = new UserRole('USER' as any);
+    const fake = new UserRole('USER');
 
     // forzamos estado inválido
-    (fake as any).value = 'ADMIN';
+    // @ts-expect-error: intentionally passing an optional value for test
+    fake.value = 'ADMIN';
 
     expect(() => fake.toPrimitives()).toThrow(HttpError);
   });

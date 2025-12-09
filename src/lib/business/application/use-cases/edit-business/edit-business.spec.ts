@@ -50,6 +50,8 @@ describe('Edit business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Some address',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://expressjs.com/images/favicon.png',
       providerData: 'AUTH',
@@ -69,6 +71,8 @@ describe('Edit business - Use Case', () => {
         locationId: business.location?.value.locationId,
         cityName: 'Medellín',
         address: 'Another address',
+        lat: 10,
+        lng: 10,
       },
       idPlan: 'BASIC',
       score: 3,
@@ -87,6 +91,8 @@ describe('Edit business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Some address',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://expressjs.com/images/favicon.png',
       providerData: 'AUTH',
@@ -103,6 +109,8 @@ describe('Edit business - Use Case', () => {
           locationId: '',
           cityName: 'Medellín',
           address: 'Another address',
+          lat: 10,
+          lng: 10,
         },
       }),
     ).rejects.toThrow(HttpError);
@@ -119,6 +127,8 @@ describe('Edit business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Some address',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://expressjs.com/images/favicon.png',
       providerData: 'AUTH',
@@ -143,6 +153,8 @@ describe('Edit business - Use Case', () => {
       location: {
         cityName: 'Bogotá',
         address: 'Some address',
+        lat: 10,
+        lng: 10,
       },
       picture: 'https://expressjs.com/images/favicon.png',
       providerData: 'AUTHGOOGLE',

@@ -23,6 +23,8 @@ export interface EditHotelDTO {
     locationId: string;
     cityName: string;
     address: string;
+    lat: number;
+    lng: number;
   };
   plan?: string;
   status?: string;

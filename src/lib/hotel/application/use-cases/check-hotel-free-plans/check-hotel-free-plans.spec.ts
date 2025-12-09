@@ -40,6 +40,8 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
       location: HotelLocation.create({
         address: 'Some addres',
         cityName: 'Bogotá',
+        lat: 10,
+        lng: 10,
       }),
       plan: HotelPlan.create('FREE'),
       role: HotelRole.create('STAFF'),
@@ -59,6 +61,8 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
       location: HotelLocation.create({
         address: 'Some addres',
         cityName: 'Medellín',
+        lat: 10,
+        lng: 10,
       }),
       plan: HotelPlan.create('FREE'),
       role: HotelRole.create('HOTEL'),
@@ -102,6 +106,8 @@ describe('CheckHotelFreePlans (with InMemoryHotelRepository)', () => {
       location: HotelLocation.create({
         address: 'Some addres',
         cityName: 'Cali',
+        lat: 10,
+        lng: 10,
       }),
       plan: HotelPlan.create('PREMIUM'),
       role: HotelRole.create('HOTEL'),

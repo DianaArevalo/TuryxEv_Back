@@ -49,7 +49,8 @@ describe('ProviderDataValueObject', () => {
 
     it('should throw error for invalid primitive', () => {
       expect(() => {
-        ProviderDataValueObject.fromPrimitives(5 as any);
+        // @ts-expect-error: intentionally passing an optional value for test
+        ProviderDataValueObject.fromPrimitives(5);
       }).toThrow(HttpError);
     });
   });
