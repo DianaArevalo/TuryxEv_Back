@@ -66,12 +66,12 @@ describe("LocationRepositoryMongoAdapter - Integration Tests", () => {
     });
 
     const location = new Location({
-      locationId: new LocationId(""),
+      locationId: new LocationId("68f67207b0ad2a4097713774"),
       city: new CityId(String(city._id)),
       address: new LocationAddress("Calle 123"),
       locationLat: new LocationLatitude(6.25184),
       locationLng: new LocationLongitude(-75.56359),
-      hotelId: new LocationHotelId("HOTEL_123"),
+      hotelId: new LocationHotelId(new mongoose.Types.ObjectId().toHexString()),
     });
 
     const created = await repository.create(location);

@@ -22,6 +22,7 @@ import {
 } from "../schemas";
 
 import { HttpError } from "../../../../lib/Shared/domain";
+import { mongoose as mg } from "../../../Shared/Infraestructure/External";
 
 export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async getValidCities(): Promise<City[]> {
@@ -90,26 +91,38 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   }
 
   async create(location: Location): Promise<Location> {
-    try {
-      const record = await LocationSchema.create({
-        city: location.city.value,
-        address: location.address.value,
-        hotelId: location.hotelId?.value,
-        businessId: location.businessId?.value,
-      });
+  try {
+    const record = await LocationSchema.create({
+      city: new mg.Types.ObjectId(location.city.value),
+      address: location.address.value,
+      lat: location.locationLat.value,
+      lng: location.locationLng.value,
+      hotelId: location.hotelId
+        ? new mg.Types.ObjectId(location.hotelId.value)
+        : undefined,
+      businessId: location.businessId
+        ? new mg.Types.ObjectId(location.businessId.value)
+        : undefined,
+    });
 
-      return this.createLocationEntity(record);
-    } catch {
-      throw new HttpError("Error creating location", 500);
-    }
+    return this.createLocationEntity(record);
+  } catch (error) {
+    console.log("REAL ERROR:", error); 
+    throw new HttpError("Error creating location", 500);
   }
+}
+
 
   async createCity(cityName: CityName): Promise<City> {
     try {
       const existing = await CitySchema.findOne({ name: cityName.value });
       if (existing) throw new HttpError("City already exists", 409);
 
-      const record = await CitySchema.create({ name: cityName.value });
+      const record = await CitySchema.create({
+        name: cityName.value,
+        department: "Undefined",
+        country: "Undefined",
+      });
       return this.createCityEntity(record);
     } catch (error) {
       if (error instanceof HttpError) throw error;
