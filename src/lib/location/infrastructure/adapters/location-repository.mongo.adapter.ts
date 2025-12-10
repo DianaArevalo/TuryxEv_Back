@@ -21,7 +21,7 @@ import {
   LocationSchema,
 } from "../schemas";
 
-import { HttpError } from "~/lib/Shared/domain";
+import { HttpError } from "../../../../lib/Shared/domain";
 
 export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
   async getValidCities(): Promise<City[]> {

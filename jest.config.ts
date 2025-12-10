@@ -7,29 +7,37 @@ const config: Config = {
   transform: {
     "^.+\\.ts$": "ts-jest",
   },
+
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^~/(.*)$": "<rootDir>/src/$1",
   },
-  testPathIgnorePatterns: [
-  "/node_modules/",
-  "<rootDir>/src/.*/infrastructure/adapters/.*",
-  "<rootDir>/src/.*/infrastructure/composition/.*",
-  "<rootDir>/src/.*/infrastructure/controller/.*",
-  "<rootDir>/src/.*/infrastructure/models/.*",
-  "<rootDir>/src/.*/infrastructure/routes/.*",
-  "<rootDir>/src/.*/infrastructure/repositories/(?!in-memory/).*",
-],
 
- coveragePathIgnorePatterns: [
-  "/node_modules/",
-  // Ignorar Shared temporalmente
-  "<rootDir>/src/lib/Shared/",
-  "<rootDir>/src/lib/shared/",
-  "<rootDir>/src/lib/JWT/domain/ports/.*",           // puertos
-  "<rootDir>/src/lib/JWT/application/adapters/.*",   // adaptadores
-  "<rootDir>/src/lib/JWT/infraestructure/repositories/(?!in-memory/).*", // repositorios reales
-],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+
+    // Ignorar varias partes de infraestructura
+    // PERO permitir repositorios
+    "<rootDir>/src/.*/infrastructure/composition/.*",
+    "<rootDir>/src/.*/infrastructure/controller/.*",
+    "<rootDir>/src/.*/infrastructure/models/.*",
+    "<rootDir>/src/.*/infrastructure/routes/.*",
+
+    // IMPORTANTE:
+    // NO ignoramos infrastructure/adapters/
+    // NO ignoramos infrastructure/repositories/
+  ],
+
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+
+    "<rootDir>/src/lib/Shared/",
+    "<rootDir>/src/lib/shared/",
+
+    "<rootDir>/src/lib/JWT/domain/ports/.*",
+    "<rootDir>/src/lib/JWT/application/adapters/.*",
+  ],
+
   coverageThreshold: {
     global: {
       branches: 80,
