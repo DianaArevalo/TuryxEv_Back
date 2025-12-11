@@ -1,18 +1,22 @@
 import mongoose from "mongoose";
-import { testConfig } from "../../../../config/config_test";
+import dotenv from "dotenv";
 
+dotenv.config({ path: ".env.test" });
+
+const mongoUri = process.env.MONGO_URI;
+const testDbName = process.env.TEST_DB_NAME;
 
 export const connectTestDB = async () => {
-  if (!testConfig.mongoUri) {
+  if (!mongoUri) {
     throw new Error("Test Mongo URI not provided");
   }
 
-  await mongoose.connect(testConfig.mongoUri, {
-    dbName: testConfig.testDbName, // tu BD real de pruebas
+  await mongoose.connect(mongoUri, {
+    dbName: testDbName,
   });
 };
 
 export const disconnectTestDB = async () => {
- // await mongoose.connection.dropDatabase(); // limpia la BD después de los tests
+  // await mongoose.connection.dropDatabase(); // opcional, limpia la BD
   await mongoose.connection.close();
 };
