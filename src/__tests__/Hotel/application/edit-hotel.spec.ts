@@ -1,7 +1,8 @@
 import { HotelCreate, HotelEdit } from "~/lib/Hotel/application";
-import { CityRepository, HotelRepository, ProviderData, ProviderDataT } from "~/lib/Hotel/domain";
+import { CityRepository, HotelRepository, } from "~/lib/Hotel/domain";
 import { InMemoryCityRepository } from "~/lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
 import { InMemoryHotelRepository } from "~/lib/Hotel/infraestructure/repositories/InMemoryHotelRepository";
+import { ProviderDataT } from "~/lib/Shared/domain";
 import { HttpError } from "~/lib/Shared/domain/exeptions"; 
 
 const Hotel1 = {

@@ -59,7 +59,7 @@ export class HotelCreate {
       freePlanExpiresAt = new Date(
         createdAt.value.getTime() + 15 * 24 * 60 * 60 * 1000
       );
-      console.info(`The plan expire: ${freePlanExpiresAt.toISOString()}`);
+    
     }
 
     const tempHotel = new Hotel({
