@@ -107,7 +107,7 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
 
     return this.createLocationEntity(record);
   } catch (error) {
-    console.log("REAL ERROR:", error); 
+    //console.log("REAL ERROR:", error); 
     throw new HttpError("Error creating location", 500);
   }
 }

@@ -74,12 +74,12 @@ export class MongoHotelRepository implements HotelRepository {
       providerData: hotel.providerData.toPrimitives(),
     });
 
-    console.log("Creating Hotel with values:", {
-      idRole: hotel.role.toPrimitives(),
-      idPlan: hotel.plan.toPrimitives(),
-      status: hotel.status.toPrimitives(),
-      providerData: hotel.providerData.toPrimitives(),
-    });
+    // console.log("Creating Hotel with values:", {
+    //   idRole: hotel.role.toPrimitives(),
+    //   idPlan: hotel.plan.toPrimitives(),
+    //   status: hotel.status.toPrimitives(),
+    //   providerData: hotel.providerData.toPrimitives(),
+    // });
 
     return this.createHotelEntity(created.toObject());
   }
