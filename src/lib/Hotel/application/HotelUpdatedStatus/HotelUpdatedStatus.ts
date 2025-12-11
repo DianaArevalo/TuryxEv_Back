@@ -12,7 +12,6 @@ export class HotelUpdatedStatus {
         const status = HotelStatus.create("BLOCKED");
 
         await this.repository.updateStatus(hotelId, status)
-
-        console.info("The user has been blocked and is under verification for account desactivation, with no monetary refund")
+        
     }
 } 
