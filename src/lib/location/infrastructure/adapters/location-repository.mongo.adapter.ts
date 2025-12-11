@@ -132,8 +132,9 @@ export class LocationRepositoryMongoAdapter implements LocationRepositoryPort {
 
   async update(location: Location): Promise<Location> {
     try {
+      
       const record = await LocationSchema.findByIdAndUpdate(
-        location.city.value,
+        location.locationId.value,
         {
           city: location.city.value,
           address: location.address.value,
