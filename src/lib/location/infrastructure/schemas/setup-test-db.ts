@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config({ path: ".env.test" });
+if (!process.env.MONGO_TEST_URI) {
+  dotenv.config({ path: ".env.test" });
+}
 
-const mongoUri = process.env.MONGO_URI;
+
+const mongoUri = process.env.MONGO_TEST_URI;
 const testDbName = process.env.TEST_DB_NAME;
 
 export const connectTestDB = async () => {
