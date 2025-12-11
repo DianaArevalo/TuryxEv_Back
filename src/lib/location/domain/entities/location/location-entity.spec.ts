@@ -49,26 +49,31 @@ describe("Location - Domain Entity", () => {
   });
 
   it("should return a correct response object from toResponse()", () => {
-    const location = new Location({
-      locationId: idVO,
-      city: cityIdVO,
-      address: addressVO,
-      locationLat: latVO,
-      locationLng: lngVO,
-      hotelId: hotelIdVO,
-      businessId: businessIdVO,
-    });
-
-    const response = location.toResponse();
-
-    expect(response).toEqual({
-      id: "loc-123",
-      city: "city-999",
-      address: "Cra 45 #10-20",
-      hotelId: "hotel-77",
-      businessId: "business-55",
-    });
+  const location = new Location({
+    locationId: idVO,
+    city: cityIdVO,
+    address: addressVO,
+    locationLat: latVO,
+    locationLng: lngVO,
+    hotelId: hotelIdVO,
+    businessId: businessIdVO,
   });
+
+  const response = location.toResponse();
+
+  expect(response).toEqual({
+    id: "loc-123",
+    city: "city-999",
+    address: "Cra 45 #10-20",
+    hotelId: "hotel-77",
+    businessId: "business-55",
+    lat: 6.25184,
+    lng: -75.56359,
+    ownerType: "HOTEL",
+    ownerId: "hotel-77",
+  });
+});
+
 
   it("should handle optional hotelId and businessId when they are undefined", () => {
     const location = new Location({

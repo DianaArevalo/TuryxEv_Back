@@ -24,6 +24,10 @@ export interface LocationResponse {
   address: string;
   hotelId: string | undefined;
   businessId: string | undefined;
+  lat: number;
+  lng: number;
+  ownerType: string;
+  ownerId: string;
 }
 
 export class Location implements LocationI {
@@ -52,6 +56,10 @@ export class Location implements LocationI {
       address: this.address.value,
       hotelId: this.hotelId?.value,
       businessId: this.businessId?.value,
+      lat: this.locationLat.value,
+      lng: this.locationLng.value,
+      ownerType: this.hotelId ? "HOTEL" : "BUSINESS",
+      ownerId: this.hotelId?.value ?? this.businessId?.value ?? "",
     };
   }
 }
