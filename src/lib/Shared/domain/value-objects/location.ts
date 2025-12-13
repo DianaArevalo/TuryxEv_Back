@@ -17,6 +17,6 @@ export class LocationValueObject {
     NameValueObject.create(value.cityName);
     NameValueObject.create(value.address);
 
-    return new LocationValueObject(value);
+    return new this(value) as InstanceType<T>;
   }
 }
