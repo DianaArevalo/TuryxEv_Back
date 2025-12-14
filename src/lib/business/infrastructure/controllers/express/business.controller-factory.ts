@@ -1,27 +1,24 @@
-import {
-  CreateBusinessUseCase,
-  EditBusinessUseCase,
-  GetBusinessesUseCase,
-  GetOneBusinessUseCase,
-  SoftDeleteBusinessUseCase,
-} from '~/lib/business/application';
+
+import { 
+  CreateBusinessUseCase, 
+  EditBusinessUseCase, 
+  GetBusinessesUseCase, 
+  GetOneBusinessUseCase, 
+  SoftDeleteBusinessUseCase 
+} from '../../../../../lib/business/application/use-cases';
 import {
   BusinessRepositoryPort,
-  LocationServicePort,
-<<<<<<< HEAD:src/lib/bussiness/infrastructure/controllers/express/business.controller-factory.ts
-} from '~/lib/bussiness/domain';
+} from '~/lib/business/domain';
 import { CreateBusinessController } from './create-business.controller';
 import { EditBusinessController } from './edit-business.controller';
 import { GetBusinessesController } from './get-businesses.controller';
 import { GetOneBusinessController } from './get-one-business.controller';
 import { SoftDeleteBusinessController } from './soft-delete.controller';
-=======
-} from '~/lib/business/domain';
->>>>>>> 7cef941 (test(business): business tested):src/lib/business/infrastructure/controllers/express/business.controller-factory.ts
+import { BusinessLocationServicePort } from '../../../../../lib/business/domain/ports/driving/business-location-service-port';
 
 export const buildBusinessControllers = (
   businessRepository: BusinessRepositoryPort,
-  locationService: LocationServicePort,
+  locationService: BusinessLocationServicePort,
 ) => {
   const createBusinessUseCase = new CreateBusinessUseCase(
     businessRepository,

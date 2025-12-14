@@ -1,1 +1,1 @@
-export * from './business-service.port';
+export * from '../driven/business-service.port';

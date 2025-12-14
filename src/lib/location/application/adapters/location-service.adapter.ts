@@ -1,5 +1,5 @@
 import { CityResponse, LocationResponse } from "../../domain";
-import { LocationServicePort } from "../../domain/ports";
+import { LocationRepositoryPort, LocationServicePort } from "../../domain/ports";
 import {
   GetLocationByOwnerDTO,
   GetLocationByOwnerUseCase,
@@ -12,7 +12,8 @@ export class LocationServiceAdapter implements LocationServicePort {
   constructor(
     private readonly getLocationByOwnerUseCase: GetLocationByOwnerUseCase,
     private readonly getValidCitiesUseCase: GetValidCitiesUseCase,
-    private readonly updateLocationUseCase: UpdateLocationUseCase
+    private readonly updateLocationUseCase: UpdateLocationUseCase,
+    
   ) {}
 
   getLocationByOwner(props: GetLocationByOwnerDTO): Promise<LocationResponse> {

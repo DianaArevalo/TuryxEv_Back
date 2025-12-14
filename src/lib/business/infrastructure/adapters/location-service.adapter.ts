@@ -1,36 +1,19 @@
-import {
-  BusinessId,
-  BusinessLocation,
-  LocationServicePort,
-} from '../../domain';
-import { LocationServicePort as LocationService } from '~/lib/location/domain';
 
-export class LocationServiceAdapter implements LocationServicePort {
-  constructor(private readonly locationService: LocationService) {}
+import { BusinessLocation } from '../../domain';
+import { LocationServicePort } from '../../domain/ports/driven/location.service.port';
+import { BusinessLocationServicePort } from '../../domain/ports/driving/business-location-service-port';
 
-  async create(
-    location: BusinessLocation,
-    businessId: BusinessId,
-  ): Promise<BusinessLocation> {
-    const newLocation = await this.locationService.createLocation({
-      cityName: location.value.cityName,
-      address: location.value.address,
-      businessId: businessId.value,
-    });
+export class LocationServiceAdapter implements BusinessLocationServicePort //DRIVING
+ {
+  //DRIVEN
+  constructor(private readonly locationService: LocationServicePort) {}
 
-    return new BusinessLocation({
-      locationId: newLocation.id,
-      cityId: newLocation.city.id,
-      cityName: newLocation.city.name,
-      address: newLocation.address,
-    });
-  }
-
-  edit(location: BusinessLocation): Promise<void> {
-    return this.locationService.editLocation({
-      locationId: location.value.locationId!,
-      address: location.value.address,
-      cityName: location.value.cityName,
-    });
-  }
+  async updateLocation(
+  location: BusinessLocation
+): Promise<void> {
+  await this.locationService.updateLocation({
+    locationId: location.value.locationId!,
+    address: location.value.address,
+  });
+} 
 }

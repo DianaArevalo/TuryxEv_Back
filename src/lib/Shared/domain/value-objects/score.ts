@@ -9,6 +9,6 @@ export class ScoreValueObject extends NumberValueObject {
     if (value < 0 || value > 5)
       throw new ValidationError("El score debe estar entre 0 y 5");
 
-    return new ScoreValueObject(value);
+    return new this(value) as InstanceType<T>;;
   }
 }

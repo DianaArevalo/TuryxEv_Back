@@ -1,9 +1,15 @@
-import { BusinessId, BusinessLocation } from '../../entities';
+import { GetLocationByOwnerDTO, UpdatelocationDTO } from "../../../../../lib/location/application/use-cases";
+import { CityResponse, LocationResponse } from "~/lib/location/domain";
+
 
 export interface LocationServicePort {
-  create(
-    location: BusinessLocation,
-    businessId: BusinessId,
-  ): Promise<BusinessLocation>;
-  edit(location: BusinessLocation): Promise<void>;
+  getLocationByOwner(
+    props: GetLocationByOwnerDTO
+  ): Promise<LocationResponse>;
+
+  getValidCities(): Promise<CityResponse[]>;
+
+  updateLocation(
+    props: UpdatelocationDTO
+  ): Promise<void>;
 }

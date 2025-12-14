@@ -1,4 +1,4 @@
-import { ValidationError } from '~/lib/Shared/domain';
+import { ValidationError } from '../../../../../../lib/Shared/domain';
 
 export type BusinessStatusT = 'OPEN' | 'CLOSED' | 'BLOCKED';
 export type BusinessStatusPrimitiveT = 0 | 1 | 2;
@@ -24,13 +24,8 @@ export class BusinessStatus {
   }
 
   public static create(value: string): BusinessStatus {
-<<<<<<< HEAD:src/lib/bussiness/domain/entities/business/value-objects/business-status.ts
-    if (!Object.values(BusinessStatusTReverseMap).includes(value as any))
-      throw new Error(`Invalid statusvalue: ${value}`);
-=======
     if (!['OPEN', 'CLOSED', 'BLOCKED'].includes(value))
       throw new ValidationError(`Invalid statusvalue: ${value}`);
->>>>>>> 7cef941 (test(business): business tested):src/lib/business/domain/entities/business/value-objects/business-status.ts
 
     return new BusinessStatus(value as BusinessStatusT);
   }

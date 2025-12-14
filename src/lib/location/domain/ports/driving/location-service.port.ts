@@ -1,8 +1,10 @@
+//entrada como el mundo puede usarme
+
 import {
   GetLocationByOwnerDTO,
   UpdatelocationDTO,
 } from "../../../application/use-cases";
-import { CityResponse, LocationResponse } from "../../entities";
+import { CityResponse, LocationBusinessId, LocationResponse } from "../../entities";
 
 export interface LocationServicePort {
   getLocationByOwner(props: GetLocationByOwnerDTO): Promise<LocationResponse>;

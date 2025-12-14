@@ -1,7 +1,5 @@
-import {
-  ProviderDataPrimitiveArray,
-  ProviderDataPrimitiveT,
-} from '~/lib/Shared/domain';
+
+import { ProviderDataPrimitiveArray, ProviderDataPrimitiveT } from '../../../../lib/Shared/domain';
 import { mongoose as mg } from '../../../Shared/Infraestructure/External';
 import {
   BusinessPlanPrimitiveArray,
