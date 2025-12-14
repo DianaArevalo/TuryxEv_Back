@@ -7,7 +7,7 @@ const ExpressLocationRouter = ex.Router();
 const {
   getLocationByOwnerController,
   getValidCitiesController,
-  editLocationController,
+  updateLocationController,
 } = controllers;
 
 ExpressLocationRouter.get(
@@ -21,13 +21,8 @@ ExpressLocationRouter.get(
 );
 
 ExpressLocationRouter.patch(
-<<<<<<< HEAD
   "/update-location",
   updateLocationController.handle.bind(updateLocationController)
-=======
-  '/edit-location',
-  editLocationController.handle.bind(editLocationController),
->>>>>>> f17658e (refactor(business): business hexagon refactorized)
 );
 
 export { ExpressLocationRouter };

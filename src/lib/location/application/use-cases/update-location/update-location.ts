@@ -1,6 +1,5 @@
 import {
   CityName,
-  CityResponse,
   LocationAddress,
   LocationId,
   LocationNotFoundError,
@@ -9,16 +8,16 @@ import {
 
 import { UseCase } from "~/lib/Shared/application/usecase";
 
-export interface EditLocationDTO {
+export interface UpdatelocationDTO {
   locationId: string;
   cityName?: string;
   address?: string;
 }
 
-export class EditLocationUseCase implements UseCase<EditLocationDTO, void> {
+export class UpdateLocationUseCase implements UseCase<UpdatelocationDTO, void> {
   constructor(private readonly repository: LocationRepositoryPort) {}
 
-  async execute(props: EditLocationDTO): Promise<void> {
+  async execute(props: UpdatelocationDTO) {
     const result = await this.repository.getOneLocation(
       new LocationId(props.locationId)
     );
@@ -41,7 +40,9 @@ export class EditLocationUseCase implements UseCase<EditLocationDTO, void> {
       result.city = city.cityId;
     }
 
-    if (props.address) result.address = LocationAddress.create(props.address);
+    if (props.address) {
+      result.address = LocationAddress.create(props.address);
+    }
 
     await this.repository.update(result);
   }
