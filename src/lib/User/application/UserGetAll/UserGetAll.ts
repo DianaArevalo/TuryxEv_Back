@@ -1,5 +1,5 @@
 
-import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
 import { UserRepository } from "../../domain/repositories";
 
 interface UserGetAllProps {

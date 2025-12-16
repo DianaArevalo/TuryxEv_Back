@@ -1,7 +1,7 @@
 import {  PageValueObject } from "../../../../lib/Shared/domain/value-objects/page";
 import { HotelRepository, HotelProviderData } from "../../domain";
 
-import { LimitValueObject, ProviderDataT } from "~/lib/Shared/domain";
+import { LimitValueObject, ProviderDataT } from "../../../../lib/Shared/domain";
 
 interface HotelGetByProviderProps {
     providerData: string;

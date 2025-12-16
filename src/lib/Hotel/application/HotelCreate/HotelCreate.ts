@@ -1,4 +1,4 @@
-import { ProviderData, ProviderDataT } from "../../../../lib/Shared/domain";
+import { ProviderDataT, ProviderDataValueObject } from "../../../../lib/Shared/domain";
 import { ValidationError } from "../../../../lib/Shared/domain/exeptions";
 import {
   CityRepository,
@@ -82,9 +82,9 @@ export class HotelCreate {
         ? new HotelFreePlanEnd(props.freePlanExpiresAt)
         : HotelFreePlanEnd.create(new Date()), // 15 días desde hoy
 
-      providerData: ProviderData.create(
+      providerData: ProviderDataValueObject.create(
         props.providerData as ProviderDataT
-      ) as ProviderData,
+      ) as ProviderDataValueObject,
     });
 
     const createdHotelId = (await this.repository.create(tempHotel)) as Hotel;

@@ -1,4 +1,4 @@
-import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
 import { HotelRepository } from "../../domain";
 
 

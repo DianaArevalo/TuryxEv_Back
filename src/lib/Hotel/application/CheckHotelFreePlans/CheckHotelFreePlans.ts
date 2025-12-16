@@ -1,5 +1,6 @@
 //import { Limit, Page } from "~/lib/Shared/domain/value-objects";
-import { Limit, Page } from "../../../../lib/Shared/domain/value-objects"
+
+import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
 import { HotelPlan, HotelRepository, HotelStatus} from "../../domain";
 
 interface CheckHotelFreePlanProps {    
@@ -13,8 +14,8 @@ export class CheckHotelFreePlans {
 
     async handler({currentDate, page =1, limit = 50}: CheckHotelFreePlanProps): Promise<void>{
        const plan = HotelPlan.create("FREE");
-       const pageVO = new Page(page);
-       const limitVO = new Limit(limit);
+       const pageVO = new PageValueObject(page);
+       const limitVO = new LimitValueObject(limit);
 
        const freeHotels = await this.repository.getByPlan(plan, pageVO, limitVO);
 
