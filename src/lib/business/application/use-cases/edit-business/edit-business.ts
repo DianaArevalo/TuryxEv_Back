@@ -9,8 +9,7 @@ import {
   BusinessPrivateResponse,
   BusinessRepositoryPort,
   BusinessScore,
-  BusinessStatus,
-  LocationServicePort,
+  BusinessStatus, 
 } from '../../../../../lib/business/domain';
 import { BusinessLocationServicePort } from '../../../../../lib/business/domain/ports/driving/business-location-service-port';
 import { UseCase } from '../../../../../lib/Shared/application/usecase';

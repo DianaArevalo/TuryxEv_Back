@@ -1,6 +1,7 @@
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
+
+import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
 import { HotelRepository, HotelRole, HotelRoleT } from "../../domain";
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
+
 
 interface HotelGetByRolProps {
     role: string;
@@ -14,8 +15,8 @@ export class HotelGetByRol {
     async handler(props: HotelGetByRolProps){
         const result = await this.repository.getByRole(
             HotelRole.create(props.role as HotelRoleT),
-            Page.create(props.page),
-            Limit.create(props.limit)
+            PageValueObject.create(props.page),
+            LimitValueObject.create(props.limit)
         )
 
         return result.map((it) => it.toResponse());

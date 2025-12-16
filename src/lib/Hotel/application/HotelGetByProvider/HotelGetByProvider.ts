@@ -1,7 +1,7 @@
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
+import {  PageValueObject } from "../../../../lib/Shared/domain/value-objects/page";
 import { HotelRepository, HotelProviderData } from "../../domain";
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
-import { ProviderDataT } from "~/lib/Shared/domain";
+
+import { LimitValueObject, ProviderDataT } from "~/lib/Shared/domain";
 
 interface HotelGetByProviderProps {
     providerData: string;
@@ -15,8 +15,8 @@ export class HotelGetByProvider{
     async handler(props: HotelGetByProviderProps){
         const result = await this.repository.getByProvider(
             HotelProviderData.create(props.providerData as ProviderDataT ),
-            Page.create(props.page),
-            Limit.create(props.limit) 
+            PageValueObject.create(props.page),
+            LimitValueObject.create(props.limit) 
         )
 
         return result.map((it) => it.toResponse());

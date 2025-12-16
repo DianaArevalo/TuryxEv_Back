@@ -4,7 +4,6 @@ const DEFAULT_PAGE = 1;
 
 export class PageValueObject {
     constructor(readonly value: number){}
-
   static create<T extends typeof PageValueObject>(
     this: T,
     value?: number | string,

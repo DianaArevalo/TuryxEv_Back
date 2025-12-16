@@ -1,4 +1,5 @@
-import { Limit, Page } from "../../../../lib/Shared/domain";
+
+import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
 import { UserRepository } from "../../domain/repositories";
 
 interface UserGetAllProps {
@@ -10,8 +11,8 @@ export class UserGetAll {
 
     async handler(props: UserGetAllProps) {
         const result = await this.repository.getAll(
-            Page.create(props.page),
-            Limit.create(props.limit)
+            PageValueObject.create(props.page),
+            LimitValueObject.create(props.limit)
         );
         
         return result.map((it) => it.toResponse());

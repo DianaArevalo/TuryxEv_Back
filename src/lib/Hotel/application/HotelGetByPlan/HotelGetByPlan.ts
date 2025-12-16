@@ -1,6 +1,7 @@
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
+
+import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
 import { HotelPlan, HotelPlanT, HotelRepository } from "../../domain";
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
+
 
 interface HotelGetByPlanProps {
     plan: string;
@@ -14,8 +15,8 @@ export class HotelGetByPlan {
     async handler(props: HotelGetByPlanProps){
         const result = await this.respository.getByPlan(
             HotelPlan.create(props.plan as HotelPlanT),
-            Page.create(props.page),
-            Limit.create(props.limit)
+            PageValueObject.create(props.page),
+            LimitValueObject.create(props.limit)
         )
 
         return result.map((it) => it.toResponse());

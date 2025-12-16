@@ -1,5 +1,5 @@
-import { ProviderData } from "../../../../../../lib/Shared/domain";
+import {ProviderDataValueObject } from "../../../../../../lib/Shared/domain";
 
-export class UserProvider extends ProviderData{
+export class UserProvider extends ProviderDataValueObject{
 
 }
