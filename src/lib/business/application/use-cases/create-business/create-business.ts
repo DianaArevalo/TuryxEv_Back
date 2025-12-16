@@ -1,7 +1,3 @@
-<<<<<<< HEAD:src/lib/bussiness/application/create-business/create-business.ts
-import { ValidationError } from "../../../Shared/domain/exeptions";
-=======
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/create-business/create-business.ts
 import {
   Business,
   BusinessCreatedAt,
@@ -19,19 +15,12 @@ import {
   BusinessScore,
   BusinessStatus,
   BusinessUpdatedAt,
-<<<<<<< HEAD:src/lib/bussiness/application/create-business/create-business.ts
-  LocationRepository,
-} from "../../domain";
-=======
   LocationServicePort,
 } from '~/lib/business/domain';
+import { BusinessLocationServicePort } from '~/lib/business/domain/ports/driving/business-location-service-port';
 import { UseCase } from '~/lib/Shared/application/usecase';
-<<<<<<< HEAD:src/lib/bussiness/application/use-cases/create-business/create-business.ts
-import { ProviderDataE, ValidationError } from '~/lib/Shared/domain';
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/create-business/create-business.ts
-=======
 import { ValidationError } from '~/lib/Shared/domain';
->>>>>>> 7cef941 (test(business): business tested):src/lib/business/application/use-cases/create-business/create-business.ts
+
 
 export interface CreateBusinessDTO {
   name: string;
@@ -43,6 +32,8 @@ export interface CreateBusinessDTO {
   location: {
     cityName: string;
     address: string;
+    lat: number;
+    lng: number;
   };
   picture?: string;
   providerData: string;
@@ -52,13 +43,8 @@ export class CreateBusinessUseCase
   implements UseCase<CreateBusinessDTO, BusinessPrivateResponse>
 {
   constructor(
-<<<<<<< HEAD:src/lib/bussiness/application/create-business/create-business.ts
-    private readonly repository: BusinessRepository,
-    private readonly locationRepository: LocationRepository
-=======
     private readonly repository: BusinessRepositoryPort,
-    private readonly locationService: LocationServicePort,
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/create-business/create-business.ts
+    private readonly locationService: BusinessLocationServicePort,
   ) {}
 
   async execute(props: CreateBusinessDTO): Promise<BusinessPrivateResponse> {
@@ -66,24 +52,13 @@ export class CreateBusinessUseCase
     const location = BusinessLocation.create(props.location);
     const providerData = BusinessProviderData.create(props.providerData);
 
-<<<<<<< HEAD:src/lib/bussiness/application/use-cases/create-business/create-business.ts
-<<<<<<< HEAD:src/lib/bussiness/application/create-business/create-business.ts
-    if (!props.password && props.providerData === "AUTH")
-      throw new ValidationError("Password is required.");
-
-    if (!(await this.locationRepository.isValidLocation(location)))
-      throw new ValidationError("Location is invalid");
-
-=======
-    if (!props.password && props.providerData === ProviderDataE.AUTH)
-=======
     if (!props.password && providerData.value === 'AUTH')
->>>>>>> 7cef941 (test(business): business tested):src/lib/business/application/use-cases/create-business/create-business.ts
-      throw new ValidationError('Password is required.');
+      throw new ValidationError(
+        'Password is required when providerData is AUTH.',
+      );
 
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/create-business/create-business.ts
     const business = new Business({
-      bussinessId: new BusinessId(""),
+      bussinessId: new BusinessId(''),
       name: BusinessName.create(props.name),
       email: BusinessEmail.create(props.email),
       password: props.password
@@ -94,21 +69,14 @@ export class CreateBusinessUseCase
       createdAt: createdAt,
       updatedAt: BusinessUpdatedAt.now(createdAt),
       idRole: BusinessRole.create(props.idRole),
-      idPlan: BusinessPlan.create(props.idPlan || "FREE"),
+      idPlan: BusinessPlan.create(props.idPlan || 'FREE'),
       status: BusinessStatus.create(props.status),
       providerData,
     });
 
     const created = await this.repository.create(business);
 
-    const locationCreated = await this.locationService.create(
-      location,
-      created.bussinessId,
-    );
-
-    business.location = locationCreated;
-
-    await this.repository.edit(business);
+    await this.locationService.updateLocation(location);
 
     return created.toPrivateResponse();
   }

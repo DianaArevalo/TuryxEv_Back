@@ -1,7 +1,3 @@
-<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
-import { ValidationError } from "../../../Shared/domain/exeptions";
-=======
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
 import {
   BusinessId,
   BusinessLocation,
@@ -14,15 +10,12 @@ import {
   BusinessRepositoryPort,
   BusinessScore,
   BusinessStatus,
-<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
-  LocationRepository,
-} from "../../domain";
-=======
   LocationServicePort,
 } from '~/lib/business/domain';
+import { BusinessLocationServicePort } from '~/lib/business/domain/ports/driving/business-location-service-port';
 import { UseCase } from '~/lib/Shared/application/usecase';
 import { ValidationError } from '~/lib/Shared/domain';
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
+
 
 export interface EditBusinessDTO {
   businessId: string;
@@ -43,13 +36,8 @@ export class EditBusinessUseCase
   implements UseCase<EditBusinessDTO, BusinessPrivateResponse>
 {
   constructor(
-<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
-    private readonly repository: BusinessRepository,
-    private readonly locationRepository: LocationRepository
-=======
     private readonly repository: BusinessRepositoryPort,
-    private readonly locationService: LocationServicePort,
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
+    private readonly locationService: BusinessLocationServicePort,
   ) {}
 
   async execute(props: EditBusinessDTO): Promise<BusinessPrivateResponse> {
@@ -57,17 +45,6 @@ export class EditBusinessUseCase
       new BusinessId(props.businessId)
     );
 
-<<<<<<< HEAD:src/lib/bussiness/application/edit-business/edit-business.ts
-    if (
-      props.location &&
-      !(await this.locationRepository.isValidLocation(
-        BusinessLocation.create(props.location)
-      ))
-    )
-      throw new ValidationError("Location is invalid");
-
-=======
->>>>>>> f17658e (refactor(business): business hexagon refactorized):src/lib/bussiness/application/use-cases/edit-business/edit-business.ts
     if (!business) throw new BusinessNotFoundError();
 
     if (props.name && props.name !== business.name.value)
@@ -81,7 +58,7 @@ export class EditBusinessUseCase
       );
 
     if (props.location)
-      await this.locationService.edit(new BusinessLocation(props.location));
+      await this.locationService.updateLocation(new BusinessLocation(props.location));
 
     if (props.idPlan && props.idPlan !== business.idPlan.value)
       business.idPlan = BusinessPlan.create(props.idPlan);
