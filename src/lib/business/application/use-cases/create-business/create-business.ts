@@ -14,12 +14,11 @@ import {
   BusinessRole,
   BusinessScore,
   BusinessStatus,
-  BusinessUpdatedAt,
-  LocationServicePort,
-} from '~/lib/business/domain';
-import { BusinessLocationServicePort } from '~/lib/business/domain/ports/driving/business-location-service-port';
-import { UseCase } from '~/lib/Shared/application/usecase';
-import { ValidationError } from '~/lib/Shared/domain';
+  BusinessUpdatedAt  
+} from '../../../../../lib/business/domain';
+import { BusinessLocationServicePort } from '../../../../../lib/business/domain/ports/driving/business-location-service-port';
+import { UseCase } from '../../../../../lib/Shared/application/usecase';
+import { ValidationError } from '../../../../../lib/Shared/domain';
 
 
 export interface CreateBusinessDTO {

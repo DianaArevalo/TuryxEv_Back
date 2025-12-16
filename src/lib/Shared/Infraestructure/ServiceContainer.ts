@@ -1,59 +1,25 @@
-import { UserCreate } from "../../User/application/UserCreate/UserCreate";
-import { UserGetOneById } from "../../User/application/UserGetOneById/UserGetOneById";
-import { UserEdit } from "../../User/application/UserEdit/UserEdit";
-import { UserSoftDelete } from "../../User/application/UserSoftDelete/UserSoftDelete";
-import { MongoUserRepository } from "../../User/infrastructure/repositories/MongoUserRepository";
-import { UserGetAll } from "../../User/application/UserGetAll/UserGetAll";
-import { MongoReservationRepository } from "../../Reservation/infrastructure/repositories/mongo-reservation-repository";
-import { MongoHotelRepository } from "../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository";
-import { InMemoryCityRepository } from "../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
-import { MongoBusinessRepository } from "../../bussiness/infrastructure/repositories/business-mongo-repository";
-import { InMemoryLocationRepository } from "../../bussiness/infrastructure/repositories/location-in-memory-repository";
 
+import { businessService } from '../../../lib/business/infrastructure/business.composition';
 import {
-  CancelReservation,
-  ConfirmReservation,
-  CreateReservation,
-  EditReservation,
-  GetAllByHotelId,
-  GetOneByReservationId,
-  GetUserReservations,
-} from "../../Reservation/application";
-
-import { 
   CheckHotelFreePlans,
-  HotelCreate, 
-  HotelEdit, 
-  HotelGetALL, 
-  HotelGetByPlan, 
-  HotelGetByProvider, 
-  HotelGetByRol, 
-  HotelGetByStatus, 
-  HotelGetOnByEmail, 
-  HotelGetOneById, 
-  HotelUpdatedStatus 
-} from "../../../lib/Hotel/application";
-
-
-
+  HotelCreate,
+  HotelEdit,
+  HotelGetALL,
+  HotelGetByPlan,
+  HotelGetByProvider,
+  HotelGetByRol,
+  HotelGetByStatus,
+  HotelGetOnByEmail,
+  HotelGetOneById,
+  HotelUpdatedStatus,
+} from '../../../lib/Hotel/application';
+import { InMemoryCityRepository } from '../../../lib/Hotel/infraestructure/repositories/InMemoryCityRepository';
+import { MongoHotelRepository } from '../../../lib/Hotel/infraestructure/repositories/MongoHotelRepository';
 import {
-  CreateBusiness,
-  EditBusiness,
-  GetAllBusiness,
-  GetAllBusinessByPlan,
-  GetAllBusinessByRole,
-  GetAllBusinessByStatus,
-  GetBusinessByProviderData,
-  GetOneBusinessByEmail,
-  GetOneBusinessById,
-  SoftDeleteBusiness,
-<<<<<<< HEAD
-} from "../../bussiness/application";
-import { UserGetAllByStatus, UserGetOneByEmail } from "../../../lib/User/application";
-=======
-} from '../../business/application';
-import { MongoBusinessRepository } from '../../business/infrastructure/repositories/business-mongo-repository';
-import { InMemoryLocationRepository } from '../../business/infrastructure/repositories/location-in-memory-repository';
+  UserGetAllByStatus,
+  UserGetOneByEmail,
+} from '../../../lib/User/application';
+
 import {
   CancelReservation,
   ConfirmReservation,
@@ -64,40 +30,21 @@ import {
   GetUserReservations,
 } from '../../Reservation/application';
 import { MongoReservationRepository } from '../../Reservation/infrastructure/repositories/mongo-reservation-repository';
-import {
-  CreateSuperAdmin,
-  EditSuperAdmin,
-  GetAllSuperAdmins,
-  GetAllSuperAdminsByIsActive,
-  GetOneSuperAdminByEmail,
-  GetOneSuperAdminById,
-  SoftDeleteSuperAdmin,
-  SuperAdminEditBusiness,
-  SuperAdminEditHotel,
-  SuperAdminGetAllReservationsByHotelId,
-  SuperAdminGetAllUserReservations,
-  SuperAdminGetOneReservationById,
-} from '../../superadmin/application';
-import {
-  ForBusinessEditAdapter,
-  ForViewReservationsAdapter,
-} from '../../superadmin/infrastructure/adapters';
-import { ForHotelEditAdapter } from '../../superadmin/infrastructure/adapters/driven/for-edit-hotel-proxy';
-import { MongoSuperAdminRepository } from '../../superadmin/infrastructure/repositories';
+
 import { UserCreate } from '../../User/application/UserCreate/UserCreate';
 import { UserEdit } from '../../User/application/UserEdit/UserEdit';
 import { UserGetAll } from '../../User/application/UserGetAll/UserGetAll';
 import { UserGetOneById } from '../../User/application/UserGetOneById/UserGetOneById';
 import { UserSoftDelete } from '../../User/application/UserSoftDelete/UserSoftDelete';
 import { MongoUserRepository } from '../../User/infrastructure/repositories/MongoUserRepository';
->>>>>>> 7cef941 (test(business): business tested)
+
 
 const userRepository = new MongoUserRepository();
 const reservationRepository = new MongoReservationRepository();
 const hotelRepository = new MongoHotelRepository();
 const cityRepository = new InMemoryCityRepository();
-const businessRepository = new MongoBusinessRepository();
-const locationRepository = new InMemoryLocationRepository(); 
+
+
 
 export const ServiceContainer = {
   user: {
@@ -107,7 +54,7 @@ export const ServiceContainer = {
     edit: new UserEdit(userRepository),
     softDelete: new UserSoftDelete(userRepository),
     getOneByEmail: new UserGetOneByEmail(userRepository),
-    getAllByStatus: new UserGetAllByStatus(userRepository),   
+    getAllByStatus: new UserGetAllByStatus(userRepository),
   },
   reservation: {
     getOneByReservationId: new GetOneByReservationId(reservationRepository),
@@ -118,7 +65,6 @@ export const ServiceContainer = {
     confirm: new ConfirmReservation(reservationRepository),
     cancel: new CancelReservation(reservationRepository),
   },
-
   hotel: {
     getAll: new HotelGetALL(hotelRepository),
     getOneByEmail: new HotelGetOnByEmail(hotelRepository),
@@ -132,18 +78,12 @@ export const ServiceContainer = {
     getByProvider: new HotelGetByProvider(hotelRepository),
     CheckHotelFreePlans: new CheckHotelFreePlans(hotelRepository),
   },
-
-
   business: {
-    create: new CreateBusiness(businessRepository, locationRepository),
-    edit: new EditBusiness(businessRepository, locationRepository),
-    getAll: new GetAllBusiness(businessRepository),
-    getAllByPlan: new GetAllBusinessByPlan(businessRepository),
-    getAllByRole: new GetAllBusinessByRole(businessRepository),
-    getAllByStatus: new GetAllBusinessByStatus(businessRepository),
-    getAllByProvider: new GetBusinessByProviderData(businessRepository),
-    getOneByEmail: new GetOneBusinessByEmail(businessRepository),
-    getOneById: new GetOneBusinessById(businessRepository),
-    softDelete: new SoftDeleteBusiness(businessRepository),
+    create: businessService.create,
+    edit: businessService.edit,
+    getAll: businessService.getAll,
+    getOneById: businessService.getOneById,
+    softDelete: businessService.softDelete
   },
+
 };

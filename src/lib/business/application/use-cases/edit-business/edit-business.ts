@@ -11,10 +11,10 @@ import {
   BusinessScore,
   BusinessStatus,
   LocationServicePort,
-} from '~/lib/business/domain';
-import { BusinessLocationServicePort } from '~/lib/business/domain/ports/driving/business-location-service-port';
-import { UseCase } from '~/lib/Shared/application/usecase';
-import { ValidationError } from '~/lib/Shared/domain';
+} from '../../../../../lib/business/domain';
+import { BusinessLocationServicePort } from '../../../../../lib/business/domain/ports/driving/business-location-service-port';
+import { UseCase } from '../../../../../lib/Shared/application/usecase';
+import { ValidationError } from '../../../../../lib/Shared/domain';
 
 
 export interface EditBusinessDTO {

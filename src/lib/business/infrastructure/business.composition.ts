@@ -11,11 +11,21 @@ const businessComposition = () => {
 
   const {
     controllers,
-    useCases: { editBusinessUseCase },
+    useCases: { 
+      editBusinessUseCase,
+      createBusinessUseCase,
+      getBusinessesUseCase,
+      getOneBusinessUseCase,
+      softDeleteUseCase,
+    },
   } = buildBusinessControllers(businessRepository, locationService );
 
   const businessService = new BusinessServiceAdapter({
     editBusinessUseCase,
+    createBusinessUseCase,
+    getBusinessesUseCase,
+    getOneBusinessUseCase,
+    softDeleteBusinessUseCase: softDeleteUseCase,
   });
 
   return { controllers, businessService };

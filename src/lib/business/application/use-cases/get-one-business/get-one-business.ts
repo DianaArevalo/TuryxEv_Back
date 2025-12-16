@@ -4,9 +4,9 @@ import {
   BusinessNotFoundError,
   BusinessPublicResponse,
   BusinessRepositoryPort,
-} from '~/lib/business/domain';
-import { UseCase } from '~/lib/Shared/application/usecase';
-import { HttpError } from '~/lib/Shared/domain';
+} from '../../../../../lib/business/domain';
+import { UseCase } from '../../../../../lib/Shared/application/usecase';
+import { HttpError } from '../../../../../lib/Shared/domain';
 
 export interface GetOneBusinessDTO {
   id?: string;
