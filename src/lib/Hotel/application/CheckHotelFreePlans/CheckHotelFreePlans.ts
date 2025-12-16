@@ -1,6 +1,6 @@
 //import { Limit, Page } from "~/lib/Shared/domain/value-objects";
 
-import { LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
 import { HotelPlan, HotelRepository, HotelStatus} from "../../domain";
 
 interface CheckHotelFreePlanProps {    

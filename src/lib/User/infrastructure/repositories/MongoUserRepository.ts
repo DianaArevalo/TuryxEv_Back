@@ -1,10 +1,10 @@
 import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
-import { Limit, Page } from "../../../../lib/Shared/domain";
 import { User } from "../../domain/entities/User/User";
 import { UserCreatedAt, UserEmail, UserId, UserName, UserPicture, UserPlan, UserProvider, UserRole, UserScore,  UserStatus, UserUpdatedAt } from "../../domain/entities/User/value-objects";
 import { UserRepository } from "../../domain/repositories";
 import UserModel from "../models/UserModel";
 import { UserNotFoundError } from "../../domain/exceptions";
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
 
 export class MongoUserRepository implements UserRepository {
   
@@ -39,7 +39,7 @@ export class MongoUserRepository implements UserRepository {
     return this.createUserEntity(record);
   }
 
-  async getAll(page: Page, limit: Limit): Promise<User[]>{
+  async getAll(page: PageValueObject, limit: LimitValueObject): Promise<User[]>{
     const offSet = (page.value - 1) * limit.value;
 
     const records = await UserModel.find()
