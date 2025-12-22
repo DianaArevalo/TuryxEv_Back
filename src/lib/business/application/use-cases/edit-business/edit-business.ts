@@ -56,8 +56,13 @@ export class EditBusinessUseCase
         "Can't update password when you signed with OAuth provider"
       );
 
-    if (props.location)
-      await this.locationService.updateLocation(new BusinessLocation(props.location));
+    if (props.location) {
+  await this.locationService.updateLocation({
+    locationId: props.location.locationId,
+    cityName: props.location.cityName,
+    address: props.location.address,
+  });
+}
 
     if (props.idPlan && props.idPlan !== business.idPlan.value)
       business.idPlan = BusinessPlan.create(props.idPlan);
@@ -73,8 +78,7 @@ export class EditBusinessUseCase
     const edited = await this.repository.edit(business);
 
     return {
-      ...edited.toPrivateResponse(),
-      location: props.location ? props.location : edited.location?.value,
+      ...edited.toPrivateResponse()
     };
   }
 }

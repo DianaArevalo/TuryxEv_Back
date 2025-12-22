@@ -3,8 +3,7 @@ import {
   Business,
   BusinessCreatedAt,
   BusinessEmail,
-  BusinessId,
-  BusinessLocation,
+  BusinessId,  
   BusinessName,
   BusinessPicture,
   BusinessPlan,
@@ -16,6 +15,7 @@ import {
   BusinessUpdatedAt,
 } from '../../domain';
 import { BusinessSchema } from '../schemas';
+import { LocationId } from '../../../../lib/location/domain';
 
 export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
   async getAll(
@@ -42,8 +42,9 @@ export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
     throw new Error('Method not implemented.');
   }
 
-  create(business: Business): Promise<Business> {
-    throw new Error('Method not implemented.');
+  async create(business: Business): Promise<Business> {
+    const created = new Business(business);    
+    return created;
   }
 
   edit(business: Business): Promise<Business> {
@@ -91,7 +92,7 @@ export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
       bussinessId: new BusinessId(String(record._id)),
       name: new BusinessName(record.name),
       email: new BusinessEmail(record.email),
-      location: undefined, // TODO
+      locationId: new LocationId(record.location), 
       picture: record.picture ? new BusinessPicture(record.picture) : undefined,
       score: new BusinessScore(record.score),
       createdAt: new BusinessCreatedAt(record.createdAt),

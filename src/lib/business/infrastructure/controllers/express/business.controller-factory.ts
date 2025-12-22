@@ -8,7 +8,7 @@ import {
 } from '../../../../../lib/business/application/use-cases';
 import {
   BusinessRepositoryPort,
-} from '~/lib/business/domain';
+} from '../../../../../lib/business/domain';
 import { CreateBusinessController } from './create-business.controller';
 import { EditBusinessController } from './edit-business.controller';
 import { GetBusinessesController } from './get-businesses.controller';

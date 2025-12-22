@@ -1,3 +1,4 @@
+import { LocationId } from '../../../../../lib/location/domain';
 import {
   Business,
   BusinessCreatedAt,
@@ -14,7 +15,8 @@ import {
   BusinessRole,
   BusinessScore,
   BusinessStatus,
-  BusinessUpdatedAt  
+  BusinessUpdatedAt,
+ 
 } from '../../../../../lib/business/domain';
 import { BusinessLocationServicePort } from '../../../../../lib/business/domain/ports/driving/business-location-service-port';
 import { UseCase } from '../../../../../lib/Shared/application/usecase';
@@ -28,12 +30,9 @@ export interface CreateBusinessDTO {
   idPlan?: string;
   status: string;
   password?: string;
-  location: {
-    cityName: string;
-    address: string;
-    lat: number;
-    lng: number;
-  };
+
+  locationId: string; // 👈 SOLO referencia
+
   picture?: string;
   providerData: string;
 }
@@ -46,37 +45,36 @@ export class CreateBusinessUseCase
     private readonly locationService: BusinessLocationServicePort,
   ) {}
 
-  async execute(props: CreateBusinessDTO): Promise<BusinessPrivateResponse> {
-    const createdAt = BusinessCreatedAt.now();
-    const location = BusinessLocation.create(props.location);
-    const providerData = BusinessProviderData.create(props.providerData);
+async execute(props: CreateBusinessDTO): Promise<BusinessPrivateResponse> {
+  const createdAt = BusinessCreatedAt.now();
+  const providerData = BusinessProviderData.create(props.providerData);
 
-    if (!props.password && providerData.value === 'AUTH')
-      throw new ValidationError(
-        'Password is required when providerData is AUTH.',
-      );
-
-    const business = new Business({
-      bussinessId: new BusinessId(''),
-      name: BusinessName.create(props.name),
-      email: BusinessEmail.create(props.email),
-      password: props.password
-        ? BusinessPassword.create(props.password)
-        : undefined,
-      picture: props.picture ? new BusinessPicture(props.picture) : undefined,
-      score: BusinessScore.create(1),
-      createdAt: createdAt,
-      updatedAt: BusinessUpdatedAt.now(createdAt),
-      idRole: BusinessRole.create(props.idRole),
-      idPlan: BusinessPlan.create(props.idPlan || 'FREE'),
-      status: BusinessStatus.create(props.status),
-      providerData,
-    });
-
-    const created = await this.repository.create(business);
-
-    await this.locationService.updateLocation(location);
-
-    return created.toPrivateResponse();
+  if (!props.password && providerData.value === 'AUTH') {
+    throw new ValidationError(
+      'Password is required when providerData is AUTH.',
+    );
   }
+
+  const business = new Business({
+    bussinessId: new BusinessId(''),
+    name: BusinessName.create(props.name),
+    email: BusinessEmail.create(props.email),
+    password: props.password
+      ? BusinessPassword.create(props.password)
+      : undefined,
+    picture: props.picture ? new BusinessPicture(props.picture) : undefined,
+    score: BusinessScore.create(1),
+    createdAt,
+    updatedAt: BusinessUpdatedAt.now(createdAt),
+    idRole: BusinessRole.create(props.idRole),
+    idPlan: BusinessPlan.create(props.idPlan || 'FREE'),
+    status: BusinessStatus.create(props.status),
+    providerData,
+    locationId: new LocationId(props.locationId), // 👈 AQUÍ
+  });
+
+  return (await this.repository.create(business)).toPrivateResponse();
+}
+
+
 }

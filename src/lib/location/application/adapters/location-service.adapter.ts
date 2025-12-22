@@ -1,5 +1,5 @@
 import { CityResponse, LocationResponse } from "../../domain";
-import { LocationRepositoryPort, LocationServicePort } from "../../domain/ports";
+import { LocationServicePort } from "../../domain/ports";
 import {
   GetLocationByOwnerDTO,
   GetLocationByOwnerUseCase,

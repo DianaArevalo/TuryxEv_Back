@@ -1,9 +1,11 @@
-import { BusinessId, BusinessLocation } from "../../entities";
+import { UpdatelocationDTO } from "~/lib/location/application/use-cases";
+
+
 
 // business/domain/ports/location-service.port.ts
 export interface BusinessLocationServicePort {
 
-  updateLocation(
-    location: BusinessLocation
+updateLocation(
+    props: UpdatelocationDTO
   ): Promise<void>;
 }

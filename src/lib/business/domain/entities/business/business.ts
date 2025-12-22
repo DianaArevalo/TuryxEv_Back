@@ -1,3 +1,4 @@
+import { LocationId } from "~/lib/location/domain";
 import {
   BusinessCreatedAt,
   BusinessEmail,
@@ -17,14 +18,14 @@ import {
   BusinessUpdatedAt,
 } from "./value-objects";
 
-import { LocationValueObjectI, ProviderDataT } from '~/lib/Shared/domain';
+import { LocationValueObjectI, ProviderDataT } from '../../../../../lib/Shared/domain';
 
 export interface BusinessI {
   bussinessId: BusinessId;
   name: BusinessName;
   email: BusinessEmail;
   password?: BusinessPassword;
-  location?: BusinessLocation;
+  locationId: LocationId;
   picture?: BusinessPicture;
   score: BusinessScore;
   createdAt: BusinessCreatedAt;
@@ -39,7 +40,7 @@ export interface BusinessPrivateResponse {
   bussinessId: string;
   name: string;
   email: string;
-  location: LocationValueObjectI | undefined;
+  locationId: string;
   picture: string | undefined;
   score: number;
   createdAt: Date;
@@ -54,7 +55,7 @@ export interface BusinessPublicResponse {
   bussinessId: string;
   name: string;
   email: string;
-  location: LocationValueObjectI | undefined;
+  locationId: string;
   picture: string | undefined;
   score: number;
   status: BusinessStatusT;
@@ -65,7 +66,7 @@ export class Business implements BusinessI {
   name: BusinessName;
   email: BusinessEmail;
   password?: BusinessPassword;
-  location?: BusinessLocation;
+  locationId: LocationId;
   picture?: BusinessPicture;
   score: BusinessScore;
   createdAt: BusinessCreatedAt;
@@ -80,7 +81,7 @@ export class Business implements BusinessI {
     this.name = attr.name;
     this.email = attr.email;
     this.password = attr.password;
-    this.location = attr.location;
+    this.locationId = attr.locationId;
     this.picture = attr.picture;
     this.score = attr.score;
     this.createdAt = attr.createdAt;
@@ -97,7 +98,7 @@ export class Business implements BusinessI {
       bussinessId: this.bussinessId.value,
       name: this.name.value,
       email: this.email.value,
-      location: this.location?.value,
+      locationId: this.locationId.value,
       picture: this.picture?.value,
       score: this.score?.value,
       createdAt: this.createdAt.value,
@@ -115,7 +116,7 @@ export class Business implements BusinessI {
       bussinessId: this.bussinessId.value,
       name: this.name.value,
       email: this.email.value,
-      location: this.location?.value,
+      locationId: this.locationId.value,
       picture: this.picture?.value,
       score: this.score?.value,
       status: this.status?.value,
