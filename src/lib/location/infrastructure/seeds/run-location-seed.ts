@@ -1,32 +1,36 @@
 import mongoose from "mongoose";
 import { CitySchema, LocationSchema } from "../schemas";
 import locations from "./location-seed";
-
+import { config } from "../../../../config/config";
+ // ajusta el path si aplica
 
 async function runLocationsSeed() {
   try {
-    await mongoose.connect(process.env.MONGO_URI!);
-    console.log("Connected to MongoDB");
+    if (!config.mongoUri) {
+      throw new Error("mongoUri is not defined in config");
+    }
 
-    // 1️⃣ Traemos todas las ciudades
+    await mongoose.connect(config.mongoUri);
+    console.log("✅ Connected to MongoDB");
+
+    // 1️⃣ Obtener ciudades
     const cities = await CitySchema.find();
 
     if (!cities.length) {
       throw new Error("No cities found. Run city seed first.");
     }
 
-    // 2️⃣ Creamos un mapa: cityName -> cityId
+    // 2️⃣ Mapear cityName -> ObjectId
     const cityMap = new Map<string, mongoose.Types.ObjectId>(
-  cities.map(city => [city.name, city._id as mongoose.Types.ObjectId] as [string, mongoose.Types.ObjectId])
-);
+      cities.map(city => [city.name, city._id as mongoose.Types.ObjectId])
+    );
 
-
-    // 3️⃣ Construimos locations usando el ObjectId correcto
-    const location = locations.map(loc => {
+    // 3️⃣ Construir locations
+    const docs = locations.map(loc => {
       const cityId = cityMap.get(loc.cityName);
 
       if (!cityId) {
-        throw new Error(`City not found for location: ${loc.cityName}`);
+        throw new Error(`City not found: ${loc.cityName}`);
       }
 
       return {
@@ -37,14 +41,13 @@ async function runLocationsSeed() {
       };
     });
 
-    // 4️⃣ Limpiamos e insertamos
     await LocationSchema.deleteMany({});
-    await LocationSchema.insertMany(location);
+    await LocationSchema.insertMany(docs);
 
-    console.log("Locations seeded successfully ✅");
+    console.log("✅ Locations seeded successfully");
     process.exit(0);
   } catch (error) {
-    console.error("Error seeding locations ❌", error);
+    console.error("❌ Error seeding locations", error);
     process.exit(1);
   }
 }

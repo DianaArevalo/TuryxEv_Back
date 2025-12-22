@@ -1,24 +1,29 @@
+import "dotenv/config";
 import mongoose from "mongoose";
 import { CitySchema } from "../schemas";
 import cities from "./cities.seed";
+import { config } from "../../../../config/config";
+
 
 async function runCitiesSeed() {
   try {
-    await mongoose.connect(process.env.MONGO_URI!);
-    console.log("Connected to MongoDB");
+    if (!config.mongoUri) {
+      throw new Error("mongoUri is not defined in config");
+    }
 
-    // Limpia la colección
+    await mongoose.connect(config.mongoUri);
+    console.log("✅ Connected to MongoDB");
+
     await CitySchema.deleteMany({});
-
-    // Inserta ciudades
     await CitySchema.insertMany(cities);
 
-    console.log("Cities seeded successfully ✅");
+    console.log("✅ Cities seeded successfully");
     process.exit(0);
   } catch (error) {
-    console.error("Error seeding cities ❌", error);
+    console.error("❌ Error seeding cities", error);
     process.exit(1);
   }
 }
 
 runCitiesSeed();
+

@@ -1,6 +1,5 @@
 import {
-  BusinessId,
-  BusinessLocation,
+  BusinessId,  
   BusinessName,
   BusinessNotFoundError,
   BusinessPassword,
