@@ -21,8 +21,7 @@ export const buildBusinessControllers = (
   locationService: BusinessLocationServicePort,
 ) => {
   const createBusinessUseCase = new CreateBusinessUseCase(
-    businessRepository,
-    locationService,
+    businessRepository,    
   );
   const createBusinessController = new CreateBusinessController(
     createBusinessUseCase,

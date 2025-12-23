@@ -18,7 +18,6 @@ import {
   BusinessUpdatedAt,
  
 } from '../../../../../lib/business/domain';
-import { BusinessLocationServicePort } from '../../../../../lib/business/domain/ports/driving/business-location-service-port';
 import { UseCase } from '../../../../../lib/Shared/application/usecase';
 import { ValidationError } from '../../../../../lib/Shared/domain';
 
@@ -30,7 +29,6 @@ export interface CreateBusinessDTO {
   idPlan?: string;
   status: string;
   password?: string;
-
   locationId: string; // 👈 SOLO referencia
 
   picture?: string;
@@ -42,7 +40,7 @@ export class CreateBusinessUseCase
 {
   constructor(
     private readonly repository: BusinessRepositoryPort,
-    private readonly locationService: BusinessLocationServicePort,
+    
   ) {}
 
 async execute(props: CreateBusinessDTO): Promise<BusinessPrivateResponse> {
@@ -70,7 +68,7 @@ async execute(props: CreateBusinessDTO): Promise<BusinessPrivateResponse> {
     idPlan: BusinessPlan.create(props.idPlan || 'FREE'),
     status: BusinessStatus.create(props.status),
     providerData,
-    locationId: new LocationId(props.locationId), // 👈 AQUÍ
+    locationId: new LocationId(props.locationId), 
   });
 
   return (await this.repository.create(business)).toPrivateResponse();

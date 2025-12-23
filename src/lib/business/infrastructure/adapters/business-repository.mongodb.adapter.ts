@@ -16,6 +16,7 @@ import {
 } from '../../domain';
 import { BusinessSchema } from '../schemas';
 import { LocationId } from '../../../../lib/location/domain';
+import { Types } from 'mongoose';
 
 export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
   async getAll(
@@ -42,10 +43,45 @@ export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
     throw new Error('Method not implemented.');
   }
 
-  async create(business: Business): Promise<Business> {
-    const created = new Business(business);    
-    return created;
-  }
+ async create(business: Business): Promise<Business> {
+
+  
+  // 1. Guardar en Mongo
+  const doc = await BusinessSchema.create({
+    name: business.name.value,
+    email: business.email.value,
+    password: business.password?.value,
+    picture: business.picture?.value,
+    score: business.score.value,
+    createdAt: business.createdAt.value,
+    updatedAt: business.updatedAt.value,
+    role: business.idRole.toPrimitives(),
+    plan: business.idPlan.toPrimitives(),
+    status: business.status.toPrimitives(),
+    providerData: business.providerData.toPrimitives(),
+    location: business.locationId?.value,
+  });
+
+  const id = (doc._id as Types.ObjectId).toString();
+
+
+  // 2. Reconstruir la entidad con el ID real
+  return new Business({
+    bussinessId: new BusinessId(id),
+    name: new BusinessName(doc.name),
+    email: new BusinessEmail(doc.email),
+    locationId: new LocationId((doc.location as Types.ObjectId).toString()),      
+    picture: doc.picture ? new BusinessPicture(doc.picture) : undefined,
+    score: new BusinessScore(doc.score),
+    createdAt: new BusinessCreatedAt(doc.createdAt),
+    updatedAt: new BusinessUpdatedAt(doc.updatedAt),
+    idRole: BusinessRole.fromPrimitives(doc.role),
+    idPlan: BusinessPlan.fromPrimitives(doc.plan),
+    status: BusinessStatus.fromPrimitives(doc.status),
+    providerData: BusinessProviderData.fromPrimitives(doc.providerData),
+  });
+}
+
 
   edit(business: Business): Promise<Business> {
     throw new Error('Method not implemented.');

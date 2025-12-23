@@ -18,7 +18,7 @@ import {
   BusinessUpdatedAt,
 } from "./value-objects";
 
-import { LocationValueObjectI, ProviderDataT } from '../../../../../lib/Shared/domain';
+import { ProviderDataT } from '../../../../../lib/Shared/domain';
 
 export interface BusinessI {
   bussinessId: BusinessId;
