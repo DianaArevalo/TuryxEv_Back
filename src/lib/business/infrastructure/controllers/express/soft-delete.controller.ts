@@ -1,7 +1,7 @@
 import {
   SoftDeleteBusinessDTO,
   SoftDeleteBusinessUseCase,
-} from '~/lib/business/application';
+} from '../../../../../lib/business/application';
 import { ApiResponse } from '~/lib/Shared/Infraestructure/ApiResponse';
 import { express as ex } from '~/lib/Shared/Infraestructure/External';
 

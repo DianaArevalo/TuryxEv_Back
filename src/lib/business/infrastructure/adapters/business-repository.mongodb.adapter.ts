@@ -1,9 +1,9 @@
-import { PageValueObject, LimitValueObject } from '~/lib/Shared/domain';
+import { PageValueObject, LimitValueObject } from "~/lib/Shared/domain";
 import {
   Business,
   BusinessCreatedAt,
   BusinessEmail,
-  BusinessId,  
+  BusinessId,
   BusinessName,
   BusinessPicture,
   BusinessPlan,
@@ -13,142 +13,141 @@ import {
   BusinessScore,
   BusinessStatus,
   BusinessUpdatedAt,
-} from '../../domain';
-import { BusinessSchema } from '../schemas';
-import { LocationId } from '../../../../lib/location/domain';
-import { Types } from 'mongoose';
+} from "../../domain";
+import { BusinessSchema } from "../schemas";
+import { LocationId } from "../../../../lib/location/domain";
+import { Types } from "mongoose";
 
 export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
   async getAll(
     page: PageValueObject,
-    limit: LimitValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
     const offset = (page.value - 1) * limit.value;
 
     const records = await BusinessSchema.find({
-      status: { $ne: new BusinessStatus('BLOCKED').toPrimitives() },
+      status: { $ne: new BusinessStatus("BLOCKED").toPrimitives() },
     })
       .skip(offset)
       .limit(limit.value)
-      .lean(); 
+      .lean();
 
     return records.map((record) => this.createBusinessEntity(record));
   }
 
   async getOneByEmail(email: BusinessEmail): Promise<Business | null> {
-    const record = await BusinessSchema.findOne({email: email.value}).lean();
+    const record = await BusinessSchema.findOne({ email: email.value }).lean();
 
-      if (!record) return null;
+    if (!record) return null;
 
-  return this.createBusinessEntity(record);
+    return this.createBusinessEntity(record);
   }
 
   async getOneById(id: BusinessId): Promise<Business | null> {
-  const record = await BusinessSchema.findById(id.value).lean();
+    const record = await BusinessSchema.findById(id.value).lean();
 
-  if (!record) return null;
+    if (!record) return null;
 
-  return this.createBusinessEntity(record);
-}
+    return this.createBusinessEntity(record);
+  }
 
-
- async create(business: Business): Promise<Business> {
-
-  
-  // 1. Guardar en Mongo
-  const doc = await BusinessSchema.create({
-    name: business.name.value,
-    email: business.email.value,
-    password: business.password?.value,
-    picture: business.picture?.value,
-    score: business.score.value,
-    createdAt: business.createdAt.value,
-    updatedAt: business.updatedAt.value,
-    role: business.idRole.toPrimitives(),
-    plan: business.idPlan.toPrimitives(),
-    status: business.status.toPrimitives(),
-    providerData: business.providerData.toPrimitives(),
-    location: business.locationId?.value,
-  });
-
-  const id = (doc._id as Types.ObjectId).toString();
-
-
-  // 2. Reconstruir la entidad con el ID real
-  return new Business({
-    bussinessId: new BusinessId(id),
-    name: new BusinessName(doc.name),
-    email: new BusinessEmail(doc.email),
-    locationId: new LocationId((doc.location as Types.ObjectId).toString()),      
-    picture: doc.picture ? new BusinessPicture(doc.picture) : undefined,
-    score: new BusinessScore(doc.score),
-    createdAt: new BusinessCreatedAt(doc.createdAt),
-    updatedAt: new BusinessUpdatedAt(doc.updatedAt),
-    idRole: BusinessRole.fromPrimitives(doc.role),
-    idPlan: BusinessPlan.fromPrimitives(doc.plan),
-    status: BusinessStatus.fromPrimitives(doc.status),
-    providerData: BusinessProviderData.fromPrimitives(doc.providerData),
-  });
-}
-
-
-async edit(business: Business): Promise<Business> {
-  const updated = await BusinessSchema.findByIdAndUpdate(
-    business.bussinessId.value,
-    {
+  async create(business: Business): Promise<Business> {
+    // 1. Guardar en Mongo
+    const doc = await BusinessSchema.create({
       name: business.name.value,
+      email: business.email.value,
       password: business.password?.value,
       picture: business.picture?.value,
       score: business.score.value,
+      createdAt: business.createdAt.value,
+      updatedAt: business.updatedAt.value,
+      role: business.idRole.toPrimitives(),
       plan: business.idPlan.toPrimitives(),
       status: business.status.toPrimitives(),
-      updatedAt: business.updatedAt.value,
-    },
-    { new: true }
-  ).lean();
+      providerData: business.providerData.toPrimitives(),
+      location: business.locationId?.value,
+    });
 
-  if (!updated) {
-    throw new Error('Business not found');
+    const id = (doc._id as Types.ObjectId).toString();
+
+    // 2. Reconstruir la entidad con el ID real
+    return new Business({
+      bussinessId: new BusinessId(id),
+      name: new BusinessName(doc.name),
+      email: new BusinessEmail(doc.email),
+      locationId: new LocationId((doc.location as Types.ObjectId).toString()),
+      picture: doc.picture ? new BusinessPicture(doc.picture) : undefined,
+      score: new BusinessScore(doc.score),
+      createdAt: new BusinessCreatedAt(doc.createdAt),
+      updatedAt: new BusinessUpdatedAt(doc.updatedAt),
+      idRole: BusinessRole.fromPrimitives(doc.role),
+      idPlan: BusinessPlan.fromPrimitives(doc.plan),
+      status: BusinessStatus.fromPrimitives(doc.status),
+      providerData: BusinessProviderData.fromPrimitives(doc.providerData),
+    });
   }
 
-  return this.createBusinessEntity(updated);
-}
+  async edit(business: Business): Promise<Business> {
+    const updated = await BusinessSchema.findByIdAndUpdate(
+      business.bussinessId.value,
+      {
+        name: business.name.value,
+        password: business.password?.value,
+        picture: business.picture?.value,
+        score: business.score.value,
+        plan: business.idPlan.toPrimitives(),
+        status: business.status.toPrimitives(),
+        updatedAt: business.updatedAt.value,
+      },
+      { new: true }
+    ).lean();
 
+    if (!updated) {
+      throw new Error("Business not found");
+    }
 
-  softDelete(id: BusinessId): Promise<void> {
-    throw new Error('Method not implemented.');
+    return this.createBusinessEntity(updated);
+  }
+
+  async softDelete(id: BusinessId): Promise<void> {
+    const blockedStatus = BusinessStatus.create("BLOCKED");
+
+    await BusinessSchema.updateOne(
+      { _id: id.value },
+      { status: blockedStatus.toPrimitives() }
+    );
   }
 
   getByPlan(
     plan: BusinessPlan,
     page: PageValueObject,
-    limit: LimitValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   getByRole(
     role: BusinessRole,
     page: PageValueObject,
-    limit: LimitValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   getByStatus(
     status: BusinessStatus,
     page: PageValueObject,
-    limit: LimitValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   getByProvider(
     providerData: BusinessProviderData,
     page: PageValueObject,
-    limit: LimitValueObject,
+    limit: LimitValueObject
   ): Promise<Business[]> {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
   private createBusinessEntity(record: any): Business {
@@ -156,7 +155,7 @@ async edit(business: Business): Promise<Business> {
       bussinessId: new BusinessId(String(record._id)),
       name: new BusinessName(record.name),
       email: new BusinessEmail(record.email),
-      locationId: new LocationId(record.location), 
+      locationId: new LocationId(record.location),
       picture: record.picture ? new BusinessPicture(record.picture) : undefined,
       score: new BusinessScore(record.score),
       createdAt: new BusinessCreatedAt(record.createdAt),
