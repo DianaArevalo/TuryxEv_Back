@@ -39,9 +39,14 @@ export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
     throw new Error('Method not implemented.');
   }
 
-  getOneById(id: BusinessId): Promise<Business | null> {
-    throw new Error('Method not implemented.');
-  }
+  async getOneById(id: BusinessId): Promise<Business | null> {
+  const record = await BusinessSchema.findById(id.value).lean();
+
+  if (!record) return null;
+
+  return this.createBusinessEntity(record);
+}
+
 
  async create(business: Business): Promise<Business> {
 
@@ -83,9 +88,28 @@ export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
 }
 
 
-  edit(business: Business): Promise<Business> {
-    throw new Error('Method not implemented.');
+async edit(business: Business): Promise<Business> {
+  const updated = await BusinessSchema.findByIdAndUpdate(
+    business.bussinessId.value,
+    {
+      name: business.name.value,
+      password: business.password?.value,
+      picture: business.picture?.value,
+      score: business.score.value,
+      plan: business.idPlan.toPrimitives(),
+      status: business.status.toPrimitives(),
+      updatedAt: business.updatedAt.value,
+    },
+    { new: true }
+  ).lean();
+
+  if (!updated) {
+    throw new Error('Business not found');
   }
+
+  return this.createBusinessEntity(updated);
+}
+
 
   softDelete(id: BusinessId): Promise<void> {
     throw new Error('Method not implemented.');
