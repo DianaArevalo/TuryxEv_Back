@@ -30,13 +30,17 @@ export class BusinessRepositoryMongoAdapter implements BusinessRepositoryPort {
     })
       .skip(offset)
       .limit(limit.value)
-      .lean();
+      .lean(); 
 
     return records.map((record) => this.createBusinessEntity(record));
   }
 
-  getOneByEmail(email: BusinessEmail): Promise<Business | null> {
-    throw new Error('Method not implemented.');
+  async getOneByEmail(email: BusinessEmail): Promise<Business | null> {
+    const record = await BusinessSchema.findOne({email: email.value}).lean();
+
+      if (!record) return null;
+
+  return this.createBusinessEntity(record);
   }
 
   async getOneById(id: BusinessId): Promise<Business | null> {
