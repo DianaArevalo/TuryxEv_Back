@@ -5,8 +5,8 @@ import {
   CreateLocationUseCase,
   EditLocationDTO,
   EditLocationUseCase,
+  GetPopulatedLocationByIdUseCase,
 } from '../use-cases';
-import { GetPopulatedLocationByIdUseCase } from '../use-cases/get-populated-location-by-id/get-populated-location-by-id';
 
 import { LocationValueObjectI } from '~/lib/shared/domain';
 

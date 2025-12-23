@@ -13,7 +13,7 @@ const app = ex();
 
 // Middlewares
 
-app.use(cors({ origin: config.mongoUri, credentials: true }));
+app.use(cors({ origin: config.frontend, credentials: true }));
 app.use(ex.json());
 
 // Versionado de API's
