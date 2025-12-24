@@ -1,4 +1,4 @@
-import { HttpError } from "~/lib/Shared/domain";
+import { HttpError } from "../../../../../lib/Shared/domain";
 import { BusinessRepositoryPort } from "../../../../../lib/business/domain";
 import { CreateBusinessUseCase } from "./create-business";
 

@@ -1,129 +1,143 @@
-import { EditBusinessUseCase } from './edit-business';
-import { CreateBusinessUseCase } from '../create-business/create-business';
+import { BusinessLocationServicePort } from "~/lib/business/domain/ports/driving/business-location-service-port";
+import { BusinessRepositoryPort } from "../../../../../lib/business/domain";
+import { EditBusinessUseCase } from "./edit-business";
+import { HttpError } from "~/lib/Shared/domain";
 
-import {
-  BusinessRepositoryPort,
-  LocationServicePort as BusinessLocationServicePort,
-  BusinessId,
-} from '~/lib/business/domain';
-import { BusinessRepositoryInMemoryAdapter } from '~/lib/business/infrastructure/adapters/business-repository.in-memory.adapter';
-import { LocationServiceAdapter as BusinessLocationServiceAdapter } from '~/lib/business/infrastructure/adapters/location-service.adapter';
-import { LocationServicePort } from '~/lib/location/domain';
-import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import { HttpError } from '~/lib/Shared/domain';
+let locationService: jest.Mocked<BusinessLocationServicePort>;
 
-describe('Edit business - Use Case', () => {
-  let businessLocationService: BusinessLocationServicePort;
-  let repository: BusinessRepositoryPort;
-  let create: CreateBusinessUseCase;
+const mockBusiness = () => ({
+  bussinessId: { value: "biz-123" },
+  name: { value: "Business" },
+  email: { value: "new@business.com" },
+  providerData: { value: "AUTH" },
+  idPlan: { value: "FREE" },
+  score: { value: 1 },
+  status: { value: "OPEN" },
+  picture: undefined,
+  password: undefined,
+
+  toPrivateResponse: () => ({
+    bussinessId: "biz-123",
+    name: "Business",
+    email: "new@business.com",
+    status: "OPEN",
+  }),
+});
+
+describe("EditBusinessUseCase", () => {
+  let repository: jest.Mocked<BusinessRepositoryPort>;
   let edit: EditBusinessUseCase;
-  let locationService: LocationServicePort;
 
   beforeEach(() => {
-    locationService = locationCompositionMock().locationService;
-    businessLocationService = new BusinessLocationServiceAdapter(
-      locationService,
-    );
-    repository = new BusinessRepositoryInMemoryAdapter(businessLocationService);
-    create = new CreateBusinessUseCase(repository, businessLocationService);
-    edit = new EditBusinessUseCase(repository, businessLocationService);
+    repository = {
+      getAll: jest.fn(),
+      getOneByEmail: jest.fn(),
+      getOneById: jest.fn(),
+      create: jest.fn(),
+      edit: jest.fn(),
+      softDelete: jest.fn(),
+      getByPlan: jest.fn(),
+      getByRole: jest.fn(),
+      getByStatus: jest.fn(),
+      getByProvider: jest.fn(),
+    } as jest.Mocked<BusinessRepositoryPort>;
+
+    locationService = {
+      updateLocation: jest.fn().mockResolvedValue(undefined),
+    } as jest.Mocked<BusinessLocationServicePort>;
+
+    edit = new EditBusinessUseCase(repository, locationService);
   });
 
-  it('Should edit a business', async () => {
-    const newBusiness = await create.execute({
-      name: 'Business',
-      email: 'new@business.com',
-      idRole: 'BUSINESS',
-      idPlan: 'FREE',
-      status: 'OPEN',
-      password: 'BusinessPa$$w0rd',
+  it("should edit a business", async () => {
+    const business = mockBusiness();
+
+    repository.getOneById.mockResolvedValue(business as any);
+    repository.edit.mockImplementation(async (b) => b);
+
+    const result = await edit.execute({
+      businessId: "biz-123",
+      name: "Business",
+      idPlan: "FREE",
+      status: "OPEN",
+      password: "BusinessPa$$w0rd",
       location: {
-        cityName: 'Bogotá',
-        address: 'Some address',
+        locationId: "loc-123",
+        cityName: "Bogotá",
+        address: "Some address",
       },
-      picture: 'https://expressjs.com/images/favicon.png',
-      providerData: 'AUTH',
+      picture: "https://expressjs.com/images/favicon.png",
     });
 
-    const business = (await repository.getOneById(
-      new BusinessId(newBusiness.bussinessId),
-    ))!;
+    expect(repository.edit).toHaveBeenCalled();
+    expect(result.bussinessId).toBe("biz-123");
+  });
 
-    await edit.execute({
-      businessId: business.bussinessId.value,
-      name: 'Business2',
-      password: 'BusinessPa$$w0rd2',
-      status: 'CLOSED',
-      location: {
-        // @ts-expect-error: intentionally passing an optional value for test
-        locationId: business.location?.value.locationId,
-        cityName: 'Medellín',
-        address: 'Another address',
-      },
-      idPlan: 'BASIC',
+  it("should edit business successfully", async () => {
+    const business = mockBusiness();
+
+    repository.getOneById.mockResolvedValue(business as any);
+    repository.edit.mockImplementation(async (b) => b);
+
+    const result = await edit.execute({
+      businessId: "biz-123",
+      name: "Business Updated",
+      password: "NewPassword123!",
+      idPlan: "BASIC",
       score: 3,
-      picture: 'https://expressjs.com/images/favicon2.png',
+      status: "CLOSED",
+      picture: "https://image.png",
+      location: {
+        locationId: "loc-1",
+        cityName: "Medellín",
+        address: "Nueva dirección",
+      },
     });
+
+    expect(repository.edit).toHaveBeenCalled();
+    expect(locationService.updateLocation).toHaveBeenCalled();
+    expect(result.bussinessId).toBe("biz-123");
   });
 
-  it('Should edit a business with minimal edit data', async () => {
-    const newBusiness = await create.execute({
-      name: 'Business',
-      email: 'new@business.com',
-      idRole: 'BUSINESS',
-      idPlan: 'FREE',
-      status: 'OPEN',
-      password: 'BusinessPa$$w0rd',
-      location: {
-        cityName: 'Bogotá',
-        address: 'Some address',
-      },
-      picture: 'https://expressjs.com/images/favicon.png',
-      providerData: 'AUTH',
+  it("should edit business with minimal data", async () => {
+    const business = mockBusiness();
+
+    repository.getOneById.mockResolvedValue(business as any);
+    repository.edit.mockImplementation(async (b) => b);
+
+    const result = await edit.execute({
+      businessId: "biz-123",
     });
 
-    const business = (await repository.getOneById(
-      new BusinessId(newBusiness.bussinessId),
-    ))!;
-
-    await edit.execute({
-      businessId: business.bussinessId.value,
-    });
+    expect(repository.edit).toHaveBeenCalled();
+    expect(result.bussinessId).toBe("biz-123");
   });
 
-  it('Should throw an error when password is provided but providerData is not AUTH', async () => {
-    const newBusiness = await create.execute({
-      name: 'Business',
-      email: 'new@business.com',
-      idRole: 'BUSINESS',
-      idPlan: 'FREE',
-      status: 'OPEN',
-      location: {
-        cityName: 'Bogotá',
-        address: 'Some address',
-      },
-      picture: 'https://expressjs.com/images/favicon.png',
-      providerData: 'AUTHGOOGLE',
-    });
+  it("should throw error when updating password with OAuth provider", async () => {
+    const business = {
+      ...mockBusiness(),
+      providerData: { value: "AUTHGOOGLE" },
+    };
 
-    const business = (await repository.getOneById(
-      new BusinessId(newBusiness.bussinessId),
-    ))!;
+    repository.getOneById.mockResolvedValue(business as any);
 
     await expect(
       edit.execute({
-        businessId: business.bussinessId.value,
-        password: 'BusinessPa$$w0rd',
-      }),
+        businessId: "biz-123",
+        password: "InvalidPassword!",
+      })
     ).rejects.toThrow(HttpError);
+
+    expect(repository.edit).not.toHaveBeenCalled();
   });
 
-  it('Should throw an error when business not found', async () => {
+  it("should throw BusinessNotFoundError when business does not exist", async () => {
+    repository.getOneById.mockResolvedValue(null);
+
     await expect(
       edit.execute({
-        businessId: 'xxxxx',
-        password: 'BusinessPa$$w0rd',
-      }),
+        businessId: "not-found",
+      })
     ).rejects.toThrow(HttpError);
   });
 });
