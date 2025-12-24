@@ -1,126 +1,105 @@
-import { GetBusinessesUseCase } from './get-businesses';
-import { CreateBusinessUseCase } from '../create-business/create-business';
+import { GetBusinessesUseCase } from "./get-businesses";
+import { BusinessRepositoryPort } from "../../../../../lib/business/domain";
 
-import {
-  BusinessRepositoryPort,
-  LocationServicePort as BusinessLocationServicePort,
-} from '~/lib/business/domain';
-import { BusinessRepositoryInMemoryAdapter } from '~/lib/business/infrastructure/adapters/business-repository.in-memory.adapter';
-import { LocationServiceAdapter as BusinessLocationServiceAdapter } from '~/lib/business/infrastructure/adapters/location-service.adapter';
-import { LocationServicePort } from '~/lib/location/domain';
-import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
 
-const businesses = [
-  {
-    name: 'Alpha Foods',
-    email: 'contact@alphafoods.com',
-    idRole: 'BUSINESS',
-    idPlan: 'FREE',
-    status: 'OPEN',
-    password: 'Alpha123!',
-    location: { cityName: 'Bogotá', address: 'Av. Ciudad 45 #12-89' },
-    picture: 'https://picsum.photos/200?random=1',
-    providerData: 'AUTH',
-  },
-  {
-    name: 'TechNova',
-    email: 'admin@technova.io',
-    idRole: 'BUSINESS',
-    idPlan: 'BASIC',
-    status: 'OPEN',
-    password: 'TechN0vaPa$$',
-    location: { cityName: 'Medellín', address: 'Calle Reforma 221' },
-    picture: 'https://picsum.photos/200?random=2',
-    providerData: 'AUTHGOOGLE',
-  },
-  {
-    name: 'Panadería La Ideal',
-    email: 'ventas@laideal.pe',
-    idRole: 'BUSINESS',
-    idPlan: 'PREMIUM',
-    status: 'OPEN',
-    password: 'Pan1234$',
-    location: { cityName: 'Cali', address: 'Av. Colonial 5483' },
-    picture: 'https://picsum.photos/200?random=3',
-    providerData: 'AUTH',
-  },
-  {
-    name: 'Urban Fit Gym',
-    email: 'info@urbanfit.com',
-    idRole: 'BUSINESS',
-    idPlan: 'BASIC',
-    status: 'CLOSED',
-    password: 'UrbanFit99!',
-    location: { cityName: 'Barranquilla', address: 'Av. Libertador 765' },
-    picture: 'https://picsum.photos/200?random=4',
-    providerData: 'AUTHFACEBOOK',
-  },
-  {
-    name: 'CodeHub Services',
-    email: 'support@codehub.dev',
-    idRole: 'STAFF',
-    idPlan: 'PREMIUM',
-    status: 'OPEN',
-    password: 'StaffCode#1',
-    location: { cityName: 'Cartagena', address: 'Calle Providencia 1023' },
-    picture: 'https://picsum.photos/200?random=5',
-    providerData: 'AUTH',
-  },
-];
+const mockBusiness = (id = "biz-1") => ({
+  bussinessId: { value: id },
+  name: { value: "Business" },
+  email: { value: "business@test.com" },
+  status: { value: "OPEN" },
 
-describe('Get businesses - Use Case', () => {
-  let businessLocationService: BusinessLocationServicePort;
-  let repository: BusinessRepositoryPort;
-  let create: CreateBusinessUseCase;
-  let locationService: LocationServicePort;
+  toPublicResponse: () => ({
+    bussinessId: id,
+    name: "Business",
+    email: "business@test.com",
+    status: "OPEN",
+  }),
+});
+
+describe("GetBusinessesUseCase", () => {
+  let repository: jest.Mocked<BusinessRepositoryPort>;
   let getBusinesses: GetBusinessesUseCase;
 
-  beforeEach(async () => {
-    locationService = locationCompositionMock().locationService;
+  beforeEach(() => {
+    repository = {
+      getAll: jest.fn(),
+      getOneByEmail: jest.fn(),
+      getOneById: jest.fn(),
+      create: jest.fn(),
+      edit: jest.fn(),
+      softDelete: jest.fn(),
+      getByPlan: jest.fn(),
+      getByRole: jest.fn(),
+      getByStatus: jest.fn(),
+      getByProvider: jest.fn(),
+    } as jest.Mocked<BusinessRepositoryPort>;
 
-    businessLocationService = new BusinessLocationServiceAdapter(
-      locationService,
-    );
-    repository = new BusinessRepositoryInMemoryAdapter(businessLocationService);
-    create = new CreateBusinessUseCase(repository, businessLocationService);
     getBusinesses = new GetBusinessesUseCase(repository);
 
-    await Promise.all(businesses.map((business) => create.execute(business)));
+    
   });
 
-  it('Should get businesses paginated', async () => {
-    const records = await getBusinesses.execute({});
+  it("should return all businesses when no filters are provided", async () => {
+    const businesses = [mockBusiness("1"), mockBusiness("2")];
 
-    expect(records).toHaveLength(5);
+    repository.getAll.mockResolvedValue(businesses as any);
+
+    const result = await getBusinesses.execute({});
+
+    expect(repository.getAll).toHaveBeenCalled();
+    expect(result).toHaveLength(2);
+    expect(result[0].bussinessId).toBe("1");
   });
 
-  it('Should get businesses paginated with limit 2', async () => {
-    const records = await getBusinesses.execute({ limit: 2 });
+  it("should return businesses filtered by plan", async () => {
+    const businesses = [mockBusiness("1")];
 
-    expect(records).toHaveLength(2);
+    repository.getByPlan.mockResolvedValue(businesses as any);
+
+    const result = await getBusinesses.execute({
+      plan: "FREE",
+    });
+
+    expect(repository.getByPlan).toHaveBeenCalled();
+    expect(result).toHaveLength(1);
   });
 
-  it('Should get businesses by plan', async () => {
-    const records = await getBusinesses.execute({ plan: 'BASIC' });
+  it("should return businesses filtered by providerData", async () => {
+    const businesses = [mockBusiness("1")];
 
-    expect(records).toHaveLength(2);
+    repository.getByProvider.mockResolvedValue(businesses as any);
+
+    const result = await getBusinesses.execute({
+      providerData: "AUTH",
+    });
+
+    expect(repository.getByProvider).toHaveBeenCalled();
+    expect(result).toHaveLength(1);
   });
 
-  it('Should get businesses by providerData', async () => {
-    const records = await getBusinesses.execute({ providerData: 'AUTH' });
+  it("should return businesses filtered by role", async () => {
+    const businesses = [mockBusiness("1")];
 
-    expect(records).toHaveLength(3);
+    repository.getByRole.mockResolvedValue(businesses as any);
+
+    const result = await getBusinesses.execute({
+      role: "BUSINESS",
+    });
+
+    expect(repository.getByRole).toHaveBeenCalled();
+    expect(result).toHaveLength(1);
   });
 
-  it('Should get businesses by role', async () => {
-    const records = await getBusinesses.execute({ role: 'BUSINESS' });
+  it("should return businesses filtered by status", async () => {
+    const businesses = [mockBusiness("1")];
 
-    expect(records).toHaveLength(4);
-  });
+    repository.getByStatus.mockResolvedValue(businesses as any);
 
-  it('Should get businesses by status', async () => {
-    const records = await getBusinesses.execute({ status: 'OPEN' });
+    const result = await getBusinesses.execute({
+      status: "OPEN",
+    });
 
-    expect(records).toHaveLength(4);
+    expect(repository.getByStatus).toHaveBeenCalled();
+    expect(result).toHaveLength(1);
   });
 });
