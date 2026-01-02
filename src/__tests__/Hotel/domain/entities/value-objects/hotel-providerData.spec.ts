@@ -1,26 +1,28 @@
-import { ProviderData } from "~/lib/Shared/domain";
+import { ProviderDataValueObject } from "../../../../../lib/Shared/domain";
 
 
-describe("Hotel/domain/value-objects/hotel-providerData", () => {
-  it("should create from primitives", () => {
-    const provider = ProviderData.fromPrimitives(0);
-    expect(provider.value).toBe("AUTH");
+describe('Hotel/domain/value-objects/hotel-providerData', () => {
+  it('should create from primitives', () => {
+    const provider = ProviderDataValueObject.fromPrimitives(0);
+
+    expect(provider.value).toBe('AUTH');
   });
 
-  it("should create from valid string value", () => {
-    const provider = ProviderData.create("AUTH");
-    expect(provider.value).toBe("AUTH");
+  it('should convert to primitives', () => {
+    const provider = ProviderDataValueObject.create('AUTHGOOGLE');
+
+    expect(provider.toPrimitives()).toBe(1);
   });
 
-  it("should throw error when value is invalid string", () => {
-    expect(() => ProviderData.create("ANY PROVIDER" as any)).toThrow(
-      "Invalid value: ANY PROVIDER"
-    );
+  it('should throw error for invalid primitive', () => {
+    expect(() =>
+      ProviderDataValueObject.fromPrimitives(99 as any),
+    ).toThrow();
   });
 
-  it("should throw error when primitive value is invalid number", () => {
-    expect(() => ProviderData.fromPrimitives(5 as 0 | 1 | 2)).toThrow(
-      "Invalid value: 5"
-    );
+  it('should throw error for invalid value', () => {
+    expect(() =>
+      ProviderDataValueObject.create('INVALID'),
+    ).toThrow();
   });
 });

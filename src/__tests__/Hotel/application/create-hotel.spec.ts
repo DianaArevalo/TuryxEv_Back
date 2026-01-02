@@ -2,7 +2,7 @@ import { HotelCreate } from "~/lib/Hotel/application";
 import { CityRepository, HotelLocation, HotelRepository } from "~/lib/Hotel/domain";
 import { InMemoryCityRepository } from "~/lib/Hotel/infraestructure/repositories/InMemoryCityRepository";
 import { InMemoryHotelRepository } from "~/lib/Hotel/infraestructure/repositories/InMemoryHotelRepository";
-import { HttpError, Limit, Page, ValidationError } from "~/lib/Shared/domain";
+import { HttpError, LimitValueObject, PageValueObject, } from "~/lib/Shared/domain";
 
 describe("Hotel/application/create-hotel", () => {
   let repository: HotelRepository;
@@ -29,7 +29,7 @@ describe("Hotel/application/create-hotel", () => {
 
     await createHotel.handler(props);
 
-    const hotels = await repository.getAll(new Page(1), new Limit(10));
+    const hotels = await repository.getAll(new PageValueObject(1), new LimitValueObject(10));
 
     expect(hotels).toHaveLength(1);
   });
@@ -47,7 +47,7 @@ describe("Hotel/application/create-hotel", () => {
 
     await createHotel.handler(props);
 
-    const hotels = await repository.getAll(new Page(1), new Limit(10));
+    const hotels = await repository.getAll(new PageValueObject(1), new LimitValueObject(10));
 
     expect(hotels).toHaveLength(1);
   });
@@ -68,7 +68,7 @@ describe("Hotel/application/create-hotel", () => {
 
     await createHotel.handler(props);
 
-    const hotels = await repository.getAll(new Page(1), new Limit(10));
+    const hotels = await repository.getAll(new PageValueObject(1), new LimitValueObject(10));
 
     expect(hotels).toHaveLength(1);
 

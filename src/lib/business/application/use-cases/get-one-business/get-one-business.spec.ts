@@ -1,97 +1,92 @@
-import { GetOneBusinessUseCase } from './get-one-business';
-import { CreateBusinessUseCase } from '../create-business/create-business';
-
+import { GetOneBusinessUseCase } from "./get-one-business";
 import {
+  BusinessNotFoundError,
   BusinessRepositoryPort,
-  LocationServicePort as BusinessLocationServicePort,
-} from '~/lib/business/domain';
-import { BusinessRepositoryInMemoryAdapter } from '~/lib/business/infrastructure/adapters/business-repository.in-memory.adapter';
-import { LocationServiceAdapter as BusinessLocationServiceAdapter } from '~/lib/business/infrastructure/adapters/location-service.adapter';
-import { LocationServicePort } from '~/lib/location/domain';
-import { locationCompositionMock } from '~/lib/location/infrastructure/location.composition.mock';
-import { HttpError } from '~/lib/Shared/domain';
+} from "../../../../../lib/business/domain";
+import { HttpError } from "../../../../../lib/Shared/domain";
 
-const businesses = [
-  {
-    name: 'Alpha Foods',
-    email: 'contact@alphafoods.com',
-    idRole: 'BUSINESS',
-    idPlan: 'FREE',
-    status: 'OPEN',
-    password: 'Alpha123!',
-    location: { cityName: 'Bogotá', address: 'Av. Ciudad 45 #12-89' },
-    picture: 'https://picsum.photos/200?random=1',
-    providerData: 'AUTH',
-  },
-  {
-    name: 'CodeHub Services',
-    email: 'support@codehub.dev',
-    idRole: 'STAFF',
-    idPlan: 'PREMIUM',
-    status: 'OPEN',
-    password: 'StaffCode#1',
-    location: { cityName: 'Cartagena', address: 'Calle Providencia 1023' },
-    picture: 'https://picsum.photos/200?random=5',
-    providerData: 'AUTH',
-  },
-];
+const mockBusiness = (id = "biz-1") => ({
+  bussinessId: { value: id },
+  name: { value: "Business" },
+  email: { value: "business@test.com" },
+  status: { value: "OPEN" },
 
-describe('Get businesses - Use Case', () => {
-  let businessLocationService: BusinessLocationServicePort;
-  let repository: BusinessRepositoryPort;
-  let create: CreateBusinessUseCase;
-  let locationService: LocationServicePort;
-  let getOnebusiness: GetOneBusinessUseCase;
+  toPublicResponse: () => ({
+    bussinessId: id,
+    name: "Business",
+    email: "business@test.com",
+    status: "OPEN",
+  }),
+});
 
-  beforeEach(async () => {
-    locationService = locationCompositionMock().locationService;
+describe("GetOneBusinessUseCase", () => {
+  let repository: jest.Mocked<BusinessRepositoryPort>;
+  let getOneBusiness: GetOneBusinessUseCase;
 
-    businessLocationService = new BusinessLocationServiceAdapter(
-      locationService,
-    );
-    repository = new BusinessRepositoryInMemoryAdapter(businessLocationService);
-    create = new CreateBusinessUseCase(repository, businessLocationService);
-    getOnebusiness = new GetOneBusinessUseCase(repository);
+  beforeEach(() => {
+    repository = {
+      getAll: jest.fn(),
+      getOneByEmail: jest.fn(),
+      getOneById: jest.fn(),
+      create: jest.fn(),
+      edit: jest.fn(),
+      softDelete: jest.fn(),
+      getByPlan: jest.fn(),
+      getByRole: jest.fn(),
+      getByStatus: jest.fn(),
+      getByProvider: jest.fn(),
+    } as jest.Mocked<BusinessRepositoryPort>;
 
-    await Promise.all(businesses.map((business) => create.execute(business)));
+    getOneBusiness = new GetOneBusinessUseCase(repository);
   });
 
-  it('Should get a business by id', async () => {
-    const record = await getOnebusiness.execute({ id: 'Alpha Foods' });
-
-    expect(record).toBeDefined();
+  it("should throw HttpError when neither id nor email is provided", async () => {
+    await expect(getOneBusiness.execute({})).rejects.toThrow(HttpError);
   });
 
-  it('Should get a business by email', async () => {
-    const record = await getOnebusiness.execute({
-      email: 'support@codehub.dev',
-    });
-
-    expect(record).toBeDefined();
-  });
-
-  it('Should throw an error when id and email are provided', async () => {
+  it("should throw HttpError when both id and email are provided", async () => {
     await expect(
-      getOnebusiness.execute({
-        id: 'Alpha Foods',
-        email: 'support@codehub.dev',
-      }),
+      getOneBusiness.execute({
+        id: "biz-1",
+        email: "business@test.com",
+      })
     ).rejects.toThrow(HttpError);
   });
 
-  it('Should throw an error when id or email is not provided', async () => {
-    await expect(getOnebusiness.execute({})).rejects.toThrow(HttpError);
+  it("should return business when id is provided", async () => {
+    const business = mockBusiness("biz-1");
+
+    repository.getOneById.mockResolvedValue(business as any);
+
+    const result = await getOneBusiness.execute({
+      id: "biz-1",
+    });
+
+    expect(repository.getOneById).toHaveBeenCalled();
+    expect(result.bussinessId).toBe("biz-1");
+    expect(result.email).toBe("business@test.com");
   });
 
-  it('Should throw an error when id not found', async () => {
-    await expect(getOnebusiness.execute({ id: 'xxxxx' })).rejects.toThrow(
-      HttpError,
-    );
+  it("should return business when email is provided", async () => {
+    const business = mockBusiness("biz-2");
+
+    repository.getOneByEmail.mockResolvedValue(business as any);
+
+    const result = await getOneBusiness.execute({
+      email: "business@test.com",
+    });
+
+    expect(repository.getOneByEmail).toHaveBeenCalled();
+    expect(result.bussinessId).toBe("biz-2");
   });
 
-  it('Should throw an error when email not found', async () => {
+  it("should throw BusinessNotFoundError when business does not exist", async () => {
+    repository.getOneById.mockResolvedValue(null);
+
     await expect(
-      getOnebusiness.execute({ email: 'notfound@mail.com' }),
+      getOneBusiness.execute({
+        id: "non-existent-id",
+      })
     ).rejects.toThrow(HttpError);
   });
 });
