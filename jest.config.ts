@@ -15,6 +15,7 @@ const config: Config = {
 
   testPathIgnorePatterns: [
     "/node_modules/",
+    '/dist/',
 
     // Ignorar varias partes de infraestructura
     // PERO permitir repositorios
@@ -29,7 +30,7 @@ const config: Config = {
   ],
 
   coveragePathIgnorePatterns: [
-    "/node_modules/",
+    "/node_modules/",    
 
     "<rootDir>/src/lib/Shared/",
     "<rootDir>/src/lib/shared/",
@@ -47,7 +48,7 @@ const config: Config = {
     },
   },
   testMatch: ['**/?(*.)+(spec|test).[tj]s'],
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  
 };
 
 export default config;
