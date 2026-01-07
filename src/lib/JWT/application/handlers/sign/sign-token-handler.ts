@@ -15,7 +15,6 @@ export class SignTokenHandler {
 
   async handler(userId: string, payload: object = {}): Promise<JwtEntity> {
 
-
     if (!userId) throw new ValidationError("UserId required");
 
     const tokenId = nanoid();
@@ -27,9 +26,11 @@ export class SignTokenHandler {
     });
 
     const refreshToken = jwtEntity.toPrimitives().refreshToken;
-    const refreshHash = await Hasher.hash(refreshToken);    
-
-    const expiresAt = new Date(Date.now() + SEVEN_DAYS_IN_MS); // 7 días
+    const refreshHash = await Hasher.hash(refreshToken);  
+    
+    const nowUtc = Date.now(); 
+    const expiresAt = new Date(nowUtc + SEVEN_DAYS_IN_MS);
+     // 7 días
 
     await this.tokenRepository.saveRefreshToken(
       userId,
