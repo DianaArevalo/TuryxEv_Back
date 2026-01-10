@@ -267,16 +267,53 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <details>
-   <summary><h2> TERMINOS Y CONDICIONES </h2></summary>
+   <summary><h2> 📜 Términos y Condiciones de Colaboración </h2></summary>
 
 <p>
-   Condiciones de Colaboración
+   ## 
+
 Este proyecto se desarrolla bajo las siguientes condiciones:
-✅ Objetivo actual: aprendizaje, práctica y aplicación de buenas prácticas en desarrollo de software.
-✅ Sin remuneración por el momento: Actualmente no hay pagos ni compensaciones, ya que el proyecto está en etapa inicial.
-✅ Fines comerciales futuros: Si el proyecto se consolida y comienza a generar ingresos, los colaboradores que aportaron en esta fase inicial serán tenidos en cuenta en la estructura del equipo o en beneficios acordados.
-✅ Código compartido y colaborativo: Todo el trabajo será gestionado en repositorios colaborativos y versionado correctamente.
-✅ Reconocimiento de autoría: Cada contribución será registrada en la sección de colaboradores y en el historial del repositorio.
+
+### 🎯 Objetivo del proyecto
+El objetivo actual es el aprendizaje, la práctica y la aplicación de buenas
+prácticas en el desarrollo de software.
+
+### 💰 Remuneración
+Actualmente no existe ningún tipo de remuneración económica ni compensación,
+ya que el proyecto se encuentra en una etapa inicial.
+
+### 🚀 Fines comerciales futuros
+En caso de que el proyecto se consolide y genere ingresos en el futuro,
+los colaboradores que hayan participado en esta etapa inicial podrán ser
+tenidos en cuenta para integrar el equipo o recibir beneficios, los cuales
+serán definidos mediante acuerdos específicos y separados.
+
+La participación en esta etapa **no garantiza automáticamente derechos
+económicos ni de propiedad** sobre el proyecto.
+
+### 🔐 Propiedad intelectual
+Todo el código, documentación y material generado dentro de este repositorio
+es propiedad intelectual de **Diana Arevalo**, salvo que se indique lo contrario
+de forma explícita y por escrito.
+
+El acceso al repositorio **no concede derechos de uso, copia, modificación,
+redistribución ni explotación comercial** del proyecto o de cualquiera de sus
+partes fuera del ámbito de colaboración autorizado.
+
+### 🤝 Uso del código
+El código compartido es exclusivamente para fines de colaboración dentro
+del proyecto. Queda prohibido reutilizar total o parcialmente el código en
+proyectos externos, personales o comerciales sin autorización expresa de la
+autora.
+
+### 🏷️ Reconocimiento de autoría
+Cada contribución quedará registrada en el historial del repositorio y en la
+sección de colaboradores, respetando la autoría individual de cada aporte.
+
+---
+
+Al contribuir a este proyecto, el colaborador declara haber leído, entendido
+y aceptado estos términos.
 </p>
 
 </details>

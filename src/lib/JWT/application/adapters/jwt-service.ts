@@ -2,9 +2,10 @@ import { ForSignToken, ForVerifyToken } from "../../domain/ports/driven";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { JwtPayload } from "../../domain/entities/JWT/JwtPayload";
 import { JwtCustomPayload } from "../../domain/entities";
+import { JwtApplicationPort } from "./JwtApplicationPort";
 
 
-export class JwtServiceAdapter  {
+export class JwtServiceAdapter implements JwtApplicationPort  {
   constructor(
     private readonly signPort: ForSignToken,
     private readonly verifyPort: ForVerifyToken    

@@ -1,10 +1,10 @@
 import { ValidationError } from "../../../../Shared/domain";
 import { RefreshTokenRepository } from "../../../infraestructure/repositories/RefreshTokenRepository";
-import { JwtServiceAdapter } from "../../adapters/jwt-service";
+import { JwtApplicationPort } from "../../adapters/JwtApplicationPort";
 
 export class RevokeTokenHandler {
   constructor(
-    private readonly jwtService: JwtServiceAdapter,
+    private readonly jwtService: JwtApplicationPort,
     private readonly tokenRepository: RefreshTokenRepository
   ) {}
 
