@@ -1,7 +1,7 @@
 // domain/ports/driven/for-token-repository.ts
 
 import { RefreshTokenRecord } from "../../entities/JWT/RefreshTokenRecord";
-import { RefreshToken } from "../../entities/JWT/value-objects";
+
 
 
 export interface ForTokenRepository {
