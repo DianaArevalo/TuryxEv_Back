@@ -9,11 +9,11 @@ import {
 } from "../../domain/entities";
 import { CityId, CityName } from "../../domain/entities/city/value-objects";
 import { CitySchema, LocationSchema } from "../schemas";
-import { connectTestDB, disconnectTestDB } from "../schemas/setup-test-db";
+import { connectTestDB, disconnectTestDB } from "../../../Shared/Infraestructure/setup-test-db";
 import { LocationRepositoryMongoAdapter } from "./location-repository.mongo.adapter";
 import { Location } from "../../domain/entities/location/location";
 import mongoose from "mongoose";
-import { HttpError } from "~/lib/Shared/domain";
+
 
 describe("LocationRepositoryMongoAdapter - Integration Tests", () => {
   jest.setTimeout(30000);
