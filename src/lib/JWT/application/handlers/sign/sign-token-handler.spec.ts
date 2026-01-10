@@ -2,16 +2,15 @@ jest.mock("nanoid", () => ({
   nanoid: () => "fixed-nanoid-123",
 }));
 
-import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
 import { SignTokenHandler } from "./sign-token-handler";
-import { RefreshTokenRepositoryInMemory } from "~/lib/JWT/infraestructure/repositories/refresh-token-repository-in-memory";
-import { HttpError } from "~/lib/Shared/domain";
-import { RefreshTokenRepository } from "~/lib/JWT/infraestructure/repositories/RefreshTokenRepository";
+import { RefreshTokenRepository } from "../../../infraestructure/repositories/RefreshTokenRepository";
+import { Hasher } from "../../../../../lib/Shared/Infraestructure/Hasher";
+import { HttpError } from "../../../../../lib/Shared/domain";
 
-describe("SignTokenHandler - Use Case", () => {
+describe("SignTokenHandler", () => {
   let handler: SignTokenHandler;
   let jwtService: any;
-  let repository: RefreshTokenRepositoryInMemory;
+  let repository: jest.Mocked<RefreshTokenRepository>;
 
   beforeEach(() => {
     jwtService = {
@@ -24,22 +23,24 @@ describe("SignTokenHandler - Use Case", () => {
       }),
     };
 
-    repository = new RefreshTokenRepositoryInMemory();
-
-    handler = new SignTokenHandler(
-      jwtService,
-      repository as unknown as RefreshTokenRepository
-    );
+    repository = {
+      saveRefreshToken: jest.fn(),
+      findRefreshTokenById: jest.fn(),
+      revokeRefreshToken: jest.fn(),
+      replaceRefreshToken: jest.fn(),
+      purgeExpiredTokens: jest.fn(),
+    } as unknown as jest.Mocked<RefreshTokenRepository>;
 
     jest.spyOn(Hasher, "hash").mockResolvedValue("hashed-refresh-mock");
+
+    handler = new SignTokenHandler(jwtService, repository);
   });
 
   it("should sign token and save refresh token", async () => {
     const result = await handler.handler("123", { role: "USER" });
 
-    expect(result).not.toBeNull();
+    expect(result).toBeDefined();
 
-    expect(jwtService.signToken).toHaveBeenCalledTimes(1);
     expect(jwtService.signToken).toHaveBeenCalledWith(
       expect.objectContaining({
         sub: "123",
@@ -48,17 +49,22 @@ describe("SignTokenHandler - Use Case", () => {
       })
     );
 
-    const storedTokens = repository.getAll();
+    expect(Hasher.hash).toHaveBeenCalledWith(
+      "refresh.user123.fixed-nanoid-123"
+    );
 
-    expect(storedTokens.length).toBe(1);
-    expect(storedTokens[0].userId).toBe("123");
-    expect(storedTokens[0].tokenHash).toBe("hashed-refresh-mock");
-
-    // ✅ Cambiado: tokenId, no tid
-    expect(storedTokens[0].tokenId).toBe("fixed-nanoid-123");
+    expect(repository.saveRefreshToken).toHaveBeenCalledWith(
+      "123",
+      "fixed-nanoid-123",
+      "hashed-refresh-mock",
+      expect.any(Date)
+    );
   });
 
   it("should throw if userId is missing", async () => {
     await expect(handler.handler("", {})).rejects.toThrow(HttpError);
+
+    expect(jwtService.signToken).not.toHaveBeenCalled();
+    expect(repository.saveRefreshToken).not.toHaveBeenCalled();
   });
 });
