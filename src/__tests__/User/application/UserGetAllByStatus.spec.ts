@@ -50,13 +50,13 @@ describe("application/UserGetAllByStatus", () => {
 
   it("should return only active and inactive users correctly", async () => {
     const activeUsers = await userGetAllByStatus.handler({ status: true });
-    console.log("Active users returned:", activeUsers);
+    
 
     expect(activeUsers).toHaveLength(1);
     expect(activeUsers[0].email).toBe(activeUserEmail);
 
     const inactiveUsers = await userGetAllByStatus.handler({ status: false });
-    console.log("Inactive users returned:", inactiveUsers);
+    
 
     expect(inactiveUsers).toHaveLength(1);
     expect(inactiveUsers[0].email).toBe(inactiveUserEmail);
