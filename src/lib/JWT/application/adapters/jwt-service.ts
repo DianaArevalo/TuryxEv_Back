@@ -2,10 +2,7 @@ import { ForSignToken, ForVerifyToken } from "../../domain/ports/driven";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { JwtPayload } from "../../domain/entities/JWT/JwtPayload";
 import { JwtCustomPayload } from "../../domain/entities";
-import { SignTokenHandler } from "../handlers/sign/sign-token-handler";
-import { RefreshTokenHandler } from "../handlers/refresh/refresh-token-handler";
-import { RevokeTokenHandler } from "../handlers/revoke/revoke-token-handler";
-import { JwtControllerPort } from "../../domain/ports/driver/JwtControllerPort";
+
 
 export class JwtServiceAdapter  {
   constructor(

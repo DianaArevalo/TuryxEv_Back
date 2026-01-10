@@ -1,90 +1,144 @@
 jest.mock("nanoid", () => ({
-  nanoid: () => "fixed-nanoid-123",
+  nanoid: jest.fn(),
 }));
 
-import { RefreshTokenRepositoryInMemory } from "~/lib/JWT/infraestructure/repositories/refresh-token-repository-in-memory";
+jest.mock("../../../../../lib/Shared/Infraestructure/Hasher", () => ({
+  Hasher: {
+    verify: jest.fn(),
+    hash: jest.fn(),
+  },
+}));
+
+import { RefreshTokenRepository } from "~/lib/JWT/infraestructure/repositories/RefreshTokenRepository";
+import { JwtServiceAdapter } from "../../adapters/jwt-service";
 import { RefreshTokenHandler } from "./refresh-token-handler";
-import { Hasher } from "~/lib/Shared/Infraestructure/Hasher";
-import { HttpError } from "~/lib/Shared/domain";
+import { HttpError } from "../../../../../lib/Shared/domain";
+import { JwtEntity } from "../../../../../lib/JWT/domain/entities";
+import { Hasher } from "../../../../../lib/Shared/Infraestructure/Hasher";
+import { nanoid } from "nanoid";
 
-// 👉 Servicio JWT mockeado
-const jwtServiceMock = {
-  verifyToken: jest.fn(),
-  signToken: jest.fn(),
-};
-
-describe("RefreshTokenHandler - Use Case", () => {
-  let handler: RefreshTokenHandler;
-  let repository: RefreshTokenRepositoryInMemory;
+describe("RefreshTokenHandler", () => {
+  let jwtService: jest.Mocked<JwtServiceAdapter>;
+  let tokenRepository: jest.Mocked<RefreshTokenRepository>;
+  let handler: RefreshTokenHandler; 
 
   beforeEach(() => {
-    repository = new RefreshTokenRepositoryInMemory();
+    jwtService = {
+      verifyToken: jest.fn(),
+      signToken: jest.fn(),
+    } as unknown as jest.Mocked<JwtServiceAdapter>;
 
-    handler = new RefreshTokenHandler(jwtServiceMock as any, repository as any);
+    tokenRepository = {
+      findRefreshTokenById: jest.fn(),
+      saveRefreshToken: jest.fn(),
+      revokeRefreshToken: jest.fn(),
+      replaceRefreshToken: jest.fn(),
+      purgeExpiredTokens: jest.fn(),
+    } as unknown as jest.Mocked<RefreshTokenRepository>;
 
-    jest.clearAllMocks();
-
-    // mock del hasher
-    jest.spyOn(Hasher, "verify").mockResolvedValue(true);
-    jest.spyOn(Hasher, "hash").mockResolvedValue("hashed-refresh-mock");
+    handler = new RefreshTokenHandler(jwtService, tokenRepository);
   });
 
-  it("should refresh token and save new refresh token", async () => {
-    // ------------------------------------------
-    // 1️⃣ Mock del verifyToken → lo que devuelve un JWT real
-    // ------------------------------------------
-    jwtServiceMock.verifyToken.mockResolvedValue({
-      sub: "user123",
+    it("should refresh token successfully", async () => {
+    (nanoid as jest.Mock).mockReturnValue("new-token-id");
+
+    jwtService.verifyToken.mockResolvedValue({
+      sub: "user-123",
       tid: "old-token-id",
     });
 
-    // ------------------------------------------
-    // 2️⃣ Mock del signToken → crear nuevo JWT
-    // ------------------------------------------
-    jwtServiceMock.signToken.mockResolvedValue({
+    tokenRepository.findRefreshTokenById.mockResolvedValue({
+      userId: "user-123",
+      tokenId: "old-token-id",
+      tokenHash: "hashed-old-token",
+      revoked: false,
+    } as any);
+
+    (Hasher.verify as jest.Mock).mockResolvedValue(true);
+    (Hasher.hash as jest.Mock).mockResolvedValue("hashed-new-token");
+
+    const jwtEntityMock = {
       toPrimitives: () => ({
-        accessToken: "new.access.token",
-        refreshToken: "refresh.user123.new-token-id",
-        expiration: Date.now() + 3600_000,
+        refreshToken: "new-refresh-token",
       }),
+    } as JwtEntity;
+
+    jwtService.signToken.mockResolvedValue(jwtEntityMock);
+
+    const result = await handler.handler(
+      "old-refresh-token",
+      "user-123",
+      { role: "BUSINESS" } as any
+    );
+
+    expect(jwtService.verifyToken).toHaveBeenCalledWith("old-refresh-token");
+
+    expect(tokenRepository.findRefreshTokenById).toHaveBeenCalledWith(
+      "old-token-id"
+    );
+
+    expect(tokenRepository.saveRefreshToken).toHaveBeenCalled();
+
+    expect(result).toBe(jwtEntityMock);
+  });
+
+
+    it("should throw ValidationError if refresh token is missing", async () => {
+    await expect(
+      handler.handler("", "user-123", {} as any)
+    ).rejects.toThrow(HttpError);
+
+    expect(jwtService.verifyToken).not.toHaveBeenCalled();
+  });
+
+    it("should throw ValidationError if userId is missing", async () => {
+    await expect(
+      handler.handler("token", "", {} as any)
+    ).rejects.toThrow(HttpError);
+  });
+
+      it("should throw ValidationError if token does not belong to user", async () => {
+    jwtService.verifyToken.mockResolvedValue({
+      sub: "another-user",
+      tid: "token-id",
     });
 
-    // ------------------------------------------
-    // 3️⃣ Pre-cargar el viejo refresh token en el repo
-    // ------------------------------------------
-    await repository.saveRefreshToken(
-      "user123",
-      "old-token-id",
-      "old-hash",
-      new Date(Date.now() + 1000 * 60 * 60)
-    );
-
-    // ------------------------------------------
-    // 4️⃣ Ejecutamos handler
-    // ------------------------------------------
-    const result = await handler.handler(
-      "refresh.user123.old-token-id",
-      "user123",
-      { role: "USER" }
-    );
-
-    expect(result).not.toBeNull();
-
-    const stored = repository.getAll();
-    expect(stored.length).toBe(2); // viejo + nuevo
-
-    const newToken = stored[1];
-    expect(newToken.userId).toBe("user123");
-    expect(newToken.tokenHash).toBe("hashed-refresh-mock");
-  });
-
-  it("should throw if old refresh token is missing", async () => {
-    await expect(handler.handler("", "user123", {})).rejects.toThrow(HttpError);
-  });
-
-  it("should throw if userId is empty", async () => {
     await expect(
-      handler.handler("some-refresh-token", "", {})
-    ).rejects.toThrow("User ID is required");
+      handler.handler("refresh", "user-123", {} as any)
+    ).rejects.toThrow(HttpError);
   });
-});
+
+
+    it("should throw ValidationError if refresh token is revoked", async () => {
+    jwtService.verifyToken.mockResolvedValue({
+      sub: "user-123",
+      tid: "token-id",
+    });
+
+    tokenRepository.findRefreshTokenById.mockResolvedValue({
+      revoked: true,
+    } as any);
+
+    await expect(
+      handler.handler("refresh", "user-123", {} as any)
+    ).rejects.toThrow(HttpError);
+  });
+
+    it("should throw ValidationError if token hash verification fails", async () => {
+    jwtService.verifyToken.mockResolvedValue({
+      sub: "user-123",
+      tid: "token-id",
+    });
+
+    tokenRepository.findRefreshTokenById.mockResolvedValue({
+      revoked: false,
+      tokenHash: "hash",
+    } as any);
+
+    (Hasher.verify as jest.Mock).mockResolvedValue(false);
+
+    await expect(
+      handler.handler("refresh", "user-123", {} as any)
+    ).rejects.toThrow(HttpError);
+  });
+})
