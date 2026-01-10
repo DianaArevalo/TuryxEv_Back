@@ -37,7 +37,11 @@ export class RefreshTokenHandler {
     if (!oldRecord || oldRecord.revoked)
       throw new ValidationError("Invalid or revoked refresh token");
 
-    const isValid = await Hasher.verify(oldRefreshToken, oldRecord.tokenHash);
+    const isValid = await Hasher.verify(
+      oldRefreshToken, 
+      oldRecord.tokenHash
+    );
+    
     if (!isValid) throw new ValidationError("Token verification failed");
 
     const newTokenId = nanoid();

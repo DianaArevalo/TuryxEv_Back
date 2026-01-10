@@ -1,3 +1,5 @@
+import { RefreshTokenRecord } from "../../domain/entities/JWT/RefreshTokenRecord";
+import { RefreshToken } from "../../domain/entities/JWT/value-objects";
 import { ForTokenRepository } from "../../domain/ports/driven/for-token-repository";
 import { RefreshTokenModel } from "../models/refresh-token-model";
 
@@ -8,15 +10,36 @@ export class RefreshTokenRepository implements ForTokenRepository {
     tokenHash: string,
     expiresAt: Date
   ): Promise<void> {
-    await RefreshTokenModel.create({ userId, tokenId, tokenHash, expiresAt });
+    await RefreshTokenModel.create({
+      userId,
+      tokenId,
+      tokenHash,
+      expiresAt,
+      revoked: false,
+    });
   }
 
-  async findRefreshTokenById(tokenId: string) {
-    return await RefreshTokenModel.findOne({ tokenId });
-  }
+  async findRefreshTokenById(
+  tokenId: string
+): Promise<RefreshTokenRecord | null> {
+  const doc = await RefreshTokenModel.findOne({ tokenId }).lean();
+  if (!doc) return null;
+
+  return {
+    userId: doc.userId,
+    tokenId: doc.tokenId,
+    tokenHash: doc.tokenHash,
+    revoked: doc.revoked,
+    replacedByToken: doc.replacedByToken,
+    expiresAt: doc.expiresAt,
+  };
+}
 
   async revokeRefreshToken(tokenId: string): Promise<void> {
-    await RefreshTokenModel.updateOne({ tokenId }, { revoked: true });
+    await RefreshTokenModel.updateOne(
+      { tokenId },
+      { revoked: true }
+    );
   }
 
   async replaceRefreshToken(
@@ -41,6 +64,8 @@ export class RefreshTokenRepository implements ForTokenRepository {
   }
 
   async purgeExpiredTokens(): Promise<void> {
-    await RefreshTokenModel.deleteMany({ expiresAt: { $lte: new Date() } });
+    await RefreshTokenModel.deleteMany({
+      expiresAt: { $lte: new Date() },
+    });
   }
 }

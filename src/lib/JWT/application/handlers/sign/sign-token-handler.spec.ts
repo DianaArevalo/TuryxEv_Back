@@ -19,7 +19,7 @@ describe("SignTokenHandler", () => {
   const fakeJwtEntity = JwtEntity.fromPrimitives({
     accessToken: "aaa.bbb.ccc",
     refreshToken: "refresh.user123.fixed-nanoid-123",
-    expiration: 123456789,
+    expiration: Date.now() + 60 * 60 * 1000,
   });
 
   jwtService = {
