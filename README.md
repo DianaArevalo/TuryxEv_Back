@@ -283,13 +283,13 @@ Actualmente no existe ningún tipo de remuneración económica ni compensación,
 ya que el proyecto se encuentra en una etapa inicial.
 
 ### 🚀 Fines comerciales futuros
-En caso de que el proyecto se consolide y genere ingresos en el futuro,
-los colaboradores que hayan participado en esta etapa inicial podrán ser
-tenidos en cuenta para integrar el equipo o recibir beneficios, los cuales
-serán definidos mediante acuerdos específicos y separados.
+Si el proyecto se consolida y comienza a generar ingresos, algunos
+colaboradores que hayan aportado de manera constante y significativa
+podrán ser invitados a participar como socios o integrantes del equipo.
 
-La participación en esta etapa **no garantiza automáticamente derechos
-económicos ni de propiedad** sobre el proyecto.
+Cualquier participación societaria, económica o contractual será definida
+mediante acuerdos formales e independientes, y **no se adquiere
+automáticamente por el solo hecho de colaborar**
 
 ### 🔐 Propiedad intelectual
 Todo el código, documentación y material generado dentro de este repositorio
