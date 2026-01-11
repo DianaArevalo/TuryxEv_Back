@@ -1,5 +1,4 @@
 import { RefreshTokenRecord } from "../../domain/entities/JWT/RefreshTokenRecord";
-import { RefreshToken } from "../../domain/entities/JWT/value-objects";
 import { ForTokenRepository } from "../../domain/ports/driven/for-token-repository";
 import { RefreshTokenModel } from "../models/refresh-token-model";
 

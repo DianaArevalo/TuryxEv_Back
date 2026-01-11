@@ -3,8 +3,9 @@ import { RefreshTokenRepository } from "../../../infraestructure/repositories/Re
 import { JwtEntity } from "../../../domain/entities/JWT/JwtEntity";
 import { ValidationError } from "../../../../Shared/domain";
 import { nanoid } from "nanoid";
-import { JwtCustomPayload } from "~/lib/JWT/domain/entities";
+
 import { JwtApplicationPort } from "../../adapters/JwtApplicationPort";
+import { JwtPayload } from "jsonwebtoken";
 
 export class RefreshTokenHandler {
   constructor(
@@ -15,7 +16,7 @@ export class RefreshTokenHandler {
   async handler(
     oldRefreshToken: string,
     userId: string,
-    payload: JwtCustomPayload
+    payload: JwtPayload
   ): Promise<JwtEntity> {
     if (!oldRefreshToken) throw new ValidationError("Refresh token required");
 

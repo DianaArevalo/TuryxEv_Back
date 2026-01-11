@@ -1,24 +1,30 @@
-import { ApiResponse } from "~/lib/Shared/Infraestructure/ApiResponse";
+import { ApiResponse } from "../../../../lib/Shared/Infraestructure/ApiResponse";
 import { express as ex } from "../../../Shared/Infraestructure/External";
 import { JwtControllerPort } from "../../domain/ports/driver/JwtControllerPort";
 
+import { ValidationError } from "../../../../lib/Shared/domain";
+import { JwtRefreshResponse, JwtRevokeResponse, JwtSignResponse } from "./JwtHttDtos";
+
 export class JwtHttpController {
+  constructor(private readonly jwtService: JwtControllerPort) {}
 
-  constructor(private readonly jwtService: JwtControllerPort){}
-  jwtSign = async (req: ex.Request, res: ex.Response) => {
+  jwtSign = async (
+    req: ex.Request,
+    res: ex.Response<ApiResponse<JwtSignResponse>>
+  ): Promise<ex.Response> => {
     try {
-      const { userId, payload } = req.body;
+      const { userId } = req.body as { userId?: string };
 
-      const wrong: ApiResponse<any[]> = {
-        success: false,
-        title: "jwt/sign",
-        message: "userId is required",
-        body: userId,
-      };
+      if (!userId?.trim()) {
+        return res.status(400).json({
+          success: false,
+          title: "jwt/sign",
+          message: "userId is required",
+          
+        });
+      }
 
-      if (!userId) return res.status(400).json(wrong);
-
-      const jwtEntity = await this.jwtService.sign(userId, payload ?? {});
+      const jwtEntity = await this.jwtService.sign(userId);
       const { accessToken, refreshToken, expiration } =
         jwtEntity.toPrimitives();
 
@@ -36,50 +42,41 @@ export class JwtHttpController {
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
-      const response: ApiResponse<any> = {
+      return res.status(200).json({
         success: true,
         title: "jwt/sign",
-        message: "jwt in sign",
+        message: "authenticated",
         body: {
           authenticated: true,
           expiration,
         },
-      };
-
-      return res.status(200).json(response);
-    } catch (err: any) {
-      console.error("SignToken error:", err);
-
-      return res.status(500).json({ error: err.message || "Internal error" });
+      });
+    } catch (error: unknown) {
+      return this.handleError(error, res, "jwt/sign");
     }
-  }
+  };
 
-  jwtRefresh = async (req: ex.Request, res: ex.Response) => {
+  jwtRefresh = async (
+    req: ex.Request,
+    res: ex.Response<ApiResponse<JwtRefreshResponse>>
+  ): Promise<ex.Response> => {
     try {
-      const oldRefreshToken = req.cookies?.refreshToken;
-      const { userId, payload } = req.body;
+      const refreshToken = req.cookies?.refreshToken;
+      const { userId } = req.body as { userId: string };
 
-      const wrong: ApiResponse<null> = {
-        success: false,
-        title: "jwt/refresh",
-        message: "refresh token missing",
-        body: null,
-      };
+      if (!refreshToken) {
+        return res.status(401).json({
+          success: false,
+          title: "jwt/refresh",
+          message: "refresh token missing",
+          
+        });
+      }
 
-      if (!oldRefreshToken) return res.status(401).json(wrong);
+      const jwtEntity = await this.jwtService.refresh(refreshToken, userId);
+      const { accessToken, refreshToken: newRefresh, expiration } =
+        jwtEntity.toPrimitives();
 
-      const jwtEntity = await this.jwtService.refresh(
-        oldRefreshToken,
-        userId,
-        payload ?? {}
-      );
-      const {
-        accessToken,
-        refreshToken: newRefresh,
-        expiration,
-      } = jwtEntity.toPrimitives();
-
-      //Set cookies again
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
         secure: true,
@@ -94,7 +91,7 @@ export class JwtHttpController {
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
-      const response: ApiResponse<any> = {
+      return res.status(200).json({
         success: true,
         title: "jwt/refresh",
         message: "tokens refreshed",
@@ -102,53 +99,68 @@ export class JwtHttpController {
           refreshed: true,
           expiration,
         },
-      };
-
-      return res.status(200).json(response);
-    } catch (err: any) {
-      console.error("RefreshToken error:", err);
-
-      return res.status(500).json({ error: err.message || "Internal error" });
+      });
+    } catch (error: unknown) {
+      return this.handleError(error, res, "jwt/refresh");
     }
-  }
+  };
 
-  jwtRevoke = async (req: ex.Request, res: ex.Response) => {
+  jwtRevoke = async (
+    req: ex.Request,
+    res: ex.Response<ApiResponse<JwtRevokeResponse>>
+  ): Promise<ex.Response> => {
     try {
       const refreshToken = req.cookies?.refreshToken;
-      const { userId } = req.body;
-
-      const wrong: ApiResponse<any[]> = {
-        success: false,
-        title: "jwt/revoked",
-        message: "Refresh token missing",
-        body: userId,
-      };
+      const { userId } = req.body as { userId: string };
 
       if (!refreshToken) {
-        return res.status(400).json(wrong);
+        return res.status(400).json({
+          success: false,
+          title: "jwt/revoke",
+          message: "refresh token missing",
+          
+        });
       }
 
       await this.jwtService.revoke(refreshToken, userId);
 
-      //Borrar cookies
-
       res.clearCookie("accessToken");
       res.clearCookie("refreshToken");
 
-      const response: ApiResponse<any> = {
+      return res.status(200).json({
         success: true,
-        title: "jwt/sign",
-        message: "jwt in sign",
+        title: "jwt/revoke",
+        message: "session revoked",
         body: {
           revoked: true,
         },
-      };
-
-      return res.status(200).json(response);
-    } catch (err: any) {
-      console.error("revokeToken error: ", err);
-
-      return res.status(500).json({ error: err.message || "Internal Server" });
+      });
+    } catch (error: unknown) {
+      return this.handleError(error, res, "jwt/revoke");
     }
+  };
+
+  private handleError(
+    error: unknown,
+    res: ex.Response,
+    title: string
+  ): ex.Response {
+    if (error instanceof ValidationError) {
+      return res.status(400).json({
+        success: false,
+        title,
+        message: error.message,
+        body: null,
+      });
+    }
+
+    console.error(`${title} error:`, error);
+
+    return res.status(500).json({
+      success: false,
+      title,
+      message: "Internal server error",
+      body: null,
+    });
   }
 }

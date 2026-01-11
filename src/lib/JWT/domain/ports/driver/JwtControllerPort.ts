@@ -1,15 +1,15 @@
-import { JwtCustomPayload, JwtEntity } from "../../entities";
+import { JwtEntity, JwtPayload } from "../../entities";
 
 export interface JwtControllerPort {
   sign(
     userId: string, 
-    payload?: JwtCustomPayload
+    payload?: JwtPayload
   ): Promise<JwtEntity>;
 
   refresh(
     oldRefreshToken: string, 
     userId: string, 
-    payload?: JwtCustomPayload
+    payload?: JwtPayload
   ): Promise<JwtEntity>;
 
   revoke(

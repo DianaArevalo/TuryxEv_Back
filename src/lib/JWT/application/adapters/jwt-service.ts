@@ -1,7 +1,7 @@
 import { ForSignToken, ForVerifyToken } from "../../domain/ports/driven";
 import { JwtEntity } from "../../domain/entities/JWT/JwtEntity";
 import { JwtPayload } from "../../domain/entities/JWT/JwtPayload";
-import { JwtCustomPayload } from "../../domain/entities";
+
 import { JwtApplicationPort } from "./JwtApplicationPort";
 
 
@@ -11,7 +11,7 @@ export class JwtServiceAdapter implements JwtApplicationPort  {
     private readonly verifyPort: ForVerifyToken    
   ) {}
 
-  async signToken(payload: JwtCustomPayload): Promise<JwtEntity> {
+  async signToken(payload: JwtPayload): Promise<JwtEntity> {
     return this.signPort.sign(payload);
   }
 
