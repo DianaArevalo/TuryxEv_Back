@@ -97,84 +97,203 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <details>
-   <summary><h2>🔐 Modulo JWT</h2></summary>
-    <p>Este módulo implementa un sistema de autenticación seguro basado en <strong>JWT (JSON Web Tokens)</strong>, siguiendo principios de <strong>arquitectura hexagonal</strong> y <strong>Domain-Driven Design (DDD)</strong>. Incluye un esquema robusto de seguridad con <strong>Refresh Tokens</strong> almacenados en cookies <code>httpOnly</code>.</p>
+   <summary><h2>🔐 Módulo JWT AUTH</h2></summary>
 
-   <p>El diseño basado en <em>puertos y adaptadores</em> asegura independencia del framework y de la infraestructura, lo que permite escalar, testear y reemplazar componentes sin afectar las reglas del dominio.</p>
+   <p>
+      Este módulo implementa un <strong>sistema de autenticación completo</strong> basado en 
+      <strong>JWT (JSON Web Tokens)</strong>, siguiendo principios de 
+      <strong>Arquitectura Hexagonal</strong> y 
+      <strong>Domain-Driven Design (DDD)</strong>.
+   </p>
+
+   <p>
+      La autenticación se construye sobre <strong>Access Tokens stateless</strong> y 
+      <strong>Refresh Tokens persistentes</strong>, con rotación segura, revocación explícita
+      y almacenamiento de refresh tokens en <code>cookies httpOnly</code>, cumpliendo buenas
+      prácticas de seguridad (OWASP).
+   </p>
+
+   <p>
+      El diseño basado en <em>puertos y adaptadores</em> desacopla completamente el dominio de la
+      infraestructura y del framework HTTP, permitiendo escalar, testear y reemplazar
+      componentes sin afectar las reglas del negocio.
+   </p>
+
+   <h3>🎯 Alcance del módulo</h3>
+
+   <p>Este módulo cubre <strong>toda la autenticación del sistema</strong>:</p>
+
+   <ul>
+      <li>✔ Login (emisión de tokens)</li>
+      <li>✔ Mantenimiento de sesión</li>
+      <li>✔ Refresh seguro de sesión</li>
+      <li>✔ Logout mediante revocación de refresh tokens</li>
+   </ul>
+
+   <p>
+      <strong>Nota:</strong> La autorización (roles, permisos, policies) pertenece al dominio de
+      cada módulo (<code>User</code>, <code>Business</code>, <code>Hotel</code>) y no forma parte
+      de este módulo de autenticación.
+   </p>
 
    <h3>🔥 Características principales</h3>
 
    <ul>
-      <li>✔ Firma de tokens mediante <code>SignTokenHandler</code></li>
+      <li>✔ Emisión de Access Token y Refresh Token mediante <code>SignTokenHandler</code></li>
       <li>✔ Rotación segura de Refresh Tokens con <code>RefreshTokenHandler</code></li>
-      <li>✔ Revocación individual por <em>token ID</em> usando <code>RevokeTokenHandler</code></li>
+      <li>✔ Revocación individual de sesión (logout) usando <code>RevokeTokenHandler</code></li>
+      <li>✔ Prevención de <em>refresh token replay attacks</em></li>
       <li>✔ Cookies <code>httpOnly</code> con <code>SameSite=Strict</code></li>
-      <li>✔ Hashing con <strong>Argon2</strong> para Refresh Tokens almacenados en la base de datos</li>
-      <li>✔ Generación de <em>token IDs</em> únicos con <strong>nanoid</strong> para evitar colisiones</li>
-      <li>✔ Payload estándar, limpio y seguro</li>
-   </ul>   
-    <img width="864" height="829" alt="Captura de pantalla 2025-11-25 214239" src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
-    <br>
-      <table>
-         <tr>
-         <td><h3>🔥Dependencias</h3></td>
-         <td><strong>npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser
-            </strong></td>
-         </tr>
-          <tr>
-         <td><h3>🅿️Pruebas Manuales</h3></td>
-         <td> 
-            <img width="1112" height="685" alt="image" src="https://github.com/user-attachments/assets/824f697e-9ec4-40e3-8de0-120c8e6ef2ae" />
-            <img width="1301" height="733" alt="image" src="https://github.com/user-attachments/assets/fe3a5bfb-d7b0-4cde-a45b-57730faa0b4b" />
-            <img width="962" height="714" alt="image" src="https://github.com/user-attachments/assets/8f32b930-11e9-4c76-9370-49a4db153108" />            
-         </td>
-         </tr>
-      </table>
+      <li>✔ Hashing de Refresh Tokens con <strong>Argon2</strong> antes de persistirlos</li>
+      <li>✔ Generación de <em>Token IDs</em> únicos (<code>tid</code>) con <strong>nanoid</strong></li>
+      <li>✔ Payload JWT mínimo, tipado y alineado con DDD</li>
+      <li>✔ JWT completamente <strong>stateless</strong> (sin blacklist de access tokens)</li>
+   </ul>
+
+<img width="864" height="829" alt="Arquitectura JWT" 
+        src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
+
    <br>
-   <h3>🔥 Sección EndPoints</h3>
 
-<table>  
+   <table>
+      <tr>
+         <td><h3>📦 Dependencias</h3></td>
+         <td>
+            <strong>
+               npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser
+            </strong>
+         </td>
+      </tr>
 
-  <tr>
-    <td><code>POST /jwt/sign</code></td>
-    <td>Genera AccessToken + RefreshToken</td>
-  </tr>
+      <tr>
+         <td><h3>🧪 Pruebas</h3></td>
+         <td>
+            ✔ Pruebas unitarias para handlers (Sign, Refresh, Revoke)<br>
+            ✔ Pruebas de integración para repositorios<br>
+            ✔ Infraestructura mockeada en unit tests<br>
+            ✔ Tipado estricto (sin <code>any</code>, sin <code>unknown</code>)
+         </td>
+      </tr>
 
-  <tr>
-    <td><code>POST /jwt/refresh</code></td>
-    <td>Genera nuevos tokens a partir del RefreshToken</td>
-  </tr>
+   </table>
 
-  <tr>
-    <td><code>POST /jwt/revoke</code></td>
-    <td>Revoca el RefreshToken del usuario (requiere middleware)</td>
-  </tr>
+   <br>
 
-</table>         
-   <h3>📄Justificacion tecnica</h3>
-      <ul>
-         <li>✔ Mantener sesiones seguras y escalables</li>
-         <li>✔ Separar token de acceso y token de refresco evita problemas de seguridad.</li>
-         <li>✔ Facilita logout forzado y expiración de sesión.</li>
-         <li>✔ Refresh token en cookies httpOnly, evita ataques XSS, ya que JavaScript no puede leer los tokens.</li>
-         <li>✔ Argon2 es el algoritmo recomendado por OWASP para contraseñas y tokens persistentes.</li> 
-         <li>✔ Cada refresh token necesita un ID único para su revocación individual, nanoid lo garantiza, ademas de colisiones practicamente imposibles</li>                   
-      </ul>
-       <h3>👌Fuentes</h3>
-       <strong>https://github.com/alperkilickaya/httpOnlyRefreshToken/blob/main/backend/server.js</strong>
-       <strong>https://medium.com/%40alperkilickaya/creating-a-jwt-authentication-system-with-http-only-refresh-token-using-react-and-node-js-6865f04087ce</strong>
+   <h3>🔐 Flujo de autenticación</h3>
 
+   <pre>
+LOGIN
+POST /jwt/sign
+→ Emite Access Token + Refresh Token
+→ Persiste refresh token hasheado
 
-</details>
+REFRESH
+POST /jwt/refresh
+→ Verifica refresh token
+→ Rota refresh token
+→ Revoca el token anterior
+→ Emite nuevos tokens
 
----
+LOGOUT
+POST /jwt/revoke
+→ Revoca refresh token
+→ Cierra la sesión del dispositivo
+   </pre>
 
-<details>
-   <summary><h2>🔓 auth</h2></summary>
+   <h3>🅿️ Pruebas Manuales</h3>
+
+<p>
+Las siguientes capturas validan manualmente el flujo completo de autenticación:
+<strong>login</strong>, <strong>refresh de sesión</strong> y <strong>logout</strong> mediante
+revocación de refresh tokens.
+</p>
+
+<p><strong>Login – Generación de Access Token y Refresh Token</strong></p>
+<img
+  width="1112"
+  height="685"
+  alt="Login JWT"
+  src="https://github.com/user-attachments/assets/824f697e-9ec4-40e3-8de0-120c8e6ef2ae"
+/>
+
+<br><br>
+
+<p><strong>Refresh – Rotación segura del Refresh Token</strong></p>
+<img
+  width="1301"
+  height="733"
+  alt="Refresh JWT"
+  src="https://github.com/user-attachments/assets/fe3a5bfb-d7b0-4cde-a45b-57730faa0b4b"
+/>
+
+<br><br>
+
+<p><strong>Logout – Revocación del Refresh Token</strong></p>
+<img
+  width="962"
+  height="714"
+  alt="Logout JWT"
+  src="https://github.com/user-attachments/assets/8f32b930-11e9-4c76-9370-49a4db153108"
+/>
+
+   <h3>🔥 Endpoints</h3>
+
+   <table>
+      <tr>
+         <td><code>POST /jwt/sign</code></td>
+         <td>Login: genera Access Token y Refresh Token</td>
+      </tr>
+
+      <tr>
+         <td><code>POST /jwt/refresh</code></td>
+         <td>Renueva la sesión mediante rotación del Refresh Token</td>
+      </tr>
+
+      <tr>
+         <td><code>POST /jwt/revoke</code></td>
+         <td>Logout: revoca el Refresh Token del usuario</td>
+      </tr>
+
+   </table>
+
+   <h3>📄 Justificación técnica</h3>
 
    <ul>
-      <h1>JWT</h1>
+      <li>✔ Autenticación completa sin estado en el servidor</li>
+      <li>✔ Separación de Access Token y Refresh Token mejora la seguridad</li>
+      <li>✔ Rotación de refresh tokens reduce el impacto de filtraciones</li>
+      <li>✔ Revocación individual permite logout por dispositivo</li>
+      <li>✔ Cookies httpOnly previenen ataques XSS</li>
+      <li>✔ Argon2 es el algoritmo recomendado por OWASP para secretos persistentes</li>
+      <li>✔ <code>tid</code> único permite revocación, auditoría y rotación segura</li>
+      <li>✔ Arquitectura hexagonal mejora mantenibilidad y testabilidad</li>
+   </ul>
 
+   <br>
+
+   <img width="864" height="829" alt="Captura de pantalla 2025-11-25 214239" src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
+
+   <br>
+
+   <h3>🧠 Decisiones de diseño</h3>
+
+   <ul>
+      <li>JWT no contiene roles ni permisos</li>
+      <li>La autorización pertenece al dominio (<code>User</code>, <code>Business</code>, <code>Hotel</code>)</li>
+      <li>No se revocan access tokens (son de corta duración)</li>
+      <li>No se utiliza blacklist de JWT</li>
+      <li>La revocación se basa en estado persistente de refresh tokens</li>
+      <li>JWT Service solo maneja criptografía, no reglas de negocio</li>
+   </ul>
+
+   <h3>📚 Fuentes</h3>
+   <ul>
+      <li>
+         https://github.com/alperkilickaya/httpOnlyRefreshToken/blob/main/backend/server.js
+      </li>
+      <li>
+         https://medium.com/@alperkilickaya/creating-a-jwt-authentication-system-with-http-only-refresh-token-using-react-and-node-js-6865f04087ce
+      </li>
    </ul>
 
 </details>
@@ -270,19 +389,22 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
    <summary><h2> 📜 Términos y Condiciones de Colaboración </h2></summary>
 
 <p>
-   ## 
+   ##
 
 Este proyecto se desarrolla bajo las siguientes condiciones:
 
 ### 🎯 Objetivo del proyecto
+
 El objetivo actual es el aprendizaje, la práctica y la aplicación de buenas
 prácticas en el desarrollo de software.
 
 ### 💰 Remuneración
+
 Actualmente no existe ningún tipo de remuneración económica ni compensación,
 ya que el proyecto se encuentra en una etapa inicial.
 
 ### 🚀 Fines comerciales futuros
+
 Si el proyecto se consolida y comienza a generar ingresos, algunos
 colaboradores que hayan aportado de manera constante y significativa
 podrán ser invitados a participar como socios o integrantes del equipo.
@@ -292,6 +414,7 @@ mediante acuerdos formales e independientes, y **no se adquiere
 automáticamente por el solo hecho de colaborar**
 
 ### 🔐 Propiedad intelectual
+
 Todo el código, documentación y material generado dentro de este repositorio
 es propiedad intelectual de **Diana Arevalo**, salvo que se indique lo contrario
 de forma explícita y por escrito.
@@ -301,12 +424,14 @@ redistribución ni explotación comercial** del proyecto o de cualquiera de sus
 partes fuera del ámbito de colaboración autorizado.
 
 ### 🤝 Uso del código
+
 El código compartido es exclusivamente para fines de colaboración dentro
 del proyecto. Queda prohibido reutilizar total o parcialmente el código en
 proyectos externos, personales o comerciales sin autorización expresa de la
 autora.
 
 ### 🏷️ Reconocimiento de autoría
+
 Cada contribución quedará registrada en el historial del repositorio y en la
 sección de colaboradores, respetando la autoría individual de cada aporte.
 
@@ -314,6 +439,7 @@ sección de colaboradores, respetando la autoría individual de cada aporte.
 
 Al contribuir a este proyecto, el colaborador declara haber leído, entendido
 y aceptado estos términos.
+
 </p>
 
 </details>
