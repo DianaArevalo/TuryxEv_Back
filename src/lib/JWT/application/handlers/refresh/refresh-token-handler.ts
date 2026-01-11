@@ -17,12 +17,9 @@ export class RefreshTokenHandler {
     userId: string,
     payload: JwtCustomPayload
   ): Promise<JwtEntity> {
-
-
     if (!oldRefreshToken) throw new ValidationError("Refresh token required");
 
     if (!userId?.trim()) throw new ValidationError("User ID is required");
-
 
     const decoded = await this.jwtService.verifyToken(oldRefreshToken);
     const oldTokenId = decoded.tid;
@@ -37,11 +34,8 @@ export class RefreshTokenHandler {
     if (!oldRecord || oldRecord.revoked)
       throw new ValidationError("Invalid or revoked refresh token");
 
-    const isValid = await Hasher.verify(
-      oldRefreshToken, 
-      oldRecord.tokenHash
-    );
-    
+    const isValid = await Hasher.verify(oldRefreshToken, oldRecord.tokenHash);
+
     if (!isValid) throw new ValidationError("Token verification failed");
 
     const newTokenId = nanoid();
@@ -56,8 +50,8 @@ export class RefreshTokenHandler {
     const newHash = await Hasher.hash(newRefreshToken);
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-    await this.tokenRepository.saveRefreshToken(
-      userId,
+    await this.tokenRepository.replaceRefreshToken(
+      oldTokenId,
       newTokenId,
       newHash,
       expiresAt

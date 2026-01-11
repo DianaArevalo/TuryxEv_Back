@@ -1,18 +1,35 @@
-import { HttpError } from "~/lib/Shared/domain";
-import { RevokeTokenHandler } from "./revoke-token-handler";
+jest.mock("nanoid", () => ({
+  nanoid: jest.fn(),
+}));
+
+jest.mock("../../../../../lib/Shared/Infraestructure/Hasher", () => ({
+  Hasher: {
+    verify: jest.fn(),
+    hash: jest.fn(),
+  },
+}));
+
+import { nanoid } from "nanoid";
+
 import { RefreshTokenRepository } from "~/lib/JWT/infraestructure/repositories/RefreshTokenRepository";
+import { JwtApplicationPort } from "../../adapters/JwtApplicationPort";
+import { JwtEntity, JwtPayload } from "~/lib/JWT/domain/entities";
+import { Hasher } from "../../../../../lib/Shared/Infraestructure/Hasher";
+import { HttpError } from "../../../../../lib/Shared/domain";
+import { RevokeTokenHandler } from "./revoke-token-handler";
 
 describe("RevokeTokenHandler", () => {
   let handler: RevokeTokenHandler;
-  let jwtService: any;
-  let repository: jest.Mocked<RefreshTokenRepository>;
+  let jwtService: jest.Mocked<JwtApplicationPort>;
+  let tokenRepository: jest.Mocked<RefreshTokenRepository>;
 
   beforeEach(() => {
     jwtService = {
+        signToken: jest.fn(),
       verifyToken: jest.fn(),
     };
 
-    repository = {
+    tokenRepository = {
       findRefreshTokenById: jest.fn(),
       revokeRefreshToken: jest.fn(),
       saveRefreshToken: jest.fn(),
@@ -20,30 +37,44 @@ describe("RevokeTokenHandler", () => {
       purgeExpiredTokens: jest.fn(),
     } as unknown as jest.Mocked<RefreshTokenRepository>;
 
-    handler = new RevokeTokenHandler(jwtService, repository);
+    handler = new RevokeTokenHandler(jwtService, tokenRepository);
   });
 
-  it("should revoke a valid token", async () => {
-    jwtService.verifyToken.mockResolvedValue({
-      sub: "user123",
-      tid: "token123",
+   it("should revoke refresh token successfully", async () => {
+    // Arrange
+    const payload: JwtPayload = {
+      sub: "user-123",
+      tid: "token-id-123",
+    };
+
+    jwtService.verifyToken.mockResolvedValue(payload);
+
+    tokenRepository.findRefreshTokenById.mockResolvedValue({
+      userId: "user-123",
+      tokenId: "token-id-123",
+      tokenHash: "hashed-token",
+      revoked: false,
+      expiresAt: new Date(Date.now() + 10000),
     });
 
-    repository.findRefreshTokenById.mockResolvedValue({
-      tokenId: "token123",
-      revoked: false,
-    } as any);
+    // Act
+    await handler.handler("refresh-token", "user-123");
 
-    await handler.handler("fake.jwt.token", "user123");
+    // Assert
+    expect(jwtService.verifyToken).toHaveBeenCalledWith("refresh-token");
 
-    expect(jwtService.verifyToken).toHaveBeenCalledWith("fake.jwt.token");
-    expect(repository.findRefreshTokenById).toHaveBeenCalledWith("token123");
-    expect(repository.revokeRefreshToken).toHaveBeenCalledWith("token123");
+    expect(tokenRepository.findRefreshTokenById).toHaveBeenCalledWith(
+      "token-id-123"
+    );
+
+    expect(tokenRepository.revokeRefreshToken).toHaveBeenCalledWith(
+      "token-id-123"
+    );
   });
 
-  it("should throw if userId is empty", async () => {
+  it("should throw if userId is missing", async () => {
     await expect(
-      handler.handler("fake.jwt.token", "")
+      handler.handler("refresh-token", "")
     ).rejects.toThrow(HttpError);
 
     expect(jwtService.verifyToken).not.toHaveBeenCalled();
@@ -51,37 +82,40 @@ describe("RevokeTokenHandler", () => {
 
   it("should throw if refresh token is missing", async () => {
     await expect(
-      handler.handler("", "user123")
+      handler.handler("", "user-123")
     ).rejects.toThrow(HttpError);
 
     expect(jwtService.verifyToken).not.toHaveBeenCalled();
   });
 
   it("should throw if token does not belong to user", async () => {
-    jwtService.verifyToken.mockResolvedValue({
-      sub: "anotherUser",
-      tid: "token123",
-    });
+    const payload: JwtPayload = {
+      sub: "another-user",
+      tid: "token-id",
+    };
+
+    jwtService.verifyToken.mockResolvedValue(payload);
 
     await expect(
-      handler.handler("fake.jwt.token", "user123")
+      handler.handler("refresh-token", "user-123")
     ).rejects.toThrow(HttpError);
 
-    expect(repository.findRefreshTokenById).not.toHaveBeenCalled();
+    expect(tokenRepository.findRefreshTokenById).not.toHaveBeenCalled();
   });
 
-  it("should throw if token is not found", async () => {
-    jwtService.verifyToken.mockResolvedValue({
-      sub: "user123",
-      tid: "token123",
-    });
+  it("should throw if token record is not found", async () => {
+    const payload: JwtPayload = {
+      sub: "user-123",
+      tid: "token-id",
+    };
 
-    repository.findRefreshTokenById.mockResolvedValue(null);
+    jwtService.verifyToken.mockResolvedValue(payload);
+    tokenRepository.findRefreshTokenById.mockResolvedValue(null);
 
     await expect(
-      handler.handler("fake.jwt.token", "user123")
+      handler.handler("refresh-token", "user-123")
     ).rejects.toThrow(HttpError);
 
-    expect(repository.revokeRefreshToken).not.toHaveBeenCalled();
+    expect(tokenRepository.revokeRefreshToken).not.toHaveBeenCalled();
   });
 });

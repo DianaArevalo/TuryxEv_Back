@@ -9,24 +9,24 @@ jest.mock("../../../../../lib/Shared/Infraestructure/Hasher", () => ({
   },
 }));
 
-import { RefreshTokenRepository } from "~/lib/JWT/infraestructure/repositories/RefreshTokenRepository";
-import { JwtServiceAdapter } from "../../adapters/jwt-service";
-import { RefreshTokenHandler } from "./refresh-token-handler";
-import { HttpError } from "../../../../../lib/Shared/domain";
-import { JwtEntity } from "../../../../../lib/JWT/domain/entities";
-import { Hasher } from "../../../../../lib/Shared/Infraestructure/Hasher";
 import { nanoid } from "nanoid";
+import { RefreshTokenHandler } from "./refresh-token-handler";
+import { RefreshTokenRepository } from "~/lib/JWT/infraestructure/repositories/RefreshTokenRepository";
+import { JwtApplicationPort } from "../../adapters/JwtApplicationPort";
+import { JwtEntity } from "~/lib/JWT/domain/entities";
+import { Hasher } from "../../../../../lib/Shared/Infraestructure/Hasher";
+import { HttpError } from "../../../../../lib/Shared/domain";
 
 describe("RefreshTokenHandler", () => {
-  let jwtService: jest.Mocked<JwtServiceAdapter>;
+  let handler: RefreshTokenHandler;
+  let jwtService: jest.Mocked<JwtApplicationPort>;
   let tokenRepository: jest.Mocked<RefreshTokenRepository>;
-  let handler: RefreshTokenHandler; 
 
   beforeEach(() => {
     jwtService = {
-      verifyToken: jest.fn(),
       signToken: jest.fn(),
-    } as unknown as jest.Mocked<JwtServiceAdapter>;
+      verifyToken: jest.fn(),
+    };
 
     tokenRepository = {
       findRefreshTokenById: jest.fn(),
@@ -34,12 +34,13 @@ describe("RefreshTokenHandler", () => {
       revokeRefreshToken: jest.fn(),
       replaceRefreshToken: jest.fn(),
       purgeExpiredTokens: jest.fn(),
-    } as unknown as jest.Mocked<RefreshTokenRepository>;
+    };
 
     handler = new RefreshTokenHandler(jwtService, tokenRepository);
   });
 
-    it("should refresh token successfully", async () => {
+  it("should refresh token successfully", async () => {
+    // Arrange
     (nanoid as jest.Mock).mockReturnValue("new-token-id");
 
     jwtService.verifyToken.mockResolvedValue({
@@ -52,93 +53,111 @@ describe("RefreshTokenHandler", () => {
       tokenId: "old-token-id",
       tokenHash: "hashed-old-token",
       revoked: false,
-    } as any);
+      expiresAt: new Date(Date.now() + 10000),
+    });
 
     (Hasher.verify as jest.Mock).mockResolvedValue(true);
     (Hasher.hash as jest.Mock).mockResolvedValue("hashed-new-token");
 
-    const jwtEntityMock = {
-      toPrimitives: () => ({
-        refreshToken: "new-refresh-token",
-      }),
-    } as JwtEntity;
+    const jwtEntity = JwtEntity.fromPrimitives({
+      accessToken: "new.access.token",
+      refreshToken: "refresh.user123.new-token-id",
+      expiration: Date.now() + 60 * 60 * 1000,
+    });
 
-    jwtService.signToken.mockResolvedValue(jwtEntityMock);
+    jwtService.signToken.mockResolvedValue(jwtEntity);
 
+    // Act
     const result = await handler.handler(
       "old-refresh-token",
       "user-123",
-      { role: "BUSINESS" } as any
+      { role: "BUSINESS" }
     );
 
+    // Assert
     expect(jwtService.verifyToken).toHaveBeenCalledWith("old-refresh-token");
 
     expect(tokenRepository.findRefreshTokenById).toHaveBeenCalledWith(
       "old-token-id"
     );
 
-    expect(tokenRepository.saveRefreshToken).toHaveBeenCalled();
+    expect(Hasher.verify).toHaveBeenCalledWith(
+      "old-refresh-token",
+      "hashed-old-token"
+    );
 
-    expect(result).toBe(jwtEntityMock);
+    expect(tokenRepository.replaceRefreshToken).toHaveBeenCalledWith(
+      "old-token-id",
+      "new-token-id",
+      "hashed-new-token",
+      expect.any(Date)
+    );
+
+    expect(result).toBe(jwtEntity);
   });
 
-
-    it("should throw ValidationError if refresh token is missing", async () => {
+  it("should throw if refresh token is missing", async () => {
     await expect(
-      handler.handler("", "user-123", {} as any)
+      handler.handler("", "user-123", { role: "USER" })
     ).rejects.toThrow(HttpError);
 
     expect(jwtService.verifyToken).not.toHaveBeenCalled();
   });
 
-    it("should throw ValidationError if userId is missing", async () => {
+  it("should throw if userId is missing", async () => {
     await expect(
-      handler.handler("token", "", {} as any)
+      handler.handler("token", "", { role: "USER" })
     ).rejects.toThrow(HttpError);
   });
 
-      it("should throw ValidationError if token does not belong to user", async () => {
+  it("should throw if token does not belong to user", async () => {
     jwtService.verifyToken.mockResolvedValue({
       sub: "another-user",
       tid: "token-id",
     });
 
     await expect(
-      handler.handler("refresh", "user-123", {} as any)
+      handler.handler("refresh", "user-123", { role: "USER" })
     ).rejects.toThrow(HttpError);
   });
 
-
-    it("should throw ValidationError if refresh token is revoked", async () => {
+  it("should throw if refresh token is revoked", async () => {
     jwtService.verifyToken.mockResolvedValue({
       sub: "user-123",
       tid: "token-id",
     });
 
     tokenRepository.findRefreshTokenById.mockResolvedValue({
+      userId: "user-123",
+      tokenId: "token-id",
+      tokenHash: "hash",
       revoked: true,
-    } as any);
+      expiresAt: new Date(),
+    });
 
     await expect(
-      handler.handler("refresh", "user-123", {} as any)
+      handler.handler("refresh", "user-123", { role: "USER" })
     ).rejects.toThrow(HttpError);
   });
 
-    it("should throw ValidationError if token hash verification fails", async () => {
+  it("should throw if token hash verification fails", async () => {
     jwtService.verifyToken.mockResolvedValue({
       sub: "user-123",
       tid: "token-id",
     });
 
     tokenRepository.findRefreshTokenById.mockResolvedValue({
-      revoked: false,
+      userId: "user-123",
+      tokenId: "token-id",
       tokenHash: "hash",
-    } as any);
+      revoked: false,
+      expiresAt: new Date(),
+    });
 
     (Hasher.verify as jest.Mock).mockResolvedValue(false);
 
     await expect(
-      handler.handler("refresh", "user-123", {} as any)
+      handler.handler("refresh", "user-123", { role: "USER" })
     ).rejects.toThrow(HttpError);
   });
-})
+});
