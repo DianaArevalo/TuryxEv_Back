@@ -268,12 +268,7 @@ revocación de refresh tokens.
       <li>✔ <code>tid</code> único permite revocación, auditoría y rotación segura</li>
       <li>✔ Arquitectura hexagonal mejora mantenibilidad y testabilidad</li>
    </ul>
-
-   <br>
-
-   <img width="864" height="829" alt="Captura de pantalla 2025-11-25 214239" src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
-
-   <br>
+  
 
    <h3>🧠 Decisiones de diseño</h3>
 
