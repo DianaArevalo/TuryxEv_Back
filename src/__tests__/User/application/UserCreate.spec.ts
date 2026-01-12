@@ -2,7 +2,7 @@ import { UserCreate } from "~/lib/User/application";
 import { UserRepository } from "~/lib/User/domain/repositories";
 import { InMemoryUserRepository } from "~/lib/User/infrastructure/repositories/InMemoryUserRepository";
 import { User } from "~/lib/User/domain/entities/User/User";
-import { HttpError, Limit, Page } from "~/lib/Shared/domain";
+import { HttpError, LimitValueObject, PageValueObject } from "~/lib/Shared/domain";
 
 describe("User/application/UserCreate", () => {
   let repository: UserRepository;
@@ -42,12 +42,12 @@ describe("User/application/UserCreate", () => {
   });
 
   it("should have 3 users created before each test", async () => {
-    const users = await repository.getAll(new Page(1), new Limit(10));
+    const users = await repository.getAll(new PageValueObject(1), new LimitValueObject(10));
     expect(users).toHaveLength(3);
   });
 
   it("should create users with proper providers", async () => {
-    const users = await repository.getAll(new Page(1), new Limit(10));
+    const users = await repository.getAll(new PageValueObject(1), new LimitValueObject(10));
 
     expect(users[0].providerData.value).toBe("AUTH");
     expect(users[1].providerData.value).toBe("AUTHGOOGLE");

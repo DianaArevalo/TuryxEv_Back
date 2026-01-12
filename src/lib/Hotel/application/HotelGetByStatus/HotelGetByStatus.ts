@@ -1,6 +1,7 @@
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
+
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
 import { HotelRepository, HotelStatus, HotelStatusT } from "../../domain";
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
+
 
 interface HotelGetByStatusProps {
     status: string;
@@ -14,8 +15,8 @@ export class HotelGetByStatus {
     async handler(props: HotelGetByStatusProps){
         const result = await this.repository.getByStatus(
             HotelStatus.create(props.status as HotelStatusT),
-            Page.create(props.page),
-            Limit.create(props.limit)
+            PageValueObject.create(props.page),
+            LimitValueObject.create(props.limit)
         );
 
          return result.map((it) => it.toResponse());

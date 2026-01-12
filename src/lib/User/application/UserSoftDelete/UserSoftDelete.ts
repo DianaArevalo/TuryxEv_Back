@@ -1,5 +1,4 @@
-import { UserId, UserStatus } from "../../domain/entities/User/value-objects";
-import { UserNotFoundError } from "../../domain/exceptions";
+import { UserId } from "../../domain/entities/User/value-objects";
 import { UserRepository } from "../../domain/repositories";
 
 interface UserSoftDeleteProps {

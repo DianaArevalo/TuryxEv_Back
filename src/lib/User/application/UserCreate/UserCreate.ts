@@ -1,4 +1,4 @@
-import { ProviderData, ProviderDataT, ValidationError } from "../../../../lib/Shared/domain";
+import { ProviderDataT, ValidationError } from "../../../../lib/Shared/domain";
 import { User } from "../../domain/entities/User/User";
 import { 
     UserCreatedAt, 

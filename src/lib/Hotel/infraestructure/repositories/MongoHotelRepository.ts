@@ -1,7 +1,5 @@
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
-import {
-  CityRepository,
+
+import {  
   Hotel,
   HotelCreatedAt,
   HotelEmail,
@@ -22,9 +20,10 @@ import { HotelPicture } from "../../domain/entities/Hotel/value-objects/HotelPic
 import HotelModel from "../models/HotelModel";
 import { Hasher } from "../../../../lib/Shared/Infraestructure/Hasher";
 import { HotelNotFoundError } from "../../domain/exceptions/HotelNotFoundError";
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
 
 export class MongoHotelRepository implements HotelRepository {
-  async getAll(page: Page, limit: Limit): Promise<Hotel[]> {
+  async getAll(page: PageValueObject, limit: LimitValueObject): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
     const records = await HotelModel.find({
@@ -115,7 +114,7 @@ export class MongoHotelRepository implements HotelRepository {
 
   //others
 
-  async getByPlan(plan: HotelPlan, page: Page, limit: Limit): Promise<Hotel[]> {
+  async getByPlan(plan: HotelPlan, page: PageValueObject, limit: LimitValueObject): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
     const records = await HotelModel.find({
@@ -127,7 +126,7 @@ export class MongoHotelRepository implements HotelRepository {
     return records.map((record) => this.createHotelEntity(record));
   }
 
-  async getByRole(role: HotelRole, page: Page, limit: Limit): Promise<Hotel[]> {
+  async getByRole(role: HotelRole, page: PageValueObject, limit: LimitValueObject): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
     const records = await HotelModel.find({
@@ -141,8 +140,8 @@ export class MongoHotelRepository implements HotelRepository {
 
   async getByStatus(
     status: HotelStatus,
-    page: Page,
-    limit: Limit
+    page: PageValueObject,
+    limit: LimitValueObject
   ): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 
@@ -157,8 +156,8 @@ export class MongoHotelRepository implements HotelRepository {
 
   async getByProvider(
     provider: HotelProviderData,
-    page: Page,
-    limit: Limit
+    page: PageValueObject,
+    limit: LimitValueObject
   ): Promise<Hotel[]> {
     const offSet = (page.value - 1) * limit.value;
 

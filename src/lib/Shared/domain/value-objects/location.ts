@@ -1,12 +1,22 @@
-import { ValidationError } from "../exeptions";
+import { NameValueObject } from './name';
+
+export interface LocationValueObjectI {
+  locationId?: string;
+  cityId?: string;
+  cityName: string;
+  address: string;
+}
 
 export class LocationValueObject {
-  constructor(readonly value: string) {}
+  constructor(readonly value: LocationValueObjectI) {}
 
-  static create(value: string) {
-    if (!value || value.trim().length === 0)
-      throw new ValidationError("The city can't be empty");
+  static create<T extends typeof LocationValueObject>(
+    this: T,
+    value: LocationValueObjectI,
+  ): InstanceType<T> {
+    NameValueObject.create(value.cityName);
+    NameValueObject.create(value.address);
 
-    return new LocationValueObject(value);
+    return new this(value) as InstanceType<T>;
   }
 }

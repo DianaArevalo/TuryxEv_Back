@@ -8,7 +8,9 @@
     "build": "npx tsc ./src/main.ts --outDir ./dist/ --module commonjs --target es6",
     "dev": "npx ts-node ./src/main.ts",
     "test": "jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "test:business": "jest src/lib/business",
+    "test:location": "jest src/lib/location"
   },
   "dependencies": {
     "argon2": "0.44.0",

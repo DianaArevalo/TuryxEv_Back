@@ -1,10 +1,11 @@
-import { Page } from "../../../../lib/Shared/domain/value-objects/page";
-import { Hotel, HotelEmail, HotelFreePlanEnd, HotelI, HotelId, HotelPlan, HotelProviderData, HotelStatus } from "../entities";
+
+import { LimitValueObject, PageValueObject } from "../../../../lib/Shared/domain";
+import { Hotel, HotelEmail, HotelI, HotelId, HotelPlan, HotelProviderData, HotelStatus } from "../entities";
 import { HotelRole} from "../entities/Hotel/value-objects/HotelRole";
-import { Limit } from "../../../../lib/Shared/domain/value-objects/limit";
+
 
 export interface HotelRepository {
-    getAll(page: Page, limit: Limit): Promise<Hotel[]>;
+    getAll(PageValueObject: PageValueObject, limit: LimitValueObject): Promise<Hotel[]>;
     getOneByEmail(email: HotelEmail): Promise<Hotel | null>;
     getOneById(id: HotelId): Promise<Hotel | null>;
     create(hotel: HotelI): Promise< Hotel>;
@@ -14,11 +15,11 @@ export interface HotelRepository {
 
     // Methods business logic
 
-    getByPlan(plan: HotelPlan, page: Page, limit: Limit ): Promise<Hotel[]>
-    getByRole(role: HotelRole, page: Page, limit: Limit): Promise<Hotel[]>
-    getByStatus(status: HotelStatus, page: Page, limit: Limit  ): Promise<Hotel[]>
+    getByPlan(plan: HotelPlan, PageValueObject: PageValueObject, limit: LimitValueObject): Promise<Hotel[]>
+    getByRole(role: HotelRole, PageValueObject: PageValueObject, limit: LimitValueObject): Promise<Hotel[]>
+    getByStatus(status: HotelStatus, PageValueObject: PageValueObject, limit: LimitValueObject ): Promise<Hotel[]>
     
-    getByProvider(provider: HotelProviderData, page: Page, limit: Limit): Promise<Hotel[]>
+    getByProvider(provider: HotelProviderData, PageValueObject: PageValueObject, limit: LimitValueObject): Promise<Hotel[]>
     //findExpiredFreePlans(now: Date, id: HotelId): Promise<Hotel[]>;
     findExpiredFreePlans(currentDate: Date): Promise<Hotel[]>
 }

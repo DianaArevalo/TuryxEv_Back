@@ -7,7 +7,7 @@ import {
   GetLocationByOwnerUseCase,
   GetValidCitiesUseCase,
   UpdateLocationUseCase,
-} from "~/lib/location/application/use-cases";
+} from "../../../../../lib/location/application/use-cases";
 
 export const buildLocationControllers = (
   locationRepository: LocationRepositoryPort

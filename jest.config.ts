@@ -1,20 +1,21 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
 const config: Config = {
-  preset: "ts-jest",
-  testEnvironment: "node",
-  moduleFileExtensions: ["ts", "js", "json"],
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  moduleFileExtensions: ['ts', 'js', 'json'],
   transform: {
-    "^.+\\.ts$": "ts-jest",
+    '^.+\\.ts$': 'ts-jest',
   },
 
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",
-    "^~/(.*)$": "<rootDir>/src/$1",
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^~/(.*)$': '<rootDir>/src/$1',
   },
 
   testPathIgnorePatterns: [
     "/node_modules/",
+    '/dist/',
 
     // Ignorar varias partes de infraestructura
     // PERO permitir repositorios
@@ -29,7 +30,7 @@ const config: Config = {
   ],
 
   coveragePathIgnorePatterns: [
-    "/node_modules/",
+    "/node_modules/",    
 
     "<rootDir>/src/lib/Shared/",
     "<rootDir>/src/lib/shared/",
@@ -46,6 +47,8 @@ const config: Config = {
       statements: 90,
     },
   },
+  testMatch: ['**/?(*.)+(spec|test).[tj]s'],
+  
 };
 
 export default config;
