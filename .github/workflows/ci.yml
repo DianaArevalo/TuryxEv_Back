@@ -1,0 +1,31 @@
+name: CI - Tests
+
+on:
+  pull_request:
+    branches: [ develop ]
+    types: [ready_for_review, synchronize]
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    env:
+      MONGO_TEST_URI: ${{ secrets.MONGO_TEST_URI }}
+      TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
+      PORT: ${{ secrets.PORT }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci   
+
+      - name: Run tests
+        run: npm test -- --coverage --runInBand

@@ -1,44 +1,53 @@
-import { User } from "../../domain/User";
-import { UserCreatedAt } from "../../domain/UserCreatedAt";
-import { UserEmail } from "../../domain/UserEmail";
-import { UserId } from "../../domain/UserId";
-import { UserName } from "../../domain/UserName";
-import { UserNotFoundError } from "../../domain/UserNotFoundError";
-import { UserPassword } from "../../domain/UserPassword";
-import { UserRepository } from "../../domain/UserRepository";
-import { UserUpdatedAt } from "../../domain/UserUpdatedAt";
+import { ValidationError } from "../../../../lib/Shared/domain";
+import {
+  UserId,
+  UserPassword,
+  UserPicture,
+  UserScore,
+  UserStatus,
+} from "../../domain/entities/User/value-objects";
+import { UserRepository } from "../../domain/repositories";
+import { UserNotFoundError } from "../../domain/exceptions";
 
+interface UserEditProps {
+  userId: string;
+  name?: string;
+  password?: string;
+  picture?: string;
+  score?: number;
+  status?: boolean;
+  currentRole?: string;
+}
 export class UserEdit {
-    constructor(private repository: UserRepository){}
+  constructor(private readonly repository: UserRepository) {}
 
-    async handle(
-        id: string,
-        name: string,
-        email: string,
-        createdAt: Date,        
-        password: string,        
-        
-    ): Promise <User>{
+  async handler(props: UserEditProps) {
+    const user = await this.repository.getOneById(new UserId(props.userId));
 
-        const currentUser = await this.repository.getOneById(new UserId(id));
+    if (!user) throw new UserNotFoundError();
 
-        if (!currentUser) {
-            throw new UserNotFoundError("User not found")
-        }
+    if (props.password && user.providerData.value === "AUTH")
+      user.password = UserPassword.create(props.password);
+    else if (props.password)
+      throw new ValidationError(
+        "Can't update password when you signed with OAuth provider"
+      );
 
-        const user = new User(
-            new UserId(id),
-            new UserName(name),
-            new UserEmail(email),
-            new UserPassword(password),
-            new UserCreatedAt(createdAt),
-            new UserUpdatedAt(new Date()),
-            currentUser.role
-            
-        );
-
-        await this.repository.edit(user)
-
-        return user;
+      //el score lo editan demas negocios y hoteles, comportamiento de usuario
+    if (props.score !== undefined && props.score !== user.score?.value) {
+      if (props.currentRole === "USER") {
+        throw new ValidationError("You are not allowed to modify your score.");
+      }
+      user.score = UserScore.create(props.score);
     }
+
+    if (props.status !== undefined && props.status !== user.status?.value)
+      user.status = new UserStatus(props.status);
+
+    if (props.picture) user.picture = new UserPicture(props.picture);
+
+    const edited = await this.repository.edit(user);
+
+    return edited.toResponse();
+  }
 }
