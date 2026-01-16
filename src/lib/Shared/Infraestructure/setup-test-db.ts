@@ -20,6 +20,6 @@ export const connectTestDB = async () => {
 };
 
 export const disconnectTestDB = async () => {
-  
+  // await mongoose.connection.dropDatabase(); // opcional, limpia la BD
   await mongoose.connection.close();
 };

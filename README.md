@@ -4,146 +4,36 @@
  <img width="70" height="70" alt="logo" src="https://github.com/user-attachments/assets/49d3f374-97b2-44c9-a484-a70db38b5620" alt="TuryxHotel_logo" width="250" />
  <h1>TuryxHotel</h1>
 
-
-
 ---
+
 <details>
  <summary><h2>🌃Arquitectura</h2></summary>
 
 <img width="973" height="617" alt="image" src="https://github.com/user-attachments/assets/07c28638-4bdd-42f3-b56a-af677a0387db"  width="600"/>
 
-
-</details>
----
+## </details>
 
 <details>
    <summary><h2>🏨 MODULOS PRINCIPALES</h2></summary>
 <p align="center">
 
-**TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**.
+**TuryxHotel** es una plataforma integral para gestión hotelera con enfoque en **automatización**, **seguridad** y **experiencia del usuario**. Su proposito es poder lograr el crecimiento del turismo domestico y levantar la visibilidad de sus clientes.
 
 <br>
 
-Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.  
+Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, aplicando buenas prácticas y arquitectura escalable para garantizar calidad y mantenibilidad.
+
+<h2>💹 SERVICIOS A INTEGRAR</h2>
 
 ✔ 🔐 Servicio de Reserva con Ciberseguridad Integrada  
 ✔ 💬 Integración con WhatsApp + Automatización (n8n)
-✔ 📲 Servicio de Mensajería Interna
-✔ 👥 Grupos Estilo Red Social
 ✔ 💳 Pasarela de Pago
 ✔ 🧑‍💼 Sistema de Roles y Perfiles
 ✔🖼️ Galería de Fotos
 ✔ 🔐 Autenticación Segura
 ✔ 🔐 Panel Administrativo
 
-
 </p>
-
-<div>
-   <h2>🔥 MODULOS</h2>
-   <table>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">RES Servicio de Reserva con Ciberseguridad Integrada </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <ul>
-               <li>Gestión de reservas: crear, editar, cancelar</li>
-               <li>Ciberseguridad: cifrado AES-256, OAuth2</li>
-               <li>validación contra ataques y auditoría.</li>
-            </ul>
-         </td>
-      </tr>
-     <tr>
-         <td>
-            <div>
-               <h2 align="center">ROL Sistema de Roles y Perfiles </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Perfiles diferenciados: Cliente, Hotel/Empresario (mini landing), y Administrador, cada uno con panel propio.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">AUTH Autenticación Segura  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>OAuth2 con soporte para Google, Facebook y email. Recuperación de contraseña con tokens seguros y protección contra fuerza bruta.</p>
-         </td>
-      </tr>
- <tr>
-         <td>
-            <div>
-               <h2 align="center">ADMIN Panel de Administración  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <ul>
-               <li>Gestión de roles y perfiles (ROL).</li>
-               <li>Gestión de reservas (RES) para monitoreo y auditoría.</li>
-               <li>Mensajería (MENS) para moderación.</li>
-               <li>Pagos (PAY) para ver reportes y auditoría.</li>
-               <li>Integraciones (N8N) para revisar logs de automatización.</li>
-            </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">MENS Servicio de Mensajería Interna </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Chat privado entre usuarios (viajeros y empresarios) con historial, notificaciones y moderación opcional.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">SOCIAL Grupos Estilo Red Social  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Creación y gestión de grupos temáticos, roles, y chat grupal para compartir contenido.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">PAY Pasarela de Pago  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Integración con Stripe, PayU, MercadoPago o Wompi. Pagos tokenizados, soporte multimoneda y confirmaciones mediante webhooks.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">N8N Integración con WhatsApp + Automatización (n8n) </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Atogestion y generación de enlaces directos vía WALink, flujos automatizados en n8n para confirmaciones, recordatorios y seguimiento de conversaciones.</p>
-         </td>
-      </tr>
-      <tr>
-         <td>
-            <div>
-               <h2 align="center">PIC Galería de Fotos  </h2>              
-            </div>
-         </td>
-         <td align="center">
-            <p>Hoteles pueden subir imágenes comprimidas, categorizadas y optimizadas para dispositivos móviles</p>
-         </td>
-      </tr>
-   </table>
-</div>
 
 </details>
 
@@ -151,20 +41,18 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 
 <hr style="border: none; height: 3px; background: linear-gradient(90deg, #009688, #4CAF50, #8BC34A); margin: 20px 0;">
 
-
 ---
+
+<div>
+   <h2>🔥 MODULOS ACTUALES Y DOCUMENTACIÓN RESUMIDA</h2>   
+</div>
 
 <details>
    <summary><h2>🔐 RES Servicio de Reserva con Ciberseguridad Integrada </h2></summary>
 
    <ul>
-      <h1>GESTION DE RESERVAS</h1>
-         <li>☑ RES-001 Creación de reservas</li>
-         <li>☑ RES-002 Consulta de reservas existentes</li>
-         <li>☑ RES-003 Modificación de Reservas Existentes</li>
-         <li>☑ RES-004 Cancelación de Reservas</li>
-         <li>☑ RES-005 Cálculo Automático de Precios</li>
-         <li>☑ RES-006 Generación de Códigos de Confirmación</li>         
+      <h1>reservation</h1>
+         <li></li>
 
    </ul>
 
@@ -173,22 +61,10 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <details>
-   <summary><h2>🧑‍💼 ROL Sistema de Roles y Perfiles </h2></summary>
+   <summary><h2>🧑 Rol Business</h2></summary>
 
    <ul>
-      <h1>CREACION DE ROLES</h1>
-         <li>☑ ROL-001 Creación de entidad user para roles</li>
-         <li>☑ ROL-002 Creacion de nuevo usuario segun rol</li>
-         <li>☑ ROL-003 Encontrar usuarios por rol</li>
-         <li>☑ ROL-004 Editar usuarios por rol</li>
-         <li>☑ ROL-005 Eliminar usuarios</li>
-         <li>☑ ROL-006 Conexion a base de datos</li>
-         <li>☑ ROL-007 Encriptar contraseñas bcrypt</li> 
-         <li>☑ ROL-008 Estandarizar respuestas JSON</li> 
-         <li>☑ ROL-009 Identificador principal en la respuesta debe ser el email</li> 
-         <li>☑ ROL-010 Crear Modulo unico para imports de librerias externas</li> 
-         <li>☑ ROL-011 Relacionar el rol como coleccion separada</li> 
-      
+      <h1>hotel</h1>
 
    </ul>
 
@@ -197,16 +73,368 @@ Este proyecto es **colaborativo**, que esta siendo desarrollado por un equipo, a
 ---
 
 <details>
-   <summary><h2> TERMINOS Y CONDICIONES </h2></summary>
+   <summary><h2>🧑 Rol User</h2></summary>
+
+   <ul>
+      <h1>user</h1>
+
+   </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2>🧑‍💼 Rol Hotel</h2></summary>
+
+   <ul>
+      <h1>hotel</h1>
+
+   </ul>
+
+</details>
+
+---
+
+<details>
+   <summary><h2>🔐 Módulo JWT AUTH</h2></summary>
+
+   <p>
+      Este módulo implementa un <strong>sistema de autenticación completo</strong> basado en 
+      <strong>JWT (JSON Web Tokens)</strong>, siguiendo principios de 
+      <strong>Arquitectura Hexagonal</strong> y 
+      <strong>Domain-Driven Design (DDD)</strong>.
+   </p>
+
+   <p>
+      La autenticación se construye sobre <strong>Access Tokens stateless</strong> y 
+      <strong>Refresh Tokens persistentes</strong>, con rotación segura, revocación explícita
+      y almacenamiento de refresh tokens en <code>cookies httpOnly</code>, cumpliendo buenas
+      prácticas de seguridad (OWASP).
+   </p>
+
+   <p>
+      El diseño basado en <em>puertos y adaptadores</em> desacopla completamente el dominio de la
+      infraestructura y del framework HTTP, permitiendo escalar, testear y reemplazar
+      componentes sin afectar las reglas del negocio.
+   </p>
+
+   <h3>🎯 Alcance del módulo</h3>
+
+   <p>Este módulo cubre <strong>toda la autenticación del sistema</strong>:</p>
+
+   <ul>
+      <li>✔ Login (emisión de tokens)</li>
+      <li>✔ Mantenimiento de sesión</li>
+      <li>✔ Refresh seguro de sesión</li>
+      <li>✔ Logout mediante revocación de refresh tokens</li>
+   </ul>
+
+   <p>
+      <strong>Nota:</strong> La autorización (roles, permisos, policies) pertenece al dominio de
+      cada módulo (<code>User</code>, <code>Business</code>, <code>Hotel</code>) y no forma parte
+      de este módulo de autenticación.
+   </p>
+
+   <h3>🔥 Características principales</h3>
+
+   <ul>
+      <li>✔ Emisión de Access Token y Refresh Token mediante <code>SignTokenHandler</code></li>
+      <li>✔ Rotación segura de Refresh Tokens con <code>RefreshTokenHandler</code></li>
+      <li>✔ Revocación individual de sesión (logout) usando <code>RevokeTokenHandler</code></li>
+      <li>✔ Prevención de <em>refresh token replay attacks</em></li>
+      <li>✔ Cookies <code>httpOnly</code> con <code>SameSite=Strict</code></li>
+      <li>✔ Hashing de Refresh Tokens con <strong>Argon2</strong> antes de persistirlos</li>
+      <li>✔ Generación de <em>Token IDs</em> únicos (<code>tid</code>) con <strong>nanoid</strong></li>
+      <li>✔ Payload JWT mínimo, tipado y alineado con DDD</li>
+      <li>✔ JWT completamente <strong>stateless</strong> (sin blacklist de access tokens)</li>
+   </ul>
+
+<img width="864" height="829" alt="Arquitectura JWT" 
+        src="https://github.com/user-attachments/assets/0251e488-9c61-43fb-a098-e818bfd5ed2c" />
+
+   <br>
+
+   <table>
+      <tr>
+         <td><h3>📦 Dependencias</h3></td>
+         <td>
+            <strong>
+               npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser
+            </strong>
+         </td>
+      </tr>
+
+      <tr>
+         <td><h3>🧪 Pruebas</h3></td>
+         <td>
+            ✔ Pruebas unitarias para handlers (Sign, Refresh, Revoke)<br>
+            ✔ Pruebas de integración para repositorios<br>
+            ✔ Infraestructura mockeada en unit tests<br>
+            ✔ Tipado estricto (sin <code>any</code>, sin <code>unknown</code>)
+         </td>
+      </tr>
+
+   </table>
+
+   <br>
+
+   <h3>🔐 Flujo de autenticación</h3>
+
+   <pre>
+LOGIN
+POST /jwt/sign
+→ Emite Access Token + Refresh Token
+→ Persiste refresh token hasheado
+
+REFRESH
+POST /jwt/refresh
+→ Verifica refresh token
+→ Rota refresh token
+→ Revoca el token anterior
+→ Emite nuevos tokens
+
+LOGOUT
+POST /jwt/revoke
+→ Revoca refresh token
+→ Cierra la sesión del dispositivo
+   </pre>
+
+   <h3>🅿️ Pruebas Manuales</h3>
 
 <p>
-   Condiciones de Colaboración
+Las siguientes capturas validan manualmente el flujo completo de autenticación:
+<strong>login</strong>, <strong>refresh de sesión</strong> y <strong>logout</strong> mediante
+revocación de refresh tokens.
+</p>
+
+<p><strong>Login – Generación de Access Token y Refresh Token</strong></p>
+<img
+  width="1112"
+  height="685"
+  alt="Login JWT"
+  src="https://github.com/user-attachments/assets/824f697e-9ec4-40e3-8de0-120c8e6ef2ae"
+/>
+
+<br><br>
+
+<p><strong>Refresh – Rotación segura del Refresh Token</strong></p>
+<img
+  width="1301"
+  height="733"
+  alt="Refresh JWT"
+  src="https://github.com/user-attachments/assets/fe3a5bfb-d7b0-4cde-a45b-57730faa0b4b"
+/>
+
+<br><br>
+
+<p><strong>Logout – Revocación del Refresh Token</strong></p>
+<img
+  width="962"
+  height="714"
+  alt="Logout JWT"
+  src="https://github.com/user-attachments/assets/8f32b930-11e9-4c76-9370-49a4db153108"
+/>
+
+   <h3>🔥 Endpoints</h3>
+
+   <table>
+      <tr>
+         <td><code>POST /jwt/sign</code></td>
+         <td>Login: genera Access Token y Refresh Token</td>
+      </tr>
+
+      <tr>
+         <td><code>POST /jwt/refresh</code></td>
+         <td>Renueva la sesión mediante rotación del Refresh Token</td>
+      </tr>
+
+      <tr>
+         <td><code>POST /jwt/revoke</code></td>
+         <td>Logout: revoca el Refresh Token del usuario</td>
+      </tr>
+
+   </table>
+
+   <h3>📄 Justificación técnica</h3>
+
+   <ul>
+      <li>✔ Autenticación completa sin estado en el servidor</li>
+      <li>✔ Separación de Access Token y Refresh Token mejora la seguridad</li>
+      <li>✔ Rotación de refresh tokens reduce el impacto de filtraciones</li>
+      <li>✔ Revocación individual permite logout por dispositivo</li>
+      <li>✔ Cookies httpOnly previenen ataques XSS</li>
+      <li>✔ Argon2 es el algoritmo recomendado por OWASP para secretos persistentes</li>
+      <li>✔ <code>tid</code> único permite revocación, auditoría y rotación segura</li>
+      <li>✔ Arquitectura hexagonal mejora mantenibilidad y testabilidad</li>
+   </ul>
+  
+
+   <h3>🧠 Decisiones de diseño</h3>
+
+   <ul>
+      <li>JWT no contiene roles ni permisos</li>
+      <li>La autorización pertenece al dominio (<code>User</code>, <code>Business</code>, <code>Hotel</code>)</li>
+      <li>No se revocan access tokens (son de corta duración)</li>
+      <li>No se utiliza blacklist de JWT</li>
+      <li>La revocación se basa en estado persistente de refresh tokens</li>
+      <li>JWT Service solo maneja criptografía, no reglas de negocio</li>
+   </ul>
+
+   <h3>📚 Fuentes</h3>
+   <ul>
+      <li>
+         https://github.com/alperkilickaya/httpOnlyRefreshToken/blob/main/backend/server.js
+      </li>
+      <li>
+         https://medium.com/@alperkilickaya/creating-a-jwt-authentication-system-with-http-only-refresh-token-using-react-and-node-js-6865f04087ce
+      </li>
+   </ul>
+
+</details>
+
+---
+
+<details>
+ <summary><h2>🔥Paso a paso para desarrollar con nosotros</h2></summary>
+
+  <div>   
+   <p>
+   <strong>🎶0. Requisitos Previos: </strong>   
+   </p>
+     <ul>
+         <li>✔ Node.js v18+ y npm</li>
+         <li>✔ Git</li>
+         <li>✔ Docker (opcional, recomendado para MongoDB local)</li>
+         <li>✔ Cookies <code>httpOnly</code> con <code>SameSite=Strict</code></li>
+         <li>✔ Editor (VSCode recomendado)</li>         
+     </ul>
+      <table>
+         <tr>
+            <td>♣️1. Clonar Repositorio</td>
+            <td><strong>git clone https://github.com/DianaArevalo/TuryxEv_Back.git</strong> cd TuryxEv_Back</td>
+         </tr>
+         <tr>
+            <td>✨2. Inicializar con Git Flow</td>
+            <td>
+               <strong>git flow init</strong> 
+               <strong>git flow feature start feat/nombre-asignado</strong> 
+            </td>
+         </tr>
+          <tr>
+            <td>💻3. Instalar dependencias necesarias para desarrollar</td>
+            <td>
+               <strong>npm install argon2 cors dotenv express mongoose jsonwebtoken cookie-parser nanoid
+               </strong> 
+               <strong>npm install -D typescript ts-node nodemon jest ts-jest @types/jest @types/express @types/jsonwebtoken @types/cookie-parser
+               </strong> 
+            </td>
+         </tr>
+         <tr>
+            <td>🖥️4. Desarrollo</td>
+            <td>
+               <ul>
+         <li>✔ Seguir desarrollo segun historias de usuario que le seran asignadas</li>
+         <li>✔ Sigue la arquitectura: domain → application (handlers) → infrastructure (controllers, routes, middlewares).</li>
+         <li>✔ Añade tests unitarios en tests/ o junto a los archivos .spec.ts.</li>                 
+               </ul>
+            </td>
+         </tr>
+           <tr>
+            <td>⌨️5. Pruebas Manuales con Postman/Thunder Client/etc</td>
+            <td>
+                <ul>
+                     <li>1. Habilitar postman</li>
+                     <li>2. Las respuestas deben de llevar el formato ApiResponse que se encuentra en la carpeta de Shared: <strong>success</strong>,
+                     <strong>title</strong>, <strong>message</strong> y <strong>body</strong> </li>
+                     <li>3. Las respuestas y peticiones deben ir documentados en el README y Pull Request</li>                 
+                           </ul>
+                        </td>
+         </tr>
+           <tr>
+            <td>🖱️6. Ejecutar test y coverage</td>
+            <td>
+               <strong>npx jest --coverage</strong>             
+            </td>
+         </tr>
+           <tr>
+    <td>✨7. Habilitar Pull Request para revisión</td>
+    <td>
+
+### ✅ Checklist antes de enviar el PR
+
+- [ ] Código formateado (Prettier/ESLint)
+- [ ] Tests añadidos y todos pasan correctamente
+- [ ] Documentación actualizada (README del módulo si aplica)
+- [ ] Capturas de Postman incluidas
+- [ ] Coverage mínimo del 90% (incluir imagen en el PR)
+- [ ] Asignar reviewers
+- [ ] Etiquetar la historia de usuario correspondiente
+
+    </td>
+  </tr>
+      </table>   
+   </div>
+
+   </details>
+
+---
+
+<details>
+   <summary><h2> 📜 Términos y Condiciones de Colaboración </h2></summary>
+
+<p>
+   ##
+
 Este proyecto se desarrolla bajo las siguientes condiciones:
-✅ Objetivo actual: aprendizaje, práctica y aplicación de buenas prácticas en desarrollo de software.
-✅ Sin remuneración por el momento: Actualmente no hay pagos ni compensaciones, ya que el proyecto está en etapa inicial.
-✅ Fines comerciales futuros: Si el proyecto se consolida y comienza a generar ingresos, los colaboradores que aportaron en esta fase inicial serán tenidos en cuenta en la estructura del equipo o en beneficios acordados.
-✅ Código compartido y colaborativo: Todo el trabajo será gestionado en repositorios colaborativos y versionado correctamente.
-✅ Reconocimiento de autoría: Cada contribución será registrada en la sección de colaboradores y en el historial del repositorio.
+
+### 🎯 Objetivo del proyecto
+
+El objetivo actual es el aprendizaje, la práctica y la aplicación de buenas
+prácticas en el desarrollo de software.
+
+### 💰 Remuneración
+
+Actualmente no existe ningún tipo de remuneración económica ni compensación,
+ya que el proyecto se encuentra en una etapa inicial.
+
+### 🚀 Fines comerciales futuros
+
+Si el proyecto se consolida y comienza a generar ingresos, algunos
+colaboradores que hayan aportado de manera constante y significativa
+podrán ser invitados a participar como socios o integrantes del equipo.
+
+Cualquier participación societaria, económica o contractual será definida
+mediante acuerdos formales e independientes, y **no se adquiere
+automáticamente por el solo hecho de colaborar**
+
+### 🔐 Propiedad intelectual
+
+Todo el código, documentación y material generado dentro de este repositorio
+es propiedad intelectual de **Diana Arevalo**, salvo que se indique lo contrario
+de forma explícita y por escrito.
+
+El acceso al repositorio **no concede derechos de uso, copia, modificación,
+redistribución ni explotación comercial** del proyecto o de cualquiera de sus
+partes fuera del ámbito de colaboración autorizado.
+
+### 🤝 Uso del código
+
+El código compartido es exclusivamente para fines de colaboración dentro
+del proyecto. Queda prohibido reutilizar total o parcialmente el código en
+proyectos externos, personales o comerciales sin autorización expresa de la
+autora.
+
+### 🏷️ Reconocimiento de autoría
+
+Cada contribución quedará registrada en el historial del repositorio y en la
+sección de colaboradores, respetando la autoría individual de cada aporte.
+
+---
+
+Al contribuir a este proyecto, el colaborador declara haber leído, entendido
+y aceptado estos términos.
+
 </p>
 
 </details>
@@ -223,6 +451,3 @@ Este proyecto se desarrolla bajo las siguientes condiciones:
       <img src="https://github.com/user-attachments/assets/b0cd5e5c-bfd8-4f2c-ae3a-e0d5defadc76" alt="Gmail" width="50"></a>
    
 </div>
-
-
-
